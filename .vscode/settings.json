@@ -1,0 +1,8 @@
+{
+		"files.exclude": {
+		"node_modules/": true,
+		"typings/": true,
+		"**/*.map": true,
+		"**/*.js": true
+	}
+}

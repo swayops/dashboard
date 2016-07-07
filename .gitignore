@@ -1,2 +1,5 @@
 node_modules/
 typings/
+*.map
+app/*.js
+.DS_Store
