@@ -3,16 +3,18 @@
 		"target": "es6",
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"sourceMap": false,
+		"sourceMap": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"removeComments": false,
-		"noImplicitAny": false
+		"noImplicitAny": false,
+		"outDir": "./static/js/"
 	},
 	"exclude": [
 		"node_modules",
 		"bower_components",
 		"typings",
-		"client/typings"
+		"client/typings",
+		"static/"
 	]
 }
