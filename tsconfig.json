@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "es6",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"sourceMap": true,
@@ -8,5 +8,11 @@
 		"experimentalDecorators": true,
 		"removeComments": false,
 		"noImplicitAny": false
-	}
+	},
+	"exclude": [
+		"node_modules",
+		"bower_components",
+		"typings",
+		"client/typings"
+	]
 }
