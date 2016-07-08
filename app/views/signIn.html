@@ -1,0 +1,28 @@
+<form #f="ngForm" novalidate (ngSubmit)="signIn(f.value)">
+	<div class="form-group">
+		<label for="email">Email</label>
+		<input type="text" placeholder="Email" name="email" [(ngModel)]="form.email" #email="ngModel"
+			required minlength="5">
+		<small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
+			email is required (minimum 5 characters).
+		</small>
+		<pre>{{email.errors | json}}</pre>
+	</div>
+
+	<div class="form-group">
+		<label for="pass">Password</label>
+		<input name="pass" type="password" class="form-control" placeholder="Password"
+			[(ngModel)]="form.pass" #pass="ngModel" required minlength="8">
+		<small [hidden]="pass.valid || (pass.pristine && !f.submitted)" class="text-danger">
+			pass is required (minimum 5 characters).
+		</small>
+		<pre>{{pass.errors | json}}</pre>
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Sign In</button>
+	</div>
+
+</form>
+<br>
+<pre></pre>

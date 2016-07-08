@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable }     from 'rxjs/Observable';
 
 export class User {
 	constructor(
@@ -19,6 +21,11 @@ export class User {
 		public inf?: Object
 
 	) { }
+}
+
+@Injectable()
+export class SignInService {
+	constructor (private http: Http) {}
 }
 
 /*
