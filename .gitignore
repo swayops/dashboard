@@ -1,4 +1,4 @@
 node_modules/
 typings/
-static/js/
+static/sway.js*
 .DS_Store

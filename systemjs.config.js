@@ -2,7 +2,7 @@
  * System configuration for Angular 2 samples
  * Adjust as necessary for your application needs.
  */
-(function(global) {
+(function() {
 	'use strict';
 	// map tells the System loader where to look for things
 	var map = {
