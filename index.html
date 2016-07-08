@@ -1,22 +1,54 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<base href="/">
 		<title>Angular 2 QuickStart</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<script src="/node_modules/core-js/client/shim.min.js"></script>
-		<script src="/node_modules/zone.js/dist/zone.js"></script>
-		<script src="/node_modules/reflect-metadata/Reflect.js"></script>
-		<script src="/node_modules/systemjs/dist/system.src.js"></script>
+		<!--[if (gt IE 8) | (IEMobile)]><!-->
+		<link rel="stylesheet" href="/static/assets/stylesheets/unsemantic-grid-responsive.css" />
+		<!--<![endif]-->
+		<!--[if (lt IE 9) & (!IEMobile)]>
+		<link rel="stylesheet" href="/static/assets/stylesheets/ie.css" />
+		<![endif]-->
+
+
+		<!-- Loading Flat UI -->
+		<link rel="stylesheet" href="/static/css/flat-ui.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+		<link rel="stylesheet" href="/static/css/progressbar.css">
+		<link rel="stylesheet" href="/static/css/main.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&amp;lang=en" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;lang=en" />
+
+		<!--amCharts include -->
+		<link rel="stylesheet" href="/static/js/amcharts/plugins/export/export.css">
+		<script src="/static/js/amcharts/amcharts.js"></script>
+		<script src="/static/js/amcharts/pie.js"></script>
+		<script src="/static/js/amcharts/serial.js"></script>
+		<script src="/static/js/amcharts/plugins/export/export.js"></script>
+		<script src="/static/js/amcharts/themes/light.js"></script>
+		<!-- end amCharts include-->
+
+		<script src="node_modules/es6-shim/es6-shim.min.js"></script>
+		<script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+
+		<script src="node_modules/zone.js/dist/zone.js"></script>
+		<script src="node_modules/reflect-metadata/Reflect.js"></script>
+
+		<script src="node_modules/systemjs/dist/system.js"></script>
+		<script src="node_modules/rxjs/bundles/Rx.min.js"></script>
+
+		<script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+
 		<script src="/static/sway.js"></script>
 		<script src="systemjs.config.js"></script>
 		<script>
 			System.import('main').catch(function(err){ console.error(err); });
 		</script>
 	</head>
-	<!-- 3. Display the application -->
-	<body>
+	<body class="user-logged-in">
 		<sway-app>Loading...</sway-app>
 	</body>
 </html>

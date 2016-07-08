@@ -16,7 +16,7 @@
 						[(ngModel)]="form.pass" #pass="ngModel" required></div>
 				</div>
 				<div *ngIf="error" class="error">{{error}}</div>
-				<div class="actions"><button type="submit" [disabled]="!f.valid && !loading">Log in &#187;</button></div>
+				<div class="actions"><input type="submit" value="Log in &#187;"></div>
 			</form>
 
 		<div class="clearfix"></div>
