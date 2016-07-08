@@ -12,31 +12,30 @@ const loginUrl = '/api/v1/signIn';
 
 export class SignInComponent {
 	private form = {email: "", pass: ""};
-	private dataLoading = false;
+	private loading = false;
 	private error: any;
 	constructor(private http: Http) {}
 
-	signIn(data: {email: string, password: string}) {
+	signIn(data: any) {
 		console.log(data)
-		this.dataLoading = true;
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		// this.emailError = !this.email;
-		// this.passwordError = !this.password;
-
-		// if (this.emailError || this.passwordError) { return; }
-		console.log("here")
-		return this.http.post(loginUrl, data, { headers: headers }).subscribe(
-				data => this.check(data),
-				err => this.error = err.json().msg,
+		this.loading = true;
+		this.http.post(loginUrl, data)
+		.subscribe(
+				this.check,
+				this.check,
 				() => console.log("x")
 			);
 	}
 
 	private check(res: Response) {
-		let body = res.json();
-		console.log(body);
-		return body.data || { };
+		console.log(res);
+		if(!res) return console.error('wtf?');
+		let data = res.json();
+		if(data.status === 'error') {
+			this.error = data.msg;
+			return
+		}
+		//return { };
 	}
 
 	get diagnostic() { return JSON.stringify(this, null, 4); }
