@@ -2,6 +2,8 @@ import { Component, Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { User } from './user';
 
+import { Title } from '@angular/platform-browser';
+
 const loginUrl = '/api/v1/signIn';
 
 @Component({
@@ -14,7 +16,9 @@ export class SignInComponent {
 	private form = {email: "", pass: ""};
 	private loading = false;
 	private error: any;
-	constructor(private http: Http) {}
+	constructor(private http: Http, private title: Title) {
+		title.setTitle("Sway :: Sign In");
+	}
 
 	signIn(data: any) {
 		this.loading = true;
@@ -30,7 +34,7 @@ export class SignInComponent {
 			this.error = data.msg;
 			return
 		}
-		//return { };
+		// do something with data, redirect, etc.
 	}
 
 	get diagnostic() { return JSON.stringify(this, null, 4); }
