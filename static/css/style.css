@@ -300,7 +300,7 @@ input[type=checkbox]:checked + label:before {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;
+	/*user-select: none;*/
 }
 
 .increment-group .btn-action .inc{
@@ -411,9 +411,9 @@ textarea{
 	max-width:300px;
 }
 
-.dropdown-group .dropdown-menu li{
+/*.dropdown-group .dropdown-menu li{
 
-}
+}*/
 
 .dropdown-group .dropdown-menu li a{
 	padding: 12px 16px;
@@ -505,7 +505,7 @@ textarea{
 
 /*=========================== switches =========================*/
 
-.toolbar-horizontal{}
+/*.toolbar-horizontal{}*/
 
 .toolbar-horizontal .view-primary{
 	min-width: 46px;
@@ -655,7 +655,7 @@ textarea{
     border: 0px;
 }
 
-.range-bar1-ui{}
+/*.range-bar1-ui{}*/
 .range-bar1-ui .ui-slider-range{background-image: linear-gradient( to right,  #FFDA2E, #2CD664 );}
 .range-bar1-ui a:nth-child(2){
 	background: #FFDA2E;
@@ -674,7 +674,7 @@ textarea{
     box-shadow: 0px 1px 1px 0px #9B9999;
 }
 
-.range-bar2-ui{}
+/*.range-bar2-ui{}*/
 .range-bar2-ui .ui-slider-range{background-image: linear-gradient( to right,  #FFDA2E, #FF8D48 );}
 .range-bar2-ui a:nth-child(2){
 	border: 5px solid #FFDA2E;
@@ -691,7 +691,7 @@ textarea{
     background: #fff;
 }
 
-.range-bar3-ui{}
+/*.range-bar3-ui{}*/
 .range-bar3-ui .ui-slider-range{background-image: linear-gradient( to right,  #FF9A48, #CA3058 );}
 .range-bar3-ui a:nth-child(2){
 	background-color: #FF9A48;
@@ -790,7 +790,7 @@ textarea{
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    speak: none;
+    /*speak: none;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1009,7 +1009,7 @@ textarea{
 
 /*==================== color palette ==========================*/
 .col-xs-1a7{width:14.285%;}
-.palette-collection{}
+/*.palette-collection{}*/
 .palette-collection span{
 	display:block;text-align:center;font-size:14px;    margin-top: 5px;
 }
@@ -1222,8 +1222,8 @@ div#header #logo{white-space:nowrap;}
     padding: 30px 0px;
 	border-bottom:1px solid #cad1e1;
 }
-.user-section .avatar{
-}
+/*.user-section .avatar{
+}*/
 .user-section label{
 	display:block;
 	line-height: 100%;
@@ -1249,8 +1249,8 @@ padding-bottom:100px;
 	margin:0;
 	padding:0;
 }
-.user-account-options ul li{
-}
+/*.user-account-options ul li{
+}*/
 .user-account-options ul li a{
 	border-left: 2px solid #fff;
     text-transform: capitalize;
@@ -1357,7 +1357,7 @@ padding-bottom:100px;
 	font-family:"Roboto Condensed";
 }
 
-.right-sb{}
+/*.right-sb{}*/
 
 .right-sb ul{
 	padding:5px 5px;
@@ -1465,7 +1465,7 @@ padding-bottom:100px;
     display: table;
     overflow: auto;
 }
-.tbl tr{}
+/*.tbl tr{}*/
 .tbl tr th{background:#eceff4;}
 .tbl tr th,
 .tbl tr td{
@@ -1488,7 +1488,6 @@ padding-bottom:100px;
 	display: inline-block;
     margin: 5px 0px 5px 8px;
     height: 26px;
-    float: left;
 }
 
 
@@ -1730,9 +1729,9 @@ padding-bottom:100px;
 .form .company-name input,
 .form .email input,
 .form .password input{    padding-left: 50px;}
-.form .company-name:after{
+/*.form .company-name:after{
 
-}
+}*/
 .form .company-name:after{background-position: 0px -175px;}
 .form .email:after{background-position: -261px 0px;}
 .form .password:after{background-position: -524px -86px;}
