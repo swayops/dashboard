@@ -17,18 +17,13 @@ export class SignInComponent {
 	constructor(private http: Http) {}
 
 	signIn(data: any) {
-		console.log(data)
 		this.loading = true;
-		this.http.post(loginUrl, data)
-		.subscribe(
-				this.check,
-				this.check,
-				() => console.log("x")
-			);
+		var check = this.check.bind(this);
+		return this.http.post(loginUrl, data).subscribe(check, check);
 	}
 
 	private check(res: Response) {
-		console.log(res);
+		this.loading = false;
 		if(!res) return console.error('wtf?');
 		let data = res.json();
 		if(data.status === 'error') {

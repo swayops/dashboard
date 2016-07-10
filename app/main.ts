@@ -5,11 +5,8 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 import { ALL_ROUTES, AppComponent } from './app.component';
-import { SignInComponent } from './signin.component';
 
-
-
-enableProdMode();
+// enableProdMode();
 bootstrap(AppComponent, [
 	ALL_ROUTES,
 	disableDeprecatedForms(),
