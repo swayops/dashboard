@@ -1,11 +1,12 @@
 'use strict';
 var webpack = require('webpack'),
-	ExtractTextPlugin = require('extract-text-webpack-plugin');
+	ExtractTextPlugin = require('extract-text-webpack-plugin'),
+	CompressionPlugin = require("compression-webpack-plugin");
 
 const ENV = process.env.ENV || 'dev';
 
 var entries = {
-//	'vendor': './app/vendor.ts',
+	//	'vendor': './app/vendor.ts',
 	'app': './app/main.ts'
 },
 	plugins = [
@@ -21,6 +22,9 @@ var entries = {
 if (ENV === 'production') {
 	plugins = plugins.concat([
 		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: Object.keys(entries)
+		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				dead_code: true,
@@ -35,14 +39,19 @@ if (ENV === 'production') {
 			},
 			'screw-ie8': true,
 		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: Object.keys(entries)
+
+		new CompressionPlugin({
+			asset: "[path].gz[query]",
+			algorithm: "gzip",
+			test: /\.js$|\.css$|\.html$/,
+			threshold: 10240,
+			minRatio: 0.8
 		})
 	]);
 }
 
 module.exports = {
-	devtool: 'source-map',
+	devtool: ENV === 'production' ? 'source-map' : 'eval',
 	entry: entries,
 	output: {
 		filename: 'static/[name].js'

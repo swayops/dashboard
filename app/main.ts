@@ -3,7 +3,6 @@ import 'es6-shim';
 import 'reflect-metadata';
 import 'zone.js/dist/zone';
 
-import 'rxjs/Rx';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
 import { enableProdMode } from '@angular/core';
