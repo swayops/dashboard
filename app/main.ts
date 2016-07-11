@@ -1,3 +1,4 @@
+/// <reference path="../typings/index.d.ts" />
 import 'rxjs/Rx';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
