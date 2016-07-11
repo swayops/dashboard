@@ -1,12 +1,11 @@
 'use strict';
 var webpack = require('webpack'),
-	ExtractTextPlugin = require('extract-text-webpack-plugin'),
-	path = require('path');
+	ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.ENV || 'dev';
 
 var entries = {
-	'vendor': './app/vendor.ts',
+//	'vendor': './app/vendor.ts',
 	'app': './app/main.ts'
 },
 	plugins = [
@@ -20,9 +19,22 @@ var entries = {
 	];
 
 if (ENV === 'production') {
-	plugins.concat([
+	plugins = plugins.concat([
 		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin(),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				dead_code: true,
+				properties: true,
+				drop_debugger: true,
+				evaluate: true,
+				loops: true,
+				unused: true,
+				join_vars: true,
+				warnings: false,
+				passes: 2
+			},
+			'screw-ie8': true,
+		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: Object.keys(entries)
 		})

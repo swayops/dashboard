@@ -1,4 +1,8 @@
 /// <reference path="../typings/index.d.ts" />
+import 'es6-shim';
+import 'reflect-metadata';
+import 'zone.js/dist/zone';
+
 import 'rxjs/Rx';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
@@ -19,4 +23,3 @@ bootstrap(AppComponent, [
 	HTTP_PROVIDERS,
 	Title
 ]).catch((err: any) => console.error(err));
-
