@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
+    "start": "npm build && echo have to start the sway server.",
+    "build-prod": "env ENV=production node run build",
+    "build": "webpack --config webpack.config.js --progress --profile --bail",
+    "build:w": "webpack --config webpack.config.js --progress --watch",
+    "postinstall": "typings install && npm build",
     "typings": "typings"
   },
   "license": "private",
-  "dependencies": {
+  "devDependencies": {
     "@angular/common": "^2.0.0-rc.4",
     "@angular/compiler": "^2.0.0-rc.4",
     "@angular/core": "^2.0.0-rc.4",
@@ -20,21 +20,24 @@
     "@angular/platform-browser": "^2.0.0-rc.4",
     "@angular/platform-browser-dynamic": "^2.0.0-rc.4",
     "@angular/router": "^3.0.0-beta.1",
-    "systemjs": "^0.19.27",
+    "angular2-template-loader": "^0.4.0",
+    "bootstrap": "^3.3.6",
+    "concurrently": "^2.0.0",
     "es6-shim": "0.35.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.22.0",
+    "lite-server": "^2.2.0",
+    "ng2-bootstrap": "1.0.17",
+    "raw-loader": "^0.5.1",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "bootstrap": "^3.3.6",
-    "ng2-bootstrap": "1.0.17"
-  },
-  "devDependencies": {
-    "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0",
+    "systemjs": "^0.19.27",
+    "text-loader": "0.0.1",
+    "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
     "typings": "^1.0.4",
-    "gulp": "^3.9.0",
-    "gulp-typescript": "^2.8.0",
-    "del": "^2.1.0"
+    "webpack": "^1.13.1",
+    "zone.js": "^0.6.12"
   }
 }

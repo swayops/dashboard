@@ -30,25 +30,10 @@
 		<script src="/static/js/amcharts/plugins/export/export.js"></script>
 		<script src="/static/js/amcharts/themes/light.js"></script>
 		<!-- end amCharts include-->
-
-		<script src="node_modules/es6-shim/es6-shim.min.js"></script>
-		<script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-
-		<script src="node_modules/zone.js/dist/zone.js"></script>
-		<script src="node_modules/reflect-metadata/Reflect.js"></script>
-
-		<script src="node_modules/systemjs/dist/system.js"></script>
-		<script src="node_modules/rxjs/bundles/Rx.min.js"></script>
-
-		<script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
-
-		<script src="/static/sway.js"></script>
-		<script src="systemjs.config.js"></script>
-		<script>
-			System.import('main').catch(function(err){ console.error(err); });
-		</script>
 	</head>
 	<body class="user-logged-in">
 		<sway-app>Loading...</sway-app>
+		<script src="/static/vendor.js"></script>
+		<script src="/static/app.js"></script>
 	</body>
 </html>

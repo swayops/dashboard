@@ -8,7 +8,8 @@ const loginUrl = '/api/v1/signIn';
 
 @Component({
 	selector: 'signIn',
-	templateUrl : 'app/views/signIn.html',
+	template: require('./views/signIn.html')
+	//templateUrl : 'app/views/signIn.html'
 })
 
 

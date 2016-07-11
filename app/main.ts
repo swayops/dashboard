@@ -8,7 +8,10 @@ import { HTTP_PROVIDERS } from '@angular/http';
 
 import { ALL_ROUTES, AppComponent } from './app.component';
 
-// enableProdMode();
+if (process.env.ENV === 'production') {
+	enableProdMode();
+}
+
 bootstrap(AppComponent, [
 	ALL_ROUTES,
 	disableDeprecatedForms(),

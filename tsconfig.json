@@ -1,15 +1,13 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "system",
+		"module": "commonjs",
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"removeComments": false,
-		"noImplicitAny": false,
-		"allowJs": true,
-		"outFile": "./static/sway.js"
+		"noImplicitAny": false
 	},
 	"files": [ "app/main.ts" ]
 }
