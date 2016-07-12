@@ -1,7 +1,6 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
-import { User } from './user';
-
 import { Title } from '@angular/platform-browser';
 
 const loginUrl = '/api/v1/signIn';
@@ -9,16 +8,16 @@ const loginUrl = '/api/v1/signIn';
 @Component({
 	selector: 'signIn',
 	template: require('./views/signIn.html')
-	//templateUrl : 'app/views/signIn.html'
 })
-
-
-export class SignInComponent {
+export class SignInComponent implements OnInit {
 	private form = {email: "", pass: ""};
 	private loading = false;
 	private error: any;
-	constructor(private http: Http, private title: Title) {
-		title.setTitle("Sway :: Sign In");
+
+	constructor(private http: Http, private title: Title, private router: Router) {}
+
+	ngOnInit() {
+		this.title.setTitle("Sway :: Sign In");
 	}
 
 	signIn(data: any) {
@@ -35,7 +34,7 @@ export class SignInComponent {
 			this.error = data.msg;
 			return
 		}
-		// do something with data, redirect, etc.
+		this.router.navigate(['/dashboard'])
 	}
 
 	get diagnostic() { return JSON.stringify(this, null, 4); }

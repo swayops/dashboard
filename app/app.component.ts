@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
 import { SignInComponent } from './signin.component';
 
-export const routes: RouterConfig = [
+export const ALL_ROUTES: RouterConfig = [
 	{
 		path: '',
 		redirectTo: '/dashboard',
@@ -18,13 +18,8 @@ export const routes: RouterConfig = [
 	},
 ];
 
-export const ALL_ROUTES = [provideRouter(routes)];
-
 @Component({
 	selector: 'sway-app',
-	template : `<router-outlet></router-outlet>`,
-	directives: [ROUTER_DIRECTIVES],
-	precompile: [routes.map(r => r.component).filter(r => !!r)] // dynamically precompile all used route components
+	template : `<router-outlet></router-outlet>`
 })
-
 export class AppComponent {}
