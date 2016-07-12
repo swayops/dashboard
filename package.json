@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "npm run build:p && echo have to start the sway server.",
-    "build": "webpack --config webpack.config.js --progress",
-    "build:w": "webpack --config webpack.config.js --progress --watch",
-    "build:p": "/usr/bin/env ENV=production webpack --config webpack.config.js --progress",
+    "build": "webpack --progress",
+    "build:w": "webpack --watch",
+    "build:p": "ENV=production webpack --progress",
     "postinstall": "typings install && npm build",
     "typings": "typings"
   },

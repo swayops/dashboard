@@ -1,4 +1,5 @@
 node_modules/
 typings/
 static/app.js*
+static/vendor.js*
 .DS_Store
