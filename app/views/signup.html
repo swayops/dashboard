@@ -1,0 +1,25 @@
+<div class="grid-container page">
+	<div class="block-section" id="page-content">
+		<div class="grid-100 grid-parent">
+			<div id="signup">
+				<form class="form">
+					<div class="top">
+						<div class="grid-50 grid-parent"><a [routerLink]="['/']" id="logo" title="Home"><img src="/static/img/signup-logo.png" /></a></div><div class="grid-50 grid-parent align-right"><a [routerLink]="['/login']" class="signin">Already registered?</a></div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="fields">
+						<div class="field-item company-name"><input type="text" value="" placeholder="Name" class="form-control formLoggedOut"></div>
+						<div class="field-item email"><input type="text" value="" placeholder="Email" class="form-control formLoggedOut"></div>
+						<div class="field-item password"><input type="password" value="" placeholder="Password" class="form-control formLoggedOut"></div>
+						<div class="checkbox">
+							<input id="agreement" type="checkbox" name="check" value="#tag us">
+							<label for="agreement">I agree to the <a href="http://swayops.com/terms.html">Terms</a> AND <a href="http://swayops.com/privacy.html">privacy</a></label>
+						</div>
+					</div>
+					<div class="actions"><input type="submit" value="Lets Go &#187;"></div>
+				</form><div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>

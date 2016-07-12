@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
-import { SignInComponent } from './signin.component';
+import { LoginComponent } from './login';
+import { SignUpComponent } from './signup';
 
 export const ALL_ROUTES: RouterConfig = [
 	{
@@ -13,8 +14,12 @@ export const ALL_ROUTES: RouterConfig = [
 	// 	component: DashboardComponent
 	// },
 	{
-		path: 'signIn',
-		component: SignInComponent
+		path: 'login',
+		component: LoginComponent
+	},
+	{
+		path: 'signup',
+		component: SignUpComponent
 	},
 ];
 

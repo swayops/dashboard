@@ -1,7 +1,4 @@
 /// <reference path="../typings/index.d.ts" />
-import 'es6-shim';
-import 'reflect-metadata';
-import 'zone.js/dist/zone';
 
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
@@ -10,7 +7,7 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { ROUTER_DIRECTIVES, provideRouter, } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 
-import { ALL_ROUTES, AppComponent } from './app.component';
+import { ALL_ROUTES, AppComponent } from './app';
 
 if (process.env.ENV === 'production') {
 	enableProdMode();
