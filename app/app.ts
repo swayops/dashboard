@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
+import { provideRouter, RouterConfig } from '@angular/router';
+
 import { Four04Component } from './404';
 import { LoginComponent } from './login';
 import { SignUpComponent } from './signup';
@@ -30,6 +31,9 @@ export const ALL_ROUTES: RouterConfig = [
 
 @Component({
 	selector: 'sway-app',
-	template : `<router-outlet></router-outlet>`
+	template: `<router-outlet></router-outlet>`
 })
-export class AppComponent {}
+
+export class AppComponent {
+	constructor() { }
+}

@@ -2,7 +2,7 @@
 	<div class="block-section" id="page-content">
 		<div class="grid-100 grid-parent">
 			<div id="signup">
-				<form class="form" #f="ngForm" novalidate (ngSubmit)="signUp(f.value)">
+				<form class="form" #f="ngForm" novalidate (ngSubmit)="SignUp()">
 					<div class="top">
 						<div class="grid-50 grid-parent"><a [routerLink]="['/']" id="logo" title="Home"><img src="/static/img/signup-logo.png" /></a></div><div class="grid-50 grid-parent align-right"><a [routerLink]="['/login']" class="signin">Already registered?</a></div>
 						<div class="clearfix"></div>

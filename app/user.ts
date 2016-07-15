@@ -1,7 +1,3 @@
-import { Component, Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
-
 export class User {
 	constructor(
 		public id: string,
@@ -22,34 +18,3 @@ export class User {
 
 	) { }
 }
-
-@Injectable()
-export class SignInService {
-	constructor (private http: Http) {}
-}
-
-/*
-type User struct {
-	ID        string `json:"id"`
-	ParentID  string `json:"parentId,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Phone     string `json:"phone,omitempty"`
-	Address   string `json:"address,omitempty"`
-	Status    bool   `json:"status,omitempty"`
-	CreatedAt int64  `json:"createdAt,omitempty"`
-	UpdatedAt int64  `json:"updatedAt,omitempty"`
-	APIKey    string `json:"apiKeys,omitempty"`
-	Salt      string `json:"salt,omitempty"`
-	Admin     bool   `json:"admin,omitempty"`
-	//	Data      json.RawMessage `json:"Data,omitempty"`
-
-	AdAgency     *AdAgency     `json:"adAgency,omitempty"`
-	TalentAgency *TalentAgency `json:"talentAgency,omitempty"`
-	Advertiser   *Advertiser   `json:"advertiser,omitempty"`
-	Influencer   *Influencer   `json:"inf,omitempty"`
-
-	//special hack, the gods will look down upon us and spit
-	InfluencerLoad *InfluencerLoad `json:"influencer,omitempty"`
-}
-*/
