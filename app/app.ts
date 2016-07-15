@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
+import { Four04Component } from './404';
 import { LoginComponent } from './login';
 import { SignUpComponent } from './signup';
 
@@ -23,8 +24,7 @@ export const ALL_ROUTES: RouterConfig = [
 	},
 	{
 		path: '**',
-		redirectTo: '/404'
-		//component: NotFound
+		component: Four04Component
 	}
 ];
 
