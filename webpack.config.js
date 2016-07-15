@@ -32,7 +32,8 @@ var cfg = {
 	},
 
 	resolve: {
-		root: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'app')],
+		root: [path.join(__dirname, 'app'), path.join(__dirname, 'node_modules')],
+		moduleDirectories: [path.join(__dirname, 'node_modules')],
 		extensions: ['', '.js', '.ts']
 	},
 
@@ -61,6 +62,7 @@ var cfg = {
 			'@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/core', '@angular/common',
 			'@angular/router', '@angular/http', '@angular/forms'),
 		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			minChunks: Infinity,

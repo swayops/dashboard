@@ -1672,6 +1672,7 @@ padding-bottom:100px;
 }
 .form .top{margin:0px 0px 40px 0px;}
 .form input[type="text"],
+.form input:not([type]),
 .form input[type="password"],
 .form .checkbox{
 	margin-bottom:15px;
@@ -1683,7 +1684,7 @@ padding-bottom:100px;
     box-sizing: border-box;
     min-width: 155px;
     padding: 10px 20px;
-    width: 100%;
+    width: 98%;
 	font-size: 17px;
     line-height: 1.471;
     border-radius: 6px;
@@ -1695,13 +1696,18 @@ padding-bottom:100px;
     transition: border .25s linear, color .25s linear, background-color .25s linear;
     -webkit-font-smoothing: subpixel-antialiased;
 }
-.form input[type="submit"]:hover{    background: #23c56f;}
+
+.form input[type="submit"]:hover{ background: #23c56f;}
 .form input[type="submit"]:focus{
 	background: #04a650;
     -webkit-box-shadow: inset 0 20px 0px -17px #03773a;
     -moz-box-shadow: inset 0 20px 0px -17px #03773a;
     box-shadow: inset 0 20px 0px -17px #03773a;
     color: #fff;
+}
+
+input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
+	background:#eee; border:1px solid #0083d6; color:#0083d6;
 }
 
 .form .align-right{text-align:right;}

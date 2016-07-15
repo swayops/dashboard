@@ -9,8 +9,9 @@ const signUpUrl = '/api/v1/signIn';
 	selector: 'signup',
 	template: require('./views/signup.html')
 })
+
 export class SignUpComponent implements OnInit {
-	private form = {email: "", pass: ""};
+	private form = {name:"", email: "", pass: "", agree: false};
 	private loading = false;
 	private error: any;
 
@@ -20,7 +21,11 @@ export class SignUpComponent implements OnInit {
 		this.title.setTitle("Sway :: Sign Up");
 	}
 
-	signIn(data: any) {
+	signUp(data: any) {
+		if(!data.agree) {
+			this.error = "You must agree to our terms and privacy policy.";
+			return;
+		}
 		this.loading = true;
 		var check = this.check.bind(this);
 		return this.http.post(signUpUrl, data).subscribe(check, check);
