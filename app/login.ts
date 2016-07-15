@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
 import { Title } from '@angular/platform-browser';
 
-const loginUrl = '/api/v1/signIn';
+const apiURL = '/api/v1/signIn';
 
 @Component({
 	selector: 'login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 	signIn(data: any) {
 		this.loading = true;
 		var check = this.check.bind(this);
-		return this.http.post(loginUrl, data).subscribe(check, check);
+		return this.http.post(apiURL, data).subscribe(check, check);
 	}
 
 	private check(res: Response) {

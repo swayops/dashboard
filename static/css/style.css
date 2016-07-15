@@ -831,15 +831,26 @@ textarea{
 	color: #ff9948;
 	background:#fff0e4;
 }
+
 .notification.warning .fui-cross{
 	color: #ff9948;
 }
 
-.notification.error{
+
+.notification.error {
+	text-transform: capitalize;
+}
+
+.notification.error, .ng-invalid:not(.ng-untouched) {
 	border: 2px solid #d2335c;
 	color: #d2335c;
 	background:#f8e1e7;
 }
+
+.ng-invalid:not(.ng-untouched) {
+	border-width: 1px;
+}
+
 .notification.error .fui-cross{
 	color: #d2335c;
 }
@@ -853,7 +864,7 @@ textarea{
 
 .notification.success:before{content: "\e612";}
 .notification.warning:before{content: "\e610";}
-.notification.error:before{content: "\e613";}
+.notification.error:before, .ng-invalid:not(.ng-untouched):before {content: "\e613";}
 .notification.info:before{content: "\e610";}
 
 

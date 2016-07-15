@@ -9,8 +9,8 @@
 					</div>
 					<div class="fields">
 						<div class="field-item company-name"><input placeholder="Name" class="form-control formLoggedOut" name="name" [(ngModel)]="form.name" required></div>
-						<div class="field-item email"><input placeholder="Email" class="form-control formLoggedOut" name="email" [(ngModel)]="form.email" required></div>
-						<div class="field-item password"><input type="password" placeholder="Password" class="form-control formLoggedOut" name="pass" [(ngModel)]="form.pass" required></div>
+						<div class="field-item email"><input placeholder="Email" class="form-control formLoggedOut" name="email" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
+						<div class="field-item password"><input type="password" placeholder="Password" class="form-control formLoggedOut" name="pass" [(ngModel)]="form.pass" required minlength="8"></div>
 						<div class="checkbox">
 							<input id="agreement" type="checkbox" name="check" value="#tag us" name="agree" [(ngModel)]="form.agree" required>
 							<label for="agreement">I agree to the <a href="http://swayops.com/terms.html">Terms</a> AND <a href="http://swayops.com/privacy.html">privacy</a></label>

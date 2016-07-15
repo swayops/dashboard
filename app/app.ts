@@ -21,6 +21,11 @@ export const ALL_ROUTES: RouterConfig = [
 		path: 'signup',
 		component: SignUpComponent
 	},
+	{
+		path: '**',
+		redirectTo: '/404'
+		//component: NotFound
+	}
 ];
 
 @Component({
