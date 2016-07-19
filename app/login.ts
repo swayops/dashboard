@@ -3,14 +3,12 @@ import { Title } from '@angular/platform-browser';
 
 import { APIService } from './api';
 
-const apiURL = '/api/v1/signIn';
-
 @Component({
 	selector: 'login',
 	template: require('./views/login.html')
 })
 
-export class LoginComponent {
+export class LoginCmp {
 	private form = {email: "", pass: ""};
 	private loading = false;
 	private error: any;

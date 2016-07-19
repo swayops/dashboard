@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig } from '@angular/router';
 
-import { Four04Component } from './404';
-import { LoginComponent } from './login';
-import { SignUpComponent } from './signup';
+import { Four04Cmp } from './404';
+import { LoginCmp } from './login';
+import { SignUpCmp } from './signup';
+import { ForgotPasswordCmp } from './forgotPassword';
 
 export const ALL_ROUTES: RouterConfig = [
 	{
@@ -17,15 +18,23 @@ export const ALL_ROUTES: RouterConfig = [
 	// },
 	{
 		path: 'login',
-		component: LoginComponent
+		component: LoginCmp
 	},
 	{
 		path: 'signup',
-		component: SignUpComponent
+		component: SignUpCmp
+	},
+	{
+		path: 'forgotPassword',
+		component: ForgotPasswordCmp
+	},
+	{
+		path: 'resetPassword/:uuid',
+		component: ForgotPasswordCmp
 	},
 	{
 		path: '**',
-		component: Four04Component
+		component: Four04Cmp
 	}
 ];
 

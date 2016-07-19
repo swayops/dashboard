@@ -5,14 +5,12 @@ import { Title } from '@angular/platform-browser';
 
 import { APIService, SignUpInfo } from './api';
 
-const apiURL = '/api/v1/signUp';
-
 @Component({
 	selector: 'signup',
 	template: require('./views/signup.html')
 })
 
-export class SignUpComponent {
+export class SignUpCmp {
 	private form = { name: "", email: "", pass: "", advertiser: {dspFee: 0.5, exchangeFee: 0.2} };
 	private loading = false;
 	private error: any;

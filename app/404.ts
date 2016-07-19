@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 	selector: 'login',
 	template: require('./views/404.html')
 })
-export class Four04Component {
+export class Four04Cmp {
 	constructor(private title: Title) {
 		title.setTitle("Sway :: 404 :: Page Not Found");
 	}
