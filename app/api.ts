@@ -19,13 +19,16 @@ export class APIService {
 	}
 
 	SignUpAdvertiser(data: SignUpInfo, onError?: (err: any) => void) {
-		data.pass2 = data.pass;
 		let obs = this.req('post', 'signUp', data);
 		return obs.subscribe(data => this.router.navigate(['/dashboard', data.id]), onError);
 	}
 
 	ForgotPassword(data: any, onSuccess?: (data: any) => void, onError?: (err: any) => void) {
-		return this.req('post', 'resetPassword', data).subscribe(onSuccess, onError);
+		return this.req('post', 'forgotPassword', data).subscribe(onSuccess, onError);
+	}
+
+	Get(ep: string, onResp: (data: any, err?: any) => void) {
+		return this.req('get', ep).subscribe(data => onResp(data), err => onResp(null, err));
 	}
 
 	private req(method: string, ep: string, body?: any): Observable<any> {

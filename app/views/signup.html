@@ -11,13 +11,15 @@
 						<div class="field-item company-name"><input placeholder="Name" class="form-control formLoggedOut" name="name" [(ngModel)]="form.name" required></div>
 						<div class="field-item email"><input placeholder="Email" class="form-control formLoggedOut" name="email" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
 						<div class="field-item password"><input type="password" placeholder="Password" class="form-control formLoggedOut" name="pass" [(ngModel)]="form.pass" required minlength="8"></div>
+						<div class="field-item password"><input type="password" placeholder="Confirm Password" class="form-control formLoggedOut" name="pass" [(ngModel)]="form.pass2" required minlength="8"></div>
+						<div *ngIf="f.valid && form.pass != form.pass2" class="notification error">The passwords need to match.</div>
 						<div class="checkbox">
-							<input id="agreement" type="checkbox" name="check" value="#tag us" name="agree" [(ngModel)]="form.agree" required>
+							<input id="agreement" type="checkbox" name="agreement" [(ngModel)]="form.agreement">
 							<label for="agreement">I agree to the <a href="http://swayops.com/terms.html">Terms</a> AND <a href="http://swayops.com/privacy.html">privacy</a></label>
 						</div>
 						<div *ngIf="error" class="notification error"><p>{{error}}</p></div>
 					</div>
-					<div class="actions"><input type="submit" value="Lets Go &#187;" [disabled]="!f.valid || loading || !form.agree"></div>
+					<div class="actions"><input type="submit" value="Lets Go &#187;" [disabled]="!f.valid || form.pass != form.pass2 || loading || !form.agreement"></div>
 				</form><div class="clearfix"></div>
 			</div>
 			<div class="clearfix"></div>

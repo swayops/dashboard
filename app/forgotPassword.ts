@@ -9,10 +9,9 @@ import { APIService } from './api';
 })
 
 export class ForgotPasswordCmp {
-	private form = { email: "" };
+	private form = { email: "", token: null };
 	private loading = false;
 	private success = false;
-	private uuid: any;
 	private error: any;
 
 	constructor(private route: ActivatedRoute, private title: Title, private api: APIService) {
@@ -20,7 +19,7 @@ export class ForgotPasswordCmp {
 	}
 
 	ngOnInit() {
-		this.uuid = this.route.params['uuid'];
+		this.form.token = this.route.params['token'];
 	}
 
 	ForgotPassword() {
