@@ -8,22 +8,25 @@ import { ROUTER_DIRECTIVES, provideRouter, } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 import { ALL_ROUTES, AppComponent } from './app';
-import { APIService } from './api';
+import { APIService, AuthGuard } from './api';
 
 import { LeftNavCmp } from './leftNav';
+import { TagManagerCmp } from './tagManager';
 
 if (process.env.ENV === 'production') {
 	enableProdMode();
 }
 
 bootstrap(AppComponent, [
-	[provideRouter(ALL_ROUTES)],
 	disableDeprecatedForms(),
 	provideForms(),
+	[provideRouter(ALL_ROUTES)],
 	HTTP_PROVIDERS,
 	provide(PLATFORM_DIRECTIVES, { useValue: ROUTER_DIRECTIVES, multi: true }),
 	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
+	provide(PLATFORM_DIRECTIVES, { useValue: TagManagerCmp, multi: true }),
 	//provide(PLATFORM_DIRECTIVES, { useValue: REACTIVE_FORM_DIRECTIVES, multi: true }),
 	Title,
-	APIService
+	APIService,
+	AuthGuard
 ]).catch((err: any) => console.error(err));

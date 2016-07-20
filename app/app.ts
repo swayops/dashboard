@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig } from '@angular/router';
 
+import { AuthGuard } from './api';
+
 import { DashboardCmp } from './dashboard';
 import { Four04Cmp } from './404';
 import { LoginCmp } from './login';
@@ -15,11 +17,13 @@ export const ALL_ROUTES: RouterConfig = [
 	},
 	{
 		path: 'dashboard',
-		component: DashboardCmp
+		component: DashboardCmp,
+		canActivate: [AuthGuard]
 	},
 	{
 		path: 'dashboard/:id',
-		component: DashboardCmp
+		component: DashboardCmp,
+		canActivate: [AuthGuard]
 	},
 	{
 		path: 'login',

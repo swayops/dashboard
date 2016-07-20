@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
@@ -11,14 +11,17 @@ const apiURL = '/api/v1/';
 @Injectable()
 export class APIService {
 	private _user: User;
-	constructor(private router: Router, private http: Http) {}
+	redirectUrl: string;
 
-	Login(data: {email: string, pass: string}, onError?: (err: any) => void) {
+	constructor(private router: Router, private http: Http) { }
+
+	Login(data: { email: string, pass: string }, onError?: (err: any) => void) {
 		let obs = this.req('post', 'signIn', data);
 		return obs.subscribe(data => {
 			this.req('get', 'user/' + data.id).subscribe(user => {
 				this._user = user;
-				this.router.navigate(['/dashboard', user.id]);
+				this.router.navigate(this.redirectUrl ? [this.redirectUrl] : ['/dashboard', user.id]);
+				this.redirectUrl = '';
 			}, onError);
 		}, onError);
 	}
@@ -53,6 +56,20 @@ export class APIService {
 	}
 
 	get User(): User { return this._user; }
+}
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+
+	constructor(protected router: Router, protected api: APIService) {}
+
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+		if(this.api.IsLoggedIn()) return true;
+		this.api.redirectUrl = state.url;;
+		this.router.navigate(['/login']);
+		return false;
+	}
+
 }
 
 export interface SignUpInfo {
