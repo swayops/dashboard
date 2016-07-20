@@ -11,7 +11,6 @@ import { ALL_ROUTES, AppComponent } from './app';
 import { APIService, AuthGuard } from './api';
 
 import { LeftNavCmp } from './leftNav';
-import { TagManagerCmp } from './tagManager';
 
 if (process.env.ENV === 'production') {
 	enableProdMode();
@@ -24,7 +23,7 @@ bootstrap(AppComponent, [
 	HTTP_PROVIDERS,
 	provide(PLATFORM_DIRECTIVES, { useValue: ROUTER_DIRECTIVES, multi: true }),
 	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: TagManagerCmp, multi: true }),
+	provide(Window, { useValue: window }),
 	//provide(PLATFORM_DIRECTIVES, { useValue: REACTIVE_FORM_DIRECTIVES, multi: true }),
 	Title,
 	APIService,
