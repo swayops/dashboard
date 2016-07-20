@@ -1,0 +1,54 @@
+<div class="pushDown"></div>
+<div class="grid-15 mobile-grid-100 grid-parent content-holder left-sb">
+	<div class="user-section">
+		<img src="{{ user.profilePhoto }}" class="avatar" />
+		<label>{{ user.name }}</label>
+	</div>
+
+	<div class="user-account-options" *ngIf="user.isAdmin">
+		<ul>
+			<li class="li-content"><a [routerLink]="['/dashboard']">Admin Stats</a></li>
+			<li class="li-influencers"><a [routerLink]="['/mAgencies']">Media Agencies</a></li>
+			<li class="li-perks"><a [routerLink]="['/mTalentAgencies']">Talent Agencies</a></li>
+			<li><a [routerLink]="['/checkPayouts']">Check Payouts</a></li>
+		</ul>
+	</div>
+
+	<div class="user-account-options" *ngIf="user.adAgency">
+		<ul>
+			<li class="li-campaign"><a [routerLink]="['/mAdvertisers']">My Advertisers</a></li>
+			<li class="li-reporting"><a [routerLink]="['/reporting']">Reporting</a></li>
+		</ul>
+	</div>
+
+	<div *ngIf="user.talentAgency">
+		<div class="cr8-campaign"><a [routerLink]="['/createTalent']" class="btn btn-green1">Invite Talent</a></div>
+		<div class="user-account-options">
+			<ul>
+				<li class="li-influencers"><a [routerLink]="['/mTalent']">My Talent</a></li>
+				<li class="li-reporting"><a [routerLink]="['/reporting']">Reporting</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div *ngIf="user.advertiser">
+		<div class="cr8-campaign"><a [routerLink]="['/createCampaign']" class="btn btn-green1">create campaign</a></div>
+		<div class="user-account-options">
+			<ul>
+				<li class="li-campaign"><a [routerLink]="['']">My Campaigns</a></li>
+				<li class="li-reporting"><a [routerLink]="['']">Reporting</a></li>
+				<li class="li-perks"><a [routerLink]="['']">My Perks</a></li>
+				<li class="li-content"><a [routerLink]="['']">My Content</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Put influencer nav here at a later date-->
+
+	<div class="shrink-opt">
+		<div class="toside"><i class="ico exit ttip" title="Logout"></i></div>
+		<div class="anchor"><i class="ico settings ttip" title="Edit my profile"></i></div>
+		<div class="clearfix"></div>
+	</div>
+
+</div>

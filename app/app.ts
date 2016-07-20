@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig } from '@angular/router';
 
+import { DashboardCmp } from './dashboard';
 import { Four04Cmp } from './404';
 import { LoginCmp } from './login';
 import { SignUpCmp } from './signup';
@@ -12,10 +13,10 @@ export const ALL_ROUTES: RouterConfig = [
 		redirectTo: '/dashboard',
 		pathMatch: 'full'
 	},
-	// {
-	// 	path: 'dashboard',
-	// 	component: DashboardComponent
-	// },
+	{
+		path: 'dashboard',
+		component: DashboardCmp
+	},
 	{
 		path: 'login',
 		component: LoginCmp
