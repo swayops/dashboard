@@ -9,11 +9,8 @@ import { APIService } from './api';
 })
 
 export class DashboardCmp {
-	private xuser = {
-		name: "Test User",
-		profilePhoto: '/static/img/user.png',
-		isAdmin: true,
-	};
-	constructor(private api: APIService) { }
+	constructor(private title: Title, private api: APIService) {
+		title.setTitle("Sway :: Dashboard");
+	}
 }
 

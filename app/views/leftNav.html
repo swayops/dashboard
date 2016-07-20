@@ -5,7 +5,7 @@
 		<label>{{ user.name }}</label>
 	</div>
 
-	<div class="user-account-options" *ngIf="user.isAdmin">
+	<div class="user-account-options" *ngIf="user.admin">
 		<ul>
 			<li class="li-content"><a [routerLink]="['/dashboard']">Admin Stats</a></li>
 			<li class="li-influencers"><a [routerLink]="['/mAgencies']">Media Agencies</a></li>
