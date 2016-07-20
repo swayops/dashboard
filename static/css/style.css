@@ -779,7 +779,7 @@ textarea{
 .notification{
     width: 100%;
     border: 2px solid #0082d5;
-    padding: 15px 10px;
+    padding: 12px 10px;
     border-radius: 4px;
     position: relative;
 	background:#d9ecf9;
@@ -790,13 +790,16 @@ textarea{
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    /*speak: none;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .fields > .notification {
 	width: 91%;
+}
+
+.notification p::first-letter{
+	text-transform: capitalize;
 }
 
 .notification p{
@@ -836,11 +839,6 @@ textarea{
 	color: #ff9948;
 }
 
-
-.notification.error {
-	text-transform: capitalize;
-}
-
 .notification.error, .ng-invalid:not(.ng-untouched) {
 	border: 2px solid #d2335c;
 	color: #d2335c;
@@ -855,11 +853,10 @@ textarea{
 	color: #d2335c;
 }
 
-.notification:before{
-	float: left;
-    line-height: 1;
-    margin-right: 10px;
-    margin-top: -2px;
+.notification:before, .ng-invalid:not(.ng-untouched){
+	display: inline-block;
+	line-height: 1;
+	margin-right: 10px;
 }
 
 .notification.success:before{content: "\e612";}
