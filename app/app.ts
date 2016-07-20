@@ -18,6 +18,10 @@ export const ALL_ROUTES: RouterConfig = [
 		component: DashboardCmp
 	},
 	{
+		path: 'dashboard/:id',
+		component: DashboardCmp
+	},
+	{
 		path: 'login',
 		component: LoginCmp
 	},

@@ -9,7 +9,7 @@ import { APIService } from './api';
 })
 
 export class DashboardCmp {
-	private user = {
+	private xuser = {
 		name: "Test User",
 		profilePhoto: '/static/img/user.png',
 		isAdmin: true,

@@ -16,7 +16,7 @@ export class LeftNavCmp {
 	constructor(private api: APIService) { }
 
 	@Input() set user(u: any) {
-		this._u = u || {};
+		this._u = u || this.api.User;
 	}
 
 	get user() { return this._u; }
