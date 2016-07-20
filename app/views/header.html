@@ -1,0 +1,41 @@
+<div class="block-section" id="hdr-top">
+	<div class="grid-100 mobile-grid-100" id="header">
+		<div class="grid-30 mobile-grid-100">
+			<div class="grid-50 mobile-grid-50 grid-parent">
+				<a [routerLink]="['/dashboard']" id="logo" title="Home"><img src="/static/img/sway-ops-logo.png" /> <span>SWAY</span></a>
+			</div>
+
+			<div class="grid-50 mobile-grid-50">
+				<ul class="hdr-opts">
+					<a href="#">
+						<li title="Live Chat with a Sway expert" class="info ttip"><span></span></li>
+					</a>
+					<a [routerLink]="['/billing']">
+						<li title="View &amp; manage billing" class="card ttip"><span></span></li>
+					</a>
+				</ul>
+			</div>
+
+		</div>
+		<div class="grid-40 mobile-grid-100 top-search">
+			<div class="form-group has-icon icon-search icon-left">
+				<input type="text" value="" placeholder="What would you like to do?" class="form-control">
+			</div>
+		</div>
+		<div class="grid-30 mobile-grid-100">
+			<div class="grid-40 mobile-grid-40 grid-parent" *ngIf="user.adAgency">
+				<a [routerLink]="['/mAdvertisers']" title="Go back to your agency advertiser list" class="ttip"><span class="my-opt">My Advertisers</span></a>
+			</div>
+
+			<div class="grid-40 mobile-grid-40 grid-parent" *ngIf="user.advertiser">
+				<a title="View support videos and more" class="ttip" href="//swayops.com/wiki/">
+					<span class="my-opt guides">Guides</span></a>
+			</div>
+			<div class="grid-40 mobile-grid-40 grid-parent" *ngIf="api.IsAsUser()">
+				<a [routerLink]="['/dashboard', 1]" title="Return to the admin panel" class="ttip">
+					<span class="my-opt guides">Admin</span></a>
+			</div>
+
+		</div>
+	</div>
+</div>

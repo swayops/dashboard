@@ -10,7 +10,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ALL_ROUTES, AppComponent } from './app';
 import { APIService, AuthGuard } from './api';
 
-import { LeftNavCmp } from './leftNav';
+import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
 if (process.env.ENV === 'production') {
 	enableProdMode();
@@ -22,7 +22,9 @@ bootstrap(AppComponent, [
 	[provideRouter(ALL_ROUTES)],
 	HTTP_PROVIDERS,
 	provide(PLATFORM_DIRECTIVES, { useValue: ROUTER_DIRECTIVES, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
+	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true  }),
+	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true  }),
+	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true  }),
 	provide(Window, { useValue: window }),
 	//provide(PLATFORM_DIRECTIVES, { useValue: REACTIVE_FORM_DIRECTIVES, multi: true }),
 	Title,

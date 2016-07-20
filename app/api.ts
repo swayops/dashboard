@@ -11,6 +11,8 @@ const apiURL = '/api/v1/';
 @Injectable()
 export class APIService {
 	private _user: User;
+	private currentUser: User;
+	private users: {};
 	redirectUrl: string;
 
 	constructor(private router: Router, private http: Http) { }
@@ -56,6 +58,10 @@ export class APIService {
 	}
 
 	get User(): User { return this._user; }
+
+	IsAsUser(): boolean {
+		return this.User.admin && !!this.currentUser && this.User.id !== this.currentUser.id
+	}
 }
 
 @Injectable()
