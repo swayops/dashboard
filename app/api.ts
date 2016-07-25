@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -15,7 +15,9 @@ export class APIService {
 	private users: {};
 	redirectUrl: string;
 
-	constructor(private router: Router, private http: Http) { }
+	constructor(private router: Router, private http: Http) {
+		this.req('get', 'user').subscribe(user => this._user = user);
+	}
 
 	Login(data: { email: string, pass: string }, onError?: (err: any) => void) {
 		let obs = this.req('post', 'signIn', data);
