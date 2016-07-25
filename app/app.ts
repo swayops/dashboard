@@ -3,11 +3,13 @@ import { provideRouter, RouterConfig, Router, NavigationStart, Event } from '@an
 
 import { AuthGuard, APIService } from './api';
 
-import { DashboardCmp } from './dashboard';
 import { Four04Cmp } from './404';
 import { LoginCmp } from './login';
 import { SignUpCmp } from './signup';
 import { ForgotPasswordCmp } from './forgotPassword';
+
+import { DashboardCmp } from './dashboard';
+import { MediaAgenciesCmp } from './mAgencies';
 
 export const ALL_ROUTES: RouterConfig = [
 	{
@@ -21,8 +23,8 @@ export const ALL_ROUTES: RouterConfig = [
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'dashboard/:id',
-		component: DashboardCmp,
+		path: 'mAgencies',
+		component: MediaAgenciesCmp,
 		canActivate: [AuthGuard]
 	},
 	{

@@ -18,9 +18,9 @@ export class LeftNavCmp {
 	template: require('./views/header.html'),
 })
 export class HeaderCmp {
-	private user;
+	constructor(private api: APIService) {}
 
-	constructor(private api: APIService) { this.user = api.User; }
+	get user() { return this.api.CurrentUser; }
 }
 
 @Component({
@@ -29,5 +29,6 @@ export class HeaderCmp {
 })
 export class FooterCmp {
 	constructor(private api: APIService) { }
+	get user() { return this.api.CurrentUser; }
 }
 

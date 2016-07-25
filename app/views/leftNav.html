@@ -7,17 +7,17 @@
 
 	<div class="user-account-options" *ngIf="user.admin">
 		<ul>
-			<li class="li-content"><a [routerLink]="['/dashboard']">Admin Stats</a></li>
-			<li class="li-influencers"><a [routerLink]="['/mAgencies']">Media Agencies</a></li>
-			<li class="li-perks"><a [routerLink]="['/mTalentAgencies']">Talent Agencies</a></li>
-			<li><a [routerLink]="['/checkPayouts']">Check Payouts</a></li>
+			<li class="li-content"><a [routerLink]="['/dashboard']" [routerLinkActive]="['is-active']">Admin Stats</a></li>
+			<li class="li-influencers"><a [routerLink]="['/mAgencies']" [routerLinkActive]="['is-active']">Media Agencies</a></li>
+			<li class="li-perks"><a [routerLink]="['/mTalentAgencies']" [routerLinkActive]="['is-active']">Talent Agencies</a></li>
+			<li><a [routerLink]="['/checkPayouts']" [routerLinkActive]="['is-active']">Check Payouts</a></li>
 		</ul>
 	</div>
 
 	<div class="user-account-options" *ngIf="user.adAgency">
 		<ul>
-			<li class="li-campaign"><a [routerLink]="['/mAdvertisers']">My Advertisers</a></li>
-			<li class="li-reporting"><a [routerLink]="['/reporting']">Reporting</a></li>
+			<li class="li-campaign"><a [routerLink]="['/mAdvertisers']" [routerLinkActive]="['is-active']">My Advertisers</a></li>
+			<li class="li-reporting"><a [routerLink]="['/reporting']" [routerLinkActive]="['is-active']">Reporting</a></li>
 		</ul>
 	</div>
 
@@ -25,8 +25,8 @@
 		<div class="cr8-campaign"><a [routerLink]="['/createTalent']" class="btn btn-green1">Invite Talent</a></div>
 		<div class="user-account-options">
 			<ul>
-				<li class="li-influencers"><a [routerLink]="['/mTalent']">My Talent</a></li>
-				<li class="li-reporting"><a [routerLink]="['/reporting']">Reporting</a></li>
+				<li class="li-influencers"><a [routerLink]="['/mTalent']" [routerLinkActive]="['is-active']">My Talent</a></li>
+				<li class="li-reporting"><a [routerLink]="['/reporting']" [routerLinkActive]="['is-active']">Reporting</a></li>
 			</ul>
 		</div>
 	</div>

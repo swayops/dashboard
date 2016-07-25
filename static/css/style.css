@@ -1289,10 +1289,11 @@ padding-bottom:100px;
 .user-account-options ul li.li-perks:hover:before{	background-position:0px -119px;}
 .user-account-options ul li.li-content:hover:before{	background-position:0px -158px;}
 
-.user-account-options ul li:hover a{
+.user-account-options ul li:hover a, .user-account-options ul li a.is-active{
 	border-left: 2px solid #0082d2;
 	background:#eceff4;
 }
+
 .shrink-opt{
 	border-top:1px solid #cad1e1;
 	text-align:center;

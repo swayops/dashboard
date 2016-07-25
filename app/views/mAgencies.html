@@ -1,0 +1,54 @@
+<user-header></user-header>
+<div class="block-section" id="page-content">
+	<div class="grid-100 grid-parent">
+		<left-nav></left-nav>
+		<div class="grid-85 mobile-grid-100 grid-parent">
+			<div class="content-holder center-widget">
+				<div class="grid-100 grid-parent">
+
+
+					<h2 class="heading">Manage Media Agencies</h2>
+
+					<a class="btn btn-green1 btn-micro">Create +</a>
+
+					<form style="width:250px; float:right;">
+						<input class="form-control input-sm" type="text" placeholder="Search this table...">
+					</form>
+
+					<br/><br/>
+
+					<form id="create_campaign_form">
+						<table class="tbl">
+							<thead>
+								<tr>
+									<th class="align-left">Agency</th>
+									<th>ID</th>
+									<th>Subs</th>
+									<th>Email</th>
+									<th>Signup Date</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr *ngFor="let item of agencies">
+									<td class="align-left"><a href="#">{{item.name}}</a></td>
+									<td>{{item.id}}</td>
+									<td>Ask Nick</td>
+									<td>{{item.email}}</td>
+									<td>{{getDate(item.createdAt)}}</td>
+									<td><a class="btn btn-info btn-micro ghost">Edit</a> | <a class="btn btn-scarlet btn-micro ghost">X</a></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</form>
+
+
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<user-footer></user-footer>
