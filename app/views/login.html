@@ -1,28 +1,26 @@
-<div class="grid-container page">
-	<div class="block-section" id="page-content">
-		<div class="grid-100 grid-parent">
-			<form class="form" id="login" #f="ngForm" novalidate (ngSubmit)="Login(f.value)">
-				<div class="top">
-					<div class="grid-50 grid-parent"><a [routerLink]="['/signup']" class="cr8-account" title="Create new account">Create New</a></div>
-					<div class="grid-50 grid-parent align-right"><a [routerLink]="['/forgotPassword']" class="forgot">Forgot Password?</a></div>
-					<div class="grid-100 grid-parent">
-						<h2>LOG IN</h2>
-						<h4>to your account</h4>
-					</div>
-					<div class="clearfix"></div>
+<div class="block-section" id="page-content">
+	<div class="grid-100 grid-parent">
+		<form class="form" id="login" #f="ngForm" novalidate (ngSubmit)="Login(f.value)">
+			<div class="top">
+				<div class="grid-50 grid-parent"><a [routerLink]="['/signup']" class="cr8-account" title="Create new account">Create New</a></div>
+				<div class="grid-50 grid-parent align-right"><a [routerLink]="['/forgotPassword']" class="forgot">Forgot Password?</a></div>
+				<div class="grid-100 grid-parent">
+					<h2>LOG IN</h2>
+					<h4>to your account</h4>
 				</div>
-				<div class="fields">
-					<div class="field-item email">
-						<input placeholder="Email" class="form-control formLoggedOut" name="username" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
-					<div class="field-item password">
-						<input type="password" placeholder="Password" class="form-control formLoggedOut" name="password" [(ngModel)]="form.pass" required  minlength="8"></div>
-					<div *ngIf="error" class="notification error"><p>{{error}}</p></div>
-				</div>
-				<div class="actions">
-					<input type="submit" value="Log in &#187;" [disabled]="!f.valid || loading">
-				</div>
-			</form>
-			<div class="clearfix"></div>
-		</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="fields">
+				<div class="field-item email">
+					<input placeholder="Email" class="form-control formLoggedOut" name="username" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
+				<div class="field-item password">
+					<input type="password" placeholder="Password" class="form-control formLoggedOut" name="password" [(ngModel)]="form.pass" required  minlength="8"></div>
+				<div *ngIf="error" class="notification error"><p>{{error}}</p></div>
+			</div>
+			<div class="actions">
+				<input type="submit" value="Log in &#187;" [disabled]="!f.valid || loading">
+			</div>
+		</form>
+		<div class="clearfix"></div>
 	</div>
 </div>
