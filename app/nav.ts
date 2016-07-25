@@ -8,9 +8,9 @@ import { APIService } from './api';
 	template: require('./views/leftNav.html'),
 })
 export class LeftNavCmp {
-	private user;
+	constructor(private api: APIService) {}
 
-	constructor(api: APIService) { this.user = api.User; }
+	get user() { return this.api.CurrentUser; }
 }
 
 @Component({

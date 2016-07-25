@@ -6,7 +6,7 @@
     "start": "npm run build:p && echo have to start the sway server.",
     "build": "webpack --progress",
     "build:w": "webpack --watch",
-    "build:p": "ENV=production webpack --progress",
+    "build:p": "ENV=production webpack --progress && rm -f static/vendor.js static/app.js static/vendor.js.map static/app.js.map",
     "postinstall": "typings install && npm build",
     "typings": "typings"
   },

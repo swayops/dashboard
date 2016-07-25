@@ -76,8 +76,6 @@ if (ENV === 'production') {
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				dead_code: true,
-				properties: true,
-				drop_debugger: true,
 				evaluate: true,
 				loops: true,
 				unused: true,
@@ -87,7 +85,6 @@ if (ENV === 'production') {
 				booleans: true,
 				if_return: true,
 				join_vars: true,
-				drop_console: true,
 				passes: 2
 			},
 			'screw-ie8': true,
@@ -96,7 +93,7 @@ if (ENV === 'production') {
 		new CompressionPlugin({
 			asset: "[path].gz[query]",
 			algorithm: "gzip",
-			test: /\.js$|\.css$|\.html$/,
+			test: /\.js$|\.map$/,
 			threshold: 4096,
 			minRatio: 0.8
 		})

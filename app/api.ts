@@ -12,26 +12,25 @@ const apiURL = '/api/v1/';
 export class APIService {
 	private _user: User;
 	private _cuser: User;
+	private _status = 0;
 	redirectUrl: string;
 
-	constructor(private router: Router, private http: Http) {
-		this.req('get', 'user').subscribe(user => this._user = user);
-	}
+	constructor(private router: Router, private http: Http) {}
 
-	Login(data: { email: string, pass: string }, onError?: (err: any) => void) {
-		let obs = this.req('post', 'signIn', data);
-		return obs.subscribe(data => {
-			this.req('get', 'user').subscribe(user => {
+	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
+		return this.Post('signIn', info, data => {
+			return this.Get('user', user => {
 				this._user = user;
+				//debugger;
 				this.router.navigate(this.redirectUrl ? [this.redirectUrl] : ['/dashboard']);
 				this.redirectUrl = '';
+				this._status = 1;
 			}, onError);
 		}, onError);
 	}
 
-	SignUpAdvertiser(data: SignUpInfo, onError?: (err: any) => void) {
-		let obs = this.req('post', 'signUp', data);
-		return obs.subscribe(data => this.router.navigate(['/dashboard', data.id]), onError);
+	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void) {
+		return this.Post('signUp', info, data => this.router.navigate(['/dashboard']), onError);
 	}
 
 	ForgotPassword(data: any, onSuccess?: (data: any) => void, onError?: (err: any) => void) {
@@ -42,6 +41,10 @@ export class APIService {
 		return this.req('get', ep).subscribe(data => onResp(data), err => onErr(err));
 	}
 
+	Post(ep: string, payload: any, onResp: (data: any) => void, onErr: (err: any) => void) {
+		return this.req('post', ep, payload).subscribe(data => onResp(data), err => onErr(err));
+	}
+
 	private req(method: string, ep: string, body?: any): Observable<any> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });
@@ -50,12 +53,24 @@ export class APIService {
 
 	private handleError(err: Response) {
 		let errData = err.json();
-		//console.error(errData);
 		return Observable.throw(errData.msg || 'Server Error');
 	}
 
-	IsLoggedIn(): boolean {
-		return !!this._user && !!this._user.id;
+	get IsLoggedIn() {
+		console.log(this._status);
+		if(this._status > 0) return Observable.of(this._status === 1)  //return this._status === 1;
+		return Observable.create(obs => {
+			let sub = this.Get('user', user => {
+				this._user = user;
+				this._status = 1;
+				return obs.next(true);
+			}, err => {
+				console.log(err);
+				this._status = 2;
+				obs.next(false);
+			});
+			//return () => sub.unsubscribe();
+		}).take(1);
 	}
 
 	get User(): User { return this._user; }
@@ -68,14 +83,15 @@ export class APIService {
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-	constructor(protected router: Router, protected api: APIService) {}
+	constructor(private router: Router, private api: APIService) {}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-		if(this.api.IsLoggedIn()) return true;
-		this.api.redirectUrl = state.url;;
-		this.router.navigate(['/login']);
-		return false;
+		return this.api.IsLoggedIn.map(logged => {
+			if(logged) return true;
+			this.api.redirectUrl = state.url;
+			this.router.navigate(['/login']);
+			return false;
+		});
 	}
 
 }

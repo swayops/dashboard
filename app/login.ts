@@ -19,7 +19,7 @@ export class LoginCmp {
 
 	Login() {
 		this.loading = true;
-		this.api.Login(this.form, err => {this.error = err; this.loading = false} );
+		this.api.Login(this.form, err => {this.error = err; this.loading = false});
 	}
 }
 
