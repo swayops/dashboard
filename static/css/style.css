@@ -35,13 +35,13 @@ input[type="text"]::-webkit-input-placeholder {
 /*=========================== BUTTONS normal & ghost =========================*/
 .ui-tooltip{background-color: white; color: #34495A;}
 
-.btn{
+.btn, button{
 background:#0083d6;
 color:#fff;
 box-sizing:border-box;
-min-width:155px;
+min-width:70px;
 padding: 10px 20px;
-width: initial;
+cursor: pointer;
 }
 .ghost{background:transparent;border:1px solid #0083d6;color:#0083d6;}
 .btn-blue.ghost{background:transparent;border:1px solid #0083d6;color:#0083d6;}
@@ -52,8 +52,8 @@ width: initial;
 .btn-purple.ghost{background:transparent;border:1px solid #a93aba;color:#a93aba;}
 
 .btn-blue{background:#0083d6;}
-.btn-blue.hover,
-.btn-blue:hover{background:#1f91da;}
+.btn-blue.hover:not([disabled]),
+.btn-blue:not([disabled]):hover{background:#1f91da;}
 .btn-blue.pressed,
 .btn-blue:focus{
 background:#0072bb;
@@ -63,8 +63,8 @@ box-shadow: inset 0 20px 0px -17px #005183;color:#fff;
 }
 
 .btn-green1{background:#04be5b;}
-.btn-green1.hover,
-.btn-green1:hover{background:#23c56f;}
+.btn-green1.hover:not([disabled]),
+.btn-green1:not([disabled]):hover{background:#23c56f;}
 .btn-green1.pressed,
 .btn-green1:focus{
 background:#04a650;
@@ -74,8 +74,8 @@ box-shadow: inset 0 20px 0px -17px #03773a;color:#fff;
 }
 
 .btn-green2{background:#9ebf16;}
-.btn-green2.hover,
-.btn-green2:hover{background:#a9c733;}
+.btn-green2.hover:not([disabled]),
+.btn-green2:not([disabled]):hover{background:#a9c733;}
 .btn-green2.pressed,
 .btn-green2:focus{background:#8aa814;
 -webkit-box-shadow: inset 0 20px 0px -17px #60750e;
@@ -84,8 +84,8 @@ box-shadow: inset 0 20px 0px -17px #60750e;color:#fff;
 }
 
 .btn-orange{background:#ff9947;}
-.btn-orange.hover,
-.btn-orange:hover{background:#ffa55e;}
+.btn-orange.hover:not([disabled]),
+.btn-orange:not([disabled]):hover{background:#ffa55e;}
 .btn-orange.pressed,
 .btn-orange:focus{background:#e1863f;
 -webkit-box-shadow: inset 0 20px 0px -17px #9b5e2f;
@@ -94,8 +94,8 @@ box-shadow: inset 0 20px 0px -17px #9b5e2f;color:#fff;
 }
 
 .btn-scarlet{background:#d2335c;}
-.btn-scarlet.hover,
-.btn-scarlet:hover{background:#d84c6f;}
+.btn-scarlet.hover:not([disabled]),
+.btn-scarlet:not([disabled]):hover{background:#d84c6f;}
 .btn-scarlet.pressed,
 .btn-scarlet:focus{background:#b92d50;
 -webkit-box-shadow: inset 0 20px 0px -17px #811e3b;
@@ -104,8 +104,8 @@ box-shadow: inset 0 20px 0px -17px #811e3b;color:#fff;
 }
 
 .btn-purple{background:#a93aba;}
-.btn-purple.hover,
-.btn-purple:hover{background:#b352c3;}
+.btn-purple.hover:not([disabled]),
+.btn-purple:not([disabled]):hover{background:#b352c3;}
 .btn-purple.pressed,
 .btn-purple:focus{background:#9433a4;
 -webkit-box-shadow: inset 0 20px 0px -17px #65256f;
@@ -114,12 +114,7 @@ box-shadow: inset 0 20px 0px -17px #65256f;color:#fff;
 }
 
 
-.btn-blue.ghost:hover{color:#fff;}
-.btn-green1.ghost:hover{color:#fff;}
-.btn-green2.ghost:hover{color:#fff;}
-.btn-orange.ghost:hover{color:#fff;}
-.btn-scarlet.ghost:hover{color:#fff;}
-.btn-purple.ghost:hover{color:#fff;}
+.btn-blue.ghost:not([disabled]):hover, .btn-green1.ghost:not([disabled]):hover, .btn-green2.ghost:not([disabled]):hover, .btn-orange.ghost:not([disabled]):hover, .btn-scarlet.ghost:not([disabled]):hover, .btn-purple.ghost:not([disabled]):hover{color:#fff;}
 
 
 /*=========================== buttons sizes & variations =========================*/
