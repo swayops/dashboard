@@ -13,15 +13,10 @@ var webpack = require('webpack'),
 const ENV = process.env.ENV || 'dev';
 
 var cfg = {
-	devtool: 'eval',
+	//devtool: 'eval',
 
 	entry: {
-		'vendor': [
-			'es6-shim', 'reflect-metadata', 'zone.js/dist/zone', 'rxjs', '@angular/platform-browser',
-			'@angular/platform-browser-dynamic', '@angular/core', '@angular/common', '@angular/compiler',
-			'@angular/router', '@angular/http', '@angular/forms'
-		],
-		//'vendor': './app/vendor.ts',
+		'vendor': './app/vendor.ts',
 		'app': './app/main.ts'
 
 	},

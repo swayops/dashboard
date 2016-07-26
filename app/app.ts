@@ -1,53 +1,12 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig, Router, NavigationEnd, Event } from '@angular/router';
 
-import { AuthGuard, Sway } from './sway';
+import { Sway } from './sway';
 
-import { Four04Cmp } from './404';
-import { LoginCmp } from './login';
-import { SignUpCmp } from './signup';
-import { ForgotPasswordCmp } from './forgotPassword';
+import * as $ from 'jquery';
+import 'jqueryui';
 
-import { DashboardCmp } from './dashboard';
-import { MediaAgenciesCmp } from './mAgencies';
 
-export const ALL_ROUTES: RouterConfig = [
-	{
-		path: '',
-		redirectTo: '/dashboard',
-		pathMatch: 'full'
-	},
-	{
-		path: 'dashboard',
-		component: DashboardCmp,
-		canActivate: [AuthGuard]
-	},
-	{
-		path: 'mAgencies',
-		component: MediaAgenciesCmp,
-		canActivate: [AuthGuard]
-	},
-	{
-		path: 'login',
-		component: LoginCmp
-	},
-	{
-		path: 'signup',
-		component: SignUpCmp
-	},
-	{
-		path: 'forgotPassword',
-		component: ForgotPasswordCmp
-	},
-	{
-		path: 'resetPassword/:uuid',
-		component: ForgotPasswordCmp
-	},
-	{
-		path: '**',
-		component: Four04Cmp
-	}
-];
 
 @Component({
 	selector: 'sway-app',
@@ -56,23 +15,22 @@ export const ALL_ROUTES: RouterConfig = [
 
 export class AppComponent {
 	constructor(private api: Sway, private window: Window, router: Router) {
-		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt:Event) => {
-			this.updateTags();
-			this.reinitUI();
-		});
+		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
 	}
 
-
-	private updateTags() {
+	updateTags() {
 		var u = this.api.User,
 			w = this.window,
-			ic = w.Intercom;
+			agile = w['_agile'],
+			ic = w['Intercom'],
+			ga = w['ga'],
+			fbq = w['fbq'];
 
 
-		w._agile.track_page_view();
+		agile.track_page_view();
 
 		ic('reattach_activator');
-		if(u) {
+		if (u) {
 			ic('update', {
 				app_id: "gtphmh27",
 				name: u.name,
@@ -80,22 +38,21 @@ export class AppComponent {
 				created_at: u.createdAt * 1000 // go time is in seconds, js time is in ms, have to convert it.
 			});
 		} else {
-			ic('update', {app_id: "gtphmh27"});
+			ic('update', { app_id: "gtphmh27" });
 		}
 
-		w.ga('send', 'pageview');
-		w.fbq('track', 'PageView');
+		ga('send', 'pageview');
+		fbq('track', 'PageView');
 	}
 
-	private reinitUI() { // based on /static/js/swayops.js
-		var $ = jQuery;
+	reinitUI() { // based on /static/js/swayops.js
 		$(".ttip").tooltip();
 		$("#shareCodeSection").hide();
-		$("#saveGroupBut").click(function() {
+		$("#saveGroupBut").click(function () {
 			$("#shareCodeSection").show("slow");
 		});
 
-		$('.onoffswitch').click(function() {
+		$('.onoffswitch').click(function () {
 			var cls = $(this).attr("data-for");
 			if ($(this).find('input').is(":checked")) {
 				$('.' + cls).slideToggle();
@@ -112,7 +69,7 @@ export class AppComponent {
 			}
 		});
 
-		$('#slct_perks').click(function() {
+		$('#slct_perks').click(function () {
 			var cls = $(this).attr("data-for");
 			$('.' + cls).slideToggle();
 			if ($('#perks').prop('checked')) {
@@ -125,14 +82,71 @@ export class AppComponent {
 
 		});
 
-		$('.onoffswitch').each(function() {
+		$('.onoffswitch').each(function () {
 			var cls = $(this).attr("data-for");
 			if ($(this).find('input').attr('checked')) { }
 			else {
 				$('.' + cls).slideToggle();
 			}
 		});
+
+		$(".prog-bar div").each(function (index) {
+			$(this).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 100,
+				value: parseInt($(this).attr('data')) || 0
+			});
+		});
 	}
+
+	initIncrGroup() {
+		$(".increment-group").append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
+
+		$(".increment-group .button").on("click", function () {
+
+			var $button = $(this);
+			var oldValue = $button.parent().parent().find("input").val();
+
+			if ($button.text() == "+") {
+				var newVal = parseFloat(oldValue) + 1;
+			} else {
+				// Don't allow decrementing below zero
+				if (oldValue > 0) {
+					var newVal = parseFloat(oldValue) - 1;
+				} else {
+					newVal = 0;
+				}
+			}
+			$button.parent().parent().find("input").val(newVal);
+		});
+	};
+
+	initSliderRange() {
+		$(".slider-range").each(function (index) {
+			$(this).slider({
+				range: true,
+				min: parseInt($(this).attr('data-min')) || 0,
+				max: parseInt($(this).attr('data-max')) || 0,
+				values: [$(this).attr('data-start'), $(this).attr('data-end')].map(parseInt),
+				slide: function (event, ui) {
+					$(this).siblings().val(ui.values[0] + " - " + ui.values[1]);
+				}
+			});
+		});
+
+		$('.notification .fui-cross').click(function () {
+			$(this).parent().fadeOut(450);
+		});
+	}
+
+	reinitPageScripts() {
+		this.updateTags();
+		this.initIncrGroup();
+		this.initSliderRange
+		this.reinitUI();
+	}
+
 }
 
 interface Window {

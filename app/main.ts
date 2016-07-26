@@ -4,17 +4,63 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
 import { PLATFORM_DIRECTIVES, provide, enableProdMode } from '@angular/core';
 import { disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { ROUTER_DIRECTIVES, provideRouter, } from '@angular/router';
+import { ROUTER_DIRECTIVES, provideRouter, RouterConfig } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 
-import { ALL_ROUTES, AppComponent } from './app';
-import { Sway, AuthGuard } from './sway';
+import { AppComponent } from './app';
+import { AuthGuard, Sway } from './sway';
+
+import { Four04Cmp } from './404';
+import { LoginCmp } from './login';
+import { SignUpCmp } from './signup';
+import { ForgotPasswordCmp } from './forgotPassword';
+
+import { DashboardCmp } from './dashboard';
+import { MediaAgenciesCmp } from './mAgencies';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
 if (process.env.ENV === 'production') {
 	enableProdMode();
 }
+
+const ALL_ROUTES: RouterConfig = [
+	{
+		path: '',
+		redirectTo: '/dashboard',
+		pathMatch: 'full'
+	},
+	{
+		path: 'dashboard',
+		component: DashboardCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'mAgencies',
+		component: MediaAgenciesCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'login',
+		component: LoginCmp
+	},
+	{
+		path: 'signup',
+		component: SignUpCmp
+	},
+	{
+		path: 'forgotPassword',
+		component: ForgotPasswordCmp
+	},
+	{
+		path: 'resetPassword/:uuid',
+		component: ForgotPasswordCmp
+	},
+	{
+		path: '**',
+		component: Four04Cmp
+	}
+];
 
 bootstrap(AppComponent, [
 	disableDeprecatedForms(),
