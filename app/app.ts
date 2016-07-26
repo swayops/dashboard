@@ -88,6 +88,7 @@ export class AppComponent {
 	}
 
 	private reinitUI() { // based on /static/js/swayops.js
+		var $ = jQuery;
 		$(".ttip").tooltip();
 		$("#shareCodeSection").hide();
 		$("#saveGroupBut").click(function() {
