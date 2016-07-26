@@ -5,7 +5,7 @@ var webpack = require('webpack'),
 	CompressionPlugin = require("compression-webpack-plugin");
 
 // clean up old files
-['app.js', 'app.js.map', 'app.js.gz', 'vendor.js', 'vendor.js.map', 'vendor.js.gz'].forEach(function(fp) {
+['app.js', 'app.js.map', 'app.js.gz', 'app.js.map.gz', 'vendor.js', 'vendor.js.map', 'vendor.js.gz', 'vendor.js.map.gz'].forEach(function(fp) {
 	// eslint-disable-next-line
 	try { fs.unlinkSync('static/' + fp); } catch (e) { };
 });
