@@ -47,15 +47,17 @@ var cfg = {
 	},
 
 	plugins: [
+		new webpack.ProvidePlugin({
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
+		}),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				'ENV': JSON.stringify(ENV)
 			}
 		}),
-		new webpack.PrefetchPlugin('es6-shim', 'reflect-metadata', 'zone.js/dist/zone', 'rxjs',
-			'@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/core', '@angular/common',
-			'@angular/router', '@angular/http', '@angular/forms'),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({

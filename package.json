@@ -7,7 +7,7 @@
     "build": "webpack --progress",
     "build:w": "webpack --watch",
     "build:p": "ENV=production webpack --progress && rm -f static/vendor.js static/app.js static/vendor.js.map static/app.js.map",
-    "postinstall": "typings install && npm build",
+    "postinstall": "typings install && npm run build",
     "typings": "typings"
   },
   "license": "private",
