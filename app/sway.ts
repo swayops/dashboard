@@ -9,7 +9,7 @@ import { User } from './user';
 const apiURL = '/api/v1/';
 
 @Injectable()
-export class APIService {
+export class Sway {
 	private _user: User;
 	private _cuser: User;
 	private _status = 0;
@@ -57,8 +57,7 @@ export class APIService {
 	}
 
 	get IsLoggedIn() {
-		console.log(this._status);
-		if(this._status > 0) return Observable.of(this._status === 1)  //return this._status === 1;
+		if(this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
 				this._user = user;
@@ -69,7 +68,7 @@ export class APIService {
 				this._status = 2;
 				obs.next(false);
 			});
-			//return () => sub.unsubscribe();
+			return () => sub.unsubscribe();
 		}).take(1);
 	}
 
@@ -83,7 +82,7 @@ export class APIService {
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-	constructor(private router: Router, private api: APIService) {}
+	constructor(private router: Router, private api: Sway) {}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 		return this.api.IsLoggedIn.map(logged => {

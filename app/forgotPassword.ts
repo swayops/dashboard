@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APIService } from './api';
+import { Sway } from './sway';
 
 @Component({
 	selector: 'forgotPassword',
@@ -14,7 +14,7 @@ export class ForgotPasswordCmp {
 	private success = false;
 	private error: any;
 
-	constructor(private route: ActivatedRoute, private title: Title, private api: APIService) {
+	constructor(private route: ActivatedRoute, private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Forgot Password");
 	}
 

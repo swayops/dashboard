@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { APIService } from './api';
+import { Sway } from './sway';
 
 @Component({
 	selector: 'login',
@@ -13,7 +13,7 @@ export class LoginCmp {
 	private loading = false;
 	private error: any;
 
-	constructor(private title: Title, private api: APIService) {
+	constructor(private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Login");
 	}
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { provideRouter, RouterConfig, Router, NavigationStart, Event } from '@angular/router';
+import { provideRouter, RouterConfig, Router, NavigationEnd, Event } from '@angular/router';
 
-import { AuthGuard, APIService } from './api';
+import { AuthGuard, Sway } from './sway';
 
 import { Four04Cmp } from './404';
 import { LoginCmp } from './login';
@@ -55,11 +55,15 @@ export const ALL_ROUTES: RouterConfig = [
 })
 
 export class AppComponent {
-	constructor(private api: APIService, private window: Window, router: Router) {
-		router.events.filter(event => event instanceof NavigationStart).subscribe((evt:Event) => this.updateTags(evt));
+	constructor(private api: Sway, private window: Window, router: Router) {
+		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt:Event) => {
+			this.updateTags();
+			this.reinitUI();
+		});
 	}
 
-	private updateTags(evt: Event) {
+
+	private updateTags() {
 		var u = this.api.User,
 			w = this.window,
 			ic = w.Intercom;
@@ -82,8 +86,53 @@ export class AppComponent {
 		w.ga('send', 'pageview');
 		w.fbq('track', 'PageView');
 	}
-}
 
+	private reinitUI() { // based on /static/js/swayops.js
+		$(".ttip").tooltip();
+		$("#shareCodeSection").hide();
+		$("#saveGroupBut").click(function() {
+			$("#shareCodeSection").show("slow");
+		});
+
+		$('.onoffswitch').click(function() {
+			var cls = $(this).attr("data-for");
+			if ($(this).find('input').is(":checked")) {
+				$('.' + cls).slideToggle();
+			}
+			if (cls == 'toggle-perks') {
+				if ($('#perks').prop('checked')) {
+					$('#perk').prop('checked', true);
+					$('.perkLink').show();
+				} else {
+
+					$('#perk').prop('checked', false);
+					$('.perkLink').hide();
+				}
+			}
+		});
+
+		$('#slct_perks').click(function() {
+			var cls = $(this).attr("data-for");
+			$('.' + cls).slideToggle();
+			if ($('#perks').prop('checked')) {
+				$('#perks').prop('checked', false);
+				$('.perkLink').hide();
+			} else {
+				$('#perks').prop('checked', true);
+				$('.perkLink').show();
+			}
+
+		});
+
+		$('.onoffswitch').each(function() {
+			var cls = $(this).attr("data-for");
+			if ($(this).find('input').attr('checked')) { }
+			else {
+				$('.' + cls).slideToggle();
+			}
+		});
+	}
+}
 
 interface Window {
 	intercomSettings: any;
@@ -91,4 +140,5 @@ interface Window {
 	_agile: any;
 	ga: any;
 	fbq: any;
+	jQuery: any;
 }

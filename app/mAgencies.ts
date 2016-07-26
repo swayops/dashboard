@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { APIService } from './api';
+import { Sway } from './sway';
 
 import { pad } from './helpers';
 
@@ -12,7 +12,7 @@ import { pad } from './helpers';
 
 export class MediaAgenciesCmp {
 	private agencies;
-	constructor(private title: Title, private api: APIService) {
+	constructor(private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Manage Media Agencies");
 
 		api.Get('getAllAdAgencies', data => this.agencies = data, err => console.error(err));

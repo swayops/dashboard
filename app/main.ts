@@ -8,7 +8,7 @@ import { ROUTER_DIRECTIVES, provideRouter, } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 import { ALL_ROUTES, AppComponent } from './app';
-import { APIService, AuthGuard } from './api';
+import { Sway, AuthGuard } from './sway';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
@@ -28,6 +28,6 @@ bootstrap(AppComponent, [
 	provide(Window, { useValue: window }),
 	//provide(PLATFORM_DIRECTIVES, { useValue: REACTIVE_FORM_DIRECTIVES, multi: true }),
 	Title,
-	APIService,
+	Sway,
 	AuthGuard
 ]).catch((err: any) => console.error(err));
