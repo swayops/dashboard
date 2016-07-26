@@ -4,9 +4,6 @@ import { provideRouter, RouterConfig, Router, NavigationEnd, Event } from '@angu
 import { Sway } from './sway';
 
 import * as $ from 'jquery';
-import 'jqueryui';
-
-
 
 @Component({
 	selector: 'sway-app',
@@ -147,13 +144,4 @@ export class AppComponent {
 		this.reinitUI();
 	}
 
-}
-
-interface Window {
-	intercomSettings: any;
-	Intercom: any;
-	_agile: any;
-	ga: any;
-	fbq: any;
-	jQuery: any;
 }
