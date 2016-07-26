@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 
-import { pad } from './helpers';
+import * as U from './utils';
 
 @Component({
 	selector: 'media-agencies',
@@ -18,11 +18,15 @@ export class MediaAgenciesCmp {
 		api.Get('getAllAdAgencies', data => this.agencies = data, err => console.error(err));
 	}
 
-	getDate(ts) {
-		let d = new Date(ts * 1000),
-			year = d.getFullYear(),
-			month = pad(1 + d.getMonth()),
-			day = pad(d.getDate());
-		return year + '-' + month + '-' + day;
+	Edit(uid: string) {
+		console.warn('n/a');
+	}
+
+	Delete(uid: string) {
+		console.warn('n/a');
+	}
+
+	get TsToDate() {
+		return U.TsToDate;
 	}
 }

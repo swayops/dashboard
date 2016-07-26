@@ -3,6 +3,6 @@
 		"es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
 		"jquery": "registry:dt/jquery#1.10.0+20160704162008",
 		"jqueryui": "registry:dt/jqueryui#1.11.0+20160725073107",
-		"node": "registry:dt/node#6.0.0+20160709114037"
+		"node": "registry:dt/node#6.0.0+20160720070758"
 	}
 }
