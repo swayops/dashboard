@@ -95,6 +95,12 @@ export class AppComponent {
 				value: parseInt($(this).attr('data')) || 0
 			});
 		});
+
+		$('[noscroll]').on('scroll touchmove mousewheel', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		});
 	}
 
 	initIncrGroup() {

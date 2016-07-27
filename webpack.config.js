@@ -72,7 +72,7 @@ var cfg = {
 };
 
 if (isProd) {
-	cfg.devtool = 'cheap-source-map';
+	cfg.devtool = 'source-map';
 	cfg.plugins.push(
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
