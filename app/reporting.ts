@@ -24,8 +24,6 @@ export class ReportingCmp {
 			console.error('bad id', id);
 			return;
 		}
-		console.log(id)
-		//this.api.Get('getAdvertisersByAgency/' + id, data => this.advertisers = data, err => console.error(err));
 	}
 
 	ngOnInit() {
