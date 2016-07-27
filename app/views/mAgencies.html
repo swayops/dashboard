@@ -29,7 +29,7 @@
 									<td>{{ag.id}}</td>
 									<td>{{ag.subCount}}</td>
 									<td>{{ag.email}}</td>
-									<td>{{TsToDate(ag.createdAt)}}</td>
+									<td>{{ag.createdAt * 1000 | date}}</td>
 									<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost" [disabled]="ag.id < 4" (click)=Delete(ag.id)>X</button></td>
 								</tr>
 							</tbody>

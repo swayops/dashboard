@@ -23,10 +23,7 @@ export class AdvertisersCmp {
 			console.error('bad id', id);
 			return;
 		}
-		this.api.Get('getAdvertisersByAgency/' + id, data => {
-			console.log(id, data)
-			this.advertisers = data;
-		}, err => console.error(err));
+		this.api.Get('getAdvertisersByAgency/' + id, data => this.advertisers = data, err => console.error(err));
 	}
 
 	Edit(uid: string) {
@@ -38,8 +35,4 @@ export class AdvertisersCmp {
 	}
 
 	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
-
-	get TsToDate() {
-		return U.TsToDate;
-	}
 }

@@ -6,14 +6,6 @@ export function Pad(n) {
 	return '' + n;
 }
 
-export function TsToDate(ts: number) {
-	let d = new Date(ts * 1000),
-		year = d.getFullYear(),
-		month = Pad(1 + d.getMonth()),
-		day = Pad(d.getDate());
-	return year + '-' + month + '-' + day;
-}
-
 export function IsEmpty(obj: any): boolean {
 	if (obj == null) return true;
 	if (typeof obj === 'number') return false;

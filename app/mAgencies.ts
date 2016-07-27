@@ -29,8 +29,4 @@ export class MediaAgenciesCmp {
 	}
 
 	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
-
-	get TsToDate() {
-		return U.TsToDate;
-	}
 }
