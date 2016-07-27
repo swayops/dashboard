@@ -31,5 +31,8 @@ export class FilterArrayPipe implements PipeTransform {
 }
 
 export function FilterByNameOrID(kw: string, it: any): boolean {
-	return kw.length === 0 || it.id.indexOf(kw) > -1 || it.name.indexOf(kw) > -1
+	if(kw.length === 0) return true;
+	kw = kw.toLowerCase();
+	if(it.id.indexOf(kw) > -1) return true;
+	return it.name.toLowerCase().indexOf(kw.toLowerCase()) > -1;
 }
