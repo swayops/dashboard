@@ -1,0 +1,66 @@
+<user-header></user-header>
+<left-nav></left-nav>
+<div class="block-section" id="page-content">
+	<div class="grid-85 mobile-grid-100 grid-parent">
+		<!--this is to do the homepage graph for reporting-->
+		<!--{{> inc/reportingInitAndSampleData}}-->
+		<div class="content-holder center-widget">
+			<div class="grid-100 grid-parent">
+				<h2 class="heading">Download detailed reports:</h2>
+				<br>
+				<p>
+					Download a report from {from date} to {to date} for: {CampaignName dropdown}
+					<a class="btn btn-green1 ghost">Download</a>
+				</p>
+				<br>
+				<h2 class="heading">Engagements:</h2>
+				<p align="center">Show: <a href="#">ALL</a> - <a href="#">Views</a> - <a href="#">Likes</a> - <a href="#">Comments</a> - <a href="#">Shares</a>					- <a href="#">Link Clicks</a> - <a href="#">@Mentions</a> - <a href="#">#Hashtag Boosts</a></p>
+				<div id="chartdiv"></div>
+
+				<br/><br>
+				<h2 class="heading">Quick stats for the last 7 days:</h2>
+
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Est Views</div>
+					<p>188,929</p>
+					<span>Week before: 182,000</span>
+				</div>
+
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Engagement Count</div>
+					<p>1234</p>
+					<span>Week before: 1,000</span>
+				</div>
+
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Influencers Utilized</div>
+					<p>1234</p>
+					<span>Week before: 1,000</span>
+				</div>
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Spent</div>
+					<p>$1234</p>
+					<span>Week before: $1,000</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Perks Sent</div>
+					<p>0</p>
+					<span>Week before: 23</span>
+				</div>
+				<div class="grid-23 mobile-grid-100 grid-parent statTile">
+					<div class="statTileHeader">
+						<div class="statTileCircleGreen"></div> Network Split</div>
+					<div id="chartdiv2"></div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+</div>
+<user-footer></user-footer>

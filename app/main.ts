@@ -16,6 +16,7 @@ import { ForgotPasswordCmp } from './forgotPassword';
 import { DashboardCmp } from './dashboard';
 import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
+import { ReportingCmp } from './reporting';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
@@ -44,6 +45,11 @@ const ALL_ROUTES: RouterConfig = [
 	{
 		path: 'mAdvertisers/:id',
 		component: AdvertisersCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'reporting/:id',
+		component: ReportingCmp,
 		canActivate: [AuthGuard]
 	},
 	{
