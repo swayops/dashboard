@@ -29,8 +29,10 @@ export class ReportingCmp {
 	}
 
 	ngOnInit() {
-		initChartData();
-		initChartData2();
+		try {
+			initChartData();
+			initChartData2();
+		} catch(e) { console.error(e); };
 	}
 
 	Edit(uid: string) {
