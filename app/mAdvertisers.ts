@@ -8,7 +8,8 @@ import * as U from './utils';
 
 @Component({
 	selector: 'advertisers',
-	template: require('./views/mAdvertisers.html')
+	template: require('./views/mAdvertisers.html'),
+	pipes: [ U.FilterArrayPipe ]
 })
 
 export class AdvertisersCmp implements OnInit {
