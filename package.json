@@ -23,20 +23,16 @@
     "angular2-template-loader": "^0.4.0",
     "bootstrap": "^3.3.6",
     "compression-webpack-plugin": "^0.3.1",
-    "concurrently": "^2.0.0",
     "core-js": "^2.4.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.22.0",
     "jquery": "^2.2.4",
     "jqueryui": "^1.11.1",
     "raw-loader": "^0.5.1",
     "rxjs": "5.0.0-beta.6",
     "text-loader": "0.0.1",
     "ts-loader": "^0.8.2",
-    "typescript": "^1.8.10",
+    "typescript": "^2.0.0",
     "typings": "^1.0.4",
-    "webpack": "^1.13.1",
+    "webpack": "^2.1.0-beta.20",
     "zone.js": "^0.6.12"
   }
 }

@@ -9,8 +9,6 @@ import 'core-js/fn/array/includes';
 import 'core-js/fn/object/assign';
 import 'zone.js/dist/zone';
 
-/// <reference path="../typings/index.d.ts" />
-
 // Angular
 import '@angular/common';
 import '@angular/core';

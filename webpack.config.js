@@ -10,7 +10,7 @@ var webpack = require('webpack'),
 	try { fs.unlinkSync('static/' + fp); } catch (e) { };
 });
 
-const ENV = process.env.ENV || 'dev';
+const isProd = process.env.ENV === 'production';
 
 var cfg = {
 	devtool: 'eval',
@@ -27,21 +27,29 @@ var cfg = {
 	},
 
 	resolve: {
-		root: [path.join(__dirname, 'app'), path.join(__dirname, 'node_modules')],
+		extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
 		moduleDirectories: [path.join(__dirname, 'node_modules')],
-		extensions: ['', '.js', '.ts']
+		root: [path.join(__dirname, 'app')],
+	},
+	resolveLoader: {
+		root: path.join(__dirname, 'node_modules')
 	},
 
 	module: {
 		loaders: [
+			// {
+			// 	test: /\.js$/,
+			// 	loader: 'awesome-typescript-loader?doTypeCheck=false&useWebpackText=true',
+			// 	exclude: 'node_modules'
+			// },
 			{
 				test: /\.ts$/,
-				loaders: ['ts', 'angular2-template-loader']
+				loaders: ['ts-loader', 'angular2-template-loader'],
+				exclude: [/node_modules/, /\.(spec|e2e|d)\.ts$/]
 			},
 			{
 				test: /\.html$/,
-				loader: 'raw-loader',
-				//exclude: root('.'),
+				loader: 'raw-loader'
 			},
 		]
 	},
@@ -54,12 +62,10 @@ var cfg = {
 		}),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
-			'process.env': {
-				'ENV': JSON.stringify(ENV)
-			}
+			'PRODUCTION': isProd
 		}),
 		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurenceOrderPlugin(),
+		//new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			minChunks: Infinity,
@@ -67,7 +73,7 @@ var cfg = {
 	]
 };
 
-if (ENV === 'production') {
+if (isProd) {
 	cfg.devtool = 'cheap-source-map';
 	cfg.plugins.push(
 		new webpack.optimize.UglifyJsPlugin({
@@ -89,7 +95,7 @@ if (ENV === 'production') {
 
 		new CompressionPlugin({
 			asset: "[path].gz[query]",
-			algorithm: "gzip",
+			algorithm: "zopfli",
 			test: /\.js$|\.map$/,
 			threshold: 4096,
 			minRatio: 0.8
@@ -98,5 +104,3 @@ if (ENV === 'production') {
 }
 
 module.exports = cfg;
-
-console.log('Build ENV:', ENV);

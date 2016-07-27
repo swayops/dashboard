@@ -3,11 +3,15 @@
 		"target": "es5",
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"sourceMap": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"removeComments": true,
-		"noImplicitAny": false
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"pretty": true
 	},
-	"files": [ "app/main.ts" ]
+	"files": [
+		"typings/index.d.ts",
+		"app/main.ts"
+	]
 }

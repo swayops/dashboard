@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
 import { PLATFORM_DIRECTIVES, provide, enableProdMode } from '@angular/core';
@@ -21,7 +19,9 @@ import { AdvertisersCmp } from './mAdvertisers';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
-if (process.env.ENV === 'production') {
+declare var PRODUCTION: boolean;
+
+if (PRODUCTION) {
 	enableProdMode();
 }
 
@@ -83,3 +83,4 @@ bootstrap(AppComponent, [
 	Sway,
 	AuthGuard
 ]).catch((err: any) => console.error(err));
+

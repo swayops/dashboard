@@ -49,7 +49,7 @@ export class AppComponent {
 			$("#shareCodeSection").show("slow");
 		});
 
-		$('.onoffswitch').click(function () {
+		$('.onoffswitch').click(function (this: {}) {
 			var cls = $(this).attr("data-for");
 			if ($(this).find('input').is(":checked")) {
 				$('.' + cls).slideToggle();
@@ -66,7 +66,7 @@ export class AppComponent {
 			}
 		});
 
-		$('#slct_perks').click(function () {
+		$('#slct_perks').click(function (this: {}) {
 			var cls = $(this).attr("data-for");
 			$('.' + cls).slideToggle();
 			if ($('#perks').prop('checked')) {
@@ -79,7 +79,7 @@ export class AppComponent {
 
 		});
 
-		$('.onoffswitch').each(function () {
+		$('.onoffswitch').each(function (this: {}) {
 			var cls = $(this).attr("data-for");
 			if ($(this).find('input').attr('checked')) { }
 			else {
@@ -87,7 +87,7 @@ export class AppComponent {
 			}
 		});
 
-		$(".prog-bar div").each(function (index) {
+		$(".prog-bar div").each(function (this:{}, index: number) {
 			$(this).slider({
 				orientation: "horizontal",
 				range: "min",
@@ -100,7 +100,7 @@ export class AppComponent {
 	initIncrGroup() {
 		$(".increment-group").append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
 
-		$(".increment-group .button").on("click", function () {
+		$(".increment-group .button").on("click", function (this: {}) {
 
 			var $button = $(this);
 			var oldValue = $button.parent().parent().find("input").val();
@@ -120,19 +120,19 @@ export class AppComponent {
 	};
 
 	initSliderRange() {
-		$(".slider-range").each(function (index) {
+		$(".slider-range").each(function (this: {}, index: number) {
 			$(this).slider({
 				range: true,
 				min: parseInt($(this).attr('data-min')) || 0,
 				max: parseInt($(this).attr('data-max')) || 0,
 				values: [$(this).attr('data-start'), $(this).attr('data-end')].map(parseInt),
-				slide: function (event, ui) {
+				slide: function (this: {}, event, ui) {
 					$(this).siblings().val(ui.values[0] + " - " + ui.values[1]);
 				}
 			});
 		});
 
-		$('.notification .fui-cross').click(function () {
+		$('.notification .fui-cross').click(function (this: {}) {
 			$(this).parent().fadeOut(450);
 		});
 	}
