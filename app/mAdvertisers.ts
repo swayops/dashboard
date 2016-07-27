@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -12,17 +12,21 @@ import * as U from './utils';
 	pipes: [ U.FilterArrayPipe ]
 })
 
-export class AdvertisersCmp implements OnInit {
+export class AdvertisersCmp {
 	private advertisers;
 	@Input() kw;
-	constructor(private title: Title, private api: Sway, private route: ActivatedRoute) {
-		title.setTitle("Sway :: Manage Advertisers");
-	}
 
-	ngOnInit() {
-		var id = this.route.snapshot.params['id'];
-		if(!id) return console.error('bad id', id);
-		this.api.Get('getAdvertisersByAgency/' + id, data => U.IsEmpty(data) ? data : [], err => console.error(err));
+	constructor(private title: Title, private api: Sway, route: ActivatedRoute) {
+		title.setTitle("Sway :: Manage Advertisers");
+		var id = route.snapshot.params['id'];
+		if(!id) {
+			console.error('bad id', id);
+			return;
+		}
+		this.api.Get('getAdvertisersByAgency/' + id, data => {
+			console.log(id, data)
+			this.advertisers = data;
+		}, err => console.error(err));
 	}
 
 	Edit(uid: string) {

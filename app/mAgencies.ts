@@ -13,10 +13,10 @@ import * as U from './utils';
 
 export class MediaAgenciesCmp {
 	private agencies;
-	@Input() kw = '';
+	@Input() kw;
+
 	constructor(private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Manage Media Agencies");
-
 		api.Get('getAllAdAgencies', data => this.agencies = data, err => console.error(err));
 	}
 

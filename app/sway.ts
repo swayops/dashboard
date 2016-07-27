@@ -30,7 +30,7 @@ export class Sway {
 	}
 
 	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void) {
-		return this.Post('signUp', info, data => this.router.navigate(['/dashboard']), onError);
+		return this.Post('signUp?autologin=true', info, data => this.router.navigate(['/dashboard']), onError);
 	}
 
 	ForgotPassword(data: any, onSuccess?: (data: any) => void, onError?: (err: any) => void) {

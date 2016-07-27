@@ -24,14 +24,14 @@ export function IsEmpty(obj: any): boolean {
 @Pipe({ name: 'filter' })
 export class FilterArrayPipe implements PipeTransform {
 	transform(arr, fn) {
-		if(!Array.isArray(arr)) return arr;
+		if(!Array.isArray(arr)) return [];
 		if(typeof fn !== 'function') return console.error('must pass a function');
 		return arr.filter(it => fn(it));
 	}
 }
 
-export function FilterByNameOrID(kw: string, it: any): boolean {
-	if(kw.length === 0) return true;
+export function FilterByNameOrID(kw: string | null, it: {id: string, name: string}): boolean {
+	if(!kw || !it) return true;
 	kw = kw.toLowerCase();
 	if(it.id.indexOf(kw) > -1) return true;
 	return it.name.toLowerCase().indexOf(kw.toLowerCase()) > -1;

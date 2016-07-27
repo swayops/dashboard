@@ -64,8 +64,6 @@ var cfg = {
 		new webpack.DefinePlugin({
 			'PRODUCTION': isProd
 		}),
-		new webpack.optimize.DedupePlugin(),
-		//new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			minChunks: Infinity,
@@ -76,6 +74,7 @@ var cfg = {
 if (isProd) {
 	cfg.devtool = 'cheap-source-map';
 	cfg.plugins.push(
+		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				dead_code: true,
