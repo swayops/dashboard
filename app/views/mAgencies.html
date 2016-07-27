@@ -8,7 +8,7 @@
 					<h2 class="heading">Manage Media Agencies</h2>
 					<a class="btn btn-green1 btn-micro">Create +</a>
 					<form style="width:250px; float:right;">
-						<input class="form-control input-sm" type="text" placeholder="Search this table...">
+						<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
 					</form>
 					<br/><br/>
 					<form id="create_campaign_form">
@@ -24,7 +24,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let ag of agencies">
+								<tr *ngFor="let ag of agencies | filter:FilterUsers">
 									<td class="align-left"><a [routerLink]="['/mAdvertisers', ag.id]">{{ag.name}}</a></td>
 									<td>{{ag.id}}</td>
 									<td>{{ag.subCount}}</td>

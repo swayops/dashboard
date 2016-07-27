@@ -13,7 +13,7 @@ var webpack = require('webpack'),
 const ENV = process.env.ENV || 'dev';
 
 var cfg = {
-	//devtool: 'eval',
+	devtool: 'eval',
 
 	entry: {
 		'vendor': './app/vendor.ts',
@@ -68,7 +68,7 @@ var cfg = {
 };
 
 if (ENV === 'production') {
-	cfg.devtool = 'source-map';
+	cfg.devtool = 'cheap-source-map';
 	cfg.plugins.push(
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {

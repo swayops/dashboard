@@ -7,11 +7,13 @@ import * as U from './utils';
 
 @Component({
 	selector: 'media-agencies',
-	template: require('./views/mAgencies.html')
+	template: require('./views/mAgencies.html'),
+	pipes: [ U.FilterArrayPipe ]
 })
 
 export class MediaAgenciesCmp {
 	private agencies;
+	@Input() kw = '';
 	constructor(private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Manage Media Agencies");
 
@@ -25,6 +27,8 @@ export class MediaAgenciesCmp {
 	Delete(uid: string) {
 		console.warn('n/a');
 	}
+
+	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
 
 	get TsToDate() {
 		return U.TsToDate;

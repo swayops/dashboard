@@ -8,7 +8,7 @@
 					<h2 class="heading">Manage Advertisers</h2>
 					<a class="btn btn-green1 btn-micro">Create +</a>
 					<form style="width:250px; float:right;">
-						<input class="form-control input-sm" type="text" placeholder="Search this table...">
+						<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
 					</form>
 
 					<br/><br/>
@@ -25,13 +25,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let adv of advertisers">
-									<td class="align-left"><a href="#">{{adv.name}}</a></td>
+								<tr *ngFor="let adv of advertisers | filter:FilterUsers">
+									<td class="align-left"><a [routerLink]="['/mAdvertiser', adv.id]">{{adv.name}}</a></td>
 									<td>{{adv.id}}</td>
 									<td>{{adv.numCmps</td>
 									<td>{{adv.email}}</td>
 									<td>{{adv.createdAt}}</td>
-									<td><a class="btn btn-info btn-micro ghost">Edit</a> | <a class="btn btn-scarlet btn-micro ghost">X</a></td>
+									<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost" [disabled]="ag.id < 4" (click)=Delete(ag.id)>X</button></td>
 								</tr>
 							</tbody>
 						</table>

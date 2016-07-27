@@ -13,6 +13,7 @@ import * as U from './utils';
 
 export class AdvertisersCmp implements OnInit {
 	private advertisers;
+	@Input() kw;
 	constructor(private title: Title, private api: Sway, private route: ActivatedRoute) {
 		title.setTitle("Sway :: Manage Advertisers");
 	}
@@ -20,7 +21,7 @@ export class AdvertisersCmp implements OnInit {
 	ngOnInit() {
 		var id = this.route.snapshot.params['id'];
 		if(!id) return console.error('bad id', id);
-		this.api.Get('getAdvertisersByAgency/' + id, data => this.advertisers = data || [], err => console.error(err));
+		this.api.Get('getAdvertisersByAgency/' + id, data => U.IsEmpty(data) ? data : [], err => console.error(err));
 	}
 
 	Edit(uid: string) {
@@ -30,6 +31,8 @@ export class AdvertisersCmp implements OnInit {
 	Delete(uid: string) {
 		console.warn('n/a');
 	}
+
+	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
 
 	get TsToDate() {
 		return U.TsToDate;
