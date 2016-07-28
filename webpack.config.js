@@ -5,51 +5,62 @@ var webpack = require('webpack'),
 	CompressionPlugin = require("compression-webpack-plugin");
 
 // clean up old files
-['app.js', 'app.js.map', 'app.js.gz', 'app.js.map.gz', 'vendor.js', 'vendor.js.map', 'vendor.js.gz', 'vendor.js.map.gz'].forEach(function(fp) {
-	// eslint-disable-next-line
-	try { fs.unlinkSync('static/' + fp); } catch (e) { };
+['app.js', 'vendor.js'].forEach(function(fp) {
+	[fp, fp + '.gz', fp + '.map', fp + '.map.gz'].forEach(fp => {
+		// eslint-disable-next-line
+		try { fs.unlinkSync('static/' + fp); } catch (e) { };
+	})
 });
 
 const isProd = process.env.ENV === 'production';
 
+function aliasify(o) {
+	for (var name in o) {
+		var fp = o[name];
+		o[name] = path.join(__dirname, 'node_modules', name, fp + '.min.js')
+	}
+	return o;
+}
 var cfg = {
 	devtool: 'eval',
 
 	entry: {
 		'vendor': './app/vendor.ts',
 		'app': './app/main.ts'
-
 	},
 
 	output: {
-		filename: 'static/[name].js',
+		path: __dirname + '/static/',
+		filename: '[name].js',
 		chunkFilename: 'static/[name].js'
 	},
 
 	resolve: {
-		extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
-		moduleDirectories: [path.join(__dirname, 'node_modules')],
-		root: [path.join(__dirname, 'app')],
-	},
-	resolveLoader: {
-		root: path.join(__dirname, 'node_modules')
+		extensions: ['', '.ts', '.js', '.json'],
+		root: __dirname,
+		alias: aliasify({
+			'jquery': 'dist/jquery',
+			'@angular/common': 'bundles/common.umd',
+			'@angular/compiler': 'bundles/compiler.umd',
+			'@angular/core': 'bundles/core.umd',
+			'@angular/forms': 'bundles/forms.umd',
+			'@angular/http': 'bundles/http.umd',
+			'@angular/platform-browser-dynamic': 'bundles/platform-browser-dynamic.umd',
+			'@angular/platform-browser': 'bundles/platform-browser.umd',
+			'@angular/router': 'bundles/router.umd',
+		})
 	},
 
 	module: {
 		loaders: [
-			// {
-			// 	test: /\.js$/,
-			// 	loader: 'awesome-typescript-loader?doTypeCheck=false&useWebpackText=true',
-			// 	exclude: 'node_modules'
-			// },
 			{
 				test: /\.ts$/,
 				loaders: ['ts-loader', 'angular2-template-loader'],
 				exclude: [/node_modules/, /\.(spec|e2e|d)\.ts$/]
 			},
 			{
-				test: /\.html$/,
-				loader: 'raw-loader'
+				test: /\.(html|json|css)$/,
+				loader: 'raw'
 			},
 		]
 	},
@@ -58,42 +69,42 @@ var cfg = {
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
+			"window.$": "jquery",
 			"window.jQuery": "jquery"
 		}),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'PRODUCTION': isProd
 		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-			minChunks: Infinity,
-		}),
+		new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
 	]
 };
 
 if (isProd) {
 	cfg.devtool = 'source-map';
 	cfg.plugins.push(
+		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
+			mangle: true,
+			minimize: true,
 			compress: {
-				dead_code: true,
-				evaluate: true,
-				loops: true,
-				unused: true,
+				angular: true,
 				warnings: false,
-				sequences: true,
-				conditionals: true,
-				booleans: true,
-				if_return: true,
-				join_vars: true,
+				pure_getters: true,
+				screw_ie8: true,
+				unsafe: true,
 				passes: 2
 			},
-			'screw-ie8': true,
+			output: {
+				comments: false
+			},
+			beautify: false,
+			sourceMap: true,
 		}),
 
 		new CompressionPlugin({
-			asset: "[path].gz[query]",
+			asset: "[path].min.gz[query]",
 			algorithm: "zopfli",
 			test: /\.js$|\.map$/,
 			threshold: 4096,

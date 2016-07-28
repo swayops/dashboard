@@ -1,14 +1,15 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "commonjs",
+		"module": "es6",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"removeComments": true,
 		"noImplicitAny": false,
 		"noImplicitThis": true,
-		"pretty": true
+		"pretty": true,
+		"allowSyntheticDefaultImports": true
 	},
 	"files": [
 		"typings/index.d.ts",
