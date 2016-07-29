@@ -37,12 +37,19 @@ export class Sway {
 		return this.req('post', 'forgotPassword', data).subscribe(onSuccess, onError);
 	}
 
-	Get(ep: string, onResp: (data: any) => void, onErr: (err: any) => void) {
-		return this.req('get', ep).subscribe(data => onResp(data), err => onErr(err));
+	Get(ep: string, onResp: (data: any) => void, onErr?: (err: any) => void) {
+		return this.req('get', ep).subscribe(data => onResp(data), err => onErr? onErr(err) : console.error(err));
 	}
 
 	Post(ep: string, payload: any, onResp: (data: any) => void, onErr: (err: any) => void) {
 		return this.req('post', ep, payload).subscribe(data => onResp(data), err => onErr(err));
+	}
+
+	Logout() {
+		return this.Get('signOut', (data: any) => {
+			this._user = null;
+			this.router.navigate(['/login']); // should say something maybe?
+		});
 	}
 
 	private req(method: string, ep: string, body?: any): Observable<any> {
@@ -59,7 +66,6 @@ export class Sway {
 	get IsLoggedIn() {
 		if(this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
-			console.error("x")
 			let sub = this.Get('user', user => {
 				this._user = user;
 				this._status = 1;

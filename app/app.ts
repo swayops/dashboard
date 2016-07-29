@@ -7,7 +7,19 @@ import * as $ from 'jquery';
 
 @Component({
 	selector: 'sway-app',
-	template: `<router-outlet></router-outlet>`
+	template: `
+<div class="grid-container page">
+	<user-header *ngIf="user"></user-header>
+	<div class="block-section" id="page-content">
+		<div class="grid-100 grid-parent">
+			<left-nav *ngIf="user"></left-nav>
+			<router-outlet></router-outlet>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<user-footer *ngIf="user"></user-footer>
+</div>
+`
 })
 
 export class AppComponent {
@@ -15,6 +27,7 @@ export class AppComponent {
 		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
 	}
 
+	get user() { return this.api.CurrentUser || {}; }
 	updateTags() {
 		var u = this.api.User,
 			w = window,
@@ -43,6 +56,7 @@ export class AppComponent {
 	}
 
 	reinitUI() { // based on /static/js/swayops.js
+		$("div[role=tooltip]").remove(); // workaround logout tooltip bug
 		$(".ttip").tooltip();
 		$("#shareCodeSection").hide();
 		$("#saveGroupBut").click(function () {
