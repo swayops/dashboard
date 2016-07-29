@@ -16,7 +16,7 @@ export class SignUpCmp {
 	private error: any;
 
 	constructor(private title: Title, private api: Sway) {
-		title.setTitle("Sway :: Sign Up");
+		title.setTitle("Sway :: Sign Upx");
 	}
 
 	SignUp() {
@@ -24,4 +24,3 @@ export class SignUpCmp {
 		this.api.SignUpAdvertiser(this.form, err => this.error = err);
 	}
 }
-

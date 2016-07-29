@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 
 import { User } from './user';
 
@@ -59,6 +59,7 @@ export class Sway {
 	get IsLoggedIn() {
 		if(this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
+			console.error("x")
 			let sub = this.Get('user', user => {
 				this._user = user;
 				this._status = 1;

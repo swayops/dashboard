@@ -17,6 +17,7 @@ import { DashboardCmp } from './dashboard';
 import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
 import { ReportingCmp } from './reporting';
+import { TalentAgenciesCmp } from './mTalentAgencies';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
@@ -50,6 +51,11 @@ const ALL_ROUTES: RouterConfig = [
 	{
 		path: 'reporting/:id',
 		component: ReportingCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'mTalentAgencies',
+		component: TalentAgenciesCmp,
 		canActivate: [AuthGuard]
 	},
 	{

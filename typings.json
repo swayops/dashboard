@@ -3,7 +3,6 @@
 		"bootstrap": "registry:dt/bootstrap#3.3.5+20160619023404",
 		"core-js": "registry:dt/core-js#0.0.0+20160602141332",
 		"jquery": "registry:dt/jquery#1.10.0+20160704162008",
-		"jqueryui": "registry:dt/jqueryui#1.11.0+20160725073107",
-		"require": "registry:dt/require#2.1.20+20160316155526"
+		"jqueryui": "registry:dt/jqueryui#1.11.0+20160725073107"
 	}
 }

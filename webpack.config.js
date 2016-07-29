@@ -21,11 +21,12 @@ function aliasify(o) {
 	}
 	return o;
 }
+
 var cfg = {
 	devtool: 'eval',
-
+	debug: true,
 	entry: {
-		'vendor': './app/vendor.ts',
+		'vendor': ['babel-polyfill', './app/vendor.ts'],
 		'app': './app/main.ts'
 	},
 
@@ -55,8 +56,7 @@ var cfg = {
 		loaders: [
 			{
 				test: /\.ts$/,
-				loaders: ['ts-loader', 'angular2-template-loader'],
-				exclude: [/node_modules/, /\.(spec|e2e|d)\.ts$/]
+				loaders: ['awesome-typescript', 'angular2-template']
 			},
 			{
 				test: /\.(html|json|css)$/,
@@ -66,18 +66,25 @@ var cfg = {
 	},
 
 	plugins: [
+		new webpack.NoErrorsPlugin(),
+		new webpack.LoaderOptionsPlugin({
+			minimize: true,
+			debug: true,
+		}),
+
 		new webpack.ProvidePlugin({
 			$: "jquery",
-			jQuery: "jquery",
-			"window.$": "jquery",
-			"window.jQuery": "jquery"
+			jQuery: "jquery"
 		}),
-		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'PRODUCTION': isProd
 		}),
-		new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-	]
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['app', 'vendor'],
+			minChunks: Infinity
+		}),
+	],
+	noParse: [/@angular/]
 };
 
 if (isProd) {
@@ -86,23 +93,16 @@ if (isProd) {
 		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
-			mangle: true,
-			minimize: true,
-			compress: {
-				angular: true,
-				warnings: false,
-				pure_getters: true,
-				screw_ie8: true,
-				unsafe: true,
-				passes: 2
-			},
+			compressor: { screw_ie8: true, keep_fnames: true, warnings: false },
+			mangle: { screw_ie8: true, keep_fnames: true },
 			output: {
 				comments: false
 			},
 			beautify: false,
+			exclude: [ /\.min\.js$/g ],
 			sourceMap: true,
 		}),
-
+		new webpack.optimize.AggressiveMergingPlugin(),
 		new CompressionPlugin({
 			asset: "[path].min.gz[query]",
 			algorithm: "zopfli",

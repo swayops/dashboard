@@ -11,13 +11,13 @@ import * as $ from 'jquery';
 })
 
 export class AppComponent {
-	constructor(private api: Sway, private window: Window, router: Router) {
+	constructor(private api: Sway, router: Router) {
 		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
 	}
 
 	updateTags() {
 		var u = this.api.User,
-			w = this.window,
+			w = window,
 			agile = w['_agile'],
 			ic = w['Intercom'],
 			ga = w['ga'],
