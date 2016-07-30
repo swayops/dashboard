@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { provideRouter, RouterConfig, Router, NavigationEnd, Event } from '@angular/router';
+import { provideRouter, RouterConfig, Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
 
 import { Sway, HasAPI } from './sway';
 
@@ -7,24 +7,13 @@ import * as $ from 'jquery';
 
 @Component({
 	selector: 'sway-app',
-	template: `
-<div class="grid-container page">
-	<user-header></user-header>
-	<div class="block-section" id="page-content">
-		<div class="grid-100 grid-parent">
-			<left-nav></left-nav>
-			<router-outlet></router-outlet>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<user-footer></user-footer>
-</div>
-`
+	template: require('./views/app.html')
 })
 
 export class AppComponent extends HasAPI {
 	constructor(api: Sway, router: Router) {
 		super(api);
+		router.events.filter(event => event instanceof NavigationStart).subscribe((evt: Event) => this.SetError(null) );
 		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
 	}
 
@@ -156,6 +145,7 @@ export class AppComponent extends HasAPI {
 	}
 
 	reinitPageScripts() {
+		this.api.error = null;
 		this.updateTags();
 		this.initIncrGroup();
 		this.initSliderRange

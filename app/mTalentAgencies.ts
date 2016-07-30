@@ -15,6 +15,5 @@ import * as U from './utils';
 export class TalentAgenciesCmp  extends ManageBase {
 	constructor(title: Title, api: Sway) {
 		super('getAllTalentAgencies', 'Talent Agencies', title, api);
-		title.setTitle("Sway :: Manage Talent Agencies");
 	}
 }

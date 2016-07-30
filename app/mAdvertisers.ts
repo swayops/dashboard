@@ -16,6 +16,6 @@ import * as U from './utils';
 export class AdvertisersCmp extends ManageBase {
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		var id = route.snapshot.params['id'];
-		super('getAdvertisersByAgency/' + id, 'Manage Advertisers', title, api);
+		super('getAdvertisersByAgency/' + id, 'Advertisers', title, api);
 	}
 }

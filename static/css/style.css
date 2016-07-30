@@ -1866,3 +1866,7 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
     max-height:25px;
     width:80%;
 }
+
+.hidden {
+	display: none;
+}

@@ -1,22 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
+import { Sway, HasAPI } from './sway';
 
 import * as U from './utils';
 
-export class ManageBase {
+export class ManageBase extends HasAPI {
 	private list;
 	@Input() kw;
 
-	constructor(apiEndpoint: string, name: string, title: Title, private api: Sway) {
+	constructor(apiEndpoint: string, name: string, title: Title, api: Sway) {
+		super(api);
 		title.setTitle("Sway :: Manage " + name);
 		api.Get(apiEndpoint, data => {
 			this.list = data;
 			if(U.IsEmpty(data)) api.NotFound();
-		}, err => {
-			if(err.code === 404) return api.NotFound();
-			console.error(err);
 		});
 	}
 

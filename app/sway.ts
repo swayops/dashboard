@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Output } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -13,6 +13,7 @@ export class Sway {
 	private _user: User;
 	private _cuser: User;
 	private _status = 0;
+	error: any;
 	redirectUrl: string;
 
 	constructor(private router: Router, private http: Http) {}
@@ -57,13 +58,16 @@ export class Sway {
 	}
 
 	private req(method: string, ep: string, body?: any): Observable<any> {
+		this.error = null;
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });
-		return this.http[method](apiURL + ep, body, options).map(res => res.json() || {}).catch(this.handleError);
+		return this.http[method](apiURL + ep, body, options).map(res => res.json()).catch(err => this.handleError(err));
 	}
 
 	private handleError(err: Response) {
 		let errData = err.json();
+		this.error = errData;
+		console.log(this)
 		return Observable.throw(errData);
 	}
 
@@ -109,6 +113,9 @@ export class AuthGuard implements CanActivate {
 export class HasAPI {
 	constructor(public api: Sway) {}
 	get user() { return this.api.CurrentUser; }
+	@Output() get error() { return this.api.error; }
+
+	SetError(err) { this.api.error = err; }
 }
 
 export interface SignUpInfo {
