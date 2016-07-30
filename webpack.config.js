@@ -12,35 +12,40 @@ var webpack = require('webpack'),
 	})
 });
 
-const isProd = process.env.ENV === 'production';
+const isProd = process.env.ENV === 'production',
+	nodePath = path.join(__dirname, 'node_modules'),
+	staticPath = path.join(__dirname, 'static'),
+	appPath = path.join(__dirname, 'app');
 
 function aliasify(o) {
 	for (var name in o) {
 		var fp = o[name];
-		o[name] = path.join(__dirname, 'node_modules', name, fp + '.min.js')
+		o[name] = path.join(nodePath, name, fp + '.min.js')
 	}
 	return o;
 }
 
 var cfg = {
-	devtool: 'eval',
+	devtool: 'eval-source-map',
 	debug: true,
 	entry: {
-		'vendor': ['babel-polyfill', './app/vendor.ts'],
+		'vendor': './app/vendor.ts',
 		'app': './app/main.ts'
 	},
 
 	output: {
-		path: __dirname + '/static/',
+		path: staticPath,
 		filename: '[name].js',
 		chunkFilename: 'static/[name].js'
 	},
 
 	resolve: {
-		extensions: ['', '.ts', '.js', '.json'],
+		extensions: ['', '.ts', '.js', '.json', '.html'],
 		root: __dirname,
 		alias: aliasify({
 			'jquery': 'dist/jquery',
+			'bootstrap': 'dist/js/bootstrap',
+			'jqueryui': 'jquery-ui',
 			'@angular/common': 'bundles/common.umd',
 			'@angular/compiler': 'bundles/compiler.umd',
 			'@angular/core': 'bundles/core.umd',
@@ -49,18 +54,21 @@ var cfg = {
 			'@angular/platform-browser-dynamic': 'bundles/platform-browser-dynamic.umd',
 			'@angular/platform-browser': 'bundles/platform-browser.umd',
 			'@angular/router': 'bundles/router.umd',
-		})
+		}),
+		unsafeCache: true,
 	},
 
 	module: {
 		loaders: [
 			{
 				test: /\.ts$/,
-				loaders: ['awesome-typescript', 'angular2-template']
+				loaders: ['awesome-typescript', 'angular2-template'],
+				include: appPath,
 			},
 			{
 				test: /\.(html|json|css)$/,
-				loader: 'raw'
+				loader: 'raw',
+				include: appPath
 			},
 		]
 	},
@@ -83,8 +91,10 @@ var cfg = {
 			names: ['app', 'vendor'],
 			minChunks: Infinity
 		}),
+		new webpack.optimize.OccurrenceOrderPlugin(true),
+		new webpack.optimize.AggressiveMergingPlugin(),
 	],
-	noParse: [/@angular/]
+	noParse: [/@angular/, /\.min.js$/]
 };
 
 if (isProd) {
@@ -99,7 +109,7 @@ if (isProd) {
 				comments: false
 			},
 			beautify: false,
-			exclude: [ /\.min\.js$/g ],
+			exclude: [/\.min\.js$/g],
 			sourceMap: true,
 		}),
 		new webpack.optimize.AggressiveMergingPlugin(),
