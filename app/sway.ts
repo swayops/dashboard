@@ -2,7 +2,7 @@ import { Component, Injectable, Output } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { User } from './user';
 
@@ -16,9 +16,12 @@ export class Sway {
 	error: any;
 	redirectUrl: string;
 
-	constructor(private router: Router, private http: Http) {}
+	constructor(private router: Router, private http: Http) {
+		this.IsLoggedIn.subscribe(v => this._status = v ? 1 : 0);
+	}
 
 	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
+		this.resetStatus()
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
 				this._user = user;
@@ -39,11 +42,11 @@ export class Sway {
 	}
 
 	Get(ep: string, onResp: (data: any) => void, onErr?: (err: any) => void) {
-		return this.req('get', ep).subscribe(data => onResp(data), err => onErr? onErr(err) : console.error(err));
+		return this.req('get', ep).subscribe(data => onResp(data), onErr);
 	}
 
-	Post(ep: string, payload: any, onResp: (data: any) => void, onErr: (err: any) => void) {
-		return this.req('post', ep, payload).subscribe(data => onResp(data), err => onErr(err));
+	Post(ep: string, payload: any, onResp: (data: any) => void, onErr?: (err: any) => void) {
+		return this.req('post', ep, payload).subscribe(data => onResp(data), onErr);
 	}
 
 	NotFound() {
@@ -51,10 +54,15 @@ export class Sway {
 	}
 
 	Logout() {
-		return this.Get('signOut', (data: any) => {
-			this._user = null;
+		return this.Get('signOut', _ => {
+			this.resetStatus()
 			this.router.navigate(['/login']); // should say something maybe?
 		});
+	}
+
+	private resetStatus() {
+		this._user = this._cuser = null;
+		this._status = 0;
 	}
 
 	private req(method: string, ep: string, body?: any): Observable<any> {
@@ -64,14 +72,13 @@ export class Sway {
 		return this.http[method](apiURL + ep, body, options).map(res => res.json()).catch(err => this.handleError(err));
 	}
 
-	private handleError(err: Response) {
+	private handleError(err: Response): Observable<{}>{
 		let errData = err.json();
 		this.error = errData;
-		console.log(this)
 		return Observable.throw(errData);
 	}
 
-	get IsLoggedIn() {
+	get IsLoggedIn() : Observable<boolean> {
 		if(this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
@@ -99,7 +106,7 @@ export class Sway {
 export class AuthGuard implements CanActivate {
 	constructor(private router: Router, private api: Sway) {}
 
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
 			if(logged) return true;
 			this.api.redirectUrl = state.url;

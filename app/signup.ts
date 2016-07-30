@@ -15,8 +15,8 @@ export class SignUpCmp {
 	private loading = false;
 	private error: any;
 
-	constructor(private title: Title, private api: Sway) {
-		title.setTitle("Sway :: Sign Upx");
+	constructor(title: Title, private api: Sway) {
+		title.setTitle("Sway :: Sign Up");
 	}
 
 	SignUp() {

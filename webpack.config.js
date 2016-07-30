@@ -26,7 +26,7 @@ function aliasify(o) {
 }
 
 var cfg = {
-	devtool: 'eval-source-map',
+	devtool: 'eval-cheap-module-source-map',
 	debug: true,
 	entry: {
 		'vendor': './app/vendor.ts',
@@ -100,7 +100,6 @@ var cfg = {
 if (isProd) {
 	cfg.devtool = 'source-map';
 	cfg.plugins.push(
-		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compressor: { screw_ie8: true, keep_fnames: true, warnings: false },
@@ -112,7 +111,6 @@ if (isProd) {
 			exclude: [/\.min\.js$/g],
 			sourceMap: true,
 		}),
-		new webpack.optimize.AggressiveMergingPlugin(),
 		new CompressionPlugin({
 			asset: "[path].min.gz[query]",
 			algorithm: "zopfli",

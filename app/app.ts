@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { provideRouter, RouterConfig, Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { Location } from '@angular/common';
+import {
+	Router, Event, ActivatedRoute,
+	NavigationStart, NavigationEnd, NavigationError
+} from '@angular/router';
 
 import { Sway, HasAPI } from './sway';
 
@@ -9,12 +14,20 @@ import * as $ from 'jquery';
 	selector: 'sway-app',
 	template: require('./views/app.html')
 })
-
 export class AppComponent extends HasAPI {
-	constructor(api: Sway, router: Router) {
+	private static _instance: AppComponent;
+	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
+		if(AppComponent._instance) return AppComponent._instance;
 		super(api);
-		router.events.filter(event => event instanceof NavigationStart).subscribe((evt: Event) => this.SetError(null) );
-		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
+		router.events.subscribe((evt:any) => {
+			if (evt instanceof NavigationStart) {
+				return this.SetError(null);
+			}
+			if (evt instanceof NavigationEnd) {
+				return this.reinitPageScripts();
+			}
+		});
+		AppComponent._instance = this;
 	}
 
 	updateTags() {
@@ -89,7 +102,7 @@ export class AppComponent extends HasAPI {
 			}
 		});
 
-		$(".prog-bar div").each(function (this:{}, index: number) {
+		$(".prog-bar div").each(function (this: {}, index: number) {
 			$(this).slider({
 				orientation: "horizontal",
 				range: "min",
@@ -98,7 +111,7 @@ export class AppComponent extends HasAPI {
 			});
 		});
 
-		$('[noscroll]').on('scroll touchmove mousewheel', function(e) {
+		$('[noscroll]').on('scroll touchmove mousewheel', function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
@@ -152,4 +165,14 @@ export class AppComponent extends HasAPI {
 		this.reinitUI();
 	}
 
+}
+
+@Component({
+	selector: 'not-found',
+	template: require('./views/404.html')
+})
+export class NotFoundCmp {
+	constructor(title: Title) {
+		title.setTitle("Sway :: 404 :: Page Not Found");
+	}
 }

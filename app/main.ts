@@ -1,14 +1,13 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { Title } from '@angular/platform-browser';
-import { PLATFORM_DIRECTIVES, provide, enableProdMode } from '@angular/core';
+import { PLATFORM_DIRECTIVES, provide, enableProdMode, ExceptionHandler } from '@angular/core';
 import { disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { ROUTER_DIRECTIVES, provideRouter, RouterConfig } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 
-import { AppComponent } from './app';
+import { AppComponent, NotFoundCmp } from './app';
 import { AuthGuard, Sway } from './sway';
 
-import { Four04Cmp } from './404';
 import { LoginCmp } from './login';
 import { SignUpCmp } from './signup';
 import { ForgotPasswordCmp } from './forgotPassword';
@@ -75,14 +74,20 @@ const ALL_ROUTES: RouterConfig = [
 		component: ForgotPasswordCmp
 	},
 	{
-		path: '404',
-		component: Four04Cmp
-	},
-	{
 		path: '**',
-		redirectTo: '/404',
+		component: NotFoundCmp
 	}
 ];
+
+// look more into this
+class MyExceptionHandler extends ExceptionHandler {
+	call(error, stackTrace = null, reason = null) {
+		console.log(error)
+		console.log(stackTrace)
+		console.log(reason)
+	}
+}
+
 
 bootstrap(AppComponent, [
 	disableDeprecatedForms(),
@@ -90,9 +95,10 @@ bootstrap(AppComponent, [
 	[provideRouter(ALL_ROUTES)],
 	HTTP_PROVIDERS,
 	provide(PLATFORM_DIRECTIVES, { useValue: ROUTER_DIRECTIVES, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true  }),
-	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true  }),
-	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true  }),
+	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true }),
+	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
+	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true }),
+	{provide: ExceptionHandler, useClass: MyExceptionHandler},
 	Title,
 	Sway,
 	AuthGuard
