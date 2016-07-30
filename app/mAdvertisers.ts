@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
+import { ManageBase } from './manageBase';
 
 import * as U from './utils';
 
@@ -12,27 +13,9 @@ import * as U from './utils';
 	pipes: [ U.FilterArrayPipe ]
 })
 
-export class AdvertisersCmp {
-	private advertisers;
-	@Input() kw;
-
-	constructor(private title: Title, private api: Sway, route: ActivatedRoute) {
-		title.setTitle("Sway :: Manage Advertisers");
+export class AdvertisersCmp extends ManageBase {
+	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		var id = route.snapshot.params['id'];
-		if(!id) {
-			console.error('bad id', id);
-			return;
-		}
-		this.api.Get('getAdvertisersByAgency/' + id, data => this.advertisers = data, err => console.error(err));
+		super('getAdvertisersByAgency/' + id, 'Manage Advertisers', title, api);
 	}
-
-	Edit(uid: string) {
-		console.warn('n/a');
-	}
-
-	Delete(uid: string) {
-		console.warn('n/a');
-	}
-
-	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
 }

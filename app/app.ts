@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { provideRouter, RouterConfig, Router, NavigationEnd, Event } from '@angular/router';
 
-import { Sway } from './sway';
+import { Sway, HasAPI } from './sway';
 
 import * as $ from 'jquery';
 
@@ -9,25 +9,25 @@ import * as $ from 'jquery';
 	selector: 'sway-app',
 	template: `
 <div class="grid-container page">
-	<user-header *ngIf="user"></user-header>
+	<user-header></user-header>
 	<div class="block-section" id="page-content">
 		<div class="grid-100 grid-parent">
-			<left-nav *ngIf="user"></left-nav>
+			<left-nav></left-nav>
 			<router-outlet></router-outlet>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<user-footer *ngIf="user"></user-footer>
+	<user-footer></user-footer>
 </div>
 `
 })
 
-export class AppComponent {
-	constructor(private api: Sway, router: Router) {
+export class AppComponent extends HasAPI {
+	constructor(api: Sway, router: Router) {
+		super(api);
 		router.events.filter(event => event instanceof NavigationEnd).subscribe((evt: Event) => this.reinitPageScripts());
 	}
 
-	get user() { return this.api.CurrentUser || {}; }
 	updateTags() {
 		var u = this.api.User,
 			w = window,
@@ -35,7 +35,6 @@ export class AppComponent {
 			ic = w['Intercom'],
 			ga = w['ga'],
 			fbq = w['fbq'];
-
 
 		agile.track_page_view();
 
@@ -121,7 +120,6 @@ export class AppComponent {
 		$(".increment-group").append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
 
 		$(".increment-group .button").on("click", function (this: {}) {
-
 			var $button = $(this);
 			var oldValue = $button.parent().parent().find("input").val();
 

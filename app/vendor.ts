@@ -19,6 +19,7 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/of'
+import 'rxjs/add/observable/throw'
 
 import 'jquery';
 import 'bootstrap';

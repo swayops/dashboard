@@ -75,8 +75,12 @@ const ALL_ROUTES: RouterConfig = [
 		component: ForgotPasswordCmp
 	},
 	{
-		path: '**',
+		path: '404',
 		component: Four04Cmp
+	},
+	{
+		path: '**',
+		redirectTo: '/404',
 	}
 ];
 
@@ -89,10 +93,8 @@ bootstrap(AppComponent, [
 	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true  }),
 	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true  }),
 	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true  }),
-	provide(Window, { useValue: window }),
-	//provide(PLATFORM_DIRECTIVES, { useValue: REACTIVE_FORM_DIRECTIVES, multi: true }),
 	Title,
 	Sway,
 	AuthGuard
-]).catch((err: any) => console.error(err));
+]);
 

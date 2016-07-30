@@ -45,6 +45,10 @@ export class Sway {
 		return this.req('post', ep, payload).subscribe(data => onResp(data), err => onErr(err));
 	}
 
+	NotFound() {
+		return this.router.navigate(['/NotFound']);
+	}
+
 	Logout() {
 		return this.Get('signOut', (data: any) => {
 			this._user = null;
@@ -60,7 +64,7 @@ export class Sway {
 
 	private handleError(err: Response) {
 		let errData = err.json();
-		return Observable.throw(errData.msg || 'Server Error');
+		return Observable.throw(errData);
 	}
 
 	get IsLoggedIn() {
@@ -100,6 +104,11 @@ export class AuthGuard implements CanActivate {
 		});
 	}
 
+}
+
+export class HasAPI {
+	constructor(public api: Sway) {}
+	get user() { return this.api.CurrentUser; }
 }
 
 export interface SignUpInfo {

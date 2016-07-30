@@ -1,5 +1,7 @@
 import{ Pipe, PipeTransform } from '@angular/core';
 
+import { Sway } from './sway';
+
 export function Pad(n) {
 	if(typeof n !== 'number') return '';
 	if (n < 10) return '0' + n;

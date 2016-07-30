@@ -1,34 +1,29 @@
 import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
+import { Sway, HasAPI } from './sway';
 
 @Component({
 	selector: 'left-nav',
 	template: require('./views/leftNav.html'),
 })
-export class LeftNavCmp {
-	constructor(private api: Sway) {}
-
-	get user() { return this.api.CurrentUser; }
+export class LeftNavCmp extends HasAPI {
+	constructor(api: Sway) { super(api); }
 }
 
 @Component({
 	selector: 'user-header',
 	template: require('./views/header.html'),
 })
-export class HeaderCmp {
-	constructor(private api: Sway) {}
-
-	get user() { return this.api.CurrentUser; }
+export class HeaderCmp extends HasAPI {
+	constructor(api: Sway) { super(api); }
 }
 
 @Component({
 	selector: 'user-footer',
 	template: require('./views/footer.html'),
 })
-export class FooterCmp {
-	constructor(private api: Sway) { }
-	get user() { return this.api.CurrentUser; }
-}
 
+export class FooterCmp extends HasAPI {
+	constructor(api: Sway) { super(api); }
+}

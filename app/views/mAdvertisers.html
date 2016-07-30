@@ -21,7 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let adv of advertisers | filter:FilterUsers">
+						<tr *ngFor="let adv of list | filter:FilterUsers">
 							<td class="align-left"><a [routerLink]="['/reporting', adv.id]">{{adv.name}}</a></td>
 							<td>{{adv.id}}</td>
 							<td>{{adv.numCmps}}</td>

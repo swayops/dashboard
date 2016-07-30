@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
+import { ManageBase } from './manageBase';
 
 import * as U from './utils';
 
@@ -11,22 +12,8 @@ import * as U from './utils';
 	pipes: [ U.FilterArrayPipe ]
 })
 
-export class MediaAgenciesCmp {
-	private agencies;
-	@Input() kw;
-
-	constructor(private title: Title, private api: Sway) {
-		title.setTitle("Sway :: Manage Media Agencies");
-		api.Get('getAllAdAgencies', data => this.agencies = data, err => console.error(err));
+export class MediaAgenciesCmp extends ManageBase {
+	constructor(title: Title, api: Sway) {
+		super('getAllAdAgencies', 'Media Agencies', title, api);
 	}
-
-	Edit(uid: string) {
-		console.warn('n/a');
-	}
-
-	Delete(uid: string) {
-		console.warn('n/a');
-	}
-
-	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
 }
