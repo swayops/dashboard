@@ -98,7 +98,7 @@ bootstrap(AppComponent, [
 	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true }),
 	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
 	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true }),
-	{provide: ExceptionHandler, useClass: MyExceptionHandler},
+	//{provide: ExceptionHandler, useClass: MyExceptionHandler},
 	Title,
 	Sway,
 	AuthGuard

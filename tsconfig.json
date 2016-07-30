@@ -8,6 +8,7 @@
 		"removeComments": true,
 		"noImplicitAny": false,
 		"noImplicitThis": true,
+		"noEmitHelpers": true,
 		"pretty": true,
 		"allowSyntheticDefaultImports": true
 	},

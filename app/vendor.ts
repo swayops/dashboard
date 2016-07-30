@@ -4,6 +4,8 @@ import 'core-js/fn/array/includes';
 import 'core-js/fn/object/assign';
 import 'zone.js/dist/zone';
 
+import 'ts-helpers';
+
 // Angular
 import '@angular/common';
 import '@angular/core';
