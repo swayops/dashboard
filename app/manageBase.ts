@@ -14,8 +14,7 @@ export class ManageBase extends HasAPI {
 		title.setTitle("Sway :: Manage " + name);
 		api.Get(apiEndpoint, data => {
 			this.list = data;
-			if(U.IsEmpty(data)) api.NotFound();
-		});
+		}, err => {});
 	}
 
 	Edit(uid: string) {

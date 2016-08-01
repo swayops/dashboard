@@ -10,9 +10,21 @@ import { Sway, HasAPI } from './sway';
 
 import * as $ from 'jquery';
 
+
+@Component({
+	selector: 'not-found',
+	template: require('./views/404.html')
+})
+export class NotFoundCmp {
+	constructor(title: Title) {
+		title.setTitle("Sway :: 404 :: Page Not Found");
+	}
+}
+
 @Component({
 	selector: 'sway-app',
-	template: require('./views/app.html')
+	template: require('./views/app.html'),
+	providers: [NotFoundCmp]
 })
 export class AppComponent extends HasAPI {
 	private static _instance: AppComponent;
@@ -171,14 +183,4 @@ export class AppComponent extends HasAPI {
 		this.reinitUI();
 	}
 
-}
-
-@Component({
-	selector: 'not-found',
-	template: require('./views/404.html')
-})
-export class NotFoundCmp {
-	constructor(title: Title) {
-		title.setTitle("Sway :: 404 :: Page Not Found");
-	}
 }

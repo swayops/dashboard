@@ -50,7 +50,7 @@ export class Sway {
 	}
 
 	NotFound() {
-		return this.router.navigate(['/NotFound']);
+		this.error = {code: 404};
 	}
 
 	Logout() {
