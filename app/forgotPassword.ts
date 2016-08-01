@@ -14,7 +14,7 @@ export class ForgotPasswordCmp {
 	private success = false;
 	private error: any;
 
-	constructor(private route: ActivatedRoute, private title: Title, private api: Sway) {
+	constructor(private route: ActivatedRoute, title: Title, private api: Sway) {
 		title.setTitle("Sway :: Forgot Password");
 	}
 

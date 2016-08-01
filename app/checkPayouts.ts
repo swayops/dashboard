@@ -4,13 +4,13 @@ import { Title } from '@angular/platform-browser';
 import { Sway } from './sway';
 
 @Component({
-	selector: 'dashboard',
-	template: require('./views/dashboard.html')
+	selector: 'check-payouts',
+	template: require('./views/checkPayouts.html')
 })
 
-export class DashboardCmp {
+export class CheckPayoutsCmp {
 	constructor(title: Title, private api: Sway) {
-		title.setTitle("Sway :: Dashboard");
+		title.setTitle("Sway :: Check Payouts");
 	}
 }
 

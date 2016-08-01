@@ -17,7 +17,7 @@ declare function initChartData2();
 
 export class ReportingCmp {
 	private data;
-	constructor(private title: Title, private api: Sway, route: ActivatedRoute) {
+	constructor(title: Title, private api: Sway, route: ActivatedRoute) {
 		title.setTitle("Sway :: Manage Advertisers");
 		var id = route.snapshot.params['id'];
 		if (!id) {

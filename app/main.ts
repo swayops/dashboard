@@ -17,6 +17,7 @@ import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
+import { CheckPayoutsCmp } from './checkPayouts';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
@@ -55,6 +56,11 @@ const ALL_ROUTES: RouterConfig = [
 	{
 		path: 'mTalentAgencies',
 		component: TalentAgenciesCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'checkPayouts',
+		component: CheckPayoutsCmp,
 		canActivate: [AuthGuard]
 	},
 	{

@@ -27,7 +27,6 @@ export class AppComponent extends HasAPI {
 		router.events.subscribe((evt:any) => {
 			if (evt instanceof NavigationStart) {
 				this.noNav = !!noNavURLs[evt.url];
-				console.log(this)
 				return this.error = null;
 			}
 			if (evt instanceof NavigationEnd) {

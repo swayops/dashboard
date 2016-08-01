@@ -13,7 +13,7 @@ export class LoginCmp {
 	private loading = false;
 	private error: any;
 
-	constructor(private title: Title, private api: Sway) {
+	constructor(title: Title, private api: Sway) {
 		title.setTitle("Sway :: Login");
 		this.api.Reset();
 	}
