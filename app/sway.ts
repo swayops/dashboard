@@ -21,7 +21,7 @@ export class Sway {
 	}
 
 	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
-		this.resetStatus()
+		this.Reset()
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
 				this._user = user;
@@ -55,12 +55,12 @@ export class Sway {
 
 	Logout() {
 		return this.Get('signOut', _ => {
-			this.resetStatus()
+			this.Reset()
 			this.router.navigate(['/login']); // should say something maybe?
 		});
 	}
 
-	private resetStatus() {
+	Reset() {
 		this._user = this._cuser = null;
 		this._status = 0;
 	}
@@ -118,11 +118,11 @@ export class AuthGuard implements CanActivate {
 }
 
 export class HasAPI {
-	constructor(public api: Sway) {}
+	constructor(protected api: Sway) {}
 	get user() { return this.api.CurrentUser; }
-	@Output() get error() { return this.api.error; }
 
-	SetError(err) { this.api.error = err; }
+	set error(err) { this.api.error = err; }
+	@Output() get error() { return this.api.error; }
 }
 
 export interface SignUpInfo {

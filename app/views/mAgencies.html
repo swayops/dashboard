@@ -1,37 +1,32 @@
-<div class="grid-85 mobile-grid-100 grid-parent">
-	<div class="content-holder center-widget">
-		<div class="grid-100 grid-parent">
-			<h2 class="heading">Manage Media Agencies</h2>
-			<a class="btn btn-green1 btn-micro">Create +</a>
-			<form style="width:250px; float:right;">
-				<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
-			</form>
-			<br/><br/>
-			<form id="create_campaign_form">
-				<table class="tbl">
-					<thead>
-						<tr>
-							<th class="align-left">Agency</th>
-							<th>ID</th>
-							<th>Subs</th>
-							<th>Email</th>
-							<th>Signup Date</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let ag of list | filter:FilterUsers">
-							<td class="align-left"><a [routerLink]="['/mAdvertisers', ag.id]">{{ag.name}}</a></td>
-							<td>{{ag.id}}</td>
-							<td>{{ag.subCount}}</td>
-							<td>{{ag.email}}</td>
-							<td>{{ag.createdAt * 1000 | date}}</td>
-							<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost"
-									[disabled]="ag.id < 4" (click)=Delete(ag.id)>X</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</div>
-	</div>
-</div>
+<h2 class="heading">
+	Manage Media Agencies</h2>
+<a class="btn btn-green1 btn-micro">Create +</a>
+<form style="width:250px; float:right;">
+	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+</form>
+<br/><br/>
+<form id="create_campaign_form">
+	<table class="tbl">
+		<thead>
+			<tr>
+				<th class="align-left">Agency</th>
+				<th>ID</th>
+				<th>Subs</th>
+				<th>Email</th>
+				<th>Signup Date</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let ag of list | filter:FilterUsers">
+				<td class="align-left"><a [routerLink]="['/mAdvertisers', ag.id]">{{ag.name}}</a></td>
+				<td>{{ag.id}}</td>
+				<td>{{ag.subCount}}</td>
+				<td>{{ag.email}}</td>
+				<td>{{ag.createdAt * 1000 | date}}</td>
+				<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost"
+						[disabled]="ag.id < 4" (click)=Delete(ag.id)>X</button></td>
+			</tr>
+		</tbody>
+	</table>
+</form>

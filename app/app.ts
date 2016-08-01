@@ -16,12 +16,19 @@ import * as $ from 'jquery';
 })
 export class AppComponent extends HasAPI {
 	private static _instance: AppComponent;
+	private noNav: boolean;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		if(AppComponent._instance) return AppComponent._instance;
 		super(api);
+		const noNavURLs = {
+			'/login': true,
+			'/signUp': true,
+		};
 		router.events.subscribe((evt:any) => {
 			if (evt instanceof NavigationStart) {
-				return this.SetError(null);
+				this.noNav = !!noNavURLs[evt.url];
+				console.log(this)
+				return this.error = null;
 			}
 			if (evt instanceof NavigationEnd) {
 				return this.reinitPageScripts();

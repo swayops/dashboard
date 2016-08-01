@@ -15,6 +15,7 @@ export class LoginCmp {
 
 	constructor(private title: Title, private api: Sway) {
 		title.setTitle("Sway :: Login");
+		this.api.Reset();
 	}
 
 	Login() {
