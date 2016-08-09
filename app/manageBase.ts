@@ -11,18 +11,18 @@ export class ManageBase extends HasAPI {
 
 	constructor(apiEndpoint: string, name: string, title: Title, api: Sway) {
 		super(api);
-		title.setTitle("Sway :: Manage " + name);
+		title.setTitle('Sway :: Manage ' + name);
 		api.Get(apiEndpoint, data => {
 			this.list = data;
 		}, err => {});
 	}
 
 	Edit(uid: string) {
-		console.warn('n/a');
+		console.warn('n/i');
 	}
 
 	Delete(uid: string) {
-		console.warn('n/a');
+		console.warn('n/i');
 	}
 
 	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }

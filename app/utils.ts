@@ -1,7 +1,5 @@
 import{ Pipe, PipeTransform } from '@angular/core';
 
-import { Sway } from './sway';
-
 export function Pad(n) {
 	if(typeof n !== 'number') return '';
 	if (n < 10) return '0' + n;
@@ -11,7 +9,6 @@ export function Pad(n) {
 export function IsEmpty(obj: any): boolean {
 	if (obj == null) return true;
 	if (typeof obj === 'number') return false;
-	if ('length' in obj) return obj.length === 0;
 	return Object.keys(obj).length === 0;
 }
 
@@ -28,5 +25,5 @@ export function FilterByNameOrID(kw: string | null, it: {id: string, name: strin
 	if(!kw || !it) return true;
 	kw = kw.toLowerCase();
 	if(it.id.indexOf(kw) > -1) return true;
-	return it.name.toLowerCase().indexOf(kw.toLowerCase()) > -1;
+	return it.name.toLowerCase().indexOf(kw) > -1;
 }
