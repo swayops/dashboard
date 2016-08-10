@@ -21,6 +21,8 @@ import { CheckPayoutsCmp } from './checkPayouts';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
+import { FilterArrayPipe } from './utils';
+
 declare var PRODUCTION: boolean;
 
 if (PRODUCTION) {
@@ -97,10 +99,18 @@ class MyExceptionHandler extends ExceptionHandler {
 
 @NgModule({
 	declarations: [
-		AppComponent, HeaderCmp, LeftNavCmp, FooterCmp,
-		DashboardCmp, LoginCmp, SignUpCmp, ForgotPasswordCmp, NotFoundCmp,
-		MediaAgenciesCmp, AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
-		CheckPayoutsCmp],
+		AppComponent, // app
+
+		// components
+		HeaderCmp, LeftNavCmp, FooterCmp,
+		DashboardCmp, LoginCmp, SignUpCmp,
+		ForgotPasswordCmp, NotFoundCmp, MediaAgenciesCmp,
+		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
+		CheckPayoutsCmp,
+
+		// pipes and utils
+		FilterArrayPipe
+	],
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(ALL_ROUTES),

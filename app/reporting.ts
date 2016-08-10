@@ -4,15 +4,12 @@ import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 
-import * as U from './utils';
-
 declare function initChartData();
 declare function initChartData2();
 
 @Component({
 	selector: 'advertisers',
-	template: require('./views/reporting.html'),
-	pipes: [U.FilterArrayPipe]
+	template: require('./views/reporting.html')
 })
 
 export class ReportingCmp {

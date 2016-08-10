@@ -4,33 +4,51 @@ var webpack = require('webpack'),
 	fs = require('fs'),
 	CompressionPlugin = require("compression-webpack-plugin");
 
-// clean up old files
-['app.js', 'vendor.js'].forEach(function(fp) {
-	[fp, fp + '.gz', fp + '.map', fp + '.map.gz'].forEach(fp => {
-		// eslint-disable-next-line
-		try { fs.unlinkSync('static/' + fp); } catch (e) { };
-	})
-});
 
-const isProd = process.env.ENV === 'production',
+function CleanPlugin(base, files, ...exts) {
+	this.base = base;
+	this.files = files || [];
+	this.exts = exts || [];;
+}
+
+CleanPlugin.prototype = {
+	allFiles: function() { return this.files.concat(...this.files.map(fp => this.exts.map(ext => fp + ext))); },
+
+	apply: function(compiler) {
+		compiler.plugin('done', () => this.clean());
+	},
+
+	clean: function() {
+		this.allFiles().forEach(fp => {
+			try {
+				const fn = path.join(this.base, fp);
+				fs.unlinkSync(fn);
+				console.log('removed ', fp);
+			} catch (e) { /***/ };
+		});
+	}
+}
+
+const isProd = process.env.NODE_ENV === 'production',
 	nodePath = path.join(__dirname, 'node_modules'),
 	staticPath = path.join(__dirname, 'static'),
 	appPath = path.join(__dirname, 'app');
 
+
 function aliasify(o) {
-	for (var name in o) {
-		var fp = o[name];
+	for (let name in o) {
+		const fp = o[name];
 		o[name] = path.join(nodePath, name, fp + '.min.js')
 	}
 	return o;
 }
 
-var cfg = {
-	devtool: 'eval-cheap-module-source-map',
+const cfg = {
+	devtool: 'cheap-module-source-map',
 	debug: true,
 	entry: {
-		'vendor': './app/vendor.ts',
-		'app': './app/main.ts'
+		'app': './app/main.ts',
+		'vendor': './app/vendor.ts'
 	},
 
 	output: {
@@ -40,8 +58,8 @@ var cfg = {
 	},
 
 	resolve: {
-		extensions: ['', '.ts', '.js', '.json', '.html'],
 		root: __dirname,
+		extensions: ['', '.ts', '.js', '.json', '.html', 'css'],
 		alias: aliasify({
 			'jquery': 'dist/jquery',
 			'bootstrap': 'dist/js/bootstrap',
@@ -97,27 +115,29 @@ var cfg = {
 	noParse: [/@angular/, /\.min.js$/]
 };
 
+const cleanPlugin = new CleanPlugin(staticPath, Object.keys(cfg.entry).map(fp => fp + '.js'), '.map', '.gz', '.map.gz');
+
+cleanPlugin.clean(); // force remove all the old files.
+
 if (isProd) {
+	cleanPlugin.exts = ['.map']; // remove the non-gzip'ed files.
 	cfg.devtool = 'source-map';
+	cfg.debug = false;
 	cfg.plugins.push(
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
-			compressor: { screw_ie8: true, keep_fnames: true, warnings: false },
-			mangle: { screw_ie8: true, keep_fnames: true },
-			output: {
-				comments: false
-			},
-			beautify: false,
+			mangle: false,
 			exclude: [/\.min\.js$/g],
 			sourceMap: true,
 		}),
 		new CompressionPlugin({
-			asset: "[path].min.gz[query]",
+			asset: "[path].gz[query]",
 			algorithm: "zopfli",
 			test: /\.js$|\.map$/,
 			threshold: 4096,
 			minRatio: 0.8
-		})
+		}),
+		cleanPlugin
 	);
 }
 

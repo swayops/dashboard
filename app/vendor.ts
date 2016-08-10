@@ -9,7 +9,6 @@ import 'ts-helpers';
 // Angular
 import '@angular/common';
 import '@angular/core';
-import '@angular/compiler';
 import '@angular/forms';
 import '@angular/http';
 import '@angular/platform-browser';

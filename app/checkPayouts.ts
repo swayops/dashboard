@@ -4,12 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { Sway } from './sway';
 import { ManageBase } from './manageBase';
 
-import * as U from './utils';
-
 @Component({
 	selector: 'check-payouts',
-	template: require('./views/checkPayouts.html'),
-	pipes: [ U.FilterArrayPipe ]
+	template: require('./views/checkPayouts.html')
 })
 export class CheckPayoutsCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {

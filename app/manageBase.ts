@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
 
-import * as U from './utils';
+import { FilterByNameOrID } from './utils';
 
 export class ManageBase extends HasAPI {
 	private list;
@@ -25,5 +25,5 @@ export class ManageBase extends HasAPI {
 		console.warn('n/i');
 	}
 
-	get FilterUsers() { return (user) => U.FilterByNameOrID(this.kw, user) }
+	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
 }

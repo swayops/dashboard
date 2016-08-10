@@ -10,11 +10,11 @@
 		"noImplicitThis": true,
 		"noEmitHelpers": true,
 		"pretty": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true
 	},
 	"awesomeTypescriptLoaderOptions": {
 		"skipDeclarationFilesCheck": true,
-		"forkChecker": true,
 		"useWebpackText": true //Allows loaders to be chained to awesome-typescript-loader.
 	}
 }
