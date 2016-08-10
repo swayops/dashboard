@@ -1,9 +1,9 @@
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { Title } from '@angular/platform-browser';
-import { PLATFORM_DIRECTIVES, provide, enableProdMode, ExceptionHandler } from '@angular/core';
-import { disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { ROUTER_DIRECTIVES, provideRouter, RouterConfig } from '@angular/router';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Title, BrowserModule } from '@angular/platform-browser';
+import { NgModule, enableProdMode, ExceptionHandler } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, RouterConfig } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent, NotFoundCmp } from './app';
 import { AuthGuard, Sway } from './sway';
@@ -95,18 +95,26 @@ class MyExceptionHandler extends ExceptionHandler {
 }
 
 
-bootstrap(AppComponent, [
-	disableDeprecatedForms(),
-	provideForms(),
-	[provideRouter(ALL_ROUTES)],
-	HTTP_PROVIDERS,
-	provide(PLATFORM_DIRECTIVES, { useValue: ROUTER_DIRECTIVES, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: HeaderCmp, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: LeftNavCmp, multi: true }),
-	provide(PLATFORM_DIRECTIVES, { useValue: FooterCmp, multi: true }),
-	//{provide: ExceptionHandler, useClass: MyExceptionHandler},
-	Title,
-	Sway,
-	AuthGuard
-]);
+@NgModule({
+	declarations: [
+		AppComponent, HeaderCmp, LeftNavCmp, FooterCmp,
+		DashboardCmp, LoginCmp, SignUpCmp, ForgotPasswordCmp, NotFoundCmp,
+		MediaAgenciesCmp, AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
+		CheckPayoutsCmp],
+	imports: [
+		BrowserModule,
+		RouterModule.forRoot(ALL_ROUTES),
+		FormsModule,
+		HttpModule,
+	],
+	providers: [
+		Title,
+		Sway,
+		AuthGuard
+	],
+	bootstrap: [AppComponent],
+})
+export class AppModule { }
 
+
+platformBrowserDynamic().bootstrapModule(AppModule);

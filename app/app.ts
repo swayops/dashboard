@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import {
@@ -9,7 +10,6 @@ import {
 import { Sway, HasAPI } from './sway';
 
 import * as $ from 'jquery';
-
 
 @Component({
 	selector: 'not-found',
@@ -23,20 +23,17 @@ export class NotFoundCmp {
 
 @Component({
 	selector: 'sway-app',
-	template: require('./views/app.html'),
-	providers: [NotFoundCmp]
+	template: require('./views/app.html')
 })
 export class AppComponent extends HasAPI {
-	private static _instance: AppComponent;
 	private noNav: boolean;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
-		if(AppComponent._instance) return AppComponent._instance;
 		super(api);
 		const noNavURLs = {
 			'/login': true,
 			'/signUp': true,
 		};
-		router.events.subscribe((evt:any) => {
+		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
 				this.noNav = !!noNavURLs[evt.url];
 				return this.error = null;
@@ -45,7 +42,6 @@ export class AppComponent extends HasAPI {
 				return this.reinitPageScripts();
 			}
 		});
-		AppComponent._instance = this;
 	}
 
 	updateTags() {
@@ -184,3 +180,4 @@ export class AppComponent extends HasAPI {
 	}
 
 }
+
