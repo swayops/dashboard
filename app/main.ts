@@ -17,6 +17,7 @@ import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
+import { TalentsCmp } from './mTalents';
 import { CheckPayoutsCmp } from './checkPayouts';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
@@ -61,6 +62,11 @@ export const ALL_ROUTES: RouterConfig = [
 		canActivate: [AuthGuard]
 	},
 	{
+		path: 'mTalents/:id',
+		component: TalentsCmp,
+		canActivate: [AuthGuard]
+	},
+	{
 		path: 'checkPayouts',
 		component: CheckPayoutsCmp,
 		canActivate: [AuthGuard]
@@ -87,16 +93,6 @@ export const ALL_ROUTES: RouterConfig = [
 	}
 ];
 
-// look more into this
-class MyExceptionHandler extends ExceptionHandler {
-	call(error, stackTrace = null, reason = null) {
-		console.log(error)
-		console.log(stackTrace)
-		console.log(reason)
-	}
-}
-
-
 @NgModule({
 	declarations: [
 		AppComponent, // app
@@ -106,7 +102,7 @@ class MyExceptionHandler extends ExceptionHandler {
 		DashboardCmp, LoginCmp, SignUpCmp,
 		ForgotPasswordCmp, NotFoundCmp, MediaAgenciesCmp,
 		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
-		CheckPayoutsCmp,
+		TalentsCmp, CheckPayoutsCmp,
 
 		// pipes and utils
 		FilterArrayPipe

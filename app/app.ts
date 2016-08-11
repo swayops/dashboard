@@ -33,9 +33,13 @@ export class AppComponent extends HasAPI {
 			'/login': true,
 			'/signUp': true,
 		};
+		let lastRoute: any;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
 				this.noNav = !!noNavURLs[evt.url];
+				if(lastRoute && lastRoute.url !== evt.url) {
+					api.SetCurrentUser(null); // workaround for nav
+				}
 				return this.error = null;
 			}
 			if (evt instanceof NavigationEnd) {

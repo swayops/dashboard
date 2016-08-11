@@ -49,8 +49,12 @@ export class Sway {
 		return this.req('post', ep, payload).subscribe(data => onResp(data), onErr);
 	}
 
-	NotFound() {
-		this.error = {code: 404};
+	SetCurrentUser(id?: string, onError?: (err: any) => void) {
+		if(id == null) {
+			this._cuser = null;
+			return;
+		}
+		this.Get('user/' + id, user => this._cuser = user, onError)
 	}
 
 	Logout() {
@@ -65,11 +69,12 @@ export class Sway {
 		this._status = 0;
 	}
 
+
 	private req(method: string, ep: string, body?: any): Observable<any> {
 		this.error = null;
-		let headers = new Headers({ 'Content-Type': 'application/json' });
-		let options = new RequestOptions({ headers: headers });
-		return this.http[method](apiURL + ep, body, options).map(res => res.json()).catch(err => this.handleError(err));
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const options = new RequestOptions({ headers: headers });
+		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map(res => res.json()).catch(err => this.handleError(err));
 	}
 
 	private handleError(err: Response): Observable<{}>{
@@ -86,7 +91,7 @@ export class Sway {
 				this._status = 1;
 				return obs.next(true);
 			}, err => {
-				console.log(err);
+				if(err.code === 401) this.error = null; // ignore 401 for this func
 				this._status = 2;
 				obs.next(false);
 			});

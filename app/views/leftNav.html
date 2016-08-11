@@ -35,9 +35,9 @@
 		<div class="cr8-campaign"><a [routerLink]="['/createCampaign']" class="btn btn-green1">create campaign</a></div>
 		<div class="user-account-options">
 			<ul>
-				<li class="li-campaign"><a [routerLink]="['']">My Campaigns</a></li>
-				<li class="li-reporting"><a [routerLink]="['']">Reporting</a></li>
-				<li class="li-perks"><a [routerLink]="['']">My Perks</a></li>
+				<li class="li-campaign"><a [routerLink]="['/campaigns', user.id]">My Campaigns</a></li>
+				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]">Reporting</a></li>
+				<li class="li-perks"><a [routerLink]="['/mPerks', user.id]">My Perks</a></li>
 				<li class="li-content"><a [routerLink]="['']">My Content</a></li>
 			</ul>
 		</div>

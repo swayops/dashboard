@@ -15,12 +15,13 @@ declare function initChartData2();
 export class ReportingCmp {
 	private data;
 	constructor(title: Title, private api: Sway, route: ActivatedRoute) {
-		title.setTitle("Sway :: Manage Advertisers");
-		var id = route.snapshot.params['id'];
+		title.setTitle("Sway :: Reporting");
+		const id = route.snapshot.params['id'];
 		if (!id) {
 			console.error('bad id', id);
 			return;
 		}
+		api.SetCurrentUser(id);
 	}
 
 	ngOnInit() {

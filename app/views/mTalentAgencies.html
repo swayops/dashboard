@@ -20,7 +20,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let ag of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/mAdvertisers', ag.id]">{{ag.name}}</a></td>
+			<td class="align-left"><a [routerLink]="['/mTalents', ag.id]">{{ag.name}}</a></td>
 			<td>{{ag.id}}</td>
 			<td>{{ag.subCount}}</td>
 			<td>{{ag.email}}</td>
