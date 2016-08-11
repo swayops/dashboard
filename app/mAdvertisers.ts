@@ -7,7 +7,7 @@ import { ManageBase } from './manageBase';
 
 @Component({
 	selector: 'advertisers',
-	template: require('./views/mAdvertisers.html')
+	templateUrl: './views/mAdvertisers.html'
 })
 export class AdvertisersCmp extends ManageBase {
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {

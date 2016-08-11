@@ -59,7 +59,7 @@ const cfg = {
 
 	resolve: {
 		root: __dirname,
-		extensions: ['', '.ts', '.js', '.json', '.html', 'css'],
+		extensions: ['', '.ts', '.js', '.json', '.html', '.css'],
 		alias: aliasify({
 			'jquery': 'dist/jquery',
 			'bootstrap': 'dist/js/bootstrap',
@@ -126,6 +126,20 @@ if (isProd) {
 	cfg.plugins.push(
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				evaluate: true,
+				dead_code: true,
+				properties: true,
+				booleans: true,
+				loops: true,
+				unused: true,
+				join_vars: true,
+				collapse_vars: true,
+				warnings: false,
+				angular: true,
+				unsafe: true,
+				passes: 2,
+			},
 			mangle: false,
 			exclude: [/\.min\.js$/g],
 			sourceMap: true,

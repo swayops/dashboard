@@ -6,7 +6,7 @@ import { ManageBase } from './manageBase';
 
 @Component({
 	selector: 'media-agencies',
-	template: require('./views/mTalentAgencies.html')
+	templateUrl: './views/mTalentAgencies.html'
 })
 export class TalentAgenciesCmp  extends ManageBase {
 	constructor(title: Title, api: Sway) {

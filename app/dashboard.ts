@@ -5,7 +5,7 @@ import { Sway } from './sway';
 
 @Component({
 	selector: 'dashboard',
-	template: require('./views/dashboard.html')
+	templateUrl: './views/dashboard.html'
 })
 
 export class DashboardCmp {

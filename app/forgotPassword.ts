@@ -5,7 +5,7 @@ import { Sway } from './sway';
 
 @Component({
 	selector: 'forgotPassword',
-	template: require('./views/forgotPassword.html')
+	templateUrl: './views/forgotPassword.html'
 })
 
 export class ForgotPasswordCmp {

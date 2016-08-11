@@ -6,7 +6,7 @@ import { ManageBase } from './manageBase';
 
 @Component({
 	selector: 'check-payouts',
-	template: require('./views/checkPayouts.html')
+	templateUrl: './views/checkPayouts.html'
 })
 export class CheckPayoutsCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {

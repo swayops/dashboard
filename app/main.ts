@@ -29,7 +29,7 @@ if (PRODUCTION) {
 	enableProdMode();
 }
 
-const ALL_ROUTES: RouterConfig = [
+export const ALL_ROUTES: RouterConfig = [
 	{
 		path: '',
 		redirectTo: '/dashboard',

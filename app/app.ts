@@ -13,7 +13,7 @@ import * as $ from 'jquery';
 
 @Component({
 	selector: 'not-found',
-	template: require('./views/404.html')
+	templateUrl: './views/404.html'
 })
 export class NotFoundCmp {
 	constructor(title: Title) {
@@ -23,7 +23,7 @@ export class NotFoundCmp {
 
 @Component({
 	selector: 'sway-app',
-	template: require('./views/app.html')
+	templateUrl: './views/app.html'
 })
 export class AppComponent extends HasAPI {
 	private noNav: boolean;

@@ -5,7 +5,7 @@ import { Sway, HasAPI } from './sway';
 
 @Component({
 	selector: 'left-nav',
-	template: require('./views/leftNav.html'),
+	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
 	constructor(api: Sway) { super(api); }
@@ -13,7 +13,7 @@ export class LeftNavCmp extends HasAPI {
 
 @Component({
 	selector: 'user-header',
-	template: require('./views/header.html'),
+	templateUrl: './views/header.html',
 })
 export class HeaderCmp extends HasAPI {
 	constructor(api: Sway) { super(api); }
@@ -21,7 +21,7 @@ export class HeaderCmp extends HasAPI {
 
 @Component({
 	selector: 'user-footer',
-	template: require('./views/footer.html'),
+	templateUrl: './views/footer.html',
 })
 
 export class FooterCmp extends HasAPI {

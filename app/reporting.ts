@@ -9,7 +9,7 @@ declare function initChartData2();
 
 @Component({
 	selector: 'advertisers',
-	template: require('./views/reporting.html')
+	templateUrl: './views/reporting.html'
 })
 
 export class ReportingCmp {

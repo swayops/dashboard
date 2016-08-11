@@ -5,7 +5,7 @@ import { Sway } from './sway';
 
 @Component({
 	selector: 'login',
-	template: require('./views/login.html')
+	templateUrl: './views/login.html'
 })
 
 export class LoginCmp {

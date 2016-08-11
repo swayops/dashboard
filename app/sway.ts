@@ -73,7 +73,7 @@ export class Sway {
 	}
 
 	private handleError(err: Response): Observable<{}>{
-		let errData = err.json();
+		const errData = err.json();
 		this.error = errData;
 		return Observable.throw(errData);
 	}
