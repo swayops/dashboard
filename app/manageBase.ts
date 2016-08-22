@@ -29,5 +29,15 @@ export class ManageBase extends HasAPI {
 			if(onComplete) onComplete(data, null);
 		}, err => onComplete && onComplete(null, err));
 	}
+
+	FmtMoney(n: number, cut: number = 2): string {
+		if(n == null) return 'N/A';
+		return '$' + n.toFixed(cut);
+	}
+
+	Num(n: number, def: number = 0): number {
+		return n || def;
+	}
+
 	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
 }

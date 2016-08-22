@@ -25,12 +25,14 @@
 		<tr *ngFor="let t of list | filter:FilterUsers">
 			<td class="align-left"><a href="#">{{t.name}}</a></td>
 			<td>{{t.id}}</td>
-			<td title="Accepted: 46 | Completed: 42" class="email ttip">63</td>
-			<td>$33,929</td>
-			<td>$3,929</td>
+			<td title="Accepted: {{Num(t.activeDeals)}} | Completed: {{Num(t.completedDeals)}}" class="email ttip">
+				{{Num(t.activeDeals) + Num(t.completedDeals)}}
+			</td>
+			<td>{{FmtMoney(t.agSpend)}}</td>
+			<td>{{FmtMoney(t.infSpend)}}</td>
 			<td>{{t.createdAt * 1000 | date}}</td>
-			<td title="{{contactInfo(inf)}}" class="email ttip">View</td>
-			<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
+			<td title="{{contactInfo(t)}}" class="email ttip">View</td>
+			<td><button class="btn-info btn-micro ghost" (click)=Edit(t.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost" (click)=Delete(t.id)>X</button></td>
 		</tr>
 	</tbody>
 </table>
