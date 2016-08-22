@@ -17,6 +17,11 @@ export class TalentsCmp extends ManageBase {
 	}
 
 	contactInfo(inf: any): string {
-		return 'n/a'
+		return [
+			['Email', inf.email],
+			['Twitter', inf.twitterUsername],
+			['Instagram', inf.instaUsername],
+			['Facebook', inf.fbUsername]
+		].filter(v => !!v[1]).map(v => v.join(': ')).join('\n');
 	}
 }
