@@ -40,6 +40,7 @@ export class AppComponent extends HasAPI {
 				if(lastRoute && lastRoute.url !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}
+				this.ResetNotifications();
 				return this.error = null;
 			}
 			if (evt instanceof NavigationEnd) {

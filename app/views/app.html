@@ -1,5 +1,12 @@
 <div class="grid-container page">
 	<user-header *ngIf="!noNav"></user-header>
+	<notifications *ngFor="let n of notifications">
+		<div class="notification {{n.type}}">
+			<h3>{{n.type}}</h3>
+			<p>{{n.msg}}</p>
+			<span class="fui-cross" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" title="Close"></span>
+		</div>
+	</notifications>
 	<div class="block-section" id="page-content">
 		<div class="grid-100 grid-parent">
 			<left-nav *ngIf="!noNav"></left-nav>

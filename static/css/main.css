@@ -963,3 +963,12 @@ div#header .menu li:hover .sub-menu{
 	float: left;
 	margin: 6px 10px 0px 0px;
 }
+
+user-header, user-footer, left-nav, notifications {
+	display: block;
+}
+
+notifications {
+	width: 80%;
+	margin: 10px auto;
+}
