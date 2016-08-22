@@ -1,6 +1,6 @@
 <h2 class="heading">Manage Perks</h2>
 
-<a class="btn btn-green1 btn-micro">Create Perk Group +</a> 
+<a class="btn btn-green1 btn-micro">Create Perk Group +</a>
 
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table...">
@@ -21,14 +21,12 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-		<tr>
 			<td class="align-left"><a [routerLink]="['/editPerk', perk.id]">{{perk.name}}</a></td>
 			<td>{{perk.id}}</td>
-			<td>{{perk.countLeft}}</td>
+			<td>{{perk.count}}</td>
 			<td>{{perk.createdAt * 1000 | date}}</td>
 			<td>{{perk.receivedAt * 1000 | date}}</td>
 			<td><a class="btn btn-info btn-micro ghost">Edit</a> | <a class="btn btn-scarlet btn-micro ghost">X</a></td>
 		</tr>
-		
 	</tbody>
 </table>

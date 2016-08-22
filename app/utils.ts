@@ -14,15 +14,19 @@ export function IsEmpty(obj: any): boolean {
 
 @Pipe({ name: 'filter' })
 export class FilterArrayPipe implements PipeTransform {
-	transform(arr, fn) {
+	transform(arr, fn): any[] {
 		if(!Array.isArray(arr)) return [];
-		if(typeof fn !== 'function') return console.error('must pass a function');
+		if(typeof fn !== 'function') {
+			console.error('must pass a function');
+			return [];
+		}
 		return arr.filter(it => fn(it));
 	}
 }
 
 export function FilterByNameOrID(kw: string | null, it: {id: string, name: string}): boolean {
 	if(!kw || !it) return true;
+	console.log(kw, it);
 	kw = kw.toLowerCase();
 	if(it.id.indexOf(kw) > -1) return true;
 	return it.name.toLowerCase().indexOf(kw) > -1;
