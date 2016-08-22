@@ -15,7 +15,7 @@ import { ForgotPasswordCmp } from './forgotPassword';
 import { DashboardCmp } from './dashboard';
 import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
-import { PerksCmp, OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
+import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
 import { TalentsCmp } from './mTalents';
@@ -53,12 +53,7 @@ export const ALL_ROUTES: RouterConfig = [
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'mPerks',
-		component: PerksCmp,
-		canActivate: [AuthGuard]
-	},
-	{
-		path: 'mPerkCampaigns',
+		path: 'mCampaignPerks',
 		component: CampaignPerksCmp,
 		canActivate: [AuthGuard]
 	},
@@ -118,7 +113,7 @@ export const ALL_ROUTES: RouterConfig = [
 		DashboardCmp, LoginCmp, SignUpCmp,
 		ForgotPasswordCmp, NotFoundCmp, MediaAgenciesCmp,
 		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
-		TalentsCmp, CheckPayoutsCmp, PerksCmp, OutboundPerksCmp,
+		TalentsCmp, CheckPayoutsCmp, OutboundPerksCmp,
 		CampaignPerksCmp,
 
 		// pipes and utils

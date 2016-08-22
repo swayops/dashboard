@@ -9,12 +9,10 @@ export class ManageBase extends HasAPI {
 	private list;
 	@Input() kw;
 
-	constructor(apiEndpoint: string, name: string, title: Title, api: Sway) {
+	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway) {
 		super(api);
 		title.setTitle('Sway :: Manage ' + name);
-		api.Get(apiEndpoint, data => {
-			this.list = data;
-		}, err => {});
+		this.Reload();
 	}
 
 	Edit(uid: string) {
@@ -25,5 +23,11 @@ export class ManageBase extends HasAPI {
 		console.warn('n/i');
 	}
 
+	Reload(onComplete?: (resp, err?) => void) {
+		this.api.Get(this.apiEndpoint, data => {
+			this.list = data;
+			if(onComplete) onComplete(data, null);
+		}, err => onComplete && onComplete(null, err));
+	}
 	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
 }

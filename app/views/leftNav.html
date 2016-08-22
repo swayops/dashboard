@@ -8,6 +8,8 @@
 	<div class="user-account-options" *ngIf="user.admin">
 		<ul>
 			<li class="li-content"><a [routerLink]="['/dashboard']" [routerLinkActive]="['is-active']">Admin Stats</a></li>
+			<li class="li-perks"><a [routerLink]="['/mCampaignPerks']" [routerLinkActive]="['is-active']">Campaign Perks</a></li>
+			<li class="li-perks"><a [routerLink]="['/mOutboundPerks']" [routerLinkActive]="['is-active']">Outbound Perks</a></li>
 			<li class="li-influencers"><a [routerLink]="['/mAgencies']" [routerLinkActive]="['is-active']">Media Agencies</a></li>
 			<li class="li-perks"><a [routerLink]="['/mTalentAgencies']" [routerLinkActive]="['is-active']">Talent Agencies</a></li>
 			<li><a [routerLink]="['/checkPayouts']" [routerLinkActive]="['is-active']">Check Payouts</a></li>

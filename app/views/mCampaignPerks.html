@@ -11,20 +11,21 @@
 		<tr>
 			<th class="align-left">Perk Name</th>
 			<th>ID</th>
-			<th># Items</th>
-			<th>Created Date</th>
+			<th>Agency ID</th>
+			<th>Adv ID</th>
+			<th># of Items</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-		<tr>
-			<td class="align-left"><a [routerLink]="['/', perk.id]">{{perk.name}}</a></td>
+			<td class="align-left"><a [routerLink]="['/campaign', perk.id]">{{perk.name}}</a></td>
 			<td>{{perk.id}}</td>
-			<td>{{perk.count}}</td>
-			<td>{{perk.createdAt * 1000 | date}}</td>
-			<td><a class="btn btn-green1 btn-micro ghost">Received</a></td>
+			<td>{{perk.agencyId}}</td>
+			<td>{{perk.advertiserId}}</td>
+			<td>{{perk.perks?.count}}</td>
+			<td><a class="btn btn-green1 btn-micro ghost" (click)=received(perk.id)>Received</a></td>
 		</tr>
-		
+
 	</tbody>
 </table>

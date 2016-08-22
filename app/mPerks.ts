@@ -5,22 +5,17 @@ import { Sway } from './sway';
 import { ManageBase } from './manageBase';
 
 @Component({
-	selector: 'manage-perks',
-	templateUrl: './views/mPerks.html'
-})
-export class PerksCmp extends ManageBase {
-	constructor(title: Title, api: Sway) {
-		super('getPendingPerks', 'Perks', title, api);
-	}
-}
-
-@Component({
 	selector: 'manage-campaign-perks',
-	templateUrl: './views/mPerkCampaigns.html'
+	templateUrl: './views/mCampaignPerks.html'
 })
 export class CampaignPerksCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {
-		super('getPendingPerks', 'Campaign Perks', title, api);
+		super('getPendingCampaigns', 'Campaign Perks', title, api);
+	}
+
+	received(id: string) {
+		this.api.Get('approveCampaign/' + id, (resp) => console.log(resp));
+		this.Reload()
 	}
 }
 
@@ -31,7 +26,7 @@ export class CampaignPerksCmp extends ManageBase {
 })
 export class OutboundPerksCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {
-		super('getPendingPerks', 'Campaign Perks', title, api);
+		super('getPendingPerks', 'Outbound Perks', title, api);
 	}
 }
 
