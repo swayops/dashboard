@@ -16,8 +16,8 @@ export class CampaignPerksCmp extends ManageBase {
 	received(id: string) {
 		this.api.Get('approveCampaign/' + id, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Approved!');
+			this.Reload()
 		});
-		this.Reload()
 	}
 }
 

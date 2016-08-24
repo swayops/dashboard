@@ -25,7 +25,7 @@
 			<td>{{address(inf)}}</td>
 			<td>${{inf.pendingPayout}}</td>
 			<td>{{inf.requestedCheck * 1000 | date}}</td>
-			<td><a class="btn btn-green1 btn-micro ghost" (click)="approve(inf)">Approve</a></td>
+			<td><a class="btn btn-green1 btn-micro ghost" (click)="approve(inf.id)">Approve</a></td>
 		</tr>
 	</tbody>
 </table>
