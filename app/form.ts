@@ -1,7 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { FormGroup } from '@angular/forms'
+import { NgForm } from '@angular/forms'
 
 import { Sway, HasAPI } from './sway';
 
@@ -11,24 +11,28 @@ import { Sway, HasAPI } from './sway';
 })
 
 export class Form{
-	@Output() data = {};
-	private invalids = {};
+	@Input() data: Object = {};
 	@Input() fields: ControlOptions[];
+	@Input() onSave: (data: Object, done: () => void) => void;
+	@Input() onCancel: () => void;
+
 	private loading = false;
 
-	constructor(api: Sway) {
+	constructor() {}
+
+	save(f: NgForm) {
+		if(!this.onSave) {
+			console.error('must provide onSave');
+			return
+		}
+		this.loading = true;
+		this.onSave(this.data, () => this.loading = false);
 	}
 
-	save() {
-		console.log(this);
-		console.error('must be overriden')
-	}
-
-	validate(f: FormGroup, fld: ControlOptions) {
-		const ctl = f.controls[fld.name],
+	validate(f: NgForm, fld: ControlOptions) {
+		const ctl = f.form.controls[fld.name],
 			val = this.data[fld.name];
 		let errors = {};
-		if(ctl) console.log(ctl.errors, fld.name);
 
 		if(!val && fld.req) {
 			errors['Required'] = true;
@@ -42,27 +46,10 @@ export class Form{
 		ctl.setErrors(Object.keys(errors).length > 0 ? errors : null)
 	}
 
-	isValid(f: FormGroup, fld: ControlOptions): boolean {
-		const ctl = f.controls[fld.name];
-		if(!ctl) return true; // still loading
-		console.log(ctl.errors)
-		return !ctl.errors;
-	}
-
-	errors(f: FormGroup, fld: ControlOptions) {
-		const ctl = f.controls[fld.name];
+	errors(f: NgForm, fld: ControlOptions) {
+		const ctl = f.form.controls[fld.name];
 		if(!ctl || !ctl.errors) return [];
 		return Object.keys(ctl.errors);
-	}
-
-	pattern(re: any): any {
-		if(!re) return null;
-		const s = re.toString();
-		return s.substr(1, s.length - 2);
-	}
-
-	get valid(): boolean {
-		return Object.keys(this.invalids).length === 0;
 	}
 }
 
