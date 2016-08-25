@@ -841,13 +841,13 @@ textarea{
 	color: #ff9948;
 }
 
-.notification.error, .ng-invalid:not(.ng-untouched) {
+.notification.error, .ng-touched.ng-invalid, input.ng-touched:invalid {
 	border: 2px solid #d2335c;
 	color: #d2335c;
 	background:#f8e1e7;
 }
 
-.ng-invalid:not(.ng-untouched) {
+.ng-touched.ng-invalid, input.ng-dirty:invalid {
 	border-width: 1px;
 }
 
@@ -855,7 +855,7 @@ textarea{
 	color: #d2335c;
 }
 
-.notification:before, .ng-invalid:not(.ng-untouched){
+.notification:before, .ng-touched.ng-invalid{
 	display: inline-block;
 	line-height: 1;
 	margin-right: 10px;
@@ -863,7 +863,7 @@ textarea{
 
 .notification.success:before{content: "\e612";}
 .notification.warning:before{content: "\e610";}
-.notification.error:before, .ng-invalid:not(.ng-untouched):before {content: "\e613";}
+.notification.error:before, .ng-touched.ng-invalid:before {content: "\e613";}
 .notification.info:before{content: "\e610";}
 
 
@@ -1412,7 +1412,7 @@ padding-bottom:100px;
 .center-widget .heading span{
 	font-size:10.83px;
 }
-.center-widget input[type="text"],
+.center-widget input[type="text"], .center-widget input[type="email"], .center-widget input[type="password"],
 .center-widget textarea{
 	box-sizing:border-box;
 	width:100%;
@@ -1430,6 +1430,11 @@ padding-bottom:100px;
 .center-widget .form-group:after{content:" ";display:block;clear:both;}
 .center-widget .form-group{
 	margin-bottom:20px;
+}
+
+.center-widget .form-group .grid-20 {
+	font-size: 15px;
+	padding-top: 12px;
 }
 
 .right-sb .cat-status li:after{

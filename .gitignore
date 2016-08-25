@@ -3,3 +3,6 @@ typings/
 static/app.js*
 static/vendor.js*
 .DS_Store
+
+app/views/basicCreateAndEdit.html
+
