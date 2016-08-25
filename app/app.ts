@@ -21,6 +21,11 @@ export class NotFoundCmp {
 	}
 }
 
+const noNavURLs = {
+	'/login': true,
+	'/signUp': true,
+};
+
 @Component({
 	selector: 'sway-app',
 	templateUrl: './views/app.html'
@@ -29,22 +34,30 @@ export class AppComponent extends HasAPI {
 	private noNav: boolean;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		super(api);
-		const noNavURLs = {
-			'/login': true,
-			'/signUp': true,
-		};
+
 		let lastRoute: any;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
 				this.noNav = !!noNavURLs[evt.url];
-				if(lastRoute && lastRoute.url !== evt.url) {
+				if (lastRoute && lastRoute.url !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}
 				this.ResetNotifications();
-				return this.error = null;
+				this.error = null;
+				return;
 			}
 			if (evt instanceof NavigationEnd) {
-				return this.reinitPageScripts();
+				this.reinitPageScripts();
+				const baseCls = document.querySelector('#page-content > .grid-parent > .grid-parent').classList,
+					doThree = document.querySelector('h2[three-columns]');
+				if(doThree) {
+					baseCls.remove('grid-85');
+					baseCls.add('grid-62');
+				} else {
+					baseCls.remove('grid-62');
+					baseCls.add('grid-85');
+				}
+				return;
 			}
 		});
 	}
