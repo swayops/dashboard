@@ -29,6 +29,7 @@ export class Form{
 		this.onSave(this.data, () => this.loading = false);
 	}
 
+
 	validate(f: NgForm, fld: ControlOptions) {
 		const ctl = f.form.controls[fld.name],
 			val = this.data[fld.name];
@@ -36,11 +37,11 @@ export class Form{
 
 		if(!val && fld.req) {
 			errors['Required'] = true;
-		}
-
-		// something is wrong with angular's regex validator so yeah this is fun
-		if(fld.pattern && !fld.pattern.test(this.data[fld.name])) {
+		} else if(fld.pattern && val && !fld.pattern.test(val)) {
+			// something is wrong with angular's regex validator so yeah this is fun
 			errors[fld.error ? fld.error : 'The value doesn\'t match: ' + fld.pattern] = true;
+		} else if(fld.sameAs && val !== this.data[fld.sameAs]) {
+			errors[fld.error ? fld.error : 'Value mismatch'] = true;
 		}
 
 		ctl.setErrors(Object.keys(errors).length > 0 ? errors : null)
@@ -59,10 +60,11 @@ interface ControlOptions {
 	placeholder?: string // defaults to title
 
 	req?: boolean;
-	min?: number; // implies required
 	pattern?: RegExp;
 
-	error?: string;
+	error?: string; // error message displayed
+
+	sameAs?: string; // for verify email/password fields
 
 	input?: string;
 	textarea?: boolean;

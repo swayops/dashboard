@@ -7,7 +7,7 @@
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
 					<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="data[fld.name]" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
-					<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="data[fld.name]" (blur)="validate(f, fld)" [class.req]=fld.req>
+					<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="data[fld.name]" (blur)="validate(f, fld)" [class.req]=fld.req [step]="fld.input==='number' && 0.01">
 					<template ngFor let-err [ngForOf]="errors(f, fld)">
 						<span style="display: block"><span style="color: red">*</span> {{err}}</span>
 					</template>

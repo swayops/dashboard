@@ -64,6 +64,10 @@ export class Sway {
 		});
 	}
 
+	GoTo(...args: string[]) {
+		this.router.navigate(args);
+	}
+
 	Reset() {
 		this._user = this._cuser = null;
 		this._status = 0;
@@ -152,7 +156,6 @@ export interface SignUpInfo {
 	pass2?: string;
 	advertiser: {
 		dspFee: number;
-		exchangeFee: number;
 	}
 }
 
