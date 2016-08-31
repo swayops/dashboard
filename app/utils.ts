@@ -26,7 +26,6 @@ export class FilterArrayPipe implements PipeTransform {
 
 export function FilterByNameOrID(kw: string | null, it: {id: string, name: string}): boolean {
 	if(!kw || !it) return true;
-	console.log(kw, it);
 	kw = kw.toLowerCase();
 	if(it.id.indexOf(kw) > -1) return true;
 	return it.name.toLowerCase().indexOf(kw) > -1;

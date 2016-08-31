@@ -126,9 +126,8 @@ export class AuthGuard implements CanActivate {
 
 }
 
+let _notif: Notification[] = [];
 export class HasAPI {
-	private _notif: Notification[] = [];
-
 	constructor(protected api: Sway) {}
 	get user() { return this.api.CurrentUser; }
 
@@ -136,17 +135,19 @@ export class HasAPI {
 	@Output() get error() { return this.api.error; }
 
 	@Output() get notifications() {
-		this._notif.forEach(v => {
+		_notif.forEach(v => {
 			if(v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
 		})
-		return this._notif.filter(v => v.timeout !== -1);
+		return _notif.filter(v => v.timeout !== -1);
 	}
 
 	AddNotification(type: string, msg: string, timeout: number = 0) {
-		this._notif.push({type, msg, timeout});
+		_notif.push({type, msg, timeout});
 	}
 
-	ResetNotifications() { this._notif = []; }
+	ResetNotifications() {
+		_notif = [];
+	}
 }
 
 export interface SignUpInfo {

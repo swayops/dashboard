@@ -43,7 +43,6 @@ export class AppComponent extends HasAPI {
 					api.SetCurrentUser(null); // workaround for nav
 				}
 				this.ResetNotifications();
-				this.error = null;
 				return;
 			}
 			if (evt instanceof NavigationEnd) {
