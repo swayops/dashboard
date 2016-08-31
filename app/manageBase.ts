@@ -9,9 +9,12 @@ export class ManageBase extends HasAPI {
 	private list;
 	@Input() kw;
 
-	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway) {
+	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string) {
 		super(api);
 		title.setTitle('Sway :: Manage ' + name);
+		if(id) {
+			this.apiEndpoint += '/' + id;
+		}
 		this.Reload();
 	}
 
@@ -40,4 +43,9 @@ export class ManageBase extends HasAPI {
 	}
 
 	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
+
+	toggleDialog() {
+		const dlg = document.querySelector('dialog');
+		if(dlg) dlg.classList.toggle('visible');
+	}
 }

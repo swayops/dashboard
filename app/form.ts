@@ -10,11 +10,15 @@ import { Sway, HasAPI } from './sway';
 	templateUrl: './views/form.html'
 })
 
-export class Form{
+export class Form {
 	@Input() data: Object = {};
 	@Input() fields: ControlOptions[];
-	@Input() onSave: (data: Object, done: () => void) => void;
-	@Input() onCancel: () => void;
+	@Input() onSave: (data: Object, done: () => void) => void = (data, done) => { console.log(data); done(); };
+	@Input() onCancel: () => void = () => history.back();
+	@Input() buttons = {
+		cancel: 'Back',
+		save: 'Save »'
+	};
 
 	private loading = false;
 
@@ -54,7 +58,8 @@ export class Form{
 	}
 }
 
-interface ControlOptions {
+
+export interface ControlOptions {
 	title: string;
 	name: string;
 	placeholder?: string // defaults to title

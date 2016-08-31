@@ -1,4 +1,4 @@
-<form #f="ngForm" novalidate (ngSubmit)=save()>
+<form #f="ngForm" novalidate>
 	<div class="form-group">
 		<template ngFor let-fld [ngForOf]="fields">
 			<div>
@@ -17,10 +17,10 @@
 		</template>
 		<div class="clearfix br"></div>
 		<div class="grid-50 mobile-grid-40 grid-parent">
-			<a href="#fakelink" class="btn btn-block btn-sm btn-blue ghost" (click)="onCancel ? onCancel() : history.back()">Back</a>
+			<button class="btn btn-block btn-sm btn-blue ghost" (click)="onCancel()">{{ buttons.cancel }}</button>
 		</div>
 		<div class="grid-50 mobile-grid-60 grid-parent align-right">
-			<button class="btn btn-block btn-sm btn-green1" [disabled]="!f.valid || loading">Save &#187;</button>
+			<button class="btn btn-block btn-sm btn-green1" [disabled]="!f.valid || loading" (click)="save()">{{ buttons.save }} </button>
 		</div>
 	</div>
 </form>

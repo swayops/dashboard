@@ -35,11 +35,11 @@ export class AppComponent extends HasAPI {
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		super(api);
 
-		let lastRoute: any;
+		let lastRoute: string;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
 				this.noNav = !!noNavURLs[evt.url];
-				if (lastRoute && lastRoute.url !== evt.url) {
+				if (lastRoute && lastRoute !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}
 				this.ResetNotifications();
@@ -57,6 +57,7 @@ export class AppComponent extends HasAPI {
 					baseCls.remove('grid-62');
 					baseCls.add('grid-85');
 				}
+				lastRoute = evt.url
 				return;
 			}
 		});
