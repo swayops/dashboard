@@ -47,7 +47,7 @@ export class MediaAgenciesCmp extends ManageBase {
 		this.api.Post('signUp', this.data, data => {
 			let msg = data.msg;
 			if(data.status === 'success') {
-				msg = 'Agency ' + this.data.name + '(' + data.id + ') was successfully created!';
+				msg = 'Agency ' + this.data.name + '(' + data.id + ') was created successfully!';
 			}
 			this.AddNotification(data.status, msg);
 			this.toggleDialog();

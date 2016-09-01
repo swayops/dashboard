@@ -1,6 +1,6 @@
-<h2 class="heading">
-	Manage Talent Agencies</h2>
-<a class="btn btn-green1 btn-micro">Create +</a>
+<h2 class="heading">Manage Talent Agencies</h2>
+<button class="btn btn-green1 btn-micro" (click)=toggleDialog()>Create +</button>
+
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
 </form>
@@ -30,3 +30,10 @@
 		</tr>
 	</tbody>
 </table>
+
+<dialog>
+	<div>
+		<h2 class="heading">Create Talent Agency</h2>
+		<form-ng [fields]=fields [onSave]=save [onCancel]=toggleDialog [data]=data></form-ng>
+	</div>
+</dialog>
