@@ -14,6 +14,7 @@ export class ManageBase extends HasAPI {
 		title.setTitle('Sway :: Manage ' + name);
 		if(id) {
 			this.apiEndpoint += '/' + id;
+			api.SetCurrentUser(id);
 		}
 		this.Reload();
 	}

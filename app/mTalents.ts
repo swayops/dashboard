@@ -11,9 +11,7 @@ import { ManageBase } from './manageBase';
 })
 export class TalentsCmp extends ManageBase {
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		const id = route.snapshot.params['id'];
-		super('getInfluencersByAgency/' + id, 'My Talents', title, api);
-		api.SetCurrentUser(id);
+		super('getInfluencersByAgency', 'My Talents', title, api, route.snapshot.params['id']);
 	}
 
 	contactInfo(inf: any): string {

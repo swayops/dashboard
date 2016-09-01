@@ -50,7 +50,6 @@ export class AdvertisersCmp extends ManageBase {
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id']);
-		api.SetCurrentUser(this.id);
 		this.data.parentId = this.id;
 	}
 
