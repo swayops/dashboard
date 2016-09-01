@@ -14,10 +14,10 @@ export class CheckPayoutsCmp extends ManageBase {
 	}
 
 	address(inf: {address: any}) {
-		console.log(inf);
 		return inf.address ? (inf.address.address_country + ', ' + inf.address.address_state) : 'N/A';
 	}
-	checkPayout(id: string) {
+
+	approve(id: string) {
 		this.api.Get('approveCheck/' + id, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Approved!');
 			this.Reload()

@@ -20,12 +20,14 @@
 		<tr *ngFor="let inf of list | filter:FilterUsers">
 			<td class="align-left">{{inf.name}}</td>
 			<td>{{inf.id}}</td>
-			<td>{{inf.completedDeals}}</td>
+			<td><template ngFor let-it [ngForOf]="inf.completedDeals" let-i="index">
+				<a title="{{it}}" href="{{it}}">{{i+1}}</a>
+			</template></td>
 			<td>{{inf.followers}}</td>
 			<td>{{address(inf)}}</td>
-			<td>${{inf.pendingPayout}}</td>
+			<td>${{inf.pendingPayout?.toFixed(2)}}</td>
 			<td>{{inf.requestedCheck * 1000 | date}}</td>
-			<td><a class="btn btn-green1 btn-micro ghost" (click)="approve(inf.id)">Approve</a></td>
+			<td><button class="btn btn-green1 btn-micro ghost" (click)="approve(inf.id)">Approve</button></td>
 		</tr>
 	</tbody>
 </table>
