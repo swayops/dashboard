@@ -24,17 +24,15 @@
 	</div>
 
 	<div *ngIf="user.talentAgency">
-		<div class="cr8-campaign"><a [routerLink]="['/createTalent']" class="btn btn-green1">Invite Talent</a></div>
 		<div class="user-account-options">
 			<ul>
-				<li class="li-influencers"><a [routerLink]="['/mTalent']" [routerLinkActive]="['is-active']">My Talent</a></li>
-				<li class="li-reporting"><a [routerLink]="['/reporting']" [routerLinkActive]="['is-active']">Reporting</a></li>
+				<li class="li-influencers"><a [routerLink]="['/mTalents', user.id]" [routerLinkActive]="['is-active']">My Talent</a></li>
+				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Reporting</a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div *ngIf="user.advertiser">
-		<div class="cr8-campaign"><a [routerLink]="['/createCampaign']" class="btn btn-green1">create campaign</a></div>
 		<div class="user-account-options">
 			<ul>
 				<li class="li-campaign"><a [routerLink]="['/campaigns', user.id]">My Campaigns</a></li>
