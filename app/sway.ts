@@ -4,8 +4,6 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { User } from './user';
-
 const apiURL = '/api/v1/';
 
 @Injectable()
@@ -25,8 +23,13 @@ export class Sway {
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
 				this._user = user;
-				//debugger;
-				this.router.navigate(this.redirectUrl ? [this.redirectUrl] : ['/dashboard']);
+				if(this.redirectUrl) {
+					this.GoTo(this.redirectUrl);
+				} else if(user.admin) {
+					this.GoTo('/dashboard');
+				} else if(user.advertiser) {
+					this.GoTo('/reporting', user.id);
+				}
 				this.redirectUrl = '';
 				this._status = 1;
 			}, onError);
@@ -52,6 +55,9 @@ export class Sway {
 	SetCurrentUser(id?: string, onError?: (err: any) => void) {
 		if(id == null) {
 			this._cuser = null;
+			return;
+		}
+		if(id === this.CurrentUser.id) {
 			return;
 		}
 		this.Get('user/' + id, user => this._cuser = user, onError)
@@ -164,4 +170,23 @@ interface Notification {
 	type: string;
 	msg: string;
 	timeout: number;
+}
+
+interface User {
+	id: string;
+	parentId: string;
+	name: string;
+	email: string;
+	phone: string;
+	address: string;
+	status: boolean;
+	createdAt: number;
+	updatedAt: number;
+
+	admin?: boolean;
+
+	adAgency?: Object;
+	talentAgency?: Object;
+	advertiser?: Object;
+	inf?: Object;
 }

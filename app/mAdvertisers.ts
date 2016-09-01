@@ -18,6 +18,7 @@ export class AdvertisersCmp extends ManageBase {
 			dspFee: 0,
 		},
 		dspFee: '0.2',
+		status: true,
 	};
 	private fields = [
 		{ title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,

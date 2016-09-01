@@ -10,6 +10,9 @@ import { Sway } from './sway';
 
 export class DashboardCmp {
 	constructor(title: Title, private api: Sway) {
+		if(!api.CurrentUser.admin) {
+			api.GoTo('/reporting', api.CurrentUser.id);
+		}
 		title.setTitle("Sway :: Dashboard");
 	}
 }
