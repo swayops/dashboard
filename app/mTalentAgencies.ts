@@ -16,7 +16,6 @@ export class TalentAgenciesCmp  extends ManageBase {
 		talentAgency: {
 			fee: 0.2
 		},
-		fee: '0.2',
 		status: true
 	};
 	private fields = [
@@ -37,8 +36,8 @@ export class TalentAgenciesCmp  extends ManageBase {
 			sameAs: 'pass'
 		},
 		{
-			title: 'Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'Fee', input: 'number', name: 'fee',
-			error: 'Please enter a number between 0.1 and 0.99'
+			title: 'Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'Fee', input: 'number',
+				name: 'talentAgency.fee', error: 'Please enter a number between 0.1 and 0.99'
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
@@ -51,7 +50,6 @@ export class TalentAgenciesCmp  extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.data.talentAgency.fee = parseFloat(this.data.fee);
 		this.api.Post('signUp', this.data, data => {
 			let msg = data.msg;
 			if(data.status === 'success') {

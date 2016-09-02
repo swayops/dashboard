@@ -17,9 +17,9 @@ export class AdvertisersCmp extends ManageBase {
 		advertiser: {
 			dspFee: 0,
 		},
-		dspFee: '0.2',
 		status: true,
 	};
+
 	private fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
@@ -38,8 +38,8 @@ export class AdvertisersCmp extends ManageBase {
 			sameAs: 'pass'
 		},
 		{
-			title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number', name: 'dspFee',
-			error: 'Please enter a number between 0.1 and 0.99'
+			title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
+			name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99'
 		},
 
 		{
@@ -54,7 +54,6 @@ export class AdvertisersCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.data.advertiser.dspFee = parseFloat(this.data.dspFee);
 		this.api.Post('signUp', this.data, data => {
 			let msg = data.msg;
 			if (data.status === 'success') {
