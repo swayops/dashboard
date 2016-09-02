@@ -1,0 +1,44 @@
+<h2 class="heading">Manage Campaigns</h2>
+<button class="btn btn-green1 btn-micro" (click)=toggleDialog()>Create +</button>
+
+<form style="width:250px; float:right;">
+	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+</form>
+
+<div class="clearfix br"></div>
+
+<table class="tbl">
+	<thead>
+		<tr>
+			<th class="align-left">Campaign</th>
+			<th>ID</th>
+			<th>Budget</th>
+			<th title="Twitter">Tw</th>
+			<th title="Facebook">Fb</th>
+			<th title="Instagram">In</th>
+			<th title="YouTube">Yt</th>
+			<th>Created Date</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let cmp of list | filter:FilterUsers">
+			<td class="align-left"><a [routerLink]="['/campaign', cmp.id]">{{cmp.name}}</a></td>
+			<td>{{cmp.id}}</td>
+			<td>${{cmp.budget?.toFixed(2)}}</td>
+			<td>{{cmp.twitter && 'X'}}</td>
+			<td>{{cmp.facebook && 'X'}}</td>
+			<td>{{cmp.instagram && 'X'}}</td>
+			<td>{{cmp.youtube && 'X'}}</td>
+			<td>{{cmp.createdAt * 1000 | date}}</td>
+			<td><button class="btn-info btn-micro ghost" (click)=Edit(ag.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<dialog>
+	<div>
+		<h2 class="heading">Create Campaign</h2>
+		<form-ng [fields]=fields [onSave]=save [onCancel]=toggleDialog [data]=data></form-ng>
+	</div>
+</dialog>

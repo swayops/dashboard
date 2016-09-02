@@ -39,8 +39,11 @@ export class ManageBase extends HasAPI {
 		return '$' + n.toFixed(cut);
 	}
 
-	Num(n: number, def: number = 0): number {
-		return n || def;
+	Num(v: any, def: number = 0): number {
+		if(v == null) return def;
+		if(Array.isArray(v) || typeof v === 'string') return v.length;
+		if(typeof v === 'number') return v;
+		return def;
 	}
 
 	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }

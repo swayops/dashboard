@@ -35,10 +35,10 @@
 	<div *ngIf="user.advertiser">
 		<div class="user-account-options">
 			<ul>
-				<li class="li-campaign"><a [routerLink]="['/campaigns', user.id]">My Campaigns</a></li>
-				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]">Reporting</a></li>
-				<li class="li-perks"><a [routerLink]="['/mPerks', user.id]">My Perks</a></li>
-				<li class="li-content"><a [routerLink]="['']">My Content</a></li>
+				<li class="li-campaign"><a [routerLink]="['/mCampaigns', user.id]" [routerLinkActive]="['is-active']">My Campaigns</a></li>
+				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Reporting</a></li>
+				<li class="li-perks"><a [routerLink]="['/mPerks', user.id]" [routerLinkActive]="['is-active']">My Perks</a></li>
+				<li class="li-content"><a [routerLink]="['/contentFeed']">My Content</a></li>
 			</ul>
 		</div>
 	</div>

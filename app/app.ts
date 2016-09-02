@@ -196,6 +196,5 @@ export class AppComponent extends HasAPI {
 		this.initSliderRange
 		this.reinitUI();
 	}
-
 }
 
