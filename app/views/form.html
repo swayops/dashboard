@@ -6,8 +6,8 @@
 					{{fld.title}}
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="data[fld.name]" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
-					<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="data[fld.name]" (blur)="validate(f, fld)" [class.req]=fld.req [step]="fld.input==='number' && 0.01">
+					<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="bind(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
+					<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [(ngModel)]="bind(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req [attr.required]=fld.req [step]="fld.input==='number' && 0.01">
 					<template ngFor let-err [ngForOf]="errors(f, fld)">
 						<span style="display: block"><span style="color: red">*</span> {{err}}</span>
 					</template>
@@ -20,7 +20,7 @@
 			<button class="btn btn-block btn-sm btn-blue ghost" (click)="onCancel()">{{ buttons.cancel }}</button>
 		</div>
 		<div class="grid-50 mobile-grid-60 grid-parent align-right">
-			<button class="btn btn-block btn-sm btn-green1" [disabled]="!f.valid || loading" (click)="save()">{{ buttons.save }} </button>
+			<button class="btn btn-block btn-sm btn-green1" [disabled]="valid" (click)="save()">{{ buttons.save }} </button>
 		</div>
 	</div>
 </form>
