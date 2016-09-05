@@ -24,12 +24,12 @@ export class CampaignsCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', this.data, data => {
-			let msg = data.msg;
+		this.api.Post('signUp', data, resp => {
+			let msg = resp.msg;
 			if (data.status === 'success') {
-				//msg = 'Advertiser ' + this.data.name + '(' + data.id + ') was created successfully!';
+				msg = 'Campaign ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
-			this.AddNotification(data.status, msg);
+			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
 		}, err => this.AddNotification('error', err.msg));

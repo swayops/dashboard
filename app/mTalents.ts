@@ -67,12 +67,12 @@ export class TalentsCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', this.data, data => {
-			let msg = data.msg;
-			if(data.status === 'success') {
-				msg = 'Talent ' + this.data.name + '(' + data.id + ') was created successfully!';
+		this.api.Post('signUp', data, resp => {
+			let msg = resp.msg;
+			if(resp.status === 'success') {
+				msg = 'Talent ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
-			this.AddNotification(data.status, msg);
+			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
 		}, err => this.AddNotification('error', err.msg));

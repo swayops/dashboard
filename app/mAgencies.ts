@@ -44,12 +44,12 @@ export class MediaAgenciesCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', this.data, data => {
-			let msg = data.msg;
-			if(data.status === 'success') {
-				msg = 'Agency ' + this.data.name + '(' + data.id + ') was created successfully!';
+		this.api.Post('signUp', this.data, resp => {
+			let msg = resp.msg;
+			if(resp.status === 'success') {
+				msg = 'Agency ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
-			this.AddNotification(data.status, msg);
+			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
 		}, err => this.AddNotification('error', err.msg));

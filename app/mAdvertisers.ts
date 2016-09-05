@@ -15,7 +15,7 @@ export class AdvertisersCmp extends ManageBase {
 		name: '',
 		parentId: null,
 		advertiser: {
-			dspFee: 0,
+			dspFee: 0.2,
 		},
 		status: true,
 	};
@@ -54,16 +54,13 @@ export class AdvertisersCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		console.log(data, done());
-		if(1===1) return;
-		this.api.Post('signUp', this.data, data => {
+		this.api.Post('signUp', data, resp => {
 			let msg = data.msg;
-			if (data.status === 'success') {
-				msg = 'Advertiser ' + this.data.name + '(' + data.id + ') was created successfully!';
+			if (resp.status === 'success') {
+				msg = 'Advertiser ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
-			this.AddNotification(data.status, msg);
+			this.AddNotification(resp.status, msg);
 			this.Reload();
-			done();
 		}, err => this.AddNotification('error', err.msg));
 	}
 }
