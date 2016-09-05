@@ -1,5 +1,5 @@
 <h2 class="heading">Manage Advertisers</h2>
-<button class="btn btn-green1 btn-micro" (click)=dlg.show()>Create +</button>
+<button class="btn btn-green1 btn-micro" (click)=dlg.show(data)>Create +</button>
 
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
@@ -30,4 +30,4 @@
 	</tbody>
 </table>
 
-<form-dlg #dlg [fields]=fields [data]=data (onSave)="save($event.data, $event.done)" title="Create Advertiser"></form-dlg>
+<form-dlg #dlg [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Advertiser"></form-dlg>

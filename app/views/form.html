@@ -1,5 +1,5 @@
 <div *ngIf=showDialog>
-	<h2 class="heading" *ngIf=title>{{title}}</h2>
+	<h2 class="heading" *ngIf=title>{{realTitle}}</h2>
 	<form #f="ngForm" novalidate onsubmit="return false;">
 		<div class="form-group">
 			<template ngFor let-fld [ngForOf]="fields">
@@ -24,7 +24,7 @@
 				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide()">{{ buttons.cancel }}</button>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button class="btn btn-block btn-sm btn-green1" [disabled]="valid" (click)="save()">{{ buttons.save }} </button>
+				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ buttons.save }} </button>
 			</div>
 		</div>
 	</form>
