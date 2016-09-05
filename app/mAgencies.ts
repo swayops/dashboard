@@ -50,8 +50,8 @@ export class MediaAgenciesCmp extends ManageBase {
 				msg = 'Agency ' + this.data.name + '(' + data.id + ') was created successfully!';
 			}
 			this.AddNotification(data.status, msg);
-			this.toggleDialog();
 			this.Reload();
+			done();
 		}, err => this.AddNotification('error', err.msg));
 	}
 }

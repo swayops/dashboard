@@ -54,14 +54,16 @@ export class AdvertisersCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
+		console.log(data, done());
+		if(1===1) return;
 		this.api.Post('signUp', this.data, data => {
 			let msg = data.msg;
 			if (data.status === 'success') {
 				msg = 'Advertiser ' + this.data.name + '(' + data.id + ') was created successfully!';
 			}
 			this.AddNotification(data.status, msg);
-			this.toggleDialog();
 			this.Reload();
+			done();
 		}, err => this.AddNotification('error', err.msg));
 	}
 }

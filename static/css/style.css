@@ -1887,11 +1887,11 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
 	height: 19px;
 }
 
-dialog {
+form-dlg {
 	margin: auto auto;
 	padding: 0;
 	border: 0;
-	display: hidden;
+	display: none;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -1904,11 +1904,11 @@ dialog {
 	overflow: auto;
 }
 
-dialog.visible {
+form-dlg.visible {
 	display: block;
 }
 
-dialog > div {
+form-dlg > div {
 	margin: 10px auto;
 	background: white;
 	padding: 10px 20px;
@@ -1916,6 +1916,6 @@ dialog > div {
 	border-radius: 10px;
 }
 
-dialog > div > h2 {
+form-dlg > div > h2 {
 	padding-top: 10px !important;
 }

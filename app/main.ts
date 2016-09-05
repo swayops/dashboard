@@ -24,7 +24,7 @@ import { CheckPayoutsCmp } from './checkPayouts';
 
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
-import { Form } from './form';
+import { FormDlg } from './form';
 
 import { FilterArrayPipe } from './utils';
 
@@ -124,7 +124,8 @@ export const ALL_ROUTES: RouterConfig = [
 		TalentsCmp, CheckPayoutsCmp, OutboundPerksCmp,
 		CampaignPerksCmp, CampaignsCmp,
 
-		Form,
+		FormDlg,
+
 		// pipes and utils
 		FilterArrayPipe
 	],

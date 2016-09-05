@@ -1,36 +1,45 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 import { NgForm } from '@angular/forms'
 
 import { Sway, HasAPI } from './sway';
 
 @Component({
-	selector: 'form-ng',
+	selector: 'form-dlg',
 	templateUrl: './views/form.html'
 })
 
-export class Form {
+export class FormDlg {
+	@Output() onSave = new EventEmitter();
+
+	@Input() title: string = 'Create Something'
 	@Input() data: Object = {};
 	@Input() fields: ControlOptions[];
-	@Input() onSave: (data: Object, done: () => void) => void = (data, done) => { console.log(data); done(); };
-	@Input() onCancel: () => void = () => history.back();
 	@Input() buttons = {
 		cancel: 'Back',
 		save: 'Save »'
 	};
 
+	private showDialog = false;
 	private loading = false;
 	private binders = {};
-	constructor() {}
+
+	constructor(private _loc: Location, private _ref: ElementRef) {}
 
 	save(f: NgForm) {
-		if(!this.onSave) {
-			console.error('must provide onSave');
-			return
-		}
 		this.loading = true;
-		this.onSave(this.data, () => this.loading = false);
+		this.onSave.emit({data: this.data, done: () => this.hide()});
+	}
+
+	hide() { this.show(false); this.loading = false; }
+
+	show(v = true) {
+		const ele = this._ref.nativeElement;
+		if(!ele) return console.error('something is wrong');
+		ele.classList[v ? 'add' : 'remove']('visible');
+		this.showDialog = v;
 	}
 
 	bind(fld: ControlOptions): Binder {
@@ -72,7 +81,6 @@ export class Form {
 	}
 }
 
-
 export interface ControlOptions {
 	title: string;
 	name: string;
@@ -111,3 +119,4 @@ class Binder {
 	}
 	get value(): any { return this.data[this.name]; }
 }
+

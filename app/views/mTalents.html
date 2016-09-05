@@ -1,5 +1,5 @@
 <h2 class="heading">Manage My Talents</h2>
-<button class="btn btn-green1 btn-micro" (click)=toggleDialog()>Create +</button>
+<button class="btn btn-green1 btn-micro" (click)=dlg.show()>Create +</button>
 
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
@@ -36,9 +36,5 @@
 	</tbody>
 </table>
 
-<dialog>
-	<div>
-		<h2 class="heading">Create Talent</h2>
-		<form-ng [fields]=fields [onSave]=save [onCancel]=toggleDialog [data]=data></form-ng>
-	</div>
-</dialog>
+
+<form-dlg #dlg [fields]=fields [data]=data (onSave)="save($event.data, $event.done)"  title="Create Talent"></form-dlg>
