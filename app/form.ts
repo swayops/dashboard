@@ -15,7 +15,7 @@ export class FormDlg {
 	@Output() onSave = new EventEmitter();
 
 	@Input() title: string;
-	@Input() fields: ControlOptions[];
+	@Input() fields: ControlOption[];
 	@Input() buttons = {
 		cancel: 'Back',
 		save: 'Save »',
@@ -41,21 +41,26 @@ export class FormDlg {
 		this.loading = false;
 	}
 
-	show(data: Object, title = this.title) {
+	show(data: any) {
+		console.log(data);
 		this.data = data;
-		this.realTitle = title;
+		this.rebind();
 		this.setVisible(true);
 	}
 
-	bind(fld: ControlOptions): Binder {
-		if(!this.binders[fld.name]) {
-			this.binders[fld.name] = new Binder(this.data, fld);
-		}
+	rebind() {
+		const binders = {};
+		this.fields.forEach(fld => binders[fld.name] = new Binder(this.data, fld));
+		this.binders = binders;
+	}
+
+	field(fld: ControlOption): any {
+		console.log(fld.name, this.binders[fld.name])
 		return this.binders[fld.name];
 	}
 
-	// this shouldn't be like this but there's something wrong with dynamic form generation
-	validate(f: NgForm, fld: ControlOptions) {
+	// this shouldn't be done like this but there's something wrong with dynamic form generation and binding
+	validate(f: NgForm, fld: ControlOption) {
 		const ctl = f.form.controls[fld.name],
 			errors = this.binders[fld.name].errors;
 
@@ -78,7 +83,7 @@ export class FormDlg {
 		return !hasErrors;
 	}
 
-	errors(f: NgForm, fld: ControlOptions) {
+	errors(f: NgForm, fld: ControlOption) {
 		const ctl = f.form.controls[fld.name];
 		if(!ctl || !ctl.errors) return [];
 		return Object.keys(ctl.errors);
@@ -92,7 +97,7 @@ export class FormDlg {
 	}
 }
 
-export interface ControlOptions {
+export interface ControlOption {
 	title: string;
 	name: string;
 	placeholder?: string // defaults to title
@@ -111,7 +116,7 @@ export interface ControlOptions {
 
 class Binder {
 	private name: string;
-	constructor(private data: Object, private fld: ControlOptions) {
+	constructor(private data: Object, private fld: ControlOption) {
 		let parts = fld.name.split('.'),
 			lastKey = parts[parts.length - 1];
 		for(let i = 0; i < parts.length - 1; i++) {
@@ -120,13 +125,14 @@ class Binder {
 		}
 		this.data = data;
 		this.name = lastKey;
+		//console.log(fld);
 	}
 
 	set value(val: any) {
 		if(this.fld.input === 'number') val = parseFloat(val);
 		this.data[this.name] = val;
 	}
-	get value(): any { return this.data[this.name]; }
+	get value(): any { console.log(this); return this.data[this.name]; }
 
 	get errors(): {} {
 		const val = this.value,

@@ -1,19 +1,19 @@
 <div *ngIf=showDialog>
-	<h2 class="heading" *ngIf=title>{{realTitle}}</h2>
+	<h2 class="heading" *ngIf=title>{{title}}</h2>
 	<form #f="ngForm" novalidate onsubmit="return false;">
 		<div class="form-group">
 			<template ngFor let-fld [ngForOf]="fields">
 				<div>
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						{{fld.title}}
+						{{fld.title}}<span *ngIf=fld.req class="error" title="required"> *</span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
-							[(ngModel)]="bind(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
+							[(ngModel)]="field(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
 						<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
-							[(ngModel)]="bind(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req [attr.required]=fld.req [step]="fld.input==='number' && 0.01">
+							[(ngModel)]="field(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req [attr.required]=fld.req [step]="fld.input==='number' && 0.01">
 						<template ngFor let-err [ngForOf]="errors(f, fld)">
-							<span style="display: block"><span style="color: red">*</span> {{err}}</span>
+							<span style="display: block"><span class="error">*</span> {{err}}</span>
 						</template>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide()">{{ buttons.cancel }}</button>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ buttons.save }} </button>
+				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ loading ? buttons.load : buttons.save }} </button>
 			</div>
 		</div>
 	</form>

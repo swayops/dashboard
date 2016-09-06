@@ -851,7 +851,7 @@ textarea{
 	border-width: 1px;
 }
 
-.notification.error .fui-cross{
+.notification.error .fui-cross, span.error{
 	color: #d2335c;
 }
 
