@@ -29,11 +29,13 @@ export class TalentAgenciesCmp  extends ManageBase {
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
-			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.'
+			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
+			reqNewOnly: true,
 		},
 		{
 			title: 'Verify Password:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
-			sameAs: 'pass'
+			sameAs: 'pass',
+			reqNewOnly: true,
 		},
 		{
 			title: 'Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'Fee', input: 'number',
@@ -44,6 +46,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 			error: 'Please provide a valid phone number.'
 		}
 	];
+	private editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway) {
 		super('getAllTalentAgencies', 'Talent Agencies', title, api);

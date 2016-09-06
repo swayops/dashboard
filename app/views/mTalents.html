@@ -1,5 +1,5 @@
 <h2 class="heading">Manage My Talents</h2>
-<button class="btn btn-green1 btn-micro" (click)=dlg.show()>Create +</button>
+<button class="btn btn-green1 btn-micro" (click)=cdlg.show(data)>Create +</button>
 
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
@@ -31,10 +31,12 @@
 			<td>{{FmtMoney(t.infSpend)}}</td>
 			<td>{{t.createdAt * 1000 | date}}</td>
 			<td title="{{contactInfo(t)}}" class="email ttip">View</td>
-			<td><button class="btn-info btn-micro ghost" (click)=Edit(t.id)>Edit</button> | <button class="btn-scarlet btn-micro ghost" (click)=Delete(t.id)>X</button></td>
+			<td><button class="btn-info btn-micro ghost" (click)=edlg.show(t)>Edit</button> | <button class="btn-scarlet btn-micro ghost" (click)=Delete(t.id)>X</button></td>
 		</tr>
 	</tbody>
 </table>
 
 
-<form-dlg #dlg [fields]=fields (onSave)="save($event.data, $event.done)"  title="Create Talent"></form-dlg>
+<form-dlg #cdlg [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Talent"></form-dlg>
+<form-dlg #edlg [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Talent"></form-dlg>
+
