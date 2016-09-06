@@ -18,6 +18,7 @@ export class CampaignsCmp extends ManageBase {
 			pattern: /^..+$/, error: 'Please provide a name'
 		}
 	];
+	private editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);

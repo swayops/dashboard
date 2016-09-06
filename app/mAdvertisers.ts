@@ -31,11 +31,13 @@ export class AdvertisersCmp extends ManageBase {
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
-			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.'
+			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
+			reqNewOnly: true,
 		},
 		{
 			title: 'Verify Password:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
-			sameAs: 'pass'
+			sameAs: 'pass',
+			reqNewOnly: true,
 		},
 		{
 			title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
@@ -47,6 +49,7 @@ export class AdvertisersCmp extends ManageBase {
 			error: 'Please provide a valid phone number.'
 		}
 	];
+	private editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id']);

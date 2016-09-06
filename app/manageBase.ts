@@ -13,14 +13,15 @@ export class ManageBase extends HasAPI {
 	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string) {
 		super(api);
 		title.setTitle('Sway :: Manage ' + name);
-		if(id) {
+		if (id) {
 			this.apiEndpoint += '/' + id;
 			api.SetCurrentUser(id);
 		}
 		this.Reload();
 	}
 
-	Edit(uid: string) {
+	Edit(it: any) {
+		console.log("x", it);
 		console.warn('n/i');
 	}
 
@@ -31,21 +32,29 @@ export class ManageBase extends HasAPI {
 	Reload(onComplete?: (resp, err?) => void) {
 		this.api.Get(this.apiEndpoint, data => {
 			this.list = data;
-			if(onComplete) onComplete(data, null);
+			if (onComplete) onComplete(data, null);
 		}, err => onComplete && onComplete(null, err));
 	}
 
 	FmtMoney(n: number, cut: number = 2): string {
-		if(n == null) return 'N/A';
+		if (n == null) return 'N/A';
 		return '$' + n.toFixed(cut);
 	}
 
 	Num(v: any, def: number = 0): number {
-		if(v == null) return def;
-		if(Array.isArray(v) || typeof v === 'string') return v.length;
-		if(typeof v === 'number') return v;
+		if (v == null) return def;
+		if (Array.isArray(v) || typeof v === 'string') return v.length;
+		if (typeof v === 'number') return v;
 		return def;
 	}
 
 	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
+
+	EditFields(flds: any[]): any[] {
+		const out = [];
+		return flds.map(fld => {
+			if(!fld.reqNewOnly) return fld;
+			return Object.assign({}, fld, {req: false});
+		});
+	}
 }
