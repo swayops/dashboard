@@ -1,0 +1,44 @@
+<h2 class="heading">Sort Content By:</h2>
+<div class="grid-100 mobile-grid-100 grid-parent">
+	<div class="grid-100 mobile-grid-100">
+		<p align="center">Sort by:
+			<a href="javascript:" (click)="SortBy('published')">Most Recent</a> -
+			<a href="javascript:" (click)="SortBy('views')">Views</a> -
+			<a href="javascript:" (click)="SortBy('likes')">Likes</a> -
+			<a href="javascript:" (click)="SortBy('comments')">Comments</a> -
+			<a href="javascript:" (click)="SortBy('shares')">Shares</a> -
+			<a href="javascript:" (click)="SortBy('clicks')">Clicks</a>
+		</p>
+		<!-- TBI - <a href="#">Link Clicks</a> - <a href="#">@Mentions</a> - <a href="#">#Hashtag Boosts</a></p> -->
+
+		<div class="form-group has-icon icon-search icon-left" style="margin-left: 30%;">
+			<input style="width: 300px;" type="text" placeholder="Search by username..." class="form-control" [(ngModel)]="kw" name="kw">
+		</div>
+	</div>
+</div><br/>
+
+<h2 class="heading">Content generated:</h2>
+<template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
+	<div class="grid-100 mobile-grid-100 grid-parent auditRow">
+		<a href="#">
+			<div align="center" class="grid-25 mobile-grid-100 grid-parent auditPic" style="background: #fff url(./img/exampleAudit.jpg) no-repeat 0 0; background-size: cover;"></div>
+		</a>
+		<div class="grid-60 mobile-grid-100 grid-parent auditDesc">
+			<div class="auditRowHeader">{{it.username}}: <small>{{it.published * 1000 | date}}</small></div>
+			<p>{{it.caption}}</p>
+			<small>
+			Views: <span id="counts">{{it.views || 'N/A'}}</span>
+			Likes: <span id="counts">{{it.likes || 'N/A'}}</span>
+			Comments: <span id="counts">{{it.comments || 'N/A'}}</span>
+			Shares: <span id="counts">{{it.shares || 'N/A'}}</span>
+			Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
+		</small>
+		</div>
+		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
+			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br/><br/>
+			<a href="#" class="btn btn-block btn-micro btn-scarlet ghost">Ban</a>
+			<br/>
+		</div>
+	</div>
+	<div class="clearfix br"></div>
+</template>

@@ -15,6 +15,7 @@ import { ForgotPasswordCmp } from './forgotPassword';
 import { DashboardCmp } from './dashboard';
 import { MediaAgenciesCmp } from './mAgencies';
 import { AdvertisersCmp } from './mAdvertisers';
+import { ContentFeedCmp } from './contentFeed';
 import { CampaignsCmp } from './mCampaigns';
 import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
 import { ReportingCmp } from './reporting';
@@ -53,6 +54,11 @@ export const ALL_ROUTES: RouterConfig = [
 	{
 		path: 'mAdvertisers/:id',
 		component: AdvertisersCmp,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'contentFeed/:id',
+		component: ContentFeedCmp,
 		canActivate: [AuthGuard]
 	},
 	{
@@ -122,7 +128,7 @@ export const ALL_ROUTES: RouterConfig = [
 		ForgotPasswordCmp, NotFoundCmp, MediaAgenciesCmp,
 		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
 		TalentsCmp, CheckPayoutsCmp, OutboundPerksCmp,
-		CampaignPerksCmp, CampaignsCmp,
+		CampaignPerksCmp, CampaignsCmp, ContentFeedCmp,
 
 		FormDlg,
 
