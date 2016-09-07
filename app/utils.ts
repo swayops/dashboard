@@ -24,9 +24,33 @@ export class FilterArrayPipe implements PipeTransform {
 	}
 }
 
-export function FilterByNameOrID(kw: string | null, it: {id: string, name: string}): boolean {
+export function FilterByProps(kw: string | null, it: Object, ...props: string[]): boolean {
 	if(!kw || !it) return true;
 	kw = kw.toLowerCase();
-	if(it.id.indexOf(kw) > -1) return true;
-	return it.name.toLowerCase().indexOf(kw) > -1;
+	return props.some(k => {
+		const v = it[k];
+		if(!v) return false;
+		return v.toLowerCase().indexOf(kw) > -1;
+	});
+}
+
+export function SortBy(...props: string[]): (a, b) => number {
+	return (a, b): number => {
+		let ret = 0;
+		props.some(k => {
+			let sortOrder = 1;
+			if(k[0] === '-') {
+				sortOrder = -1;
+				k = k.substr(1);
+			}
+			const av = a[k], bv = b[k];
+			if(av == null || av < bv) {
+				ret = -1 * sortOrder;
+			} else if(bv == null || av > bv) {
+				ret = 1 * sortOrder;
+			}
+			return ret !== 0;
+		});
+		return ret;
+	}
 }

@@ -3,20 +3,30 @@ import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
 
-import { FilterByNameOrID } from './utils';
+import { FilterByProps, SortBy } from './utils';
 
 // TODO make this an actual element and merge all the crap th uses it
 export class ManageBase extends HasAPI {
-	private list;
-	@Input() kw;
+	private list: Object[];
+	private lastSortKey: string;
+
+	@Input() kw: string;
 
 	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string) {
 		super(api);
-		title.setTitle('Sway :: Manage ' + name);
+
+		if(name[0] === '-') { // don't prefix the name with Manage
+			name = name.substr(1);
+		} else {
+			name = 'Manage ' + name;
+		}
+
+		title.setTitle('Sway :: ' + name);
 		if (id) {
 			this.apiEndpoint += '/' + id;
 			api.SetCurrentUser(id);
 		}
+
 		this.Reload();
 	}
 
@@ -48,13 +58,22 @@ export class ManageBase extends HasAPI {
 		return def;
 	}
 
-	get FilterUsers() { return (user) => FilterByNameOrID(this.kw, user) }
+	get FilterUsers() { return (user) => FilterByProps(this.kw, user, 'id', 'name'); }
+	get FilterByUserName() { return (user) => FilterByProps(this.kw, user, 'username'); }
+
+	SortBy(key: string) {
+		if(key === this.lastSortKey) {
+			key = key[0] === '-' ? key.substr(1) : '-' + key;
+		}
+		this.lastSortKey = key;
+		this.list.sort(SortBy(key));
+	}
 
 	EditFields(flds: any[]): any[] {
 		const out = [];
 		return flds.map(fld => {
-			if(!fld.reqNewOnly) return fld;
-			return Object.assign({}, fld, {req: false});
+			if (!fld.reqNewOnly) return fld;
+			return Object.assign({}, fld, { req: false });
 		});
 	}
 }
