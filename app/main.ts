@@ -1,8 +1,8 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Title, BrowserModule } from '@angular/platform-browser';
-import { NgModule, enableProdMode, ExceptionHandler } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, RouterConfig } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent, NotFoundCmp } from './app';
@@ -35,7 +35,7 @@ if (PRODUCTION) {
 	enableProdMode();
 }
 
-export const ALL_ROUTES: RouterConfig = [
+export const ALL_ROUTES = [
 	{
 		path: '',
 		redirectTo: '/dashboard',
@@ -139,7 +139,7 @@ export const ALL_ROUTES: RouterConfig = [
 		BrowserModule,
 		RouterModule.forRoot(ALL_ROUTES),
 		FormsModule,
-		HttpModule,
+		HttpModule
 	],
 	providers: [
 		Title,
