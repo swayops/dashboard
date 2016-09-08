@@ -1412,11 +1412,12 @@ padding-bottom:100px;
 .center-widget .heading span{
 	font-size:10.83px;
 }
-.center-widget input[type="text"], .center-widget input[type="email"], .center-widget input[type="password"],
+
+/*.center-widget input[type="text"], .center-widget input[type="email"], .center-widget input[type="password"],
 .center-widget textarea, .center-widget input[type="number"]{
 	box-sizing:border-box;
 	width:100%;
-}
+}*/
 
 .center-widget .form-group label,
 .center-widget .form-group input[type="checkbox"]{

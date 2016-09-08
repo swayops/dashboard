@@ -1,12 +1,12 @@
 <div class="grid-container page">
 	<user-header *ngIf="!noNav"></user-header>
-	<notifications *ngFor="let n of notifications">
+	<template ngFor let-n [ngForOf]="notifications">
 		<div class="notification {{n.type}}">
 			<h3>{{n.type}}</h3>
 			<p>{{n.msg}}</p>
 			<span class="fui-cross" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" title="Close"></span>
 		</div>
-	</notifications>
+	</template>
 	<div class="block-section" id="page-content">
 		<div class="grid-100 grid-parent">
 			<left-nav *ngIf="!noNav"></left-nav>
@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="grid-85 mobile-grid-100 grid-parent" [class.hidden]="error && error.code === 404">
+			<div class="mobile-grid-100 grid-parent" [class.hidden]="error && error.code === 404" [class.grid-85]=!noNav [class.grid-100]=noNav>
 				<div [class.content-holder]="!noNav" class="center-widget">
 					<div class="grid-100 grid-parent">
 						<router-outlet></router-outlet>

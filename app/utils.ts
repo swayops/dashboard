@@ -20,7 +20,7 @@ export class FilterArrayPipe implements PipeTransform {
 			console.error('must pass a function');
 			return [];
 		}
-		return arr.filter(it => fn(it));
+		return arr.filter(fn);
 	}
 }
 
