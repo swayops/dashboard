@@ -293,9 +293,14 @@ div#header .menu li:hover .sub-menu{
 	margin: 0 auto;
 }
 
+/*body.user-logged-in #page-content {
+	background-color: #fff;
+}*/
+
 #page-content{
-	background:#fff;    margin-top: -8px;
+	margin-top: -8px;
 }
+
 #page-content .content{
 	max-width:730px;
 	margin:0px auto;

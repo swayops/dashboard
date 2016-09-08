@@ -56,6 +56,11 @@ export class AppComponent extends HasAPI {
 					baseCls.remove('grid-62');
 					baseCls.add('grid-85');
 				}
+				if(!!this.api.CurrentUser) {
+					document.body.classList.add('user-logged-in');
+				} else {
+					document.body.classList.remove('user-logged-in');
+				}
 				lastRoute = evt.url
 				return;
 			}
