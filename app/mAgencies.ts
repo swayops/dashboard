@@ -31,7 +31,7 @@ export class MediaAgenciesCmp extends ManageBase {
 			reqNewOnly: true,
 		},
 		{
-			title: 'Verify Password:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
+			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
 			sameAs: 'pass',
 			reqNewOnly: true,
 		},
