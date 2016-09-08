@@ -10,9 +10,9 @@
 	</div>
 	<div class="fields">
 		<div class="field-item email">
-			<input placeholder="Email" class="form-control formLoggedOut" name="username" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
+			<input placeholder="Email" class="form-control" name="username" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
 		<div class="field-item password">
-			<input type="password" placeholder="Password" class="form-control formLoggedOut" name="password" [(ngModel)]="form.pass"
+			<input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="form.pass"
 				required minlength="8"></div>
 		<div *ngIf="error" class="notification error">
 			<p>{{error}}</p>

@@ -21,7 +21,7 @@
 			<td class="align-left">{{inf.name}}</td>
 			<td>{{inf.id}}</td>
 			<td><template ngFor let-it [ngForOf]="inf.completedDeals" let-i="index">
-				<a title="{{it}}" href="{{it}}">{{i+1}}</a>
+				<a title="{{it}}" href="{{it}}" target="_blank">{{i+1}}</a>
 			</template></td>
 			<td>{{inf.followers}}</td>
 			<td>{{address(inf)}}</td>

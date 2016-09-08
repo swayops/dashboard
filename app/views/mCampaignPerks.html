@@ -19,7 +19,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/campaign', perk.id]">{{perk.name}}</a></td>
+			<td class="align-left">{{perk.name}}</td>
 			<td>{{perk.id}}</td>
 			<td>{{perk.agencyId}}</td>
 			<td>{{perk.advertiserId}}</td>
