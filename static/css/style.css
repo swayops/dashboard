@@ -1887,7 +1887,7 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
 	height: 19px;
 }
 
-form-dlg {
+smart-form.dialog {
 	margin: auto auto;
 	padding: 0;
 	border: 0;
@@ -1904,11 +1904,11 @@ form-dlg {
 	overflow: auto;
 }
 
-form-dlg.visible {
+smart-form.dialog.visible {
 	display: block;
 }
 
-form-dlg > div {
+smart-form.dialog > div {
 	margin: 10px auto;
 	background: white;
 	padding: 10px 20px;
@@ -1916,6 +1916,6 @@ form-dlg > div {
 	border-radius: 10px;
 }
 
-form-dlg > div > h2 {
+smart-form > div > h2 {
 	padding-top: 10px !important;
 }

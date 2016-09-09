@@ -37,5 +37,5 @@
 </table>
 
 
-<form-dlg #cdlg [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Campaign"></form-dlg>
-<form-dlg #edlg [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Campaign"></form-dlg>
+<smart-form #cdlg class="dialog" [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Campaign"></smart-form>
+<smart-form #edlg class="dialog" [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Campaign"></smart-form>

@@ -32,12 +32,12 @@
 		</div>
 	</div>
 
-	<div *ngIf="user.advertiser">
+	<div class="user-account-options" *ngIf="user.advertiser">
+		<div class="cr8-campaign"><a [routerLink]="['/createCampaign', user.id]" class="btn btn-green1">CREATE CAMPAIGN</a></div>
 		<div class="user-account-options">
 			<ul>
 				<li class="li-campaign"><a [routerLink]="['/mCampaigns', user.id]" [routerLinkActive]="['is-active']">My Campaigns</a></li>
 				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Reporting</a></li>
-				<li class="li-perks"><a [routerLink]="['/mPerks', user.id]" [routerLinkActive]="['is-active']">My Perks</a></li>
 				<li class="li-content"><a [routerLink]="['/contentFeed', user.id]">My Content</a></li>
 			</ul>
 		</div>

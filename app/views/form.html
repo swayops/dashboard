@@ -9,10 +9,10 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
-							[(ngModel)]="field(fld).value" (blur)="validate(f, fld)" [class.req]=fld.req></textarea>
-						<input #input *ngIf="fld.input" class="form-control " type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
-							[value]="binders[fld.name].value" (blur)="validate(input)" [class.req]=fld.req [attr.required]=fld.req [step]="fld.input==='number' && 0.01">
-						<template ngFor let-err [ngForOf]="binders[fld.name].errors">
+							(blur)="set(input)" [class.req]=fld.req>{{binders[fld.name].value}}</textarea>
+						<input #input *ngIf="fld.input" class="form-control" type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
+							[value]="binders[fld.name].value" (blur)="set(input)" [class.req]=fld.req [attr.required]=fld.req [step]="fld.input==='number' && 0.01">
+						<template ngFor let-err [ngForOf]="binders[fld.name].errors" *ngIf="binders[fld.name].touched">
 							<span style="display: block"><span class="error">*</span> {{err}}</span>
 						</template>
 					</div>

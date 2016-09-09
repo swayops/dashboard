@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms'
 import { Sway, HasAPI } from './sway';
 
 @Component({
-	selector: 'form-dlg',
+	selector: 'smart-form',
 	templateUrl: './views/form.html'
 })
 
@@ -53,15 +53,8 @@ export class FormDlg {
 		this.binders = binders;
 	}
 
-	field(fld: ControlOption): any {
-		return this.binders[fld.name];
-	}
-
 	// this shouldn't be done like this but there's something wrong with dynamic form generation and binding
-	validate(ctl: any) {
-		const fb = this.binders[ctl.name];
-		fb.value = ctl.value;
-	}
+	set(ctl: any) { this.binders[ctl.name].value = ctl.value; }
 
 	get valid(): boolean {
 		if(this.loading) return false;
@@ -70,7 +63,7 @@ export class FormDlg {
 		Object.keys(this.binders).forEach(k => {
 			if(hasErrors) return;
 			const v = this.binders[k];
-			hasErrors = v.errors.length > 0;
+			hasErrors = (v.fld.req && v.value === '') || v.errors.length > 0;
 		});
 		return !hasErrors;
 	}
@@ -102,6 +95,8 @@ export interface ControlOption {
 
 class Binder {
 	private name: string;
+	private touched: boolean;
+
 	constructor(private data: Object, private fld: ControlOption) {
 		let parts = fld.name.split('.'),
 			lastKey = parts[parts.length - 1];
@@ -115,6 +110,7 @@ class Binder {
 	}
 
 	set value(val: any) {
+		this.touched = true;
 		if(this.fld.input === 'number') val = parseFloat(val);
 		this.data[this.name] = val;
 	}

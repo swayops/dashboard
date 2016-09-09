@@ -32,5 +32,5 @@
 </table>
 
 
-<form-dlg #cdlg [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Media Agency"></form-dlg>
-<form-dlg #edlg [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Media Agency"></form-dlg>
+<smart-form #cdlg class="dialog" [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Media Agency"></smart-form>
+<smart-form #edlg class="dialog" [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Media Agency"></smart-form>

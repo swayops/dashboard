@@ -66,4 +66,6 @@ export class AdvertisersCmp extends ManageBase {
 			this.Reload();
 		}, err => this.AddNotification('error', err.msg));
 	}
+
+	edit = () => {}
 }
