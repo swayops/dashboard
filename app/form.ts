@@ -42,7 +42,6 @@ export class FormDlg {
 	}
 
 	show(data: any) {
-		console.log(data);
 		this.data = data;
 		this.rebind();
 		this.setVisible(true);
@@ -55,20 +54,13 @@ export class FormDlg {
 	}
 
 	field(fld: ControlOption): any {
-		console.log(fld.name, this.binders[fld.name])
 		return this.binders[fld.name];
 	}
 
 	// this shouldn't be done like this but there's something wrong with dynamic form generation and binding
-	validate(f: NgForm, fld: ControlOption) {
-		const ctl = f.form.controls[fld.name],
-			errors = this.binders[fld.name].errors;
-
-		if(Object.keys(errors).length > 0) {
-			ctl.setErrors(errors);
-		} else {
-			ctl.setErrors(null);
-		}
+	validate(ctl: any) {
+		const fb = this.binders[ctl.name];
+		fb.value = ctl.value;
 	}
 
 	get valid(): boolean {
@@ -78,15 +70,9 @@ export class FormDlg {
 		Object.keys(this.binders).forEach(k => {
 			if(hasErrors) return;
 			const v = this.binders[k];
-			hasErrors = Object.keys(v.errors).length > 0
+			hasErrors = v.errors.length > 0;
 		});
 		return !hasErrors;
-	}
-
-	errors(f: NgForm, fld: ControlOption) {
-		const ctl = f.form.controls[fld.name];
-		if(!ctl || !ctl.errors) return [];
-		return Object.keys(ctl.errors);
 	}
 
 	private setVisible(v: boolean) {
@@ -125,27 +111,28 @@ class Binder {
 		}
 		this.data = data;
 		this.name = lastKey;
-		//console.log(fld);
+		if(!(lastKey in data)) data[lastKey] = '';
 	}
 
 	set value(val: any) {
 		if(this.fld.input === 'number') val = parseFloat(val);
 		this.data[this.name] = val;
 	}
-	get value(): any { console.log(this); return this.data[this.name]; }
+
+	get value(): any { return this.data[this.name]; }
 
 	get errors(): {} {
 		const val = this.value,
 			fld = this.fld,
-			errors = {};
+			errors = [];
 
 		if(!val && fld.req) {
-			errors['Required'] = true;
+			errors.push('Required');
 		} else if(fld.pattern && val && !fld.pattern.test(val)) {
 			// something is wrong with angular's regex validator so yeah this is fun
-			errors[fld.error ? fld.error : 'The value doesn\'t match: ' + fld.pattern] = true;
+			errors.push(fld.error ? fld.error : 'The value doesn\'t match: ' + fld.pattern);
 		} else if(fld.sameAs && val !== this.data[fld.sameAs]) {
-			errors[fld.error ? fld.error : 'Value mismatch'] = true;
+			errors.push(fld.error ? fld.error : 'Value mismatch');
 		}
 		return errors;
 	}
