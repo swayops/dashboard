@@ -1,0 +1,13 @@
+<div class="grid-62 mobile-grid-100 grid-parent">
+	<div class="content-holder center-widget">
+		<div class="grid-100 grid-parent">
+			<smart-form #dlg form=true [fields]=fields (onSave)="save($event.data, $event.done)" title="Edit Profile">{{ dlg.show(user) }}</smart-form>
+		</div>
+	</div>
+</div>
+<div class="grid-23 mobile-grid-100 grid-parent content-holder  right-sb">
+	<div class="est-reach">
+		<h3>{{ id }}</h3>
+		<p>Account ID</p>
+	</div>
+</div>

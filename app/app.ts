@@ -48,7 +48,7 @@ export class AppComponent extends HasAPI {
 			if (evt instanceof NavigationEnd) {
 				this.reinitPageScripts();
 				const baseCls = document.querySelector('#page-content > .grid-parent > .grid-parent').classList,
-					doThree = document.querySelector('h2[three-columns]');
+					doThree = document.querySelector('div[three-columns]');
 				if(doThree) {
 					baseCls.remove('grid-85');
 					baseCls.add('grid-62');
