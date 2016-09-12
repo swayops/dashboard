@@ -16,9 +16,6 @@
 						<h1>All influencers decided to eat cake today.</h1>
 						<p>404: We will be back soon.</p>
 					</div>
-					<div class="grid-100 grid-parent" *ngSwitchDefault>
-						<h1>{{error.msg}}</h1>
-					</div>
 				</div>
 			</div>
 			<div class="mobile-grid-100 grid-parent" [class.hidden]="error && error.code === 404" [class.grid-85]=!noNav [class.grid-100]=noNav>
