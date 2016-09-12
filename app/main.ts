@@ -14,7 +14,8 @@ import { ForgotPasswordCmp } from './forgotPassword';
 
 import { DashboardCmp } from './dashboard';
 import { MediaAgenciesCmp } from './mAgencies';
-import { AdvertisersCmp, EditProfileCmp } from './mAdvertisers';
+import { AdvertisersCmp } from './mAdvertisers';
+import { EditProfileCmp } from './editProfile'
 import { ContentFeedCmp } from './contentFeed';
 import { CampaignsCmp } from './mCampaigns';
 import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';

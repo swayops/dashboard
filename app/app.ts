@@ -24,6 +24,7 @@ export class NotFoundCmp {
 const noNavURLs = {
 	'/login': true,
 	'/signUp': true,
+	'/forgotPassword': true,
 };
 
 @Component({

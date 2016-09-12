@@ -7,15 +7,17 @@ import { FilterByProps, SortBy } from './utils';
 
 // TODO make this an actual element and merge all the crap th uses it
 export class ManageBase extends HasAPI {
+	private loading = true;
 	private list: Object[];
 	private lastSortKey: string;
 
 	@Input() kw: string;
 
-	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string) {
+	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
+		cb?: (resp, err?) => void) {
 		super(api);
 
-		if(name[0] === '-') { // don't prefix the name with Manage
+		if (name[0] === '-') { // don't prefix the name with Manage
 			name = name.substr(1);
 		} else {
 			name = 'Manage ' + name;
@@ -23,11 +25,13 @@ export class ManageBase extends HasAPI {
 
 		title.setTitle('Sway :: ' + name);
 		if (id) {
-			this.apiEndpoint += '/' + id;
-			api.SetCurrentUser(id);
+			if(this.apiEndpoint) this.apiEndpoint += '/' + id;
+			api.SetCurrentUser(id, (data, err) => {
+				this.Reload(cb);
+			});
+		} else {
+			this.Reload(cb);
 		}
-
-		this.Reload();
 	}
 
 	Edit(it: any) {
@@ -40,9 +44,15 @@ export class ManageBase extends HasAPI {
 	}
 
 	Reload(onComplete?: (resp, err?) => void) {
+		if(!this.apiEndpoint) {
+			if (onComplete) onComplete(this.user, null);
+			return;
+		}
+		this.loading = true;
 		this.api.Get(this.apiEndpoint, data => {
 			this.list = data;
 			if (onComplete) onComplete(data, null);
+			this.loading = false;
 		}, err => onComplete && onComplete(null, err));
 	}
 
@@ -62,7 +72,7 @@ export class ManageBase extends HasAPI {
 	get FilterByUserName() { return (user) => FilterByProps(this.kw, user, 'username'); }
 
 	SortBy(key: string) {
-		if(key === this.lastSortKey) {
+		if (key === this.lastSortKey) {
 			key = key[0] === '-' ? key.substr(1) : '-' + key;
 		}
 		this.lastSortKey = key;
@@ -76,4 +86,6 @@ export class ManageBase extends HasAPI {
 			return Object.assign({}, fld, { req: false });
 		});
 	}
+
+	Copy(o: Object): Object { return Object.assign({}, o); }
 }
