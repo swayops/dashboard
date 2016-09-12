@@ -11,7 +11,7 @@
 						<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
 							(blur)="updateValue(input)" (focus)="setAttrs(input)">{{binders[fld.name].value}}</textarea>
 						<input #input *ngIf="fld.input" class="form-control" type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
-							[value]="getValue(input)" (change)="updateValue(input)" (focus)="setAttrs(input)">
+							[value]="getValue(input)" (change)="updateValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
 						<template ngFor let-err [ngForOf]="binders[fld.name].errors" *ngIf="binders[fld.name].touched">
 							<span style="display: block"><span class="error">*</span> {{err}}</span>
 						</template>
@@ -21,10 +21,10 @@
 			</template>
 			<div class="clearfix br"></div>
 			<div class="grid-50 mobile-grid-40 grid-parent">
-				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide()">{{ buttons.cancel }}</button>
+				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide()">{{ cancelLabel }}</button>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ loading ? buttons.load : buttons.save }} </button>
+				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ loading ? loadingLabel : saveLabel }} </button>
 			</div>
 		</div>
 	</form>

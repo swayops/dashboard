@@ -18,11 +18,9 @@ export class FormDlg {
 
 	@Input() title: string;
 	@Input() fields: ControlOption[];
-	@Input() buttons = {
-		cancel: 'Back',
-		save: 'Save »',
-		loading: 'Loading...'
-	};
+	@Input() saveLabel = 'Save »';
+	@Input() cancelLabel = 'Back';
+	@Input() loadingLabel = 'Loading...';
 
 	private data = {};
 	private showDialog = false;
@@ -42,7 +40,7 @@ export class FormDlg {
 	}
 
 	show(data: any) {
-		this.data = data;
+		this.data = data || {};
 		this.rebind();
 		this.setVisible(true);
 	}
