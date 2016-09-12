@@ -52,7 +52,7 @@ export class Sway {
 		return this.req('post', ep, payload).subscribe(data => onResp(data), onErr);
 	}
 
-	SetCurrentUser(id?: string, onError?: (err: any) => void) {
+	SetCurrentUser(id?: string, cb?: (user?: User, err?: any) => void) {
 		if(id == null) {
 			this._cuser = null;
 			return;
@@ -60,7 +60,7 @@ export class Sway {
 		if(id === this.CurrentUser.id) {
 			return;
 		}
-		this.Get('user/' + id, user => this._cuser = user, onError)
+		this.Get('user/' + id, user => { this._cuser = user; cb && cb(user); }, cb ? err => cb(null, err) : null)
 	}
 
 	Logout() {

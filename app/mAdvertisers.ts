@@ -11,6 +11,11 @@ import * as V from './validators';
 	templateUrl: './views/mAdvertisers.html'
 })
 export class AdvertisersCmp extends ManageBase {
+	private data = {
+		advertiser: {},
+		status: true
+	};
+
 	private fields = fields;
 	private editFields = this.EditFields(this.fields);
 
@@ -20,6 +25,7 @@ export class AdvertisersCmp extends ManageBase {
 
 	save = (data, done) => {
 		data.parentId = this.id;
+		data.status = true;
 		this.api.Post('signUp', data, resp => {
 			let msg = data.msg;
 			if (resp.status === 'success') {
@@ -28,20 +34,6 @@ export class AdvertisersCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 		}, err => this.AddNotification('error', err.msg));
-	}
-
-	edit = (data, done) => {}
-}
-
-@Component({
-	selector: 'edit-profile',
-	templateUrl: './views/editProfile.html'
-})
-export class EditProfileCmp extends ManageBase {
-	private fields = fields;
-
-	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('user', 'Edit Profile', title, api, route.snapshot.params['id']);
 	}
 
 	edit = (data, done) => {}
