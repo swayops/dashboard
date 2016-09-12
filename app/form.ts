@@ -6,6 +6,8 @@ import { NgForm } from '@angular/forms'
 
 import { Sway, HasAPI } from './sway';
 
+import { IsEmpty } from './utils';
+
 @Component({
 	selector: 'smart-form',
 	templateUrl: './views/form.html'
@@ -22,11 +24,9 @@ export class FormDlg {
 		loading: 'Loading...'
 	};
 
-	private data: Object = {};
-	private realTitle: string;
+	private data = {};
 	private showDialog = false;
 	private loading = false;
-	private invalids = {};
 	private binders = {};
 
 	constructor(private _loc: Location, private _ref: ElementRef) {}
@@ -54,7 +54,51 @@ export class FormDlg {
 	}
 
 	// this shouldn't be done like this but there's something wrong with dynamic form generation and binding
-	set(ctl: any) { this.binders[ctl.name].value = ctl.value; }
+	updateValue(ctl: any) {
+		const b = this.binders[ctl.name];
+		if(b.fld.input !== 'file') {
+			b.value = ctl.value;
+			return;
+		}
+		const f = ctl.files[0];
+		if(!f) return;
+		if(!f.type.match('image.*')) {
+			b.value = 'error';
+			return;
+		}
+		const rd = new FileReader();
+		rd.addEventListener("load", function () {
+			b.value = rd.result;
+			console.log(b.value);
+		}, false);
+		rd.readAsDataURL(f);
+	}
+
+	getValue(ctl: any): any {
+		const b = this.binders[ctl.name];
+		if(b.fld.input === 'file') return null;
+		return b.value;
+	}
+
+	setAttrs(ctl: any) {
+		const b = this.binders[ctl.name],
+			fld = b.fld;
+		if(b.touched) return;
+
+		if(fld.input === 'number') ctl.setAttribute('step', '0.01');
+
+		if(fld.req) {
+			ctl.setAttribute('required', '');
+			ctl.classList.add('req');
+		}
+
+		if(IsEmpty(fld.attrs)) return;
+
+		const a = fld.attrs;
+		for(let [k, v] of Object.entries(fld.attrs)) {
+			ctl.setAttribute(k, v);
+		};
+	}
 
 	get valid(): boolean {
 		if(this.loading) return false;
@@ -91,6 +135,10 @@ export interface ControlOption {
 	input?: string;
 	textarea?: boolean;
 	checkbox?: boolean;
+
+	attrs?: {[key: string]: string}
+
+	validate?: (v: any) => any;
 }
 
 class Binder {
@@ -129,7 +177,13 @@ class Binder {
 			errors.push(fld.error ? fld.error : 'The value doesn\'t match: ' + fld.pattern);
 		} else if(fld.sameAs && val !== this.data[fld.sameAs]) {
 			errors.push(fld.error ? fld.error : 'Value mismatch');
+		} else if(fld.input === 'file' && val === 'error') {
+			errors.push(fld.error ? fld.error : 'Invalid image type');
+		} else if(fld.validate) {
+			const err = fld.validate(val);
+			if(err) errors.push(err);
 		}
+
 		return errors;
 	}
 }

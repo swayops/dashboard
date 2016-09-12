@@ -772,21 +772,22 @@ textarea{
 /*================= notifications ==============*/
 
 .notification{
-    width: 100%;
-    border: 2px solid #0082d5;
-    padding: 12px 10px;
-    border-radius: 4px;
-    position: relative;
+	width: 98%;
+	border: 2px solid #0082d5;
+	padding: 12px 10px;
+	border-radius: 4px;
+	position: relative;
 	background:#d9ecf9;
 	color:#0082d5;
 
 	font-family: 'Flat-UI-Icons';
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin: 15px auto 0px auto;
 }
 
 .fields > .notification {
