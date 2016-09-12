@@ -1,5 +1,23 @@
+# TODO
 
-- [ ] plugin edit endpoints
+- [X] ~~login~~
+- [X] ~~signup~~
+- [ ] forgot password
+- [X] ~~admin dash~~
+- [X] ~~check payouts~~
+- [X] ~~manage media agencies~~
+- [X] ~~manage talent agencies~~
+- [X] ~~manage advertiser~~
+- [X] ~~manage talent~~
+- [X] ~~content feed~~
+- [X] ~~manage campaigns~~
+- [ ] create/edit campaign
+- [ ] perks
+- [X] ~~mOutboundPerks~~
+- [X] ~~mPerkCampaigns~~
+- [ ] view billing
+- [X] ~~edit profile~~ (still need to add the endpoint)
+- [ ] plug edit endpoints (editProfile/m*)
 - [ ] fix css for 3 columns
-- [ ] reset password
-- [ ] reporting end point
+- [ ] plug reporting end point
+- [ ] better image upload ui, discuss with @Nick
