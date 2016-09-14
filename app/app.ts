@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
-import {
-	Router, Event, ActivatedRoute,
-	NavigationStart, NavigationEnd, NavigationError
-} from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 
 import { Sway, HasAPI } from './sway';
 
@@ -13,11 +9,11 @@ import * as $ from 'jquery';
 
 @Component({
 	selector: 'not-found',
-	templateUrl: './views/404.html'
+	templateUrl: './views/404.html',
 })
 export class NotFoundCmp {
 	constructor(title: Title) {
-		title.setTitle("Sway :: 404 :: Page Not Found");
+		title.setTitle('Sway :: 404 :: Page Not Found');
 	}
 }
 
@@ -29,7 +25,7 @@ const noNavURLs = {
 
 @Component({
 	selector: 'sway-app',
-	templateUrl: './views/app.html'
+	templateUrl: './views/app.html',
 })
 export class AppComponent extends HasAPI {
 	private noNav: boolean;
@@ -43,7 +39,6 @@ export class AppComponent extends HasAPI {
 				if (lastRoute && lastRoute !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}
-				this.ResetNotifications();
 				return;
 			}
 			if (evt instanceof NavigationEnd) {

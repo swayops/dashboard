@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { FormDlg } from './form';
 import * as V from './validators';
 
 @Component({
@@ -11,7 +12,9 @@ import * as V from './validators';
 	templateUrl: './views/editProfile.html'
 })
 export class EditProfileCmp extends ManageBase {
-	private _init = false;
+	private endpoint: string;
+	@ViewChild('dlg') private dlg: FormDlg;
+
 	private fields: any[] = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
@@ -27,32 +30,38 @@ export class EditProfileCmp extends ManageBase {
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
-			error: 'Please provide a valid phone number.'
-		}
+			error: 'Please provide a valid phone number.',
+		},
+		{
+			title: 'Active:', placeholder: 'Deactivate your account?', checkbox: true, name: 'status',
+		},
 	];
+
 	private resetPassFields = [
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
-			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.'
+			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},
 		{
 			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
-			sameAs: 'pass'
-		}
-	]
+			sameAs: 'pass',
+		},
+	];
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super(null, 'Edit Profile', title, api, route.snapshot.params['id'], (data, err?) => this.initFields());
+		super(null, 'Edit Profile', title, api, route.snapshot.params['id'], () => this.init());
 	}
 
-	initFields() {
-		//if (this._init) return this._fields;
+	private init() {
 		const u = this.user;
+		if (u.adAgency) this.endpoint = 'adAgency/' + u.id;
+		if (u.talentAgency) this.endpoint = 'talentAgency/' + u.id;
 		if (u.advertiser) {
 			this.fields.push({
 				title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
-				name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99'
+				name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',
 			});
+			this.endpoint = 'advertiser/' + u.id;
 		}
 		if (u.inf) {
 			this.fields.push(
@@ -67,12 +76,18 @@ export class EditProfileCmp extends ManageBase {
 				},
 				{
 					title: 'YouTube ID:', placeholder: 'YouTube ID', input: 'text', name: 'influencer.youtube',
-				}
-			)
+				},
+			);
+			this.endpoint = 'influencer/' + u.id;
 		}
+		this.dlg.fields = this.fields;
+		this.dlg.show(u);
 	}
 
 	save = (data, done) => {
-		console.log(this.user);
+		this.api.Put(this.endpoint, data, resp => {
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
+			this.api.GoTo('reporting', this.user.id);
+		}, err => this.AddNotification('error', err, 0));
 	}
 }

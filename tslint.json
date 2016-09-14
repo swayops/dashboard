@@ -7,13 +7,19 @@
 	 */
 	"extends": "tslint:latest",
 	"rules": {
-		"indent": "tab",
-		"interface-name": false,
+		"indent": ["tab"],
+		"interface-name": [false],
 		"quotemark": [
 			true,
 			"single"
 		],
 		"object-literal-sort-keys": false,
-		"no-trailing-comma": true
+		"member-ordering": [false],
+		"member-access": [false],
+		"ordered-imports": [false],
+		"curly": false,
+		"one-variable-per-declaration": false,
+		"no-console": [false],
+		"no-string-literal": false
 	}
 }

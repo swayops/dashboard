@@ -63,4 +63,12 @@ export class TalentAgenciesCmp  extends ManageBase {
 			done();
 		}, err => this.AddNotification('error', err.msg));
 	}
+
+	edit = (data, done) => {
+		this.api.Put('talentAgency/' + data.id, data, resp => {
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
+			done();
+			this.Reload();
+		}, err => this.AddNotification('error', err));
+	}
 }

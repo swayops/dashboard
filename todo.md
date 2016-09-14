@@ -2,7 +2,7 @@
 
 - [X] ~~login~~
 - [X] ~~signup~~
-- [ ] forgot password
+- [X] forgot password
 - [X] ~~admin dash~~
 - [X] ~~check payouts~~
 - [X] ~~manage media agencies~~

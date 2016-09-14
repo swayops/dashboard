@@ -1,12 +1,8 @@
 <div class="grid-62 mobile-grid-100 grid-parent">
 	<div class="content-holder center-widget">
 		<div class="grid-100 grid-parent">
-			<smart-form #dlg form=true [fields]=fields (onSave)="save($event.data, $event.done)" title="Edit Profile">
-				{{ dlg.show(Copy(user)) }}
-			</smart-form>
-			<smart-form #pdlg form=true [fields]=resetPassFields (onSave)="resetPass($event.data, $event.done)" title="Reset Password" saveLabel='Change Password'>
-				{{ pdlg.show() }}
-			</smart-form>
+			<smart-form #dlg (onSave)="save($event.data, $event.done)" title="Edit Profile"></smart-form>
+			<smart-form #pdlg [fields]=resetPassFields (onSave)="resetPass($event.data, $event.done)" title="Reset Password" saveLabel="Change Password" [value]=null></smart-form>
 		</div>
 	</div>
 </div>
