@@ -2,7 +2,8 @@
 
 - [X] ~~login~~
 - [X] ~~signup~~
-- [X] forgot password
+- [X] ~~forgot password~~
+- [X] ~~reset password~~
 - [X] ~~admin dash~~
 - [X] ~~check payouts~~
 - [X] ~~manage media agencies~~
@@ -17,7 +18,7 @@
 - [X] ~~mPerkCampaigns~~
 - [ ] view billing
 - [X] ~~edit profile~~ (still need to add the endpoint)
-- [ ] plug edit endpoints (editProfile/m*)
+- [X] ~~plug edit endpoints (editProfile/m*)~~
 - [ ] fix css for 3 columns
 - [ ] plug reporting end point
 - [ ] better image upload ui, discuss with @Nick
