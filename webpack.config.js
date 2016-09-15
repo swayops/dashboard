@@ -5,10 +5,10 @@ var webpack = require('webpack'),
 	CompressionPlugin = require("compression-webpack-plugin");
 
 
-function CleanPlugin(base, files, ...exts) {
+function CleanPlugin(base, files) {
 	this.base = base;
 	this.files = files || [];
-	this.exts = exts || [];;
+	this.exts = Array.prototype.slice.call(arguments, 2) || [];
 }
 
 CleanPlugin.prototype = {
