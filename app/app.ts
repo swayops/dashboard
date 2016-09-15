@@ -17,11 +17,12 @@ export class NotFoundCmp {
 	}
 }
 
-const noNavURLs = {
-	'/login': true,
-	'/signUp': true,
-	'/forgotPassword': true,
-};
+const noNavURLs = [
+	'/login',
+	'/signUp',
+	'/forgotPassword',
+	'/resetPassword/',
+];
 
 @Component({
 	selector: 'sway-app',
@@ -35,7 +36,7 @@ export class AppComponent extends HasAPI {
 		let lastRoute: string;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
-				this.noNav = !!noNavURLs[evt.url];
+				this.noNav = noNavURLs.some(url => evt.url.indexOf(url) === 0);
 				if (lastRoute && lastRoute !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}

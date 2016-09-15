@@ -19,15 +19,15 @@ export class Sway {
 	}
 
 	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
-		this.Reset()
+		this.Reset();
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
 				this._user = user;
-				if(this.redirectUrl) {
+				if (this.redirectUrl) {
 					this.GoTo(this.redirectUrl);
-				} else if(user.admin) {
+				} else if (user.admin) {
 					this.GoTo('/dashboard');
-				} else if(user.advertiser) {
+				} else if (user.advertiser) {
 					this.GoTo('/reporting', user.id);
 				}
 				this.redirectUrl = '';
@@ -57,21 +57,21 @@ export class Sway {
 	}
 
 	SetCurrentUser(id?: string): Promise<User> {
-		if(id == null) {
+		if (id == null) {
 			this._cuser = null;
 			return Promise.resolve(this._user);
 		}
-		if(id === this.CurrentUser.id) {
+		if (id === this.CurrentUser.id) {
 			return Promise.resolve(this.CurrentUser);
 		}
 		return new Promise((resolve, reject) => {
-			this.Get('user/' + id, user => { this._cuser = user; resolve(user); }, err => reject(err))
+			this.Get('user/' + id, user => { this._cuser = user; resolve(user); }, err => reject(err));
 		});
 	}
 
 	Logout() {
 		return this.Get('signOut', _ => {
-			this.Reset()
+			this.Reset();
 			this.router.navigate(['/login']); // should say something maybe?
 		});
 	}
@@ -90,24 +90,25 @@ export class Sway {
 		this.error = null;
 		const headers = new Headers({ 'Content-Type': 'application/json' });
 		const options = new RequestOptions({ headers: headers });
-		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map(res => res.json()).catch(err => this.handleError(err));
+		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map(res => res.json())
+			.catch(err => this.handleError(err));
 	}
 
-	private handleError(err: Response): Observable<{}>{
+	private handleError(err: Response): Observable<{}> {
 		const errData = err.json();
 		this.error = errData;
 		return Observable.throw(errData);
 	}
 
-	get IsLoggedIn() : Observable<boolean> {
-		if(this._status > 0) return Observable.of(this._status === 1);
+	get IsLoggedIn(): Observable<boolean> {
+		if (this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
 				this._user = user;
 				this._status = 1;
 				return obs.next(true);
 			}, err => {
-				if(err.code === 401) this.error = null; // ignore 401 for this func
+				if (err.code === 401) this.error = null; // ignore 401 for this func
 				this._status = 2;
 				obs.next(false);
 			});
@@ -119,18 +120,18 @@ export class Sway {
 	get CurrentUser(): User { return this._cuser || this._user; }
 
 	IsAsUser(): boolean {
-		return this.User.admin && !!this._cuser && this.User.id !== this._cuser.id
+		return this.User.admin && !!this._cuser && this.User.id !== this._cuser.id;
 	}
 }
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-	constructor(private router: Router, private api: Sway) {}
+	constructor(private router: Router, private api: Sway) { }
 
 	// TODO check if a certain user can open a certain page or not
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
-			if(logged) return true;
+			if (logged) return true;
 			this.api.redirectUrl = state.url;
 			this.router.navigate(['/login']);
 			return false;
@@ -141,7 +142,7 @@ export class AuthGuard implements CanActivate {
 
 let _notif: Notification[] = [];
 export class HasAPI {
-	constructor(protected api: Sway) {}
+	constructor(protected api: Sway) { }
 	get user() { return this.api.CurrentUser; }
 
 	set error(err) { this.api.error = err; }
@@ -149,13 +150,13 @@ export class HasAPI {
 
 	@Output() get notifications() {
 		_notif.forEach(v => {
-			if(v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
-		})
+			if (v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
+		});
 		return _notif.filter(v => v.timeout !== -1);
 	}
 
 	AddNotification(type: string, msg: string, timeout: number = 0) {
-		_notif.push({type, msg, timeout});
+		_notif.push({ type, msg, timeout });
 	}
 
 	ResetNotifications() {
@@ -170,7 +171,7 @@ export interface SignUpInfo {
 	pass2?: string;
 	advertiser: {
 		dspFee: number;
-	}
+	};
 }
 
 interface Notification {
