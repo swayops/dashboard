@@ -842,13 +842,13 @@ textarea{
 	color: #ff9948;
 }
 
-.notification.error, .ng-touched.ng-invalid, input.ng-touched:invalid {
+.notification.error, form-control.ng-touched.ng-invalid, input.ng-touched:invalid {
 	border: 2px solid #d2335c;
 	color: #d2335c;
 	background:#f8e1e7;
 }
 
-.ng-touched.ng-invalid, input.ng-dirty:invalid {
+form-control.ng-touched.ng-invalid, input.ng-dirty:invalid {
 	border-width: 1px;
 }
 
@@ -856,7 +856,7 @@ textarea{
 	color: #d2335c;
 }
 
-.notification:before, .ng-touched.ng-invalid{
+.notification:before, form-control.ng-touched.ng-invalid{
 	display: inline-block;
 	line-height: 1;
 	margin-right: 10px;
@@ -864,7 +864,7 @@ textarea{
 
 .notification.success:before{content: "\e612";}
 .notification.warning:before{content: "\e610";}
-.notification.error:before, .ng-touched.ng-invalid:before {content: "\e613";}
+.notification.error:before, form-control.ng-touched.ng-invalid:before {content: "\e613";}
 .notification.info:before{content: "\e610";}
 
 
