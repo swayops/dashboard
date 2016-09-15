@@ -12,7 +12,7 @@ function CleanPlugin(base, files) {
 }
 
 CleanPlugin.prototype = {
-	allFiles: function() { return this.files.concat(...this.files.map(fp => this.exts.map(ext => fp + ext))); },
+	allFiles: function() { return this.files.concat(this.files.map(fp => this.exts.map(ext => fp + ext))); },
 
 	apply: function(compiler) {
 		compiler.plugin('done', () => this.clean());
