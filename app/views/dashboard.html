@@ -4,30 +4,30 @@
 		<h2>Demand Side</h2>
 		<p>Agencies: {{ data.adAgencies }}</p>
 		<p>Advertisers: {{ data.advertisers }}</p>
-		<p>% with campaigns: ??</p>
-		<p>Currently active campaigns: ??</p>
-		<p>Perks inbound: {{ data.perkInb }}</p>
-		<p>Perks storing: {{ data.perkStore }}</p>
-		<p>Perks outbound: {{ data.perkOut }}</p>
-		<p>Perks delivered: {{ data.perkDeliver }}</p>
+		<p>Avg Advertisers Per: {{ (data.advertisers/data.adAgencies).toFixed(0) }}</p>
+		<p>Currently Active Campaigns: {{ data.cmps }}</p>
+		<p>Perks Inbound: {{ data.perkInb }}</p>
+		<p>Perks Storing: {{ data.perkStore }}</p>
+		<p>Perks Outbound: {{ data.perkOut }}</p>
+		<p>Perks Delivered: {{ data.perkDeliver }}</p>
 	</div>
 	<div class="grid-30 mobile-grid-100 grid-parent">
 		<h2>Exchange</h2>
-		<p>Deals outbound: {{ data.dealCompleted + data.dealAccepted }}</p>
-		<p>Deals accepted: {{ data.dealAccepted }}</p>
-		<p>Deals completed: {{ data.dealCompleted }} </p>
-		<p>Acceptence rate: ??</p>
-		<p>Completed rate: ??</p>
-		<p>Anti-fraud avg: ??</p>
+		<p>Deals Accepted: {{ data.dealAccepted }}</p>
+		<p>Deals Completed: {{ data.dealCompleted }} </p>
+		<p>Completed Rate: {{ data.completionRate }}</p>
 	</div>
 	<div class="grid-30 mobile-grid-100 grid-parent">
-		<h2>Supply side</h2>
+		<h2>Supply Side</h2>
 		<p>Agencies: {{ data.talentAgencies }}</p>
-		<p>Avg influencers per: {{ (data.influencers/data.talentAgencies).toFixed(2) }}</p>
+		<p>Avg Influencers Per: {{ data.infPerTalent }}</p>
 		<p>Influencers: {{ data.influencers }}</p>
-		<p>Total ever paid out: ${{ data.totalAgencyPayout?.toFixed(2) }}</p>
+		<p>Total Agency Payout: ${{ data.totalAgencyPayout?.toFixed(2) }}</p>
+		<p>Total Influencer Payout: ${{ data.totalInfluencerPayout?.toFixed(2) }}</p>
 		<p>Reach/ Followers: {{ data.reach }}</p>
-		<p>Verified (Opt-in): ??</p>
-
+		<p>Likes: {{ data.likes }}</p>
+		<p>Comments: {{ data.comments }}</p>
+		<p>Shares: {{ data.shares }}</p>
+		<p>Views / Clicks: {{ data.views }} / {{ data.clicks }}</p>
 	</div>
 </div>
