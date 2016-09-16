@@ -12,6 +12,7 @@
 - [X] ~~manage talent~~
 - [X] ~~content feed~~
 - [X] ~~manage campaigns~~
+- [ ] influencers invite
 - [ ] create/edit campaign
 - [ ] perks
 - [X] ~~mOutboundPerks~~
@@ -20,5 +21,6 @@
 - [X] ~~edit profile~~ (still need to add the endpoint)
 - [X] ~~plug edit endpoints (editProfile/m*)~~
 - [ ] fix css for 3 columns
+- [ ] admin stats
 - [ ] plug reporting end point
 - [ ] better image upload ui, discuss with @Nick
