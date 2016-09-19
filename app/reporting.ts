@@ -30,7 +30,7 @@ export class ReportingCmp {
 	ngOnInit() {
 		try {
 			initChartData();
-			//initChartData2();
+			// initChartData2();
 		} catch (e) { console.error(e); }
 
 		console.log(this);

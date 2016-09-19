@@ -162,5 +162,4 @@ export const ALL_ROUTES = [
 })
 export class AppModule { }
 
-
 platformBrowserDynamic().bootstrapModule(AppModule);
