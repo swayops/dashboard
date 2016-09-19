@@ -13,9 +13,9 @@ declare function initChartData2();
 })
 
 export class ReportingCmp {
-	private curWeek = {};
-	private lastWeek = {};
-	constructor(title: Title, private api: Sway, route: ActivatedRoute) {
+	public curWeek: any = {};
+	public lastWeek: any = {};
+	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
 		title.setTitle('Sway :: Reporting');
 		const id = route.snapshot.params['id'];
 		if (!id) {

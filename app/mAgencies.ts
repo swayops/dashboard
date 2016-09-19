@@ -10,13 +10,13 @@ import * as V from './validators';
 	templateUrl: './views/mAgencies.html'
 })
 export class MediaAgenciesCmp extends ManageBase {
-	private data = {
+	public data = {
 		name: '',
 		parentId: null,
 		adAgency: {},
 		status: true
 	};
-	private fields = [
+	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name'
@@ -41,7 +41,7 @@ export class MediaAgenciesCmp extends ManageBase {
 		}
 	];
 
-	private editFields = this.EditFields(this.fields);
+	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway) {
 		super('getAllAdAgencies', 'Media Agencies', title, api);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -8,17 +8,17 @@ import * as V from './validators';
 
 @Component({
 	selector: 'advertisers',
-	templateUrl: './views/mAdvertisers.html'
+	templateUrl: './views/mAdvertisers.html',
 })
 export class AdvertisersCmp extends ManageBase {
-	private fields = [
+	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'advertiser.name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name',
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
-			pattern: V.mailRe, error: 'Please provide a valid email address.'
+			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
 			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
@@ -36,7 +36,7 @@ export class AdvertisersCmp extends ManageBase {
 		},
 		{
 			title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
-			name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99'
+			name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
@@ -47,7 +47,7 @@ export class AdvertisersCmp extends ManageBase {
 		},
 	];
 
-	private editFields = this.EditFields(this.fields);
+	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id']);

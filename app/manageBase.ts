@@ -7,14 +7,14 @@ import { FilterByProps, SortBy } from './utils';
 
 // TODO make this an actual element and merge all the crap th uses it
 export class ManageBase extends HasAPI {
-	private loading = true;
-	private list: Object[];
-	private lastSortKey: string;
+	public loading = true;
+	public list: Object[];
+	public lastSortKey: string;
 
 	@Input() kw: string;
 
-	constructor(private apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
-		cb?: (resp, err?) => void) {
+	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
+			cb?: (resp, err?) => void) {
 		super(api);
 
 		if (name[0] === '-') { // don't prefix the name with Manage
@@ -25,7 +25,7 @@ export class ManageBase extends HasAPI {
 
 		title.setTitle('Sway :: ' + name);
 		if (id) {
-			if(this.apiEndpoint) this.apiEndpoint += '/' + id;
+			if (this.apiEndpoint) this.apiEndpoint += '/' + id;
 			api.SetCurrentUser(id).then(_ => this.Reload(cb));
 		} else {
 			this.Reload(cb);
@@ -33,7 +33,6 @@ export class ManageBase extends HasAPI {
 	}
 
 	Edit(it: any) {
-		console.log("x", it);
 		console.warn('n/i');
 	}
 
@@ -42,7 +41,7 @@ export class ManageBase extends HasAPI {
 	}
 
 	Reload(onComplete?: (resp, err?) => void) {
-		if(!this.apiEndpoint) {
+		if (!this.apiEndpoint) {
 			if (onComplete) onComplete(this.user, null);
 			return;
 		}
@@ -78,7 +77,6 @@ export class ManageBase extends HasAPI {
 	}
 
 	EditFields(flds: any[]): any[] {
-		const out = [];
 		return flds.map(fld => {
 			if (!fld.reqNewOnly) return fld;
 			return Object.assign({}, fld, { req: false });

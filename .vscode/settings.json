@@ -1,6 +1,9 @@
 {
 	"files.exclude": {
 		"node_modules/": true,
-		"typings/": true
+		"typings/": true,
+		"app/*.ngfactory.*": true,
+		"app/*.metadata.json": true,
+		"app/*.js*": true
 	}
 }

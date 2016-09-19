@@ -8,13 +8,13 @@ const apiURL = '/api/v1/';
 
 @Injectable()
 export class Sway {
-	private _user: User;
-	private _cuser: User;
-	private _status = 0;
+	public _user: User;
+	public _cuser: User;
+	public _status = 0;
 	error: any;
 	redirectUrl: string;
 
-	constructor(private router: Router, private http: Http) {
+	constructor(public router: Router, public http: Http) {
 		this.IsLoggedIn.subscribe(v => this._status = v ? 1 : 0);
 	}
 
@@ -86,7 +86,7 @@ export class Sway {
 	}
 
 
-	private req(method: string, ep: string, body?: any): Observable<any> {
+	public req(method: string, ep: string, body?: any): Observable<any> {
 		this.error = null;
 		const headers = new Headers({ 'Content-Type': 'application/json' });
 		const options = new RequestOptions({ headers: headers });
@@ -94,7 +94,7 @@ export class Sway {
 			.catch(err => this.handleError(err));
 	}
 
-	private handleError(err: Response): Observable<{}> {
+	public handleError(err: Response): Observable<{}> {
 		const errData = err.json();
 		this.error = errData;
 		return Observable.throw(errData);
@@ -126,7 +126,7 @@ export class Sway {
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-	constructor(private router: Router, private api: Sway) { }
+	constructor(public router: Router, public api: Sway) { }
 
 	// TODO check if a certain user can open a certain page or not
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {

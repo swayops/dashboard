@@ -29,7 +29,7 @@ const noNavURLs = [
 	templateUrl: './views/app.html',
 })
 export class AppComponent extends HasAPI {
-	private noNav: boolean;
+	public noNav: boolean;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		super(api);
 

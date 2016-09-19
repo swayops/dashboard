@@ -9,8 +9,8 @@ import { Sway } from './sway';
 })
 
 export class DashboardCmp {
-	private data = {};
-	constructor(title: Title, private api: Sway) {
+	public data: any = {};
+	constructor(title: Title, public api: Sway) {
 		if (!api.CurrentUser.admin) {
 			api.GoTo('/reporting', api.CurrentUser.id);
 		}

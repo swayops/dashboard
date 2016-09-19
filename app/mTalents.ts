@@ -11,14 +11,14 @@ import * as V from './validators';
 	templateUrl: './views/mTalents.html'
 })
 export class TalentsCmp extends ManageBase {
-	private data = {
+	public data = {
 		name: '',
 		parentId: null,
 		influencer: {},
 		status: true,
 	};
 
-	private fields = [
+	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name'
@@ -54,7 +54,7 @@ export class TalentsCmp extends ManageBase {
 			error: 'Please provide a valid phone number.'
 		},
 	]
-	private editFields = this.EditFields(this.fields);
+	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getInfluencersByAgency', 'My Talents', title, api, route.snapshot.params['id']);

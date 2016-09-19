@@ -16,6 +16,7 @@
 	},
 	"awesomeTypescriptLoaderOptions": {
 		"skipDeclarationFilesCheck": true,
+		"compiler": "xx@angular/compiler-cli",
 		"useWebpackText": true //Allows loaders to be chained to awesome-typescript-loader.
 	}
 }

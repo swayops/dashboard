@@ -10,12 +10,12 @@ import { Sway } from './sway';
 })
 
 export class ResetPasswordCmp {
-	private form = { token: '', email: '', pass: '', pass1: '' };
-	private loading = false;
-	private passwordsMatch = true;
-	private error: any;
+	public form: any = { token: '', email: '', pass: '', pass1: '' };
+	public loading = false;
+	public passwordsMatch = true;
+	public error: any;
 
-	constructor(title: Title, private api: Sway, route: ActivatedRoute) {
+	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
 		title.setTitle('Sway :: Reset Password');
 		this.form.token = route.snapshot.params['token'];
 		this.api.Reset();

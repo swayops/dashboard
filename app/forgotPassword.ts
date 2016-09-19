@@ -9,12 +9,12 @@ import { Sway } from './sway';
 })
 
 export class ForgotPasswordCmp {
-	private form = { email: "", token: null };
-	private loading = false;
-	private success = false;
-	private error: any;
+	public form = { email: "", token: null };
+	public loading = false;
+	public success = false;
+	public error: any;
 
-	constructor(private route: ActivatedRoute, title: Title, private api: Sway) {
+	constructor(public route: ActivatedRoute, title: Title, public api: Sway) {
 		title.setTitle("Sway :: Forgot Password");
 	}
 

@@ -10,14 +10,14 @@ import { ManageBase } from './manageBase';
 	templateUrl: './views/mCampaigns.html',
 })
 export class CampaignsCmp extends ManageBase {
-	private data = {};
-	private fields = [
+	public data = {};
+	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name',
 		},
 	];
-	private editFields = this.EditFields(this.fields);
+	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);
@@ -33,5 +33,9 @@ export class CampaignsCmp extends ManageBase {
 			this.Reload();
 			done();
 		}, err => this.AddNotification('error', err.msg));
+	}
+
+	edit = (data, done) => {
+		done();
 	}
 }

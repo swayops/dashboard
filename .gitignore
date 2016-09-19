@@ -7,3 +7,7 @@ static/vendor.js*
 app/views/basicCreateAndEdit.html
 
 tmp/
+app/*.ngfactory.*
+app/*.js*
+app/*.metadata.json
+

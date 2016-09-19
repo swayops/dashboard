@@ -11,7 +11,7 @@ import * as V from './validators';
 	templateUrl: './views/contentFeed.html'
 })
 export class ContentFeedCmp extends ManageBase {
-	private currentSortKey: string = '';
+	public currentSortKey: string = '';
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertiserContentFeed', '-Content Feed', title, api, route.snapshot.params['id']);
 	}

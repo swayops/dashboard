@@ -10,7 +10,7 @@ import * as V from './validators';
 	templateUrl: './views/mTalentAgencies.html'
 })
 export class TalentAgenciesCmp  extends ManageBase {
-		private data = {
+		public data = {
 		name: '',
 		parentId: null,
 		talentAgency: {
@@ -18,7 +18,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 		},
 		status: true
 	};
-	private fields = [
+	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name'
@@ -46,7 +46,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 			error: 'Please provide a valid phone number.'
 		}
 	];
-	private editFields = this.EditFields(this.fields);
+	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway) {
 		super('getAllTalentAgencies', 'Talent Agencies', title, api);

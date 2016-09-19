@@ -7,15 +7,15 @@ import { Sway, SignUpInfo } from './sway';
 
 @Component({
 	selector: 'signup',
-	templateUrl: './views/signup.html'
+	templateUrl: './views/signup.html',
 })
 export class SignUpCmp {
-	private form = { name: "", email: "", pass: "", advertiser: {dspFee: 0.5, exchangeFee: 0.2} };
-	private loading = false;
-	private error: any;
+	public form: any = { name: '', email: '', pass: '', advertiser: {dspFee: 0.5, exchangeFee: 0.2} };
+	public loading = false;
+	public error: any;
 
-	constructor(title: Title, private api: Sway) {
-		title.setTitle("Sway :: Sign Up");
+	constructor(title: Title, public api: Sway) {
+		title.setTitle('Sway :: Sign Up');
 	}
 
 	SignUp() {

@@ -18,12 +18,12 @@ export class FormDlg {
 	@Input() cancelLabel = 'Back';
 	@Input() loadingLabel = 'Loading...';
 
-	private data = {};
-	private showDialog = false;
-	private loading = false;
-	private binders: {[key: string]: Binder} = {};
+	public data = {};
+	public showDialog = false;
+	public loading = false;
+	public binders: {[key: string]: Binder} = {};
 
-	constructor(private eleRef: ElementRef) { }
+	constructor(public eleRef: ElementRef) { }
 
 	ngOnInit() {
 		if (this.value) this.show(this.value);
@@ -39,7 +39,7 @@ export class FormDlg {
 		this.loading = false;
 	}
 
-	show(data: any) {
+	show(data?: any) {
 		this.data = Object.assign({}, data || {});
 		this.rebind();
 		this.setVisible(true);
@@ -111,7 +111,7 @@ export class FormDlg {
 		return !hasErrors;
 	}
 
-	private setVisible(v: boolean) {
+	public setVisible(v: boolean) {
 		const ele = this.eleRef.nativeElement;
 		if (!ele) return console.error('something is wrong');
 		ele.classList[v ? 'add' : 'remove']('visible');

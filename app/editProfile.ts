@@ -9,20 +9,20 @@ import * as V from './validators';
 
 @Component({
 	selector: 'edit-profile',
-	templateUrl: './views/editProfile.html'
+	templateUrl: './views/editProfile.html',
 })
 export class EditProfileCmp extends ManageBase {
-	private endpoint: string;
-	@ViewChild('dlg') private dlg: FormDlg;
+	public endpoint: string;
+	@ViewChild('dlg') public dlg: FormDlg;
 
-	private fields: any[] = [
+	public fields: any[] = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
-			pattern: /^..+$/, error: 'Please provide a name'
+			pattern: /^..+$/, error: 'Please provide a name',
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
-			pattern: V.mailRe, error: 'Please provide a valid email address.'
+			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
 			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
@@ -37,7 +37,7 @@ export class EditProfileCmp extends ManageBase {
 		},
 	];
 
-	private resetPassFields = [
+	public resetPassFields = [
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
@@ -52,7 +52,7 @@ export class EditProfileCmp extends ManageBase {
 		super(null, 'Edit Profile', title, api, route.snapshot.params['id'], () => this.init());
 	}
 
-	private init() {
+	public init() {
 		const u = this.user;
 		if (u.adAgency) this.endpoint = 'adAgency/' + u.id;
 		if (u.talentAgency) this.endpoint = 'talentAgency/' + u.id;
@@ -89,5 +89,9 @@ export class EditProfileCmp extends ManageBase {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
 			this.api.GoTo('reporting', this.user.id);
 		}, err => this.AddNotification('error', err, 0));
+	}
+
+	resetPass = (data, done) => {
+		done();
 	}
 }
