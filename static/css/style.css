@@ -300,7 +300,7 @@ input[type=checkbox]:checked + label:before {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	/*user-select: none;*/
+	user-select: none;
 }
 
 .increment-group .btn-action .inc{
@@ -1575,7 +1575,7 @@ padding-bottom:100px;
 	margin-top: -7px;
 	float: right;
     position: relative; width: 90px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none; user-select: none;
 }
 .onoffswitch-checkbox {
     display: none;
@@ -1625,7 +1625,7 @@ padding-bottom:100px;
 	margin-top: 5px;
 	float: left;
     position: relative; width: 55px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none; user-select: none;
 	margin-right: 10px;
 }
 .onoffswitch-checkbox {
