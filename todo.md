@@ -23,5 +23,6 @@
 - [ ] fix css for 3 columns
 - [X] ~~admin stats~~
 - [X] ~~plug reporting end point~~
+- [ ] download reporting ui
 - [ ] network breakdown for reporting
-- [ ] better image upload ui, discuss with @Nick
+- [ ] better image upload ui

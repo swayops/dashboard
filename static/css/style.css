@@ -43,6 +43,11 @@ min-width:70px;
 padding: 10px 20px;
 cursor: pointer;
 }
+
+a {
+	cursor: pointer;
+}
+
 .ghost{background:transparent;border:1px solid #0083d6;color:#0083d6;}
 .btn-blue.ghost{background:transparent;border:1px solid #0083d6;color:#0083d6;}
 .btn-green1.ghost{background:transparent;border:1px solid #04be5b;color:#04be5b;}
