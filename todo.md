@@ -21,6 +21,7 @@
 - [X] ~~edit profile~~ (still need to add the endpoint)
 - [X] ~~plug edit endpoints (editProfile/m*)~~
 - [ ] fix css for 3 columns
-- [ ] admin stats
-- [ ] plug reporting end point
+- [X] ~~admin stats~~
+- [X] ~~plug reporting end point~~
+- [ ] network breakdown for reporting
 - [ ] better image upload ui, discuss with @Nick
