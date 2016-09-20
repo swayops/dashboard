@@ -18,6 +18,7 @@ import { AdvertisersCmp } from './mAdvertisers';
 import { EditProfileCmp } from './editProfile';
 import { ContentFeedCmp } from './contentFeed';
 import { CampaignsCmp } from './mCampaigns';
+import { CreateCampaignCmp } from './createCampaign';
 import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
@@ -71,6 +72,16 @@ export const ALL_ROUTES = [
 	{
 		path: 'mCampaigns/:id',
 		component: CampaignsCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'createCampaign/:id',
+		component: CreateCampaignCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'createCampaign/:id/:cid',
+		component: CreateCampaignCmp,
 		canActivate: [AuthGuard],
 	},
 	{
@@ -140,7 +151,7 @@ export const ALL_ROUTES = [
 		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
 		TalentsCmp, CheckPayoutsCmp, OutboundPerksCmp,
 		CampaignPerksCmp, CampaignsCmp, ContentFeedCmp,
-		EditProfileCmp, ResetPasswordCmp,
+		EditProfileCmp, ResetPasswordCmp, CreateCampaignCmp,
 
 		FormDlg,
 

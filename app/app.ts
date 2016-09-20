@@ -55,7 +55,7 @@ export class AppComponent extends HasAPI {
 						content.setAttribute('class', defaultClasses + (v ? ' grid-80' : ' grid-100'));
 						content.setAttribute('style', 'display: block;');
 					}
-					this.reinitPageScripts();
+					setTimeout(() => this.reinitPageScripts(), 100);
 				});
 				lastRoute = evt.url;
 				return;
@@ -148,6 +148,11 @@ export class AppComponent extends HasAPI {
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
+		});
+
+		$('.checkbox').on('click', function(this: {}, e) {
+			const inp = $(this).find('input');
+			inp.prop('checked', !inp.prop('checked'));
 		});
 	}
 

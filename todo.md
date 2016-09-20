@@ -18,7 +18,7 @@
 - [X] ~~mOutboundPerks~~
 - [X] ~~mPerkCampaigns~~
 - [ ] view billing
-- [X] ~~edit profile~~ (still need to add the endpoint)
+- [X] ~~edit profile~~
 - [X] ~~plug edit endpoints (editProfile/m*)~~
 - [X] ~~fix css for 3 columns~~
 - [X] ~~admin stats~~
@@ -26,3 +26,4 @@
 - [ ] download reporting ui
 - [ ] network breakdown for reporting
 - [ ] better image upload ui
+- [ ] more checking in auth guard and handle 403's more gracefully
