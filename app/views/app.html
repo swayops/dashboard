@@ -10,7 +10,7 @@
 	<div class="block-section" id="page-content">
 		<div class="grid-100 grid-parent">
 			<left-nav *ngIf="!noNav"></left-nav>
-			<div class="grid-85 mobile-grid-100 grid-parent" *ngIf="error">
+			<div class="mobile-grid-100 grid-parent" *ngIf="error">
 				<div class="content-holder center-widget" [ngSwitch]="error.code">
 					<div class="grid-100 grid-parent" *ngSwitchCase="404">
 						<h1>All influencers decided to eat cake today.</h1>
@@ -18,13 +18,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="mobile-grid-100 grid-parent" [class.hidden]="error && error.code === 404" [class.grid-85]=!noNav [class.grid-100]=noNav>
-				<div [class.content-holder]="!noNav" class="center-widget">
-					<div class="grid-100 grid-parent">
-						<router-outlet></router-outlet>
-					</div>
-				</div>
-			</div>
+			<router-outlet [class.hidden]="error && error.code === 404"></router-outlet>
 			<div class="clearfix"></div>
 		</div>
 	</div>

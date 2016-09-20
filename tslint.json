@@ -20,6 +20,7 @@
 		"curly": false,
 		"one-variable-per-declaration": false,
 		"no-console": [false],
-		"no-string-literal": false
+		"no-string-literal": false,
+		"radix": false
 	}
 }

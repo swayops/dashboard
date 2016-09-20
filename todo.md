@@ -20,7 +20,7 @@
 - [ ] view billing
 - [X] ~~edit profile~~ (still need to add the endpoint)
 - [X] ~~plug edit endpoints (editProfile/m*)~~
-- [ ] fix css for 3 columns
+- [X] ~~fix css for 3 columns~~
 - [X] ~~admin stats~~
 - [X] ~~plug reporting end point~~
 - [ ] download reporting ui
