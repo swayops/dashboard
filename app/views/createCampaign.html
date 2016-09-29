@@ -7,6 +7,7 @@
 			</div>
 			<div class="grid-80 mobile-grid-100 grid-parent">
 				<input type="file" class="form-control" name="image">
+				<img [src]="data.imageUrl" *ngIf="data.imageUrl">
 			</div>
 		</div>
 
@@ -24,7 +25,7 @@
 				<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
 			</div>
 			<div class="grid-80 mobile-grid-100 grid-parent">
-				<input type="number" min="5" name="budget" placeholder="$5 minimum recommended" class="form-control" [(ngModel)]="data.budget" required>
+				<input type="number" min="5" name="budget" step="0.01" placeholder="$5 minimum recommended" class="form-control" [(ngModel)]="data.budget" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -74,7 +75,7 @@
 						<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link" required>
 					</div>
 				</div>
-				<div class="grid-40 mobile-grid-100 grid-parent">
+				<!--<div class="grid-40 mobile-grid-100 grid-parent">
 					<div class="checkbox">
 						<input type="checkbox" name="doPerk" value="perk">
 						<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
@@ -84,7 +85,7 @@
 					<div class="form-group">
 						<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</div>
@@ -93,7 +94,7 @@
 	<div class="field-set grid-100 grid-parent head-toggle">
 		<h2 class="heading">2. Targeting <span>*optional</span></h2>
 		<div class="onoffswitch targeting" data-for="toggle-targeting">
-			<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting">
+			<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.social>
 			<label class="onoffswitch-label" for="targeting">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
@@ -127,10 +128,10 @@
 			</div>
 			<div class="grid-80 mobile-grid-100 grid-parent">
 				<div class="checkbox">
-					<input name="female" type="checkbox" [checked]="data.female == null ? true : data.female">
+					<input name="female" type="checkbox" [checked]="data.female">
 					<label for="female" (click)="setBool($event)">Female</label>
 
-					<input name="male" type="checkbox" [checked]="data.male == null ? true : data.male">
+					<input name="male" type="checkbox" [checked]="data.male">
 					<label for="male" (click)="setBool($event)">Male</label>
 				</div>
 			</div>
@@ -159,7 +160,7 @@
 	<div class="field-set grid-100 grid-parent head-toggle">
 		<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
 		<div class="onoffswitch influencers" data-for="toggle-influencers">
-			<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers">
+			<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers" [checked]=opts.cats>
 			<label class="onoffswitch-label" for="influencers">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
@@ -178,12 +179,12 @@
 				</div>
 				<div class="grid-30 mobile-grid-100 grid-parent">
 					<div class="checkbox">
-						<input name="selectAllInfluencers" type="checkbox" value="selectAllInfluencers">
-						<label for="selectAllInfluencers">Select All</label>
+						<input name="selectAllInfluencers" type="checkbox" [checked]=allCats>
+						<label for="selectAllInfluencers" (click)=setAllCats($event)>Select All</label>
 					</div>
 				</div>
 				<br>
-				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+				<!--<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
 					<div class="left img">
 						<div class="checkbox">
 							<input name="ig1" type="checkbox" value="ig1">
@@ -195,18 +196,18 @@
 						<p class="i-n">All Sway Users</p>
 						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
 					</div>
-				</div>
-				<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let kv of this.categories">
+				</div>-->
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 					<div class="left img">
 						<div class="checkbox">
-							<input [name]="kv[0]" type="checkbox" [checked]="data.categories[kv[0]]">
-							<label [attr.for]="kv[0]" (click)="setCat($event)"> </label>
+							<input [name]="c.cat" type="checkbox" [checked]="data.categories[c.cat]">
+							<label [attr.for]="c.cat" (click)="setCat($event)"> </label>
 						</div>
 						<img src="/static/img/influencers/i-g2.png" />
 					</div>
 					<div class="right meta">
-						<p class="i-n" style="text-transform: capitalize;">{{kv[0]}}</p>
-						<p class="i-s"><span>Influencers: </span>{{kv[1]}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>N/A</p>
+						<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
+						<p class="i-s"><span>Influencers: </span>{{c.infs || 'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach || 'N/A'}}</p>
 					</div>
 				</div>
 			</div>
@@ -217,7 +218,7 @@
 	<div class="field-set grid-100 grid-parent">
 		<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 		<div class="onoffswitch perks" data-for="toggle-perks">
-			<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks">
+			<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks>
 			<label class="onoffswitch-label" for="perks">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
@@ -239,7 +240,7 @@
 						Perk Name:
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" value="" placeholder="My product name..." class="form-control">
+						<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName">
 					</div>
 				</div>
 				<div class="form-group">
@@ -247,7 +248,7 @@
 						Number of items:
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" value="" placeholder="How many perks do you plan on sending?" class="form-control">
+						<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount">
 					</div>
 				</div>
 
@@ -261,6 +262,6 @@
 		<button class="btn btn-block btn-lg btn-blue ghost" onclick="history.back();">Back</button>
 	</div>
 	<div class="grid-50 mobile-grid-60 grid-parent align-right">
-		<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid">Save &amp; Launch &#187;</button>
+		<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save &amp; Launch &#187;</button>
 	</div>
 </form>

@@ -13,7 +13,8 @@
 - [X] ~~content feed~~
 - [X] ~~manage campaigns~~
 - [ ] influencers invite
-- [ ] create/edit campaign
+- [X] ~~create/edit campaign~~
+- [ ] investigate why updating campaigns doesn't update tasks
 - [ ] perks
 - [X] ~~mOutboundPerks~~
 - [X] ~~mPerkCampaigns~~
@@ -26,4 +27,4 @@
 - [ ] download reporting ui
 - [ ] network breakdown for reporting
 - [ ] better image upload ui
-- [ ] more checking in auth guard and handle 403's more gracefully
+- [X] ~~more checking in auth guard and handle 401's more gracefully~~

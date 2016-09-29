@@ -129,7 +129,7 @@ export class AppComponent extends HasAPI {
 
 		$('.onoffswitch').each(function (this: {}) {
 			const cls = $(this).attr('data-for'),
-				checked = $(this).find('input').attr('checked');
+				checked = $(this).find('input').is(':checked');
 			if (!checked) {
 				$('.' + cls).slideToggle();
 			}

@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let cmp of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/campaign', cmp.id]">{{cmp.name}}</a></td>
+			<td class="align-left"><a [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">{{cmp.name}}</a></td>
 			<td>{{cmp.id}}</td>
 			<td>${{cmp.budget?.toFixed(2)}}</td>
 			<td>{{cmp.twitter && 'X'}}</td>

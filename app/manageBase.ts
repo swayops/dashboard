@@ -7,7 +7,7 @@ import { FilterByProps, SortBy } from './utils';
 
 // TODO make this an actual element and merge all the crap th uses it
 export class ManageBase extends HasAPI {
-	public loading = true;
+	public loading = false;
 	public list: Object[];
 	public lastSortKey: string;
 
