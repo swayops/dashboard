@@ -80,6 +80,11 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'editCampaign/:id/:cid',
+		component: CreateCampaignCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'createCampaign/:id/:cid',
 		component: CreateCampaignCmp,
 		canActivate: [AuthGuard],

@@ -1,323 +1,320 @@
-<div class="grid-62 mobile-grid-100 grid-parent">
-	<div class="content-holder center-widget">
-		<div class="grid-100 grid-parent">
-			<h2 class="heading">1. Basic campaign settings</h2>
-			<form>
+<form #f="ngForm" novalidate (ngSubmit)="save(f.value)">
+	<div class="grid-100 grid-parent">
+		<h2 class="heading">1. Basic campaign settings</h2>
+		<form>
 
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="file" value="" placeholder="" class="form-control">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Campaign Name:</span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" value="" placeholder="Your campaign name" class="form-control">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" value="" placeholder="$5 minimum recommended" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<textarea class="flat-textarea" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<div class="grid-40 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input id="tag_us" type="checkbox" name="check" value="#tag us">
-								<label for="tag_us">#tag us</label>
-							</div>
-						</div>
-						<div class="grid-60 mobile-grid-100 grid-parent">
-							<div class="form-group">
-								<input type="text" value="" placeholder="#hashtag1, #hashtag2, etc..." class="form-control">
-							</div>
-						</div>
-						<div class="grid-40 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input id="mention" type="checkbox" name="check" value="@mention us">
-								<label for="mention">@mention us</label>
-							</div>
-						</div>
-						<div class="grid-60 mobile-grid-100 grid-parent">
-							<div class="form-group">
-								<input type="text" value="" placeholder="@myBrand" class="form-control">
-							</div>
-						</div>
-						<div class="grid-40 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input id="link" type="checkbox" name="check" value="link us">
-								<label for="link">http://Link us</label>
-							</div>
-						</div>
-						<div class="grid-60 mobile-grid-100 grid-parent">
-							<div class="form-group">
-								<input type="text" value="" placeholder="The link you wish to promote" class="form-control">
-							</div>
-						</div>
-						<div class="grid-40 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input id="perk" type="checkbox" name="check" value="perk">
-								<label for="perk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
-							</div>
-						</div>
-						<div class="grid-60 mobile-grid-100 grid-parent">
-							<div class="form-group">
-								<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<br/><br/>
-		<div class="field-set grid-100 grid-parent head-toggle">
-			<h2 class="heading">2. Targeting <span>*optional</span></h2>
-			<div class="onoffswitch targeting" data-for="toggle-targeting">
-				<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting">
-				<label class="onoffswitch-label" for="targeting">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-			</div>
-		</div>
-		<div class="content-toggle toggle-targeting">
 			<div class="form-group">
 				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+					<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input id="instagram" type="checkbox" name="check" value="instagram" checked="">
-						<label for="instagram">Instagram</label>
+					<input type="file" class="form-control" name="image">
+				</div>
+			</div>
 
-						<input id="twitter" type="checkbox" name="check" value="twitter" checked="">
-						<label for="twitter">Twitter</label>
+			<div class="form-group">
+				<div class="grid-20 mobile-grid-100 grid-parent">
+					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Campaign Name:</span>
+				</div>
+				<div class="grid-80 mobile-grid-100 grid-parent">
+					<input type="text" name="name" placeholder="Your campaign name" class="form-control">
+				</div>
+			</div>
 
-						<input id="youtube" type="checkbox" name="check" value="youtube" checked="">
-						<label for="youtube">YouTube</label>
-
-						<input id="facebook" type="checkbox" name="check" value="facebook" checked="">
-						<label for="facebook">Facebook</label>
-					</div>
+			<div class="form-group">
+				<div class="grid-20 mobile-grid-100 grid-parent">
+					<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
+				</div>
+				<div class="grid-80 mobile-grid-100 grid-parent">
+					<input type="number" min="5" name="budget" placeholder="$5 minimum recommended" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
+					Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input id="instagram" type="checkbox" name="check" value="instagram" checked="">
-						<label for="instagram">Female</label>
-
-						<input id="twitter" type="checkbox" name="check" value="twitter" checked="">
-						<label for="twitter">Male</label>
-					</div>
+					<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
+					<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
-				</div>
-			</div>
-			<br/>
-			<div class="form-group">
-				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
-				</div>
-				<div class="grid-80 mobile-grid-100 grid-parent">
-					<input type="text" value="" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
-				</div>
-			</div>
-
-		</div>
-
-		<br/><br/>
-		<div class="field-set grid-100 grid-parent head-toggle">
-			<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
-			<div class="onoffswitch influencers" data-for="toggle-influencers">
-				<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers">
-				<label class="onoffswitch-label" for="influencers">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-			</div>
-		</div>
-
-		<div class="content-toggle toggle-influencers">
-
-			<div class="form-group">
-				<div class="grid-100 mobile-grid-100 grid-parent">
-					<div class="grid-70 mobile-grid-100 grid-parent">
-						<div class="form-group">
-							Please select the influencer groups you would like to prioritize:
-						</div>
-					</div>
-					<div class="grid-30 mobile-grid-100 grid-parent">
+					<div class="grid-40 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input id="selectAllInfluencers" type="checkbox" name="check" value="selectAllInfluencers" checked="">
-							<label for="selectAllInfluencers">Select All</label>
+							<input type="checkbox" name="doTags" value="#tag us">
+							<label for="doTags">#tag us</label>
 						</div>
 					</div>
-					<br>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig1" type="checkbox" name="check" value="ig1" checked="">
-								<label for="ig1"> </label>
-							</div>
-							<img for="ig1" src="/static/img/influencers/i-g1.png" />
-						</div>
-						<div class="right meta">
-							<p class="i-n">All Sway Users</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					<div class="grid-60 mobile-grid-100 grid-parent">
+						<div class="form-group">
+							<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control">
 						</div>
 					</div>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig2" type="checkbox" name="check" value="ig2" checked="">
-								<label for="ig2"> </label>
-							</div>
-							<img src="/static/img/influencers/i-g2.png" />
-						</div>
-						<div class="right meta">
-							<p class="i-n">Category 1</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					<div class="grid-40 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input type="checkbox" name="doMention" value="@mention us">
+							<label for="doMention">@mention us</label>
 						</div>
 					</div>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig3" type="checkbox" name="check" value="ig3" checked="">
-								<label for="ig3"> </label>
-							</div>
-							<img src="/static/img/influencers/i-g3.png" />
-						</div>
-						<div class="right meta">
-							<p class="i-n">Category 2</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					<div class="grid-60 mobile-grid-100 grid-parent">
+						<div class="form-group">
+							<input type="text" name="mention" placeholder="@myBrand" class="form-control">
 						</div>
 					</div>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig4" type="checkbox" name="check" value="ig4" checked="">
-								<label for="ig4"> </label>
-							</div>
-							<img src="/static/img/influencers/i-g4.png" />
-						</div>
-						<div class="right meta">
-							<p class="i-n">Category 3</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					<div class="grid-40 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input type="checkbox" name="doLink" value="link us">
+							<label for="doLink">http://Link us</label>
 						</div>
 					</div>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig5" type="checkbox" name="check" value="ig5" checked="">
-								<label for="ig5"> </label>
-							</div>
-							<img src="/static/img/influencers/i-g5.png" />
-						</div>
-						<div class="right meta">
-							<p class="i-n">Category 4</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					<div class="grid-60 mobile-grid-100 grid-parent">
+						<div class="form-group">
+							<input type="text" name="link" placeholder="The link you wish to promote" class="form-control">
 						</div>
 					</div>
-					<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-						<div class="left img">
-							<div class="checkbox">
-								<input id="ig6" type="checkbox" name="check" value="instagram" checked="">
-								<label for="ig6"> </label>
-							</div>
-							<img src="/static/img/influencers/i-g6.png" />
+					<div class="grid-40 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input  type="checkbox" name="doPerk" value="perk">
+							<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
 						</div>
-						<div class="right meta">
-							<p class="i-n">Category 5</p>
-							<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+					<div class="grid-60 mobile-grid-100 grid-parent">
+						<div class="form-group">
+							<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
 						</div>
 					</div>
 				</div>
 			</div>
+		</form>
+	</div>
 
-		</div>
-		<br/><br/>
-		<div class="field-set grid-100 grid-parent">
-			<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
-			<div class="onoffswitch perks" data-for="toggle-perks">
-				<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks">
-				<label class="onoffswitch-label" for="perks">
+	<br/><br/>
+	<div class="field-set grid-100 grid-parent head-toggle">
+		<h2 class="heading">2. Targeting <span>*optional</span></h2>
+		<div class="onoffswitch targeting" data-for="toggle-targeting">
+			<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting">
+			<label class="onoffswitch-label" for="targeting">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
-			</div>
 		</div>
-		<div class="content-toggle toggle-perks">
+	</div>
+	<div class="content-toggle toggle-targeting">
+		<div class="form-group">
+			<div class="grid-20 mobile-grid-100 grid-parent">
+				<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+			</div>
+			<div class="grid-80 mobile-grid-100 grid-parent">
+				<div class="checkbox">
+					<input name="instagram" type="checkbox" value="instagram">
+					<label for="instagram">Instagram</label>
 
-			<div class="form-group">
-				<div class="grid-100 mobile-grid-100 grid-parent">
-					Which perks would you would like to give to each influencer:<br/>
-					<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a
-						perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the
-						influencer to post with your product please mention it in the task description. Please let us know a little about the
-						items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+					<input name="twitter" type="checkbox" value="twitter">
+					<label for="twitter">Twitter</label>
 
-					<div class="form-group">
-						<div class="grid-20 mobile-grid-100 grid-parent">
-							Perk Name:
-						</div>
-						<div class="grid-80 mobile-grid-100 grid-parent">
-							<input type="text" value="" placeholder="My product name..." class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="grid-20 mobile-grid-100 grid-parent">
-							Number of items:
-						</div>
-						<div class="grid-80 mobile-grid-100 grid-parent">
-							<input type="text" value="" placeholder="How many perks do you plan on sending?" class="form-control">
-						</div>
-					</div>
+					<input name="youtube" type="checkbox" value="youtube">
+					<label for="youtube">YouTube</label>
 
+					<input name="facebook" type="checkbox" value="facebook">
+					<label for="facebook">Facebook</label>
 				</div>
 			</div>
+		</div>
+		<div class="form-group">
+			<div class="grid-20 mobile-grid-100 grid-parent">
+				<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
+			</div>
+			<div class="grid-80 mobile-grid-100 grid-parent">
+				<div class="checkbox">
+					<input name="female" type="checkbox" value="female">
+					<label for="female">Female</label>
 
+					<input name="male" type="checkbox" value="male">
+					<label for="male">Male</label>
+				</div>
+			</div>
+		</div>
+		<!--<div class="form-group">
+			<div class="grid-20 mobile-grid-100 grid-parent">
+				<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
+			</div>
+			<div class="grid-80 mobile-grid-100 grid-parent">
+				<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
+			</div>
+		</div>-->
+		<br/>
+		<div class="form-group">
+			<div class="grid-20 mobile-grid-100 grid-parent">
+				<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
+			</div>
+			<div class="grid-80 mobile-grid-100 grid-parent">
+				<input type="text" name="whitelist" [value]="data.whitelist?.join(', ')" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
+			</div>
 		</div>
 
-		<br><br>
-		<div class="grid-50 mobile-grid-40 grid-parent">
-			<a href="#fakelink" class="btn btn-block btn-lg btn-blue ghost">Back</a>
-		</div>
-		<div class="grid-50 mobile-grid-60 grid-parent align-right">
-			<a href="#fakelink" class="btn btn-block btn-lg btn-green1">Save &amp; Launch &#187;</a>
-		</div>
-		<br><br>
 	</div>
-</div>
+
+	<br/><br/>
+	<div class="field-set grid-100 grid-parent head-toggle">
+		<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
+		<div class="onoffswitch influencers" data-for="toggle-influencers">
+			<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers">
+			<label class="onoffswitch-label" for="influencers">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+		</div>
+	</div>
+
+	<div class="content-toggle toggle-influencers">
+
+		<div class="form-group">
+			<div class="grid-100 mobile-grid-100 grid-parent">
+				<div class="grid-70 mobile-grid-100 grid-parent">
+					<div class="form-group">
+						Please select the influencer groups you would like to prioritize:
+					</div>
+				</div>
+				<div class="grid-30 mobile-grid-100 grid-parent">
+					<div class="checkbox">
+						<input id="selectAllInfluencers" type="checkbox" value="selectAllInfluencers">
+						<label for="selectAllInfluencers">Select All</label>
+					</div>
+				</div>
+				<br>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig1" type="checkbox" value="ig1">
+							<label for="ig1"> </label>
+						</div>
+						<img for="ig1" src="/static/img/influencers/i-g1.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">All Sway Users</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig2" type="checkbox" value="ig2">
+							<label for="ig2"> </label>
+						</div>
+						<img src="/static/img/influencers/i-g2.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">Category 1</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig3" type="checkbox" value="ig3">
+							<label for="ig3"> </label>
+						</div>
+						<img src="/static/img/influencers/i-g3.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">Category 2</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig4" type="checkbox" value="ig4">
+							<label for="ig4"> </label>
+						</div>
+						<img src="/static/img/influencers/i-g4.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">Category 3</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig5" type="checkbox" value="ig5">
+							<label for="ig5"> </label>
+						</div>
+						<img src="/static/img/influencers/i-g5.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">Category 4</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+					<div class="left img">
+						<div class="checkbox">
+							<input id="ig6" type="checkbox" value="instagram">
+							<label for="ig6"> </label>
+						</div>
+						<img src="/static/img/influencers/i-g6.png" />
+					</div>
+					<div class="right meta">
+						<p class="i-n">Category 5</p>
+						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<br/><br/>
+	<div class="field-set grid-100 grid-parent">
+		<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
+		<div class="onoffswitch perks" data-for="toggle-perks">
+			<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks">
+			<label class="onoffswitch-label" for="perks">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+		</div>
+	</div>
+	<div class="content-toggle toggle-perks">
+
+		<div class="form-group">
+			<div class="grid-100 mobile-grid-100 grid-parent">
+				Which perks would you would like to give to each influencer:<br/>
+				<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a
+					perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer
+					to post with your product please mention it in the task description. Please let us know a little about the items you
+					are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						Perk Name:
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" value="" placeholder="My product name..." class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						Number of items:
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" value="" placeholder="How many perks do you plan on sending?" class="form-control">
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<br><br>
+	<div class="grid-50 mobile-grid-40 grid-parent">
+		<button class="btn btn-block btn-lg btn-blue ghost" onclick="history.back();">Back</button>
+	</div>
+	<div class="grid-50 mobile-grid-60 grid-parent align-right">
+		<button type="submit" class="btn btn-block btn-lg btn-green1">Save &amp; Launch &#187;</button>
+	</div>
+</form>

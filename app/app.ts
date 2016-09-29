@@ -128,9 +128,9 @@ export class AppComponent extends HasAPI {
 		});
 
 		$('.onoffswitch').each(function (this: {}) {
-			let cls = $(this).attr('data-for');
-			if ($(this).find('input').attr('checked')) { }
-			else {
+			const cls = $(this).attr('data-for'),
+				checked = $(this).find('input').attr('checked');
+			if (!checked) {
 				$('.' + cls).slideToggle();
 			}
 		});
