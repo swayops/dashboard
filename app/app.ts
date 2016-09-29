@@ -149,11 +149,6 @@ export class AppComponent extends HasAPI {
 			e.stopPropagation();
 			return false;
 		});
-
-		$('.checkbox').on('click', function(this: {}, e) {
-			const inp = $(this).find('input');
-			inp.prop('checked', !inp.prop('checked'));
-		});
 	}
 
 	initIncrGroup() {
