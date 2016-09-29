@@ -97,11 +97,12 @@ export class Sway {
 	public handleError(err: Response): Observable<{}> {
 		const errData = err.json();
 		this.error = errData;
+		if (this.error.code === 401) this._status = 2;
 		return Observable.throw(errData);
 	}
 
 	get IsLoggedIn(): Observable<boolean> {
-		if (this._status > 0) return Observable.of(this._status === 1);
+		// if (this._status > 0) return Observable.of(this._status === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
 				this._user = user;
@@ -131,7 +132,7 @@ export class AuthGuard implements CanActivate {
 	// TODO check if a certain user can open a certain page or not
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
-			if (logged) return true;
+			if (logged && (!this.api.error || this.api.error.code !== 401)) return true;
 			this.api.redirectUrl = state.url;
 			this.router.navigate(['/login']);
 			return false;
