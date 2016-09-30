@@ -53,6 +53,13 @@ export class AdvertisersCmp extends ManageBase {
 		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id']);
 	}
 
+	openAdv(adv: any) {
+		if(adv.numCmps > 0) {
+			this.api.GoTo('reporting', adv.id);
+		} else {
+			this.api.GoTo('createCampaign', adv.id);
+		}
+	}
 	save = (data, done) => {
 		data.parentId = this.id;
 		data.status = true;
