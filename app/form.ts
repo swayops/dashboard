@@ -98,6 +98,13 @@ export class FormDlg {
 			ctl.setAttribute(k, v);
 		}
 	}
+	setCheckbox(evt: any) {
+		const chk = evt.target.previousElementSibling;
+		console.log(chk);
+		if (!chk || chk.tagName !== 'INPUT' || !chk.name) return;
+		chk.checked = !chk.checked;
+		this.updateValue(chk);
+	}
 
 	get valid(): boolean {
 		if (this.loading) return false;
