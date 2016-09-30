@@ -71,7 +71,7 @@
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doLink" value="link us" [checked]="opts.link">
+								<input type="checkbox" name="doLink" [checked]="opts.link">
 								<label for="doLink" (click)="toggleOpts($event)">https://Link us</label>
 							</div>
 						</div>
@@ -81,17 +81,23 @@
 									required>
 							</div>
 						</div>
+						<div class="grid-100 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input type="checkbox" name="status" [checked]="data.status">
+								<label for="status" (click)="setBool($event)">Active Campaign?</label>
+							</div>
+						</div>
 						<!--<div class="grid-40 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input type="checkbox" name="doPerk" value="perk">
-						<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
-					</div>
-				</div>
-				<div class="grid-60 mobile-grid-100 grid-parent">
-					<div class="form-group">
-						<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
-					</div>
-				</div>-->
+							<div class="checkbox">
+								<input type="checkbox" name="doPerk" value="perk">
+								<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
+							</div>
+						</div>
+						<div class="grid-60 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
+							</div>
+						</div>-->
 					</div>
 				</div>
 			</div>

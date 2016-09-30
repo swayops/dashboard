@@ -54,12 +54,7 @@ export class AppComponent extends HasAPI {
 					} else {
 						document.body.classList.remove('user-logged-in');
 					}
-					const content = document.querySelector('router-outlet ~ *'),
-						firstChild = content.firstElementChild; // this is an ugly hack :(
-					if (threeColumnPages.indexOf(content.tagName) !== -1 || firstChild && firstChild.tagName !== 'DIV') {
-						content.setAttribute('class', defaultClasses + (v ? ' grid-80' : ' grid-100'));
-						content.setAttribute('style', 'display: block;');
-					}
+					const content = document.querySelector('router-outlet ~ *');
 					content.classList.add('main-view');
 					setTimeout(() => this.reinitPageScripts(), 100);
 				});

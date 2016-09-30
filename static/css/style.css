@@ -1226,12 +1226,14 @@ div#header #logo{white-space:nowrap;}
 	margin-top:20px;
 }
 
-.user-logged-in #page-content .content-holder{
-	background:#fff;
+.user-logged-in #page-content .content-holder {
 	border-radius:4px 4px;
 	*overflow:hidden;
 }
 
+.main-view .content-holder, left-nav .content-holder {
+	background-color: #fff;
+}
 
 .user-section{
 	text-align: center;

@@ -969,7 +969,7 @@ div#header .menu li:hover .sub-menu{
 	margin: 6px 10px 0px 0px;
 }
 
-user-header, user-footer, left-nav, notifications {
+user-header, user-footer, left-nav, notifications, .main-view {
 	display: block;
 }
 
