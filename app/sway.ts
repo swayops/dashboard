@@ -1,4 +1,4 @@
-import { Component, Injectable, Output } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -8,21 +8,21 @@ const apiURL = '/api/v1/';
 
 @Injectable()
 export class Sway {
-	public _user: User;
-	public _cuser: User;
-	public _status = 0;
+	public mainUser: User;
+	public curUser: User;
+	public loginStatus = 0;
 	error: any;
 	redirectUrl: string;
 
 	constructor(public router: Router, public http: Http) {
-		this.IsLoggedIn.subscribe(v => this._status = v ? 1 : 0);
+		this.IsLoggedIn.subscribe(v => this.loginStatus = v ? 1 : 0);
 	}
 
 	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
 		this.Reset();
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
-				this._user = user;
+				this.mainUser = user;
 				if (this.redirectUrl) {
 					this.GoTo(this.redirectUrl);
 				} else if (user.admin) {
@@ -31,7 +31,7 @@ export class Sway {
 					this.GoTo('/reporting', user.id);
 				}
 				this.redirectUrl = '';
-				this._status = 1;
+				this.loginStatus = 1;
 			}, onError);
 		}, onError);
 	}
@@ -58,14 +58,14 @@ export class Sway {
 
 	SetCurrentUser(id?: string): Promise<User> {
 		if (id == null) {
-			this._cuser = null;
-			return Promise.resolve(this._user);
+			this.curUser = null;
+			return Promise.resolve(this.mainUser);
 		}
 		if (id === this.CurrentUser.id) {
 			return Promise.resolve(this.CurrentUser);
 		}
 		return new Promise((resolve, reject) => {
-			this.Get('user/' + id, user => { this._cuser = user; resolve(user); }, err => reject(err));
+			this.Get('user/' + id, user => { this.curUser = user; resolve(user); }, err => reject(err));
 		});
 	}
 
@@ -81,10 +81,9 @@ export class Sway {
 	}
 
 	Reset() {
-		this._user = this._cuser = null;
-		this._status = 0;
+		this.mainUser = this.curUser = null;
+		this.loginStatus = 0;
 	}
-
 
 	public req(method: string, ep: string, body?: any): Observable<any> {
 		this.error = null;
@@ -97,31 +96,31 @@ export class Sway {
 	public handleError(err: Response): Observable<{}> {
 		const errData = err.json();
 		this.error = errData;
-		if (this.error.code === 401) this._status = 2;
+		if (this.error.code === 401) this.loginStatus = 2;
 		return Observable.throw(errData);
 	}
 
 	get IsLoggedIn(): Observable<boolean> {
-		// if (this._status > 0) return Observable.of(this._status === 1);
+		// if (this.loginStatus > 0) return Observable.of(this.loginStatus === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
-				this._user = user;
-				this._status = 1;
+				this.mainUser = user;
+				this.loginStatus = 1;
 				return obs.next(true);
 			}, err => {
 				if (err.code === 401) this.error = null; // ignore 401 for this func
-				this._status = 2;
+				this.loginStatus = 2;
 				obs.next(false);
 			});
 			return () => sub.unsubscribe();
 		}).take(1);
 	}
 
-	get User(): User { return this._user; }
-	get CurrentUser(): User { return this._cuser || this._user; }
+	get User(): User { return this.mainUser; }
+	get CurrentUser(): User { return this.curUser || this.mainUser; }
 
 	IsAsUser(): boolean {
-		return this.User.admin && !!this._cuser && this.User.id !== this._cuser.id;
+		return this.User.admin && !!this.curUser && this.User.id !== this.curUser.id;
 	}
 }
 
@@ -141,7 +140,7 @@ export class AuthGuard implements CanActivate {
 
 }
 
-let _notif: Notification[] = [];
+let allNotifications: Notification[] = [];
 export class HasAPI {
 	constructor(protected api: Sway) { }
 	get user() { return this.api.CurrentUser; }
@@ -150,21 +149,21 @@ export class HasAPI {
 	@Output() get error() { return this.api.error; }
 
 	@Output() get notifications() {
-		_notif.forEach(v => {
+		allNotifications.forEach(v => {
 			if (v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
 		});
-		_notif = _notif.filter(v => v.timeout !== -1);
-		return _notif;
+		allNotifications = allNotifications.filter(v => v.timeout !== -1);
+		return allNotifications;
 	}
 
 	// if no timeout is specified, it defaults to 10s
 	AddNotification(type: string, msg: string, timeout: number = null) {
 		if (timeout == null) timeout = 10000;
-		_notif.push({ type, msg, timeout });
+		allNotifications.push({ type, msg, timeout });
 	}
 
 	ResetNotifications() {
-		_notif = [];
+		allNotifications = [];
 	}
 }
 
