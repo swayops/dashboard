@@ -24,6 +24,11 @@ const noNavURLs = [
 	'/resetPassword/',
 ];
 
+const threeColumnPages = [
+	'NOT-FOUND',
+	'CREATE-CAMPAIGN',
+];
+
 @Component({
 	selector: 'sway-app',
 	templateUrl: './views/app.html',
@@ -51,10 +56,11 @@ export class AppComponent extends HasAPI {
 					}
 					const content = document.querySelector('router-outlet ~ *'),
 						firstChild = content.firstElementChild; // this is an ugly hack :(
-					if (content.tagName === 'NOT-FOUND' || firstChild && firstChild.tagName !== 'DIV') {
+					if (threeColumnPages.indexOf(content.tagName) !== -1 || firstChild && firstChild.tagName !== 'DIV') {
 						content.setAttribute('class', defaultClasses + (v ? ' grid-80' : ' grid-100'));
 						content.setAttribute('style', 'display: block;');
 					}
+					content.classList.add('main-view');
 					setTimeout(() => this.reinitPageScripts(), 100);
 				});
 				lastRoute = evt.url;

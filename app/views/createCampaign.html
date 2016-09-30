@@ -1,81 +1,87 @@
-<form #f="ngForm" novalidate (ngSubmit)="save()">
-	<div class="grid-100 grid-parent">
-		<h2 class="heading">1. Basic campaign settings</h2>
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<input type="file" class="form-control" name="image">
-				<img [src]="data.imageUrl" *ngIf="data.imageUrl">
-			</div>
-		</div>
+<div class="grid-62 mobile-grid-100 grid-parent content-holder">
+	<div class="content-holder center-widget">
+		<form #f="ngForm" novalidate (ngSubmit)="save()">
+			<div class="grid-100 grid-parent">
+				<h2 class="heading">1. Basic campaign settings</h2>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="file" class="form-control" name="image">
+						<img [src]="data.imageUrl" *ngIf="data.imageUrl">
+					</div>
+				</div>
 
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Campaign Name:</span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<input type="text" name="name" placeholder="Your campaign name" class="form-control" [(ngModel)]="data.name" required>
-			</div>
-		</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Campaign Name:</span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" name="name" placeholder="Your campaign name" class="form-control" [(ngModel)]="data.name" required>
+					</div>
+				</div>
 
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<input type="number" min="5" name="budget" step="0.01" placeholder="$5 minimum recommended" class="form-control" [(ngModel)]="data.budget" required>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"
-					 [(ngModel)]="data.task" required></textarea>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<div class="grid-40 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input type="checkbox" name="doTags" value="#tag us" [checked]="opts.tags">
-						<label for="doTags" (click)="toggleOpts($event)">#tag us</label>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="number" min="5" name="budget" step="0.01" placeholder="$5 minimum recommended" class="form-control" [(ngModel)]="data.budget"
+							required>
 					</div>
 				</div>
-				<div class="grid-60 mobile-grid-100 grid-parent">
-					<div class="form-group">
-						<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags" required>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"
+							[(ngModel)]="data.task" required></textarea>
 					</div>
 				</div>
-				<div class="grid-40 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input type="checkbox" name="doMention" value="@mention us"  [checked]="opts.mention">
-						<label for="doMention" (click)="toggleOpts($event)">@mention us</label>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
-				</div>
-				<div class="grid-60 mobile-grid-100 grid-parent">
-					<div class="form-group">
-						<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention" required>
-					</div>
-				</div>
-				<div class="grid-40 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input type="checkbox" name="doLink" value="link us"  [checked]="opts.link">
-						<label for="doLink" (click)="toggleOpts($event)">https://Link us</label>
-					</div>
-				</div>
-				<div class="grid-60 mobile-grid-100 grid-parent">
-					<div class="form-group">
-						<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link" required>
-					</div>
-				</div>
-				<!--<div class="grid-40 mobile-grid-100 grid-parent">
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="grid-40 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input type="checkbox" name="doTags" value="#tag us" [checked]="opts.tags">
+								<label for="doTags" (click)="toggleOpts($event)">#tag us</label>
+							</div>
+						</div>
+						<div class="grid-60 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags"
+									required>
+							</div>
+						</div>
+						<div class="grid-40 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input type="checkbox" name="doMention" value="@mention us" [checked]="opts.mention">
+								<label for="doMention" (click)="toggleOpts($event)">@mention us</label>
+							</div>
+						</div>
+						<div class="grid-60 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention"
+									required>
+							</div>
+						</div>
+						<div class="grid-40 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input type="checkbox" name="doLink" value="link us" [checked]="opts.link">
+								<label for="doLink" (click)="toggleOpts($event)">https://Link us</label>
+							</div>
+						</div>
+						<div class="grid-60 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link"
+									required>
+							</div>
+						</div>
+						<!--<div class="grid-40 mobile-grid-100 grid-parent">
 					<div class="checkbox">
 						<input type="checkbox" name="doPerk" value="perk">
 						<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
@@ -86,57 +92,57 @@
 						<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
 					</div>
 				</div>-->
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
 
-	<br/><br/>
-	<div class="field-set grid-100 grid-parent head-toggle">
-		<h2 class="heading">2. Targeting <span>*optional</span></h2>
-		<div class="onoffswitch targeting" data-for="toggle-targeting">
-			<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.social>
-			<label class="onoffswitch-label" for="targeting">
+			<br/><br/>
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">2. Targeting <span>*optional</span></h2>
+				<div class="onoffswitch targeting" data-for="toggle-targeting">
+					<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.social>
+					<label class="onoffswitch-label" for="targeting">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
-		</div>
-	</div>
-	<div class="content-toggle toggle-targeting">
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<div class="checkbox">
-					<input name="instagram" type="checkbox" [checked]="data.instagram">
-					<label for="instagram" (click)="setBool($event)">Instagram</label>
-
-					<input name="twitter" type="checkbox" [checked]="data.twitter">
-					<label for="twitter" (click)="setBool($event)">Twitter</label>
-
-					<input name="youtube" type="checkbox" [checked]="data.youtube">
-					<label for="youtube" (click)="setBool($event)">YouTube</label>
-
-					<input name="facebook" type="checkbox" [checked]="data.facebook">
-					<label for="facebook" (click)="setBool($event)">Facebook</label>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<div class="checkbox">
-					<input name="female" type="checkbox" [checked]="data.female">
-					<label for="female" (click)="setBool($event)">Female</label>
+			<div class="content-toggle toggle-targeting">
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input name="instagram" type="checkbox" [checked]="data.instagram">
+							<label for="instagram" (click)="setBool($event)">Instagram</label>
 
-					<input name="male" type="checkbox" [checked]="data.male">
-					<label for="male" (click)="setBool($event)">Male</label>
+							<input name="twitter" type="checkbox" [checked]="data.twitter">
+							<label for="twitter" (click)="setBool($event)">Twitter</label>
+
+							<input name="youtube" type="checkbox" [checked]="data.youtube">
+							<label for="youtube" (click)="setBool($event)">YouTube</label>
+
+							<input name="facebook" type="checkbox" [checked]="data.facebook">
+							<label for="facebook" (click)="setBool($event)">Facebook</label>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<!--<div class="form-group">
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input name="female" type="checkbox" [checked]="data.female">
+							<label for="female" (click)="setBool($event)">Female</label>
+
+							<input name="male" type="checkbox" [checked]="data.male">
+							<label for="male" (click)="setBool($event)">Male</label>
+						</div>
+					</div>
+				</div>
+				<!--<div class="form-group">
 			<div class="grid-20 mobile-grid-100 grid-parent">
 				<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
 			</div>
@@ -144,47 +150,48 @@
 				<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
 			</div>
 		</div>-->
-		<br/>
-		<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
-			</div>
-		</div>
+				<br/>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
+							class="form-control">
+					</div>
+				</div>
 
-	</div>
+			</div>
 
-	<br/><br/>
-	<div class="field-set grid-100 grid-parent head-toggle">
-		<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
-		<div class="onoffswitch influencers" data-for="toggle-influencers">
-			<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers" [checked]=opts.cats>
-			<label class="onoffswitch-label" for="influencers">
+			<br/><br/>
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
+				<div class="onoffswitch influencers" data-for="toggle-influencers">
+					<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers" [checked]=opts.cats>
+					<label class="onoffswitch-label" for="influencers">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
-		</div>
-	</div>
-
-	<div class="content-toggle toggle-influencers">
-
-		<div class="form-group">
-			<div class="grid-100 mobile-grid-100 grid-parent">
-				<div class="grid-70 mobile-grid-100 grid-parent">
-					<div class="form-group">
-						Please select the influencer groups you would like to prioritize:
-					</div>
 				</div>
-				<div class="grid-30 mobile-grid-100 grid-parent">
-					<div class="checkbox">
-						<input name="selectAllInfluencers" type="checkbox" [checked]=allCats>
-						<label for="selectAllInfluencers" (click)=setAllCats($event)>Select All</label>
-					</div>
-				</div>
-				<br>
-				<!--<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
+			</div>
+
+			<div class="content-toggle toggle-influencers">
+
+				<div class="form-group">
+					<div class="grid-100 mobile-grid-100 grid-parent">
+						<div class="grid-70 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								Please select the influencer groups you would like to prioritize:
+							</div>
+						</div>
+						<div class="grid-30 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input name="selectAllInfluencers" type="checkbox" [checked]=allCats>
+								<label for="selectAllInfluencers" (click)=setAllCats($event)>Select All</label>
+							</div>
+						</div>
+						<br>
+						<!--<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
 					<div class="left img">
 						<div class="checkbox">
 							<input name="ig1" type="checkbox" value="ig1">
@@ -197,71 +204,110 @@
 						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
 					</div>
 				</div>-->
-				<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
-					<div class="left img">
-						<div class="checkbox">
-							<input [name]="c.cat" type="checkbox" [checked]="data.categories[c.cat]">
-							<label [attr.for]="c.cat" (click)="setCat($event)"> </label>
+						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
+							<div class="left img">
+								<div class="checkbox">
+									<input [name]="c.cat" type="checkbox" [checked]="data.categories[c.cat]">
+									<label [attr.for]="c.cat" (click)="setCat($event)"> </label>
+								</div>
+								<img src="/static/img/influencers/i-g2.png" />
+							</div>
+							<div class="right meta">
+								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
+								<p class="i-s"><span>Influencers: </span>{{c.infs || 'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach || 'N/A'}}</p>
+							</div>
 						</div>
-						<img src="/static/img/influencers/i-g2.png" />
-					</div>
-					<div class="right meta">
-						<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
-						<p class="i-s"><span>Influencers: </span>{{c.infs || 'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach || 'N/A'}}</p>
 					</div>
 				</div>
-			</div>
-		</div>
 
-	</div>
-	<br/><br/>
-	<div class="field-set grid-100 grid-parent">
-		<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
-		<div class="onoffswitch perks" data-for="toggle-perks">
-			<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks>
-			<label class="onoffswitch-label" for="perks">
+			</div>
+			<br/><br/>
+			<div class="field-set grid-100 grid-parent">
+				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
+				<div class="onoffswitch perks" data-for="toggle-perks">
+					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks>
+					<label class="onoffswitch-label" for="perks">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
-		</div>
-	</div>
-	<div class="content-toggle toggle-perks">
-
-		<div class="form-group">
-			<div class="grid-100 mobile-grid-100 grid-parent">
-				Which perks would you would like to give to each influencer:<br/>
-				<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a
-					perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer
-					to post with your product please mention it in the task description. Please let us know a little about the items you
-					are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
-
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						Perk Name:
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName">
-					</div>
 				</div>
+			</div>
+			<div class="content-toggle toggle-perks">
+
 				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						Number of items:
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount">
+					<div class="grid-100 mobile-grid-100 grid-parent">
+						Which perks would you would like to give to each influencer:<br/>
+						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent
+							a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the
+							influencer to post with your product please mention it in the task description. Please let us know a little about
+							the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+
+						<div class="form-group">
+							<div class="grid-20 mobile-grid-100 grid-parent">
+								Perk Name:
+							</div>
+							<div class="grid-80 mobile-grid-100 grid-parent">
+								<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="grid-20 mobile-grid-100 grid-parent">
+								Number of items:
+							</div>
+							<div class="grid-80 mobile-grid-100 grid-parent">
+								<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control"
+									name="perkCount">
+							</div>
+						</div>
+
 					</div>
 				</div>
 
 			</div>
-		</div>
 
+			<br><br>
+			<div class="grid-50 mobile-grid-40 grid-parent">
+				<button class="btn btn-block btn-lg btn-blue ghost" onclick="history.back();">Back</button>
+			</div>
+			<div class="grid-50 mobile-grid-60 grid-parent align-right">
+				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save &amp; Launch &#187;</button>
+			</div>
+		</form>
 	</div>
-
-	<br><br>
-	<div class="grid-50 mobile-grid-40 grid-parent">
-		<button class="btn btn-block btn-lg btn-blue ghost" onclick="history.back();">Back</button>
+</div>
+<div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb">
+	<div class="est-reach">
+		<p>Pre-launch</p>
+		<h3></h3>
+		<p>Cliff Notes</p>
 	</div>
-	<div class="grid-50 mobile-grid-60 grid-parent align-right">
-		<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save &amp; Launch &#187;</button>
-	</div>
-</form>
+	<ul class="cat-status">
+		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><label>Daily Budget:</label> ${{data.budget || 0}}</p>
+			</div>
+		</li>
+		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><label>Requirements:</label> Link, @mention, #hashtag, product photo</p>
+			</div>
+		</li>
+		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><label>Networks:</label> Facebook, Twitter, Instagram, YouTube</p>
+			</div>
+		</li>
+		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><label>Influencer Groups:</label> {{data.categories}}</p>
+			</div>
+		</li>
+		<li>
+			<div align="center" class="grid-100 mobile-grid-100">
+				<br/>
+				<a class="btn btn-green1">Save &amp; Launch &#187;</a>
+			</div>
+			<br/>
+		</li>
+	</ul>
+</div>
