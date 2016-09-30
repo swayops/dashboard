@@ -23,8 +23,9 @@ export class CreateCampaignCmp extends ManageBase {
 		},
 	};
 	public categories = [];
-	public opts: any = {};
-	private isEdit: boolean;
+	public opts: any = {
+		isEdit: false,
+	};
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
@@ -34,8 +35,8 @@ export class CreateCampaignCmp extends ManageBase {
 			this.categories = (resp || []).sort((a, b) => a.cat > b.cat); // sort by name
 		});
 		this.data.advertiserId = this.id;
-		this.isEdit = route.snapshot.url[0].path === 'editCampaign';
-		if (this.isEdit) {
+		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
+		if (this.opts.isEdit) {
 			const cid = route.snapshot.params['cid'];
 			this.api.Get('campaign/' + cid, resp => this.setCmp(resp));
 		}
@@ -90,7 +91,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (this.loading) return;
 		this.loading = true;
 		const data = this.getCmp(this.data);
-		if (this.isEdit) {
+		if (this.opts.isEdit) {
 			this.api.Put('campaign/' + data.id, data, resp => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
