@@ -58,7 +58,6 @@ export class CreateCampaignCmp extends ManageBase {
 		const chk = getCheckbox(evt);
 		if (!chk) return;
 		this.data[chk.name] = !chk.checked;
-		console.log(this.data);
 	}
 
 	setCat(evt: any) {
@@ -80,7 +79,6 @@ export class CreateCampaignCmp extends ManageBase {
 		if (!this.data.categories) this.data.categories = {};
 		const v = !chk.checked;
 		this.categories.forEach(c => this.data.categories[c.cat] = v);
-		console.log(this.data.categories);
 		chk.checked = v;
 	}
 
@@ -97,7 +95,10 @@ export class CreateCampaignCmp extends ManageBase {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
 				this.api.GoTo('/mCampaigns/' + this.id);
-			}, err => console.log(err));
+			}, err => {
+				this.loading = false;
+				this.AddNotification('error', err);
+			});
 		} else {
 			this.api.Post('campaign', data, resp => {
 				this.loading = false;

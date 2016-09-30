@@ -153,10 +153,13 @@ export class HasAPI {
 		_notif.forEach(v => {
 			if (v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
 		});
-		return _notif.filter(v => v.timeout !== -1);
+		_notif = _notif.filter(v => v.timeout !== -1);
+		return _notif;
 	}
 
-	AddNotification(type: string, msg: string, timeout: number = 0) {
+	// if no timeout is specified, it defaults to 10s
+	AddNotification(type: string, msg: string, timeout: number = null) {
+		if (timeout == null) timeout = 10000;
 		_notif.push({ type, msg, timeout });
 	}
 
