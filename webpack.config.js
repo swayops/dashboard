@@ -45,7 +45,6 @@ function aliasify(o) {
 
 const cfg = {
 	devtool: 'cheap-module-source-map',
-	debug: true,
 	entry: {
 		'app': './app/main.ts',
 		'vendor': './app/vendor.ts'
@@ -58,8 +57,7 @@ const cfg = {
 	},
 
 	resolve: {
-		root: __dirname,
-		extensions: ['', '.ts', '.js', '.json', '.html', '.css'],
+		extensions: ['.ts', '.js', '.json', '.html', '.css'],
 		alias: aliasify({
 			'jquery': 'dist/jquery',
 			'bootstrap': 'dist/js/bootstrap',
@@ -94,8 +92,9 @@ const cfg = {
 	plugins: [
 		new webpack.NoErrorsPlugin(),
 		new webpack.LoaderOptionsPlugin({
+			noParse: [/@angular/, /\.min.js$/],
 			minimize: true,
-			debug: true,
+			debug: !isProd,
 		}),
 
 		new webpack.ProvidePlugin({
@@ -111,8 +110,7 @@ const cfg = {
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.AggressiveMergingPlugin(),
-	],
-	noParse: [/@angular/, /\.min.js$/]
+	]
 };
 
 const cleanPlugin = new CleanPlugin(staticPath, Object.keys(cfg.entry).map(fp => fp + '.js'), '.map', '.gz', '.map.gz');
@@ -122,7 +120,6 @@ cleanPlugin.clean(); // force remove all the old files.
 if (isProd) {
 	cleanPlugin.exts = ['.map']; // remove the non-gzip'ed files.
 	cfg.devtool = 'source-map';
-	cfg.debug = false;
 	cfg.plugins.push(
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
