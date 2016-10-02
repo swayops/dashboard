@@ -754,7 +754,7 @@ div#header .menu li:hover .sub-menu{
 	margin-right:15px;
 	position:relative;
 }
-.influencer-g .img .checkbox{position:absolute;top: 15px;    left: 22px;
+.influencer-g .img .checkbox{position:absolute;top: 8px;    left: 22px;
 }
 .influencer-g .right{}
 .influencer-g .i-n{
@@ -762,8 +762,8 @@ div#header .menu li:hover .sub-menu{
 	font-weight:400;
 	margin:10px 0 0;
 }
-.influencer-g .i-s{margin:0px 0 0;font-size:12px;}
-.influencer-g .i-s span{font-weight:400;}
+.influencer-g .i-s{margin:0px 0 0;font-size:10px;}
+.influencer-g .i-s span{font-weight:400; font-size: 12px;}
 
 #campaign-steps .onoffswitch2.t3{
 	margin-top:0;
