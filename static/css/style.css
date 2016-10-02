@@ -1231,7 +1231,7 @@ div#header #logo{white-space:nowrap;}
 	*overflow:hidden;
 }
 
-.main-view .content-holder, left-nav .content-holder, .main-view.center-widget {
+.main-view .content-holder, left-nav .content-holder, .main-view.grid-80 {
 	background-color: #fff;
 }
 

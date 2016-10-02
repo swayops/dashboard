@@ -19,7 +19,7 @@ export class NotFoundCmp {
 
 const noNavURLs = [
 	'/login',
-	'/signUp',
+	'/signup',
 	'/forgotPassword',
 	'/resetPassword/',
 ];
@@ -50,7 +50,8 @@ export class AppComponent extends HasAPI {
 					}
 					const content = document.querySelector('router-outlet ~ *');
 					if (!content.firstElementChild.classList.contains('grid-62')) {
-						content.classList.add('content-holder', 'grid-80', 'mobile-grid-100', 'grid-parent', 'center-widget');
+						content.classList.add('content-holder', 'grid-parent', 'center-widget');
+						if (!this.noNav) content.classList.add('grid-80', 'mobile-grid-100');
 					}
 					content.classList.add('main-view');
 					setTimeout(() => this.reinitPageScripts(), 100);
