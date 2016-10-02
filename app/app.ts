@@ -24,11 +24,6 @@ const noNavURLs = [
 	'/resetPassword/',
 ];
 
-const threeColumnPages = [
-	'NOT-FOUND',
-	'CREATE-CAMPAIGN',
-];
-
 @Component({
 	selector: 'sway-app',
 	templateUrl: './views/app.html',
@@ -37,7 +32,6 @@ export class AppComponent extends HasAPI {
 	public noNav: boolean;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		super(api);
-		const defaultClasses = 'content-holder center-widget grid-parent mobile-grid-100';
 		let lastRoute: string;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
@@ -55,6 +49,9 @@ export class AppComponent extends HasAPI {
 						document.body.classList.remove('user-logged-in');
 					}
 					const content = document.querySelector('router-outlet ~ *');
+					if (!content.firstElementChild.classList.contains('grid-62')) {
+						content.classList.add('content-holder', 'grid-80', 'mobile-grid-100', 'grid-parent', 'center-widget');
+					}
 					content.classList.add('main-view');
 					setTimeout(() => this.reinitPageScripts(), 100);
 				});
