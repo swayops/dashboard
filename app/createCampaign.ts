@@ -4,8 +4,6 @@ import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 import { ManageBase } from './manageBase';
-// import { FormDlg } from './form';
-// import * as V from './validators';
 
 @Component({
 	selector: 'create-campaign',
@@ -47,28 +45,6 @@ export class CreateCampaignCmp extends ManageBase {
 		//
 	}
 
-	toggleOpts(evt: any) {
-		const chk = getCheckbox(evt);
-		if (!chk) return;
-		const name = chk.name.substr(2).toLowerCase();
-		const val = !chk.checked;
-		this.opts[name] = val;
-		if (val) this.data[name] = '';
-	}
-
-	setBool(evt: any) {
-		const chk = getCheckbox(evt);
-		if (!chk) return;
-		this.data[chk.name] = !chk.checked;
-	}
-
-	setCat(evt: any) {
-		const chk = getCheckbox(evt);
-		if (!chk) return;
-		if (!this.data.categories) this.data.categories = {};
-		this.data.categories[chk.name] = !chk.checked;
-	}
-
 	get allCats(): boolean {
 		let checked = true;
 		this.categories.forEach(c => checked = checked && this.data.categories[c.cat]);
@@ -82,10 +58,6 @@ export class CreateCampaignCmp extends ManageBase {
 		const v = !chk.checked;
 		this.categories.forEach(c => this.data.categories[c.cat] = v);
 		chk.checked = v;
-	}
-
-	get hasCategories(): boolean {
-		return true; // this.data && this.data.categories && this.data.categories.length > 0;
 	}
 
 	save = () => {

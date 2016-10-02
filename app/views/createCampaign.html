@@ -5,8 +5,8 @@
 				<h2 class="heading">1. Basic campaign settings
 
 					<div class="onoffswitch status" data-for="toggle-status">
-							<input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" [checked]="data.status">
-							<label class="onoffswitch-label" for="status">
+							<input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" [(ngModel)]="data.status">
+							<label class="onoffswitch-label" for="status" (click)="setBool($event)">
 									<span class="onoffswitch-inner"></span>
 									<span class="onoffswitch-switch"></span>
 							</label>
@@ -58,8 +58,8 @@
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doTags" value="#tag us" [checked]="opts.tags">
-								<label for="doTags" (click)="toggleOpts($event)">#tag us</label>
+								<input type="checkbox" name="doTags" id="doTags" [(ngModel)]="opts.tags">
+								<label for="doTags">#tag us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
@@ -70,8 +70,8 @@
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doMention" value="@mention us" [checked]="opts.mention">
-								<label for="doMention" (click)="toggleOpts($event)">@mention us</label>
+								<input type="checkbox" name="doMention" id="doMention" [(ngModel)]="opts.mention">
+								<label for="doMention">@mention us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
@@ -82,8 +82,8 @@
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doLink" [checked]="opts.link">
-								<label for="doLink" (click)="toggleOpts($event)">https://Link us</label>
+								<input type="checkbox" name="doLink" id="doLink" [(ngModel)]="opts.link">
+								<label for="doLink">https://Link us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
@@ -116,17 +116,17 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input name="instagram" type="checkbox" [checked]="data.instagram">
-							<label for="instagram" (click)="setBool($event)">Instagram</label>
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram">
+							<label for="instagram">Instagram</label>
 
-							<input name="twitter" type="checkbox" [checked]="data.twitter">
-							<label for="twitter" (click)="setBool($event)">Twitter</label>
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter">
+							<label for="twitter">Twitter</label>
 
-							<input name="youtube" type="checkbox" [checked]="data.youtube">
-							<label for="youtube" (click)="setBool($event)">YouTube</label>
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube">
+							<label for="youtube">YouTube</label>
 
-							<input name="facebook" type="checkbox" [checked]="data.facebook">
-							<label for="facebook" (click)="setBool($event)">Facebook</label>
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook">
+							<label for="facebook">Facebook</label>
 						</div>
 					</div>
 				</div>
@@ -136,11 +136,11 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input name="female" type="checkbox" [checked]="data.female">
-							<label for="female" (click)="setBool($event)">Female</label>
+							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female">
+							<label for="female">Female</label>
 
-							<input name="male" type="checkbox" [checked]="data.male">
-							<label for="male" (click)="setBool($event)">Male</label>
+							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male">
+							<label for="male">Male</label>
 						</div>
 					</div>
 				</div>
@@ -209,8 +209,8 @@
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" type="checkbox" [checked]="data.categories[c.cat]">
-									<label [attr.for]="c.cat" (click)="setCat($event)"> </label>
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
+									<label [attr.for]="c.cat"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
 							</div>
