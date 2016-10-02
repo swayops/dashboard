@@ -2,7 +2,18 @@
 	<div class="content-holder center-widget">
 		<form #f="ngForm" novalidate (ngSubmit)="save()">
 			<div class="grid-100 grid-parent">
-				<h2 class="heading">1. Basic campaign settings</h2>
+				<h2 class="heading">1. Basic campaign settings
+
+					<div class="onoffswitch status" data-for="toggle-status">
+							<input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" [checked]="data.status">
+							<label class="onoffswitch-label" for="status">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+							</label>
+					</div>
+
+				</h2>
+
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
@@ -81,23 +92,8 @@
 									required>
 							</div>
 						</div>
-						<div class="grid-100 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input type="checkbox" name="status" [checked]="data.status">
-								<label for="status" (click)="setBool($event)">Active Campaign?</label>
-							</div>
-						</div>
-						<!--<div class="grid-40 mobile-grid-100 grid-parent">
-							<div class="checkbox">
-								<input type="checkbox" name="doPerk" value="perk">
-								<label for="doPerk" data-for="toggle-perks" id="slct_perks">Perk should appear</label>
-							</div>
-						</div>
-						<div class="grid-60 mobile-grid-100 grid-parent">
-							<div class="form-group">
-								<a href="#giveOut" class="perkLink" data-for="perks">How sending perks works</a>
-							</div>
-						</div>-->
+
+
 					</div>
 				</div>
 			</div>
