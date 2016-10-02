@@ -23,6 +23,7 @@ export class CreateCampaignCmp extends ManageBase {
 		},
 	};
 	public categories = [];
+	public categoryImages = categoryImages;
 	public opts: any = {
 		isEdit: false,
 	};
@@ -158,3 +159,28 @@ function getCheckbox(evt: any) {
 	if (!chk || chk.tagName !== 'INPUT' || !chk.name) return null;
 	return chk;
 }
+
+const categoryImages = {
+	'food and drink': '/static/img/influencers/foodAndDrink.png',
+	'law and politics': '/static/img/influencers/lawAndPolitics.png',
+	'news': '/static/img/influencers/news.png',
+	'travel': '/static/img/influencers/travel.png',
+	'real estate': '/static/img/influencers/realEstate.png',
+	'automotive': '/static/img/influencers/automotive.png',
+	'family': '/static/img/influencers/family.png',
+	'health': '/static/img/influencers/health.png',
+	'hobbies': '/static/img/influencers/hobbies.png',
+	'science': '/static/img/influencers/science.png',
+	'pets': '/static/img/influencers/pets.png',
+	'technology': '/static/img/influencers/technology.png',
+	'spirituality': '/static/img/influencers/spirituality.png',
+	'arts and entertainment': '/static/img/influencers/artsAndEntertainment.png',
+	'career': '/static/img/influencers/career.png',
+	'personal finance': '/static/img/influencers/personalFinance.png',
+	'business': '/static/img/influencers/business.png',
+	'home': '/static/img/influencers/home.png',
+	'fashion': '/static/img/influencers/fashion.png',
+	'shopping': '/static/img/influencers/shopping.png',
+	'dating and marriage': '/static/img/influencers/datingAndMarriage.png',
+	'sports': '/static/img/influencers/sports.png',
+};

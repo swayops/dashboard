@@ -216,7 +216,7 @@
 									<input [name]="c.cat" type="checkbox" [checked]="data.categories[c.cat]">
 									<label [attr.for]="c.cat" (click)="setCat($event)"> </label>
 								</div>
-								<img src="/static/img/influencers/i-g2.png" />
+								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
 							</div>
 							<div class="right meta">
 								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
