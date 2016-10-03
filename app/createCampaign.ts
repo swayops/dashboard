@@ -60,6 +60,16 @@ export class CreateCampaignCmp extends ManageBase {
 		chk.checked = v;
 	}
 
+	get activeCategories(): string {
+		const keys = Object.keys(this.data.categories || {});
+		keys.sort();
+		return keys.join(', ');
+	}
+
+	get activeNetworks(): string {
+		return ['Instagram', 'Twitter', 'Youtube', 'Facebook'].filter(n => !!this.data[n.toLowerCase()]).join(', ');
+	}
+
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;

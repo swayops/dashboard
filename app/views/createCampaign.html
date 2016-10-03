@@ -48,7 +48,7 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"
-							[(ngModel)]="data.task" required></textarea>
+							[(ngModel)]="data.task" required  [disabled]=opts.isEdit></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -58,37 +58,37 @@
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doTags" id="doTags" [(ngModel)]="opts.tags">
+								<input type="checkbox" name="doTags" id="doTags" [(ngModel)]="opts.tags"  [disabled]=opts.isEdit>
 								<label for="doTags">#tag us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags"
+								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit"
 									required>
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doMention" id="doMention" [(ngModel)]="opts.mention">
+								<input type="checkbox" name="doMention" id="doMention" [(ngModel)]="opts.mention" [disabled]=opts.isEdit>
 								<label for="doMention">@mention us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention"
+								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit"
 									required>
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
 							<div class="checkbox">
-								<input type="checkbox" name="doLink" id="doLink" [(ngModel)]="opts.link">
+								<input type="checkbox" name="doLink" id="doLink" [(ngModel)]="opts.link" [disabled]=opts.isEdit>
 								<label for="doLink">https://Link us</label>
 							</div>
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link"
+								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit"
 									required>
 							</div>
 						</div>
@@ -116,16 +116,16 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram">
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" [disabled]=opts.isEdit>
 							<label for="instagram">Instagram</label>
 
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter">
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" [disabled]=opts.isEdit>
 							<label for="twitter">Twitter</label>
 
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube">
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" [disabled]=opts.isEdit>
 							<label for="youtube">YouTube</label>
 
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook">
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" [disabled]=opts.isEdit>
 							<label for="facebook">Facebook</label>
 						</div>
 					</div>
@@ -144,14 +144,14 @@
 						</div>
 					</div>
 				</div>
-				<!--<div class="form-group">
-			<div class="grid-20 mobile-grid-100 grid-parent">
-				<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
-			</div>
-			<div class="grid-80 mobile-grid-100 grid-parent">
-				<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
-			</div>
-		</div>-->
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
+					</div>
+				</div>
 				<br/>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
@@ -159,7 +159,7 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
-							class="form-control">
+							class="form-control" [disabled]=opts.isEdit>
 					</div>
 				</div>
 
@@ -227,7 +227,7 @@
 			<div class="field-set grid-100 grid-parent">
 				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 				<div class="onoffswitch perks" data-for="toggle-perks">
-					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks>
+					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks [disabled]=opts.isEdit>
 					<label class="onoffswitch-label" for="perks">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
@@ -249,7 +249,7 @@
 								Perk Name:
 							</div>
 							<div class="grid-80 mobile-grid-100 grid-parent">
-								<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName">
+								<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName" [disabled]=opts.isEdit>
 							</div>
 						</div>
 						<div class="form-group">
@@ -258,7 +258,7 @@
 							</div>
 							<div class="grid-80 mobile-grid-100 grid-parent">
 								<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control"
-									name="perkCount">
+									name="perkCount" [disabled]=opts.isEdit>
 							</div>
 						</div>
 
@@ -292,25 +292,18 @@
 		</li>
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Requirements:</label> Link, @mention, #hashtag, product photo</p>
+				<p><label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
 			</div>
 		</li>
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Networks:</label> Facebook, Twitter, Instagram, YouTube</p>
+				<p><label>Networks:</label> {{activeNetworks}}</p>
 			</div>
 		</li>
 		<li>
-			<div class="grid-100 mobile-grid-100">
-				<p><label>Influencer Groups:</label> {{data.categories}}</p>
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><label>Influencer Groups:</label> {{activeCategories}}</p>
 			</div>
-		</li>
-		<li>
-			<div align="center" class="grid-100 mobile-grid-100">
-				<br/>
-				<a class="btn btn-green1">Save &amp; Launch &#187;</a>
-			</div>
-			<br/>
 		</li>
 	</ul>
 </div>
