@@ -18,9 +18,15 @@
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Featured Image: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="file" class="form-control" name="image">
-						<img [src]="data.imageUrl" *ngIf="data.imageUrl">
+					<div class="grid-80 mobile-grid-100 grid-parent" style="user-select: none;">
+						<div class="file-upload">
+							<input type="file" (change)="fileChangeListener($event)">
+						</div>
+						<img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+						<span class="result rounded" *ngIf="data.imageData" >
+							<img [src]="data.imageData" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+						</span>
+						<br>
 					</div>
 				</div>
 

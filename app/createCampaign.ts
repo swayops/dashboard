@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 import { ManageBase } from './manageBase';
 
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+
 @Component({
 	selector: 'create-campaign',
 	templateUrl: './views/createCampaign.html',
+	entryComponents: [ImageCropperComponent],
 })
 export class CreateCampaignCmp extends ManageBase {
 	public data: any = {
@@ -26,6 +29,9 @@ export class CreateCampaignCmp extends ManageBase {
 		isEdit: false,
 	};
 
+	@ViewChild('cropper') public cropper: ImageCropperComponent;
+	public cropperSettings: CropperSettings;
+
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], () => this.init());
@@ -39,6 +45,15 @@ export class CreateCampaignCmp extends ManageBase {
 			const cid = route.snapshot.params['cid'];
 			this.api.Get('campaign/' + cid, resp => this.setCmp(resp));
 		}
+
+		this.cropperSettings = Object.assign(new CropperSettings(), {
+			canvasWidth: 400,
+			canvasHeight: 366,
+			width: 750,
+			height: 685,
+			minWidth: 750,
+			minHeight: 389,
+		});
 	}
 
 	public init() {
@@ -112,7 +127,11 @@ export class CreateCampaignCmp extends ManageBase {
 			this.opts[k] = !!data[k];
 		}
 		this.opts.social = data.twitter || data.instagram || data.facebook || data.youtube;
-
+		if (data.imageUrl) {
+			const img = new Image();
+			img.src = data.imageUrl;
+			this.cropper.setImage(img);
+		}
 		if (!data.perks) data.perks = { name: '', count: 0 };
 		this.data = data;
 	}
@@ -132,6 +151,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		data.categories = cats;
 		if (data.perks.name === '') data.perks = null;
+		data.imageUrl = null;
 		return data;
 	}
 }

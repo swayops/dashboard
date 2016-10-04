@@ -32,6 +32,8 @@ import { FormDlg } from './form';
 
 import { FilterArrayPipe } from './utils';
 
+import { ImageCropperComponent } from 'ng2-img-cropper';
+
 declare var PRODUCTION: boolean;
 
 if (PRODUCTION) {
@@ -162,6 +164,8 @@ export const ALL_ROUTES = [
 
 		// pipes and utils
 		FilterArrayPipe,
+
+		ImageCropperComponent,
 	],
 	imports: [
 		BrowserModule,
