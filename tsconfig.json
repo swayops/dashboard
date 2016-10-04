@@ -2,13 +2,14 @@
 	"compilerOptions": {
 		"target": "es5",
 		"module": "commonjs",
+		"lib": ["es6", "dom", "es2017.object"],
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"removeComments": true,
 		"noImplicitAny": false,
 		"suppressImplicitAnyIndexErrors": true,
-		"noImplicitThis": true,
+		//"noImplicitThis": true, // disabled because of the imageCropper
 		"noEmitHelpers": true,
 		"pretty": true,
 		"allowSyntheticDefaultImports": true,

@@ -57,7 +57,7 @@ const cfg = {
 	},
 
 	resolve: {
-		extensions: ['.ts', '.js', '.json', '.html', '.css'],
+		extensions: ['.js', '.ts', '.json', '.html', '.css'],
 		alias: aliasify({
 			'jquery': 'dist/jquery',
 			'bootstrap': 'dist/js/bootstrap',
@@ -76,6 +76,11 @@ const cfg = {
 
 	module: {
 		loaders: [
+			{
+				test: /\.js$/,
+				loaders: 'raw',
+				include: appPath,
+			},
 			{
 				test: /\.ts$/,
 				loaders: ['awesome-typescript', 'angular2-template'],

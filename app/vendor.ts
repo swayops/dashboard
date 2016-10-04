@@ -16,13 +16,15 @@ import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import '@angular/router';
 
-import 'rxjs/Observable'
-import 'rxjs/add/operator/filter'
-import 'rxjs/add/operator/take'
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/throw'
+import 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+
+import 'ng2-img-cropper';
 
 import 'jquery';
 import 'bootstrap';
