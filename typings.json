@@ -1,7 +1,0 @@
-{
-	"globalDevDependencies": {
-		"bootstrap": "registry:dt/bootstrap#3.3.5+20160619023404",
-		"jquery": "registry:dt/jquery#1.10.0+20160929162922",
-		"jqueryui": "registry:dt/jqueryui#1.11.0+20160727153854"
-	}
-}
