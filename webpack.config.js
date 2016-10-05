@@ -71,25 +71,19 @@ const cfg = {
 			'@angular/platform-browser': 'bundles/platform-browser.umd',
 			'@angular/router': 'bundles/router.umd',
 		}),
-		unsafeCache: true,
 	},
 
 	module: {
 		loaders: [
-			{
-				test: /\.js$/,
-				loaders: 'raw',
-				include: appPath,
-			},
 			{
 				test: /\.ts$/,
 				loaders: ['awesome-typescript', 'angular2-template'],
 				include: appPath,
 			},
 			{
-				test: /\.(html|json|css)$/,
+				test: /\.(html|json|css|js)$/,
 				loader: 'raw',
-				include: appPath
+				include: appPath,
 			},
 		]
 	},
