@@ -194,12 +194,10 @@ interface User {
 	createdAt: number;
 	updatedAt: number;
 
-	blacklist?: {[infId: string]: boolean};
-
 	admin?: boolean;
 
-	adAgency?: Object;
-	talentAgency?: Object;
-	advertiser?: Object;
-	inf?: Object;
+	adAgency?: any;
+	talentAgency?: any;
+	advertiser?: any;
+	inf?: any;
 }

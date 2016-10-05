@@ -18,7 +18,7 @@
 </div><br/>
 
 <h2 class="heading">Content generated:</h2>
-<template ngFor let-it [ngForOf]="list | filter:FilterBanned | filter:FilterByUserName">
+<template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
 	<div class="grid-100 mobile-grid-100 grid-parent auditRow">
 		<a href="#">
 			<div align="center" class="grid-25 mobile-grid-100 grid-parent auditPic" style="background: #fff url(./static/img/exampleAudit.jpg) no-repeat 0 0; background-size: cover;"></div>
@@ -36,7 +36,7 @@
 		</div>
 		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
 			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br/><br/>
-			<a href="javascript:" class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)">Ban</a>
+			<a href="javascript:" class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)" *ngIf="!isBanned(it.infID)">Ban</a>
 			<br/>
 		</div>
 	</div>

@@ -23,10 +23,8 @@ export class ContentFeedCmp extends ManageBase {
 		});
 	}
 
-	get FilterBanned() {
-		return (userInfo) => {
-			const blacklist = this.user.blacklist || {};
-			return blacklist[userInfo.infID];
-		};
+	isBanned(infID: string): boolean {
+		const blacklist = this.user.advertiser.blacklist || {};
+		return blacklist[infID];
 	}
 }
