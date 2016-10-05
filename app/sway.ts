@@ -194,6 +194,8 @@ interface User {
 	createdAt: number;
 	updatedAt: number;
 
+	blacklist?: {[infId: string]: boolean};
+
 	admin?: boolean;
 
 	adAgency?: Object;

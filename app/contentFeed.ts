@@ -22,4 +22,11 @@ export class ContentFeedCmp extends ManageBase {
 			this.Reload();
 		});
 	}
+
+	get FilterBanned() {
+		return (userInfo) => {
+			const blacklist = this.user.blacklist || {};
+			return blacklist[userInfo.infID];
+		};
+	}
 }
