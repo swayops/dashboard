@@ -9,6 +9,7 @@
     "build:p": "NODE_ENV=production webpack --progress",
     "postinstall": "echo running npm run build && npm run build",
     "tsc": "tsc",
+    "typings": "typings",
     "webpack": "webpack"
   },
   "license": "private",
@@ -37,6 +38,7 @@
     "symbol-observable": "~1.0.2",
     "ts-helpers": "~1.1.1",
     "typescript": "~2.0.3",
+    "typings": "^1.4.0",
     "webpack": "~2.1.0-beta.25",
     "zone.js": "~0.6.25"
   }
