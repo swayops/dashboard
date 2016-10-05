@@ -14,7 +14,7 @@
 - [X] ~~manage campaigns~~
 - [ ] influencers invite
 - [X] ~~create/edit campaign~~
-- [ ] investigate why updating campaigns doesn't update tasks
+- [X] ~~investigate why updating campaigns doesn't update tasks~~
 - [ ] perks
 - [X] ~~mOutboundPerks~~
 - [X] ~~mPerkCampaigns~~
@@ -26,13 +26,15 @@
 - [X] ~~plug reporting end point~~
 - [ ] download reporting ui
 - [ ] network breakdown for reporting
-- [ ] better image upload ui
+- [X] ~~better image upload ui~~
 - [X] ~~more checking in auth guard and handle 401's more gracefully~~
 
 
-- updating advertiser profile doesnt work ( I tried email)
-- http://screencast.com/t/HeYXYsWtIK cliff notes dont look right
-- try creating a campaign with no platform specified..create campaign page blows up. That platform selection should be requeired
-- @NickPaschal theres nothing in the UI for downloading campaign reports? should be ont he "My Campaigns" page..backend endponts setup
-- @NickPaschal I just noticed that theres no geo selection in the UI for create campaign..just gender..whitelist and networks..backend currenty supports targeting City and country
-- try hitting "ban" in the content feed..nothing happens.. should hit the /advertiserBan/ endpoint..passing inthe advertiser ID and inf id
+- [ ] updating advertiser profile doesnt work ( I tried email)
+- [ ] http://screencast.com/t/HeYXYsWtIK cliff notes dont look right
+- [ ] try creating a campaign with no platform specified..create campaign page blows up. That platform selection should be requeired
+- [ ] @NickPaschal theres nothing in the UI for downloading campaign reports? should be ont he "My Campaigns" page..backend endponts setup
+- [ ] @NickPaschal I just noticed that theres no geo selection in the UI for create campaign..just gender..whitelist and networks..backend currenty supports targeting City and country
+- [X] ~~try hitting "ban" in the content feed..nothing happens.. should hit the /advertiserBan/ endpoint..passing inthe advertiser ID and inf id~~
+
+- [ ] https://github.com/swayops/dashboard/issues

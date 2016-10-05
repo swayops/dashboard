@@ -1,14 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
 import { ManageBase } from './manageBase';
-import * as V from './validators';
 
 @Component({
 	selector: 'ContentFeed',
-	templateUrl: './views/contentFeed.html'
+	templateUrl: './views/contentFeed.html',
 })
 export class ContentFeedCmp extends ManageBase {
 	public currentSortKey: string = '';
@@ -17,4 +16,10 @@ export class ContentFeedCmp extends ManageBase {
 	}
 
 
+	ban(infID: string) {
+		this.api.Get('advertiserBan/' + this.id + '/' + infID, resp => {
+			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Banned!');
+			this.Reload();
+		});
+	}
 }

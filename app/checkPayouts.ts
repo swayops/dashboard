@@ -20,7 +20,7 @@ export class CheckPayoutsCmp extends ManageBase {
 	approve(id: string) {
 		this.api.Get('approveCheck/' + id, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Approved!');
-			this.Reload()
+			this.Reload();
 		});
 	}
 }
