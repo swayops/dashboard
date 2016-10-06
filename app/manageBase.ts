@@ -47,8 +47,7 @@ export class ManageBase extends HasAPI {
 		}
 		this.loading = true;
 		this.api.Get(this.apiEndpoint, data => {
-			this.list = data;
-			if (Array.isArray(data)) this.SortBy('id');
+			this.list = data || [];
 			if (onComplete) onComplete(data, null);
 			this.loading = false;
 		}, err => onComplete && onComplete(null, err));
@@ -69,8 +68,8 @@ export class ManageBase extends HasAPI {
 	get FilterUsers() { return (user) => FilterByProps(this.kw, user, 'id', 'name'); }
 	get FilterByUserName() { return (user) => FilterByProps(this.kw, user, 'username'); }
 
-	SortBy(key: string) {
-		if (key === this.lastSortKey) {
+	SortBy(key: string, force?: boolean) {
+		if (!force && key === this.lastSortKey) {
 			key = key[0] === '-' ? key.substr(1) : '-' + key;
 		}
 		this.lastSortKey = key;

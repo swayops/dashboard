@@ -11,20 +11,23 @@ import { ManageBase } from './manageBase';
 })
 export class ContentFeedCmp extends ManageBase {
 	public currentSortKey: string = '';
+	private banned = {};
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('getAdvertiserContentFeed', '-Content Feed', title, api, route.snapshot.params['id']);
+		super('getAdvertiserContentFeed', '-Content Feed', title, api, route.snapshot.params['id'],
+			() => this.SortBy('infID', true));
 	}
 
 
 	ban(infID: string) {
 		this.api.Get('advertiserBan/' + this.id + '/' + infID, resp => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Banned!');
+			this.banned[infID] = true;
 			this.Reload();
 		});
 	}
 
 	isBanned(infID: string): boolean {
 		const blacklist = this.user.advertiser.blacklist || {};
-		return blacklist[infID];
+		return blacklist[infID] || this.banned[infID];
 	}
 }
