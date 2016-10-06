@@ -48,6 +48,7 @@ export class ManageBase extends HasAPI {
 		this.loading = true;
 		this.api.Get(this.apiEndpoint, data => {
 			this.list = data;
+			if (Array.isArray(data)) this.SortBy('id');
 			if (onComplete) onComplete(data, null);
 			this.loading = false;
 		}, err => onComplete && onComplete(null, err));
