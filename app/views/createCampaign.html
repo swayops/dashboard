@@ -152,7 +152,8 @@
 						<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<a class="btn btn-micro" href="#">Click here to select on map &#187;</a>
+						<select multiple="multiple" class="geo form-control multiselect multiselect-info" (change)="setSelected($event.target)"></select>
+						<!--<option *ngFor="let c of countriesList" [value]=c.abbr>{{c.name}}</option>-->
 					</div>
 				</div>
 				<br/>

@@ -1620,6 +1620,9 @@ padding-bottom:100px;
     right: 0px;
 }
 
+.select2-search {
+	display: inline-block;
+}
 
 
 .onoffswitch2 {

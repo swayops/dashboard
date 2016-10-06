@@ -29,3 +29,4 @@ import 'ng2-img-cropper';
 import 'jquery';
 import 'bootstrap';
 import 'jqueryui';
+import 'select2';

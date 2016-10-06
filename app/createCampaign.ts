@@ -7,6 +7,8 @@ import { ManageBase } from './manageBase';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
+import { CountriesList, States } from './utils';
+
 @Component({
 	selector: 'create-campaign',
 	templateUrl: './views/createCampaign.html',
@@ -29,8 +31,13 @@ export class CreateCampaignCmp extends ManageBase {
 		isEdit: false,
 	};
 
+	public countriesList = CountriesList;
+	public currentCountry: string;
+
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
+
+	private geoSel;
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
@@ -57,7 +64,6 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	public init() {
-		//
 	}
 
 	get allCats(): boolean {
@@ -85,6 +91,41 @@ export class CreateCampaignCmp extends ManageBase {
 		return ['Instagram', 'Twitter', 'Youtube', 'Facebook'].filter(n => !!this.data[n.toLowerCase()]).join(', ');
 	}
 
+	get states(): any {
+		return States[this.currentCountry] || {};
+	}
+
+	ngAfterViewInit() {
+		const list = [];
+		for (let c of CountriesList) {
+			list.push({id: c.abbr, text: c.name });
+			const states = States[c.abbr];
+			if (!states) continue;
+			const suf = ' (' + c.abbr.toUpperCase() + ')';
+			for (let [abbr, name] of Object.entries(states)) {
+				list.push({id: c.abbr + '-' + abbr, text: name + suf});
+			}
+		}
+		const geoSel = $('select.geo').select2({
+			data: list,
+			placeholder: 'Select a Country or a State',
+			allowClear: true,
+		});
+		geoSel.on('select2:select', e => {
+			let val = $(e.currentTarget).val();
+			console.log(e, val);
+			this.data.geos = val.map(v => {
+				const parts = v.split('-'),
+					ret: any = { country: parts[0] };
+				if (parts.length === 2) ret.state = parts[1];
+				return ret;
+			});
+		});
+		this.geoSel = geoSel;
+	}
+	setSelected(ele: HTMLSelectElement) {
+		console.log($(ele).select2('val'));
+	}
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;
@@ -133,6 +174,9 @@ export class CreateCampaignCmp extends ManageBase {
 			this.cropper.setImage(img);
 		}
 		if (!data.perks) data.perks = { name: '', count: 0 };
+		if (data.geos && data.geos.length) {
+			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
+		}
 		this.data = data;
 	}
 

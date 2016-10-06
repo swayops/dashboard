@@ -148,6 +148,7 @@ export class AppComponent extends HasAPI {
 			e.stopPropagation();
 			return false;
 		});
+		$('select.auto').select2();
 	}
 
 	initIncrGroup() {
