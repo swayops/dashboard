@@ -21,6 +21,10 @@ export class CreateCampaignCmp extends ManageBase {
 		male: true,
 		female: true,
 		status: true,
+		facebook: true,
+		twitter: true,
+		instagram: true,
+		youtube: true,
 		perks: {
 			name: '',
 			count: 0,
@@ -58,13 +62,17 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
-			canvasWidth: 400,
-			canvasHeight: 366,
+			canvasWidth: 750,
+			canvasHeight: 685,
 			width: 750,
-			height: 685,
+			height: 389,
 			minWidth: 750,
 			minHeight: 389,
 		});
+	}
+
+	toggleImage() {
+		document.getElementById('selImage').classList.toggle('visible');
 	}
 
 	setAllCats(evt: any) {
