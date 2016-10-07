@@ -125,6 +125,7 @@ export class CreateCampaignCmp extends ManageBase {
 			data: CountriesAndStates,
 			placeholder: 'Select a Country or a State',
 			allowClear: true,
+			width: '100%',
 		});
 		geoSel.on('select2:select', e => {
 			let val = $(e.currentTarget).val();
