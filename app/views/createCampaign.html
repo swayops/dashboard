@@ -197,23 +197,10 @@
 							</div>
 						</div>
 						<br>
-						<!--<div class="grid-50 mobile-grid-100 grid-parent influencer-g">
-					<div class="left img">
-						<div class="checkbox">
-							<input name="ig1" type="checkbox" value="ig1">
-							<label for="ig1" (click)="setCat($event)"> </label>
-						</div>
-						<img for="ig1" src="/static/img/influencers/i-g1.png" />
-					</div>
-					<div class="right meta">
-						<p class="i-n">All Sway Users</p>
-						<p class="i-s"><span>Influencers: </span>178 &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>13m</p>
-					</div>
-				</div>-->
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar()">
 									<label [attr.for]="c.cat"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
@@ -299,15 +286,23 @@
 				<p><label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
 			</div>
 		</li>
-		<li>
+		<li *ngIf=sidebar.geos>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Networks:</label> {{activeNetworks}}</p>
+				<p><label>Locations:</label> {{sidebar.geos}}</p>
 			</div>
 		</li>
-		<li>
-			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p><label>Influencer Groups:</label> {{activeCategories}}</p>
+		<li *ngIf=sidebar.networks>
+			<div class="grid-100 mobile-grid-100">
+				<p><label>Networks:</label> {{sidebar.networks}}</p>
 			</div>
+		</li>
+		<li *ngIf=sidebar.categories>
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><label>Influencer Groups:</label> {{sidebar.categories}}</p>
+			</div>
+		</li>
+		<li *ngIf="sidebar.errors">
+
 		</li>
 	</ul>
 </div>

@@ -7,7 +7,7 @@ import { ManageBase } from './manageBase';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
-import { CountriesList, States } from './utils';
+import { CountriesAndStates, CountriesAndStatesRev } from './utils';
 
 @Component({
 	selector: 'create-campaign',
@@ -20,19 +20,21 @@ export class CreateCampaignCmp extends ManageBase {
 		categories: {},
 		male: true,
 		female: true,
+		status: true,
 		perks: {
 			name: '',
 			count: 0,
 		},
 	};
+
+
+	public sidebar: any = {};
+
 	public categories = [];
 	public categoryImages = categoryImages;
 	public opts: any = {
 		isEdit: false,
 	};
-
-	public countriesList = CountriesList;
-	public currentCountry: string;
 
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
@@ -41,7 +43,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
-			title, api, route.snapshot.params['id'], () => this.init());
+			title, api, route.snapshot.params['id']);
 
 		this.api.Get('getCategories', resp => {
 			this.categories = (resp || []).sort((a, b) => a.cat > b.cat); // sort by name
@@ -63,15 +65,6 @@ export class CreateCampaignCmp extends ManageBase {
 		});
 	}
 
-	public init() {
-	}
-
-	get allCats(): boolean {
-		let checked = true;
-		this.categories.forEach(c => checked = checked && this.data.categories[c.cat]);
-		return checked;
-	}
-
 	setAllCats(evt: any) {
 		const chk = getCheckbox(evt);
 		if (!chk) return;
@@ -81,39 +74,22 @@ export class CreateCampaignCmp extends ManageBase {
 		chk.checked = v;
 	}
 
-	get activeCategories(): string {
-		const keys = Object.keys(this.data.categories || {});
-		keys.sort();
-		return keys.join(', ');
-	}
-
-	get activeNetworks(): string {
-		return ['Instagram', 'Twitter', 'Youtube', 'Facebook'].filter(n => !!this.data[n.toLowerCase()]).join(', ');
-	}
-
-	get states(): any {
-		return States[this.currentCountry] || {};
+	updateSidebar() {
+		setTimeout(() => {
+			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
+			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
+			this.sidebar.geos = this.geoSel.val().map(k => CountriesAndStatesRev[k]).join(', ');
+		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
 	ngAfterViewInit() {
-		const list = [];
-		for (let c of CountriesList) {
-			list.push({id: c.abbr, text: c.name });
-			const states = States[c.abbr];
-			if (!states) continue;
-			const suf = ' (' + c.abbr.toUpperCase() + ')';
-			for (let [abbr, name] of Object.entries(states)) {
-				list.push({id: c.abbr + '-' + abbr, text: name + suf});
-			}
-		}
 		const geoSel = $('select.geo').select2({
-			data: list,
+			data: CountriesAndStates,
 			placeholder: 'Select a Country or a State',
 			allowClear: true,
 		});
 		geoSel.on('select2:select', e => {
 			let val = $(e.currentTarget).val();
-			console.log(e, val);
 			this.data.geos = val.map(v => {
 				const parts = v.split('-'),
 					ret: any = { country: parts[0] };
@@ -122,10 +98,9 @@ export class CreateCampaignCmp extends ManageBase {
 			});
 		});
 		this.geoSel = geoSel;
+		this.updateSidebar();
 	}
-	setSelected(ele: HTMLSelectElement) {
-		console.log($(ele).select2('val'));
-	}
+
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;
@@ -230,3 +205,5 @@ const categoryImages = {
 	'dating and marriage': '/static/img/influencers/datingAndMarriage.png',
 	'sports': '/static/img/influencers/sports.png',
 };
+
+const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
