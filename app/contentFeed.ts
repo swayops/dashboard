@@ -27,6 +27,7 @@ export class ContentFeedCmp extends ManageBase {
 	}
 
 	isBanned(infID: string): boolean {
+		if(!this.user || !this.user.advertiser) return this.banned[infID];
 		const blacklist = this.user.advertiser.blacklist || {};
 		return blacklist[infID] || this.banned[infID];
 	}
