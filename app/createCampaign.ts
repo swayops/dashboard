@@ -44,7 +44,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
-	public cropData = {image: ''};
+	public cropData: any = {};
 
 	private geoSel;
 
@@ -69,6 +69,7 @@ export class CreateCampaignCmp extends ManageBase {
 			canvasHeight: 485,
 			croppedWidth: 750,
 			croppedHeight: 685,
+			noFileInput: true,
 			// width: 750,
 			// height: 389,
 			// minWidth: 750,
@@ -79,9 +80,26 @@ export class CreateCampaignCmp extends ManageBase {
 	toggleImage(cancel?: boolean) {
 		document.getElementById('selImage').classList.toggle('visible');
 		if (cancel) {
-			this.cropper.setImage(new Image());
 			this.cropData.image = null;
+			this.cropData.original = new Image();
 		}
+	}
+
+	setImage(e: any) {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const image = new Image(),
+			file = (e.target.files || e.dataTransfer.files)[0],
+			rd = new FileReader(),
+			cropper = this.cropper;
+
+		rd.onloadend = (evt: any) => {
+			image.src = evt.target.result;
+			cropper.setImage(image);
+		};
+
+		rd.readAsDataURL(file);
 	}
 
 	setAllCats(evt: any) {

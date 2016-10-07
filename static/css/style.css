@@ -1959,3 +1959,12 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
 	user-select: none;
 }
 
+input[type="file"] {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
