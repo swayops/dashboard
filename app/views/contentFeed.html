@@ -27,12 +27,15 @@
 			<div class="auditRowHeader">{{it.username}}: <small>{{it.published * 1000 | date}}</small></div>
 			<p>{{it.caption}}</p>
 			<small>
-			Views: <span id="counts">{{it.views || 'N/A'}}</span>
-			Likes: <span id="counts">{{it.likes || 'N/A'}}</span>
-			Comments: <span id="counts">{{it.comments || 'N/A'}}</span>
-			Shares: <span id="counts">{{it.shares || 'N/A'}}</span>
-			Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
-		</small>
+				Views: <span id="counts">{{it.views || 'N/A'}}</span>
+				Likes: <span id="counts">{{it.likes || 'N/A'}}</span>
+				Comments: <span id="counts">{{it.comments || 'N/A'}}</span>
+				Shares: <span id="counts">{{it.shares || 'N/A'}}</span>
+				Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
+			</small>
+			<small>
+				Campaign ID/ Name: <span id="counts">{{it.campaignID || 'N/A'}} - {{it.campaignName || 'N/A'}}</span>
+			</small>
 		</div>
 		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
 			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br/><br/>

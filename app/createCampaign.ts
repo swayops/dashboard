@@ -63,10 +63,10 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
-			keepAspect: false,
+			keepAspect: true,
 			responsive: true,
 			canvasWidth: 750,
-			canvasHeight: 685,
+			canvasHeight: 485,
 			croppedWidth: 750,
 			croppedHeight: 685,
 			// width: 750,
