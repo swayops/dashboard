@@ -78,7 +78,7 @@ const cfg = {
 			{
 				test: /\.ts$/,
 				loaders: ['awesome-typescript', 'angular2-template'],
-				include: appPath,
+				//include: appPath,
 			},
 			{
 				test: /\.(html|json|css|js)$/,

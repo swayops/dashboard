@@ -20,17 +20,17 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent" style="user-select: none;">
 						<a href="javascript:" class="btn btn-block btn-lg btn-green1" (click)="toggleImage()">Select</a>
-						<span class="result rounded" *ngIf="data.imageData">
-							<img [src]="data.imageData" width="400px">
+						<span class="result rounded" *ngIf="data.image">
+							<img [src]="data.image" width="400px">
 						</span>
 						<div class="dialog" id="selImage">
 							<div style="width: 750px">
 								<h2 class="heading">Select A Featured Image
 									<a href="javascript:" class="fui-cross" (click)="toggleImage()" title="Close" style="float: right"></a>
 								</h2>
-								<img-cropper #cropper [image]="data.imageData" [settings]="cropperSettings"></img-cropper>
-								<span class="result rounded" *ngIf="data.imageData">
-									<img [src]="data.imageData" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+								<img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+								<span class="result rounded" *ngIf="data.image">
+									<img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
 								</span>
 								<div><a href="javascript:" class="btn btn-block btn-lg btn-green1" (click)="toggleImage()">Select</a></div>
 							</div>
