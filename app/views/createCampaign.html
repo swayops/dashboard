@@ -30,9 +30,6 @@
 									<a href="javascript:" class="fui-cross" (click)="toggleImage(true)" title="Close" style="float: right"></a>
 								</h2>
 								<img-cropper #cropper [image]="cropData" [settings]="cropperSettings"></img-cropper>
-								<span class="result rounded" *ngIf="cropData.image">
-									<img [src]="cropData.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
-								</span>
 								<br><br>
 								<div style="float: right;">
 									<a href="javascript:" class="btn btn-block btn-lg btn-green1" (click)="toggleImage(true)">Cancel</a>
