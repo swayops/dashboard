@@ -24,10 +24,10 @@
 			<td>{{cmp.id}}</td>
 			<td>${{cmp.budget?.toFixed(0)}}</td>
 			<td>
-				<img width="20" src="/static/img/{{cmp.twitter && 'twitter'}}.png" /> | 
-				<img width="20" src="/static/img/{{cmp.facebook && 'facebook'}}.png" /> | 
-				<img width="20" src="/static/img/{{cmp.instagram && 'instagram'}}.png" /> | 
-				<img width="20" src="/static/img/{{cmp.youtube && 'youtube'}}.png" />
+				<img width="20" src="/static/img/twitter.png" title="Twitter" *ngIf=cmp.twitter>
+				<img width="20" src="/static/img/facebook.png" title="Facebook" *ngIf=cmp.facebook>
+				<img width="20" src="/static/img/instagram.png" title="Instagram" *ngIf=cmp.instagram>
+				<img width="20" src="/static/img/youtube.png" title="YouTube" *ngIf=cmp.youtube>
 			</td>
 			<td>{{cmp.createdAt * 1000 | date}}</td>
 			<td><button class="btn-green1 btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Report</button> | <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
