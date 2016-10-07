@@ -78,7 +78,7 @@ export class CreateCampaignCmp extends ManageBase {
 		setTimeout(() => {
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
-			this.sidebar.geos = this.geoSel.val().map(k => CountriesAndStatesRev[k]).join(', ');
+			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
