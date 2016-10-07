@@ -44,6 +44,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
+	public cropData = {image: ''};
 
 	private geoSel;
 
@@ -62,17 +63,25 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
+			keepAspect: false,
+			responsive: true,
 			canvasWidth: 750,
 			canvasHeight: 685,
-			width: 750,
-			height: 389,
-			minWidth: 750,
+			croppedWidth: 750,
+			croppedHeight: 685,
+			// width: 750,
+			// height: 389,
+			// minWidth: 750,
 			minHeight: 389,
 		});
 	}
 
-	toggleImage() {
+	toggleImage(cancel?: boolean) {
 		document.getElementById('selImage').classList.toggle('visible');
+		if (cancel) {
+			this.cropper.setImage(new Image());
+			this.cropData.image = null;
+		}
 	}
 
 	setAllCats(evt: any) {
@@ -165,6 +174,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
+
 		this.data = data;
 	}
 
@@ -184,6 +194,8 @@ export class CreateCampaignCmp extends ManageBase {
 		data.categories = cats;
 		if (data.perks.name === '') data.perks = null;
 		data.imageUrl = null;
+		data.imageData = this.cropData.image;
+
 		return data;
 	}
 }

@@ -1950,3 +1950,10 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
 .select2-container--default .select2-results__option--highlighted[aria-selected]{
     background-color: #0083d6;
 }
+
+.nosel {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
