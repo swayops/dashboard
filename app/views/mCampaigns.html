@@ -13,10 +13,7 @@
 			<th class="align-left">Campaign</th>
 			<th>ID</th>
 			<th>Budget</th>
-			<th title="Twitter">Tw</th>
-			<th title="Facebook">Fb</th>
-			<th title="Instagram">In</th>
-			<th title="YouTube">Yt</th>
+			<th title="Active Networks">Networks</th>
 			<th>Created Date</th>
 			<th>Actions</th>
 		</tr>
@@ -25,13 +22,15 @@
 		<tr *ngFor="let cmp of list | filter:FilterUsers">
 			<td class="align-left"><a [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">{{cmp.name}}</a></td>
 			<td>{{cmp.id}}</td>
-			<td>${{cmp.budget?.toFixed(2)}}</td>
-			<td>{{cmp.twitter && 'X'}}</td>
-			<td>{{cmp.facebook && 'X'}}</td>
-			<td>{{cmp.instagram && 'X'}}</td>
-			<td>{{cmp.youtube && 'X'}}</td>
+			<td>${{cmp.budget?.toFixed(0)}}</td>
+			<td>
+				<img width="20" src="/static/img/{{cmp.twitter && 'twitter'}}.png" /> | 
+				<img width="20" src="/static/img/{{cmp.facebook && 'facebook'}}.png" /> | 
+				<img width="20" src="/static/img/{{cmp.instagram && 'instagram'}}.png" /> | 
+				<img width="20" src="/static/img/{{cmp.youtube && 'youtube'}}.png" />
+			</td>
 			<td>{{cmp.createdAt * 1000 | date}}</td>
-			<td><button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
+			<td><button class="btn-green1 btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Report</button> | <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
 		</tr>
 	</tbody>
 </table>

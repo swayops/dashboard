@@ -1934,6 +1934,7 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
 .select2-container--default .select2-selection--multiple {
     background-color: #eceff4;
     border: 1px solid #cad3df;
+    width: 100%;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple{
