@@ -1930,3 +1930,23 @@ smart-form.dialog > div {
 smart-form > div > h2 {
 	padding-top: 10px !important;
 }
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #eceff4;
+    border: 1px solid #cad3df;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple{
+    border: 1px solid #0083d6;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+    color:#fff;
+    background-color: #0083d6;
+    border:1px solid #0083d6;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+    color:#fff;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+    background-color: #0083d6;
+}
