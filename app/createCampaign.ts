@@ -28,7 +28,9 @@ export class CreateCampaignCmp extends ManageBase {
 	};
 
 
-	public sidebar: any = {};
+	public sidebar: any = {
+		errors: [],
+	};
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -46,7 +48,7 @@ export class CreateCampaignCmp extends ManageBase {
 			title, api, route.snapshot.params['id']);
 
 		this.api.Get('getCategories', resp => {
-			this.categories = (resp || []).sort((a, b) => a.cat > b.cat); // sort by name
+			this.categories = (resp || []).sort((a, b) => a.cat < b.cat); // sort by name
 		});
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
@@ -79,6 +81,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
+
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
@@ -112,7 +115,8 @@ export class CreateCampaignCmp extends ManageBase {
 				this.api.GoTo('/mCampaigns/' + this.id);
 			}, err => {
 				this.loading = false;
-				this.AddNotification('error', err);
+				this.AddNotification('error', err.msg);
+				this.ScrollToTop();
 			});
 		} else {
 			this.api.Post('campaign', data, resp => {
@@ -121,7 +125,8 @@ export class CreateCampaignCmp extends ManageBase {
 				this.api.GoTo('/mCampaigns/' + this.id);
 			}, err => {
 				this.loading = false;
-				this.AddNotification('error', err);
+				this.AddNotification('error', err.msg);
+				this.ScrollToTop();
 			});
 		}
 	}
@@ -149,7 +154,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.cropper.setImage(img);
 		}
 		if (!data.perks) data.perks = { name: '', count: 0 };
-		if (data.geos && data.geos.length) {
+		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
 		this.data = data;

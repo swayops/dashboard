@@ -165,6 +165,12 @@ export class HasAPI {
 	ResetNotifications() {
 		allNotifications = [];
 	}
+
+	ScrollToTop(speed: number = 800) {
+		$('body,html').animate({
+			scrollTop: 0,
+		}, speed);
+	}
 }
 
 export interface SignUpInfo {
