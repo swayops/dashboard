@@ -33,6 +33,7 @@
     "core-js": "~2.4.1",
     "jquery": "~2.2.4",
     "jqueryui": "~1.11.1",
+    "ng2-img-cropper": "^0.6.4",
     "raw-loader": "~0.5.1",
     "rxjs": "~5.0.0-beta.12",
     "select2": "^4.0.3",

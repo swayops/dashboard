@@ -55,7 +55,7 @@
 
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Daily Budget: <img src="/static/img/questionTooltip.png" /></span>
+						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<input type="number" min="5" name="budget" step="0.01" placeholder="$5 minimum recommended" class="form-control" [(ngModel)]="data.budget"
@@ -67,7 +67,7 @@
 						Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my daily life. Checkout more upcoming items from #NIKE”"
+						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my Monthly life. Checkout more upcoming items from #NIKE”"
 							[(ngModel)]="data.task" required [disabled]=opts.isEdit></textarea>
 					</div>
 				</div>
@@ -294,7 +294,7 @@
 	<ul class="cat-status">
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Daily Budget:</label> ${{data.budget || 0}}</p>
+				<p><label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
 		<li>
