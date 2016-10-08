@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 
 import { Sway, HasAPI } from './sway';
 

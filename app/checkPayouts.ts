@@ -13,7 +13,7 @@ export class CheckPayoutsCmp extends ManageBase {
 		super('getPendingChecks', 'Check Payouts', title, api);
 	}
 
-	address(inf: {address: any}) {
+	address(inf: { address: any }) {
 		return inf.address ? (inf.address.address_country + ', ' + inf.address.address_state) : 'N/A';
 	}
 

@@ -25,6 +25,7 @@
     "@types/bootstrap": "~3.3.32",
     "@types/jquery": "~2.0.32",
     "@types/jqueryui": "~1.11.31",
+    "@types/node": "^6.0.45",
     "@types/select2": "^4.0.30",
     "angular2-template-loader": "~0.5.0",
     "awesome-typescript-loader": "~2.2.4",
