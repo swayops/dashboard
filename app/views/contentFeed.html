@@ -25,6 +25,7 @@
 		</a>
 		<div class="grid-60 mobile-grid-100 grid-parent auditDesc">
 			<div class="auditRowHeader">{{it.username}}: <small>{{it.published * 1000 | date}}</small></div>
+
 			<p>{{it.caption}}</p>
 			<small>
 				Views: <span id="counts">{{it.views || 'N/A'}}</span>
@@ -33,8 +34,9 @@
 				Shares: <span id="counts">{{it.shares || 'N/A'}}</span>
 				Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
 			</small>
-			<small>
-				Campaign ID / Name: <span id="counts">{{it.campaignID || 'N/A'}} - {{it.campaignName || 'N/A'}}</span>
+			<small style="font-size: 10px;">
+				Campaign ID: <span id="counts" style="font-size: 10px;">{{it.campaignID || 'N/A'}} </span> 
+				Campaign Name: <span id="counts" style="font-size: 10px;">{{it.campaignName || 'N/A'}}</span>
 			</small>
 		</div>
 		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">

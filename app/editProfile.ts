@@ -17,6 +17,10 @@ export class EditProfileCmp extends ManageBase {
 
 	public fields: any[] = [
 		{
+			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
+			attrs: { accept: 'image/*' },
+		},
+		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name',
 		},
@@ -25,15 +29,11 @@ export class EditProfileCmp extends ManageBase {
 			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
-			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
-			attrs: { accept: 'image/*' },
-		},
-		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
 			error: 'Please provide a valid phone number.',
 		},
 		{
-			title: 'Active:', placeholder: 'Deactivate your account?', checkbox: true, name: 'status',
+			title: 'Active:', placeholder: 'Uncheck to de-activate your account', checkbox: true, name: 'status',
 		},
 	];
 

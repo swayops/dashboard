@@ -23,7 +23,7 @@
 							<img [src]="cropData.image" style="max-width: 500px; border-radius: 10px;" height="200px">
 							<br>
 						</span>
-						<a href="javascript:" class="btn btn-xs btn-green1" (click)="toggleImage()">Select</a>
+						<a href="javascript:" class="btn btn-xs btn-green1" (click)="toggleImage()">Select</a> <a href="#">See placement examples</a>
 						<div class="dialog" id="selImage">
 							<div style="width: 750px;" class="nosel">
 								<h2 class="heading">Select A Featured Image
@@ -31,14 +31,14 @@
 								</h2>
 								<div>
 									<input id="custom-input" type="file" (change)="setImage($event)">
-									<label for="custom-input" class="btn btn-xs btn-green1"><strong>Choose a file</strong></label>
+									<label for="custom-input" class="btn btn-xs btn-green1"><strong>Choose file &#187;</strong></label>
 								</div>
 								<br>
 								<img-cropper #cropper [image]="cropData" [settings]="cropperSettings"></img-cropper>
 								<br><br>
 								<div style="float: right;">
 									<a href="javascript:" class="btn btn-block btn-xs btn-blue ghost" (click)="toggleImage(true)">Cancel</a>
-									<a href="javascript:" class="btn btn-block btn-xs btn-green1" (click)="toggleImage()">Save cropped image &#187;</a>
+									<a href="javascript:" class="btn btn-block btn-xs btn-green1" (click)="toggleImage()">Save &amp; crop image &#187;</a>
 								</div>
 								<br><br>
 							</div>
