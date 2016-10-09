@@ -20,11 +20,11 @@
 <h2 class="heading">Content generated:</h2>
 <template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
 	<div class="grid-100 mobile-grid-100 grid-parent auditRow">
-		<a href="#">
+		<a href="{{it.url}}" target="_blank">
 			<div align="center" class="grid-25 mobile-grid-100 grid-parent auditPic" style="background: #fff url(./static/img/exampleAudit.jpg) no-repeat 0 0; background-size: cover;"></div>
 		</a>
 		<div class="grid-60 mobile-grid-100 grid-parent auditDesc">
-			<div class="auditRowHeader">{{it.username}}: <small>{{it.published * 1000 | date}}</small></div>
+			<div class="auditRowHeader">{{it.username}}</div>
 
 			<p>{{it.caption}}</p>
 			<small>
@@ -35,7 +35,8 @@
 				Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
 			</small>
 			<small style="font-size: 10px;">
-				Campaign ID: <span id="counts" style="font-size: 10px;">{{it.campaignID || 'N/A'}} </span> 
+				Published: <span id="counts" style="font-size: 10px;">{{it.published * 1000 | date}}</span>
+				Campaign ID: <span id="counts" style="font-size: 10px;">{{it.campaignID || 'N/A'}}</span> 
 				Campaign Name: <span id="counts" style="font-size: 10px;">{{it.campaignName || 'N/A'}}</span>
 			</small>
 		</div>
