@@ -27,8 +27,8 @@
 			<td title="Accepted: {{Num(t.activeDeals)}} | Completed: {{Num(t.completedDeals)}}" class="email ttip">
 				{{Num(t.activeDeals) + Num(t.completedDeals)}}
 			</td>
-			<td>{{FmtMoney(t.agSpend)}}</td>
 			<td>{{FmtMoney(t.infSpend)}}</td>
+			<td>{{FmtMoney(t.agSpend)}}</td>
 			<td>{{t.createdAt * 1000 | date}}</td>
 			<td title="{{contactInfo(t)}}" class="email ttip">View</td>
 			<td><button class="btn-info btn-micro ghost" (click)=edlg.show(t)>Edit</button> | <button class="btn-scarlet btn-micro ghost" (click)=Delete(t.id)>X</button></td>
