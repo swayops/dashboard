@@ -16,7 +16,6 @@
 		"object-literal-sort-keys": false,
 		"member-ordering": [false],
 		"member-access": [false],
-		"ordered-imports": [false],
 		"curly": false,
 		"one-variable-per-declaration": false,
 		"no-console": [false],

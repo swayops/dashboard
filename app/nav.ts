@@ -22,7 +22,6 @@ export class HeaderCmp extends HasAPI {
 	selector: 'user-footer',
 	templateUrl: './views/footer.html',
 })
-
 export class FooterCmp extends HasAPI {
 	constructor(api: Sway) { super(api); }
 }

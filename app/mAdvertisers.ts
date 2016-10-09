@@ -54,7 +54,7 @@ export class AdvertisersCmp extends ManageBase {
 	}
 
 	openAdv(adv: any) {
-		if(adv.numCmps > 0) {
+		if (adv.numCmps > 0) {
 			this.api.GoTo('reporting', adv.id);
 		} else {
 			this.api.GoTo('createCampaign', adv.id);

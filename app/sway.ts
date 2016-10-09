@@ -28,7 +28,7 @@ export class Sway {
 				} else if (user.admin) {
 					this.GoTo('/dashboard');
 				} else if (user.advertiser) {
-					this.GoTo('/reporting', user.id);
+					this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
 				}
 				this.redirectUrl = '';
 				this.loginStatus = 1;
@@ -205,5 +205,6 @@ interface User {
 	adAgency?: any;
 	talentAgency?: any;
 	advertiser?: any;
+	hasCmps?: boolean;
 	inf?: any;
 }

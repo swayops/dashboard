@@ -11,8 +11,9 @@ import { Sway } from './sway';
 export class DashboardCmp {
 	public data: any = {};
 	constructor(title: Title, public api: Sway) {
-		if (!api.CurrentUser.admin) {
-			api.GoTo('/reporting', api.CurrentUser.id);
+		const cu = api.CurrentUser;
+		if (!cu.admin) {
+			api.GoTo(!cu.advertiser || cu.hasCmps ? '/reporting' : '/createCampaign', api.CurrentUser.id);
 		}
 		title.setTitle('Sway :: Dashboard');
 		this.api.Get('getAdminStats', data => this.data = data);
