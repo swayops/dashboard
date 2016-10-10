@@ -26,7 +26,9 @@ export class EditProfileCmp extends ManageBase {
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
-			pattern: V.mailRe, error: 'Please provide a valid email address.',
+			pattern: V.mailRe, error: 'Please provide a valid email address.', attrs: {
+				readonly: true,
+			},
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',

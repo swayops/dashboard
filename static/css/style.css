@@ -1428,7 +1428,6 @@ padding-bottom:100px;
 
 .center-widget .form-group label,
 .center-widget .form-group input[type="checkbox"]{
-	display: inline-block;
 	margin:0;
 	margin-bottom: 10px;
 }
@@ -1934,6 +1933,10 @@ modal > div > h2, .dialog > div > h2 {
 
 modal > div > .buttons > .btn, .dialog > div > .buttons > .btn {
 	margin-right: 5px;
+}
+
+modal label {
+	display: inline-block;
 }
 
 .select2-container--default .select2-selection--multiple {
