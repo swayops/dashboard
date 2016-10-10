@@ -29,6 +29,7 @@ import { ResetPasswordCmp } from './resetPassword';
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
 import { FormDlg } from './form';
+import { Modal } from './modal';
 
 import { FilterArrayPipe } from './utils';
 
@@ -161,6 +162,7 @@ export const ALL_ROUTES = [
 		EditProfileCmp, ResetPasswordCmp, CreateCampaignCmp,
 
 		FormDlg,
+		Modal,
 
 		// pipes and utils
 		FilterArrayPipe,
