@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -8,7 +8,7 @@ import * as V from './validators';
 
 @Component({
 	selector: 'talents',
-	templateUrl: './views/mTalents.html'
+	templateUrl: './views/mTalents.html',
 })
 export class TalentsCmp extends ManageBase {
 	public data = {
@@ -21,11 +21,11 @@ export class TalentsCmp extends ManageBase {
 	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
-			pattern: /^..+$/, error: 'Please provide a name'
+			pattern: /^..+$/, error: 'Please provide a name',
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
-			pattern: V.mailRe, error: 'Please provide a valid email address.'
+			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
@@ -51,9 +51,9 @@ export class TalentsCmp extends ManageBase {
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
-			error: 'Please provide a valid phone number.'
+			error: 'Please provide a valid phone number.',
 		},
-	]
+	];
 	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
@@ -65,14 +65,14 @@ export class TalentsCmp extends ManageBase {
 			['Email', inf.email],
 			['Twitter', inf.twitterUsername],
 			['Instagram', inf.instaUsername],
-			['Facebook', inf.fbUsername]
+			['Facebook', inf.fbUsername],
 		].filter(v => !!v[1]).map(v => v.join(': ')).join('\n');
 	}
 
 	save = (data, done) => {
 		this.api.Post('signUp', data, resp => {
 			let msg = resp.msg;
-			if(resp.status === 'success') {
+			if (resp.status === 'success') {
 				msg = 'Talent ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
 			this.AddNotification(resp.status, msg);

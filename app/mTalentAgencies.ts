@@ -7,25 +7,25 @@ import * as V from './validators';
 
 @Component({
 	selector: 'media-agencies',
-	templateUrl: './views/mTalentAgencies.html'
+	templateUrl: './views/mTalentAgencies.html',
 })
 export class TalentAgenciesCmp  extends ManageBase {
 		public data = {
 		name: '',
 		parentId: null,
 		talentAgency: {
-			fee: 0.2
+			fee: 0.2,
 		},
-		status: true
+		status: true,
 	};
 	public fields = [
 		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
-			pattern: /^..+$/, error: 'Please provide a name'
+			pattern: /^..+$/, error: 'Please provide a name',
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
-			pattern: V.mailRe, error: 'Please provide a valid email address.'
+			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
@@ -39,12 +39,15 @@ export class TalentAgenciesCmp  extends ManageBase {
 		},
 		{
 			title: 'Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'Fee', input: 'number',
-				name: 'talentAgency.fee', error: 'Please enter a number between 0.1 and 0.99'
+				name: 'talentAgency.fee', error: 'Please enter a number between 0.1 and 0.99',
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
-			error: 'Please provide a valid phone number.'
-		}
+			error: 'Please provide a valid phone number.',
+		},
+		{
+			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'status',
+		},
 	];
 	public editFields = this.EditFields(this.fields);
 
@@ -55,7 +58,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 	save = (data, done) => {
 		this.api.Post('signUp', data, resp => {
 			let msg = resp.msg;
-			if(resp.status === 'success') {
+			if (resp.status === 'success') {
 				msg = 'Agency ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
 			this.AddNotification(resp.status, msg);

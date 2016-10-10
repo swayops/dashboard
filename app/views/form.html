@@ -32,7 +32,7 @@
 			</template>
 			<div class="clearfix br"></div>
 			<div class="grid-50 mobile-grid-40 grid-parent">
-				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide()">{{ cancelLabel }}</button>
+				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide($event)">{{ cancelLabel }}</button>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
 				<button class="btn btn-block btn-sm btn-green1" [disabled]="!valid" (click)="save()">{{ loading ? loadingLabel : saveLabel }} </button>

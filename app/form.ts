@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output, ElementRef } from '@angular/core';
 
-import { NgForm } from '@angular/forms'
+import { NgForm } from '@angular/forms';
+
+import { CancelEvent } from './utils';
 
 // TODO major clean up
 @Component({
@@ -34,7 +36,9 @@ export class FormDlg {
 		this.onSave.emit({ data: this.data, done: () => this.hide() });
 	}
 
-	hide() {
+	hide(evt?: MouseEvent) {
+		CancelEvent(evt);
+
 		this.setVisible(false);
 		this.loading = false;
 	}

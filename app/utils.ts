@@ -65,6 +65,11 @@ export function Throttle(callback: (...args: any[]) => any, thisArg: Object, lim
 	};
 }
 
+export function CancelEvent(evt: Event) {
+	if (!evt) return;
+	evt.stopPropagation();
+	evt.preventDefault();
+}
 // used https://github.com/substack/provinces/blob/master/provinces.json for state names
 
 export const CountriesAndStates = [

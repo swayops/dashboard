@@ -25,13 +25,13 @@ export class ReportingCmp {
 			return;
 		}
 		api.SetCurrentUser(this.id);
-		this.api.Get('getAdvertiserStats/' + this.id + '/7/0', data => this.curWeek = data.total);
-		this.api.Get('getAdvertiserStats/' + this.id + '/14/7', data => this.lastWeek = data.total);
+		this.api.Get('getAdvertiserStats/' + this.id + '/7/0', data => this.curWeek = data.total || {});
+		this.api.Get('getAdvertiserStats/' + this.id + '/14/7', data => this.lastWeek = data.total || {});
 	}
 
 	ngOnInit() {
 		this.api.Get('getAdvertiserStats/' + this.id + '/30/0', data => {
-			this.lastMonth = data;
+			this.lastMonth = data || {};
 			this.setGraph('engagements');
 		});
 	}
