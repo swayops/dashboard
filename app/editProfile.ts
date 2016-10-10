@@ -57,10 +57,12 @@ export class EditProfileCmp extends ManageBase {
 		if (u.adAgency) this.endpoint = 'adAgency/' + u.id;
 		if (u.talentAgency) this.endpoint = 'talentAgency/' + u.id;
 		if (u.advertiser) {
-			this.fields.push({
-				title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
-				name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',
-			});
+			if (this.api.IsAsUser()) {
+				this.fields.push({ // only show to admins
+					title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
+					name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',
+				});
+			}
 			this.endpoint = 'advertiser/' + u.id;
 		}
 		if (u.inf) {
