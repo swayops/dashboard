@@ -78,6 +78,6 @@ export class AdvertisersCmp extends ManageBase {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			done();
 			this.Reload();
-		}, err => this.AddNotification('error', err));
+		}, err => this.AddNotification('error', err.msg));
 	}
 }

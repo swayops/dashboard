@@ -7,23 +7,6 @@
 
 <div class="clearfix br"></div>
 
-
-
-		<form class="form-inline">
-		  <div class="form-group">
-		    <label for="exampleInputName2">Report start date:</label>
-		    <input style="max-width:250px;" type="text" class="form-control" id="datepicker" placeholder="Start date...">
-		  </div>
-		  <div class="form-group">
-		    <label for="exampleInputEmail2">Report end date:</label>
-		    <input style="max-width:250px;" type="text" class="form-control" id="datepicker2" placeholder="End date...">
-		  </div>
-		  <button type="submit" class="btn btn-info">Download report &#187;</button>
-		</form>
-
-
-
-
 <table class="tbl">
 	<thead>
 		<tr>
@@ -47,8 +30,20 @@
 				<img width="20" src="/static/img/youtube.png" title="YouTube" *ngIf=cmp.youtube>
 			</td>
 			<td>{{cmp.createdAt * 1000 | date}}</td>
-			<td><button class="btn-green1 btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Report</button> | <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
+			<td><button class="btn-green1 btn-micro ghost" (click)="selDate.show(cmp);">Report</button> | <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> | <button class="btn-scarlet btn-micro ghost">X</button></td>
 		</tr>
 	</tbody>
 </table>
 
+<modal title="Select The Report's Date Range" #selDate [buttons]=selDateButtons>
+	<form class="form-inline">
+		<div class="form-group">
+			<label for="startDate" style="min-width: 120px;">Report start date:</label>
+			<input style="max-width:250px;" type="text" class="form-control dp" id="startDate" placeholder="Start date..." readonly>
+		</div>
+		<div class="form-group">
+			<label for="endDate" style="min-width: 120px;">Report end date:</label>
+			<input style="max-width:250px;" type="text" class="form-control dp" id="endDate" placeholder="End date..." readonly>
+		</div>
+	</form>
+</modal>
