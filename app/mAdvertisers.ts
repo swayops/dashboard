@@ -19,10 +19,10 @@ export class AdvertisersCmp extends ManageBase {
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
 			pattern: V.mailRe, error: 'Please provide a valid email address.',
+			readOnlyOnEdit: true,
 		},
 		{
-			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
-				attrs: {accept: 'image/*'},
+			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'pic',
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
@@ -37,6 +37,7 @@ export class AdvertisersCmp extends ManageBase {
 		{
 			title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
 			name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',
+			adminOnly: true,
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
