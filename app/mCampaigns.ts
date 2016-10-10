@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
+import { Sway, apiURL } from './sway';
 import { ManageBase } from './manageBase';
 import { ModalEvent } from './modal';
 
@@ -36,9 +36,8 @@ export class CampaignsCmp extends ManageBase {
 		}
 
 		const parts = [evt.data.id, val.startDate, val.endDate],
-			url = 'getCampaignReport/' + parts.join('/') + '/report-' + parts.join('-') + '.xlsx';
-		this.api.Get(url, resp => {
-			this.AddNotification(resp.status, resp.msg);
-		}, err => this.AddNotification(err, err.msg));
+			url = apiURL + 'getCampaignReport/' + parts.join('/') + '/report-' + parts.join('-') + '.xlsx';
+
+		window.open(url);
 	}
 }

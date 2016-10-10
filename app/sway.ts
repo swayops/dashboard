@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-const apiURL = '/api/v1/';
+export const apiURL = '/api/v1/';
 
 @Injectable()
 export class Sway {
