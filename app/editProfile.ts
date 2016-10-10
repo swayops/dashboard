@@ -35,7 +35,7 @@ export class EditProfileCmp extends ManageBase {
 			error: 'Please provide a valid phone number.',
 		},
 		{
-			title: 'Active:', placeholder: 'Uncheck to de-activate your account', checkbox: true, name: 'status',
+			title: 'Active:', placeholder: 'Uncheck to de-activate your account', toggle: true, name: 'status',
 		},
 	];
 

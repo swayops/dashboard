@@ -1,6 +1,6 @@
 <div *ngIf=showDialog>
 	<h2 class="heading" *ngIf=title>{{title}}</h2>
-	<form #f="ngForm" novalidate onsubmit="return false;">
+	<form #f="ngForm">
 		<div class="form-group">
 			<template ngFor let-fld [ngForOf]="fields">
 				<div>
@@ -12,15 +12,20 @@
 							(blur)="updateValue(input)" (focus)="setAttrs(input)">{{binders[fld.name].value}}</textarea>
 						<input #input *ngIf="fld.input" class="form-control" type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}"
 							[value]="getValue(input)" (change)="updateValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
+						<div class="onoffswitch status" data-for="toggle-status" *ngIf="fld.toggle">
+							<input #input type="checkbox" name="status" class="onoffswitch-checkbox" name="{{fld.name}}"
+								[checked]="getValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
+							<label class="onoffswitch-label" [attr.for]="fld.name" (click)="setCheckbox(input)">
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
 						<div class="checkbox" *ngIf="fld.checkbox">
 							<input #input class="form-control" type="checkbox" name="{{fld.name}}"
 								[checked]="getValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
-							<label [attr.for]="fld.name" (click)="setCheckbox($event)">{{fld.placeholder || fld.title}}</label>
+							<label [attr.for]="fld.name" (click)="setCheckbox($event.target)">{{fld.placeholder || fld.title}}</label>
 						</div>
 						<span style="display: block" *ngIf="binders[fld.name].touched && binders[fld.name].error"><span class="error">*</span> {{binders[fld.name].error}}</span>
-
-						<template ngFor let-err [ngForOf]="binders[fld.name].errors" *ngIf="binders[fld.name].touched">
-						</template>
 					</div>
 				</div>
 				<div class="clearfix br"></div>

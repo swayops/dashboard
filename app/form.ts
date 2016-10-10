@@ -55,7 +55,7 @@ export class FormDlg {
 	updateValue(ctl: any) {
 		const b = this.binders[ctl.name],
 			fld = b.fld;
-		if (fld.checkbox) {
+		if (fld.checkbox || fld.toggle) {
 			b.value = ctl.checked;
 			return;
 		}
@@ -98,9 +98,7 @@ export class FormDlg {
 			ctl.setAttribute(k, v);
 		}
 	}
-	setCheckbox(evt: any) {
-		const chk = evt.target.previousElementSibling;
-		console.log(chk);
+	setCheckbox(chk: HTMLInputElement) {
 		if (!chk || chk.tagName !== 'INPUT' || !chk.name) return;
 		chk.checked = !chk.checked;
 		this.updateValue(chk);
@@ -141,6 +139,10 @@ export interface ControlOption {
 	input?: string;
 	textarea?: boolean;
 	checkbox?: boolean;
+	toggle?: boolean;
+	image?: {
+		opts: any,
+	};
 
 	attrs?: any;
 
