@@ -91,6 +91,9 @@ export class EditProfileCmp extends ManageBase {
 			this.endpoint = 'influencer/' + u.id;
 			this.fields[1].name = 'influencer.name';
 		}
+		if (u.admin && !this.endpoint) {
+			this.endpoint = 'admin/' + u.id;
+		}
 		this.dlg.fields = this.fields;
 		this.dlg.show(u);
 	}
