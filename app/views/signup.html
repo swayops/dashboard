@@ -10,11 +10,12 @@
 		<div class="fields">
 			<div class="field-item company-name"><input placeholder="Name" class="form-control" name="name" [(ngModel)]="form.name" required></div>
 			<div class="field-item email"><input placeholder="Email" class="form-control" name="email" [(ngModel)]="form.email" required pattern="^[^@]+@[^@]+\.[^@]+$"></div>
-			<div class="field-item password"><input type="password" placeholder="Password" class="form-control" name="pass" [(ngModel)]="form.pass" required
-					minlength="8"></div>
+			<div class="field-item password"><input type="password" placeholder="Password" class="form-control ttip" name="pass" [(ngModel)]="form.pass" required
+					minlength="8" title="Password requires at least 8 characters."></div>
 			<div class="field-item password"><input type="password" placeholder="Confirm Password" class="form-control" name="pass" [(ngModel)]="form.pass2"
 					required minlength="8"></div>
-			<div *ngIf="f.valid && form.pass != form.pass2" class="notification error">The passwords need to match.</div>
+			<div *ngIf="form.pass && form.pass.length < 8" class="notification error">Password requires at least 8 characters.</div>
+			<div *ngIf="f.valid && form.pass2 && form.pass != form.pass2" class="notification error">The passwords need to match.</div>
 			<div class="checkbox">
 				<input id="agreement" type="checkbox" name="agreement" [(ngModel)]="form.agreement">
 				<label for="agreement">I agree to the <a href="http://swayops.com/terms.html">Terms</a> AND <a href="http://swayops.com/privacy.html">privacy</a></label>
