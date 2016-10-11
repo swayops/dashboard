@@ -10,7 +10,6 @@
 					<div class="grid-80 mobile-grid-100 grid-parent" style="margin-top:13px;">
 						<div *ngIf="fld.image">
 							<span class="result rounded" *ngIf="!cropData.image && getValue(fld)">
-								<!_- make generic -->
 								<img [src]="getValue(fld)" style="max-width: 500px; border-radius: 100px;" height="200px">
 								<br>
 							</span>

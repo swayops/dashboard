@@ -55,8 +55,14 @@ export class EditProfileCmp extends ManageBase {
 
 	public init() {
 		const u = this.user;
-		if (u.adAgency) this.endpoint = 'adAgency/' + u.id;
-		if (u.talentAgency) this.endpoint = 'talentAgency/' + u.id;
+		if (u.adAgency) {
+			this.endpoint = 'adAgency/' + u.id;
+			this.fields[1].name = 'adAgency.name';
+		}
+		if (u.talentAgency) {
+			this.endpoint = 'talentAgency/' + u.id;
+			this.fields[1].name = 'adAgency.name';
+		}
 		if (u.advertiser) {
 			if (this.api.IsAsUser()) {
 				this.fields.push({ // only show to admins
@@ -65,6 +71,7 @@ export class EditProfileCmp extends ManageBase {
 				});
 			}
 			this.endpoint = 'advertiser/' + u.id;
+			this.fields[1].name = 'advertiser.name';
 		}
 		if (u.inf) {
 			this.fields.push(
@@ -82,6 +89,7 @@ export class EditProfileCmp extends ManageBase {
 				},
 			);
 			this.endpoint = 'influencer/' + u.id;
+			this.fields[1].name = 'influencer.name';
 		}
 		this.dlg.fields = this.fields;
 		this.dlg.show(u);
@@ -91,7 +99,11 @@ export class EditProfileCmp extends ManageBase {
 		this.api.Put(this.endpoint, data, resp => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
 			this.api.GoTo('reporting', this.user.id);
-		}, err => this.AddNotification('error', err, 0));
+		}, err => {
+			this.AddNotification('error', err.msg, 0);
+			this.ScrollToTop();
+			this.loading = false;
+		});
 	}
 
 	resetPass = (data, done) => {
