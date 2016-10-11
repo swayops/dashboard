@@ -61,7 +61,7 @@ export class EditProfileCmp extends ManageBase {
 		}
 		if (u.talentAgency) {
 			this.endpoint = 'talentAgency/' + u.id;
-			this.fields[1].name = 'adAgency.name';
+			this.fields[1].name = 'talentAgency.name';
 		}
 		if (u.advertiser) {
 			if (this.api.IsAsUser()) {
