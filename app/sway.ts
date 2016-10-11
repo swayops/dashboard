@@ -29,6 +29,10 @@ export class Sway {
 					this.GoTo('/dashboard');
 				} else if (user.advertiser) {
 					this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
+				} else if (user.adAgency) {
+					this.GoTo('/mAdvertisers', user.id);
+				} else if (user.talentAgency) {
+					this.GoTo('/mTalents', user.id);
 				}
 				this.redirectUrl = '';
 				this.loginStatus = 1;
