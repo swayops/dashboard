@@ -69,9 +69,26 @@ export class TalentsCmp extends ManageBase {
 			['Twitter', inf.twitterUsername],
 			['Instagram', inf.instaUsername],
 			['Facebook', inf.fbUsername],
+			['YouTube', inf.youtubeUsername],
 		].filter(v => !!v[1]).map(v => v.join(': ')).join('\n');
 	}
 
+	networkUrl(inf: any): string {
+		const data = [
+			['twitter', inf.twitterUsername],
+			['instagram', inf.instaUsername],
+			['facebook', inf.fbUsername],
+			['youtube', inf.youtubeUsername],
+		];
+		let out = 'mailto:' + inf.email;
+		data.some(v => {
+			if (!!v[1] && networkUrls[v[0]]) {
+				out = networkUrls[v[0]] + v[1];
+				return true;
+			}
+		});
+		return out;
+	}
 	save = (data, done) => {
 		data.influencer.inviteCode = this.user.talentAgency.inviteCode;
 		this.api.Post('signUp', data, resp => {
@@ -108,3 +125,11 @@ export class TalentsCmp extends ManageBase {
 		});
 	}
 }
+
+
+const networkUrls = {
+	instagram: 'https://www.instagram.com/',
+	youtube: 'https://www.youtube.com/user/',
+	twitter: 'https://twitter.com/',
+	facebook: 'https://www.facebook.com/',
+};

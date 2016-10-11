@@ -22,7 +22,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let t of list | filter:FilterUsers">
-			<td class="align-left"><a href="#">{{t.name}}</a></td>
+			<td class="align-left"><a [href]="networkUrl(t)">{{t.name}}</a></td>
 			<td>{{t.id}}</td>
 			<td title="Accepted: {{Num(t.activeDeals)}} | Completed: {{Num(t.completedDeals)}}" class="email ttip">
 				{{Num(t.activeDeals) + Num(t.completedDeals)}}
