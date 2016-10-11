@@ -26,6 +26,7 @@ export class TalentsCmp extends ManageBase {
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
 			pattern: V.mailRe, error: 'Please provide a valid email address.',
+			readOnlyOnEdit: true,
 		},
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
