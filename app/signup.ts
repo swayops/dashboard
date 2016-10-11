@@ -20,6 +20,9 @@ export class SignUpCmp {
 
 	SignUp() {
 		this.loading = true;
-		this.api.SignUpAdvertiser(this.form, err => this.error = err);
+		this.api.SignUpAdvertiser(this.form, err => {
+			this.error = err.msg;
+			this.loading = false;
+		});
 	}
 }
