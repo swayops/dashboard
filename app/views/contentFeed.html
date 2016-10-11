@@ -1,21 +1,23 @@
 <h2 class="heading">Sort Content By:</h2>
-<div class="grid-100 mobile-grid-100 grid-parent">
-	<div class="grid-100 mobile-grid-100">
-		<p align="center">Sort by:
-			<a href="javascript:" (click)="SortBy('published')">Most Recent</a> -
-			<a href="javascript:" (click)="SortBy('views')">Views</a> -
-			<a href="javascript:" (click)="SortBy('likes')">Likes</a> -
-			<a href="javascript:" (click)="SortBy('comments')">Comments</a> -
-			<a href="javascript:" (click)="SortBy('shares')">Shares</a> -
-			<a href="javascript:" (click)="SortBy('clicks')">Clicks</a>
-		</p>
-		<!-- TBI - <a href="#">Link Clicks</a> - <a href="#">@Mentions</a> - <a href="#">#Hashtag Boosts</a></p> -->
+	<div class="grid-100 mobile-grid-100 grid-parent">
+		<div class="grid-100 mobile-grid-100">
+			<p align="center">Sort by:
+				<a href="javascript:" (click)="SortBy('published')">Most Recent</a> -
+				<a href="javascript:" (click)="SortBy('views')">Views</a> -
+				<a href="javascript:" (click)="SortBy('likes')">Likes</a> -
+				<a href="javascript:" (click)="SortBy('comments')">Comments</a> -
+				<a href="javascript:" (click)="SortBy('shares')">Shares</a> -
+				<a href="javascript:" (click)="SortBy('clicks')">Clicks</a>
+			</p>
+			<!-- TBI - <a href="#">Link Clicks</a> - <a href="#">@Mentions</a> - <a href="#">#Hashtag Boosts</a></p> -->
 
-		<div class="form-group has-icon icon-search icon-left" style="margin-left: 30%;">
-			<input style="width: 300px;" type="text" placeholder="Search by username..." class="form-control" [(ngModel)]="kw" name="kw">
-		</div>
-	</div>
-</div><br/>
+			<div class="grid-100 mobile-grid-100">
+					<div class="form-group has-icon icon-search icon-left" style="margin-left: 30%;">
+						<input style="max-width: 300px;" type="text" placeholder="Search by username..." class="form-control" [(ngModel)]="kw" name="kw">
+					</div>
+			</div>
+
+		</div><br/>
 
 <h2 class="heading">Content generated:</h2>
 <template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
