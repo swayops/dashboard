@@ -25,14 +25,8 @@ export class Sway {
 				this.mainUser = user;
 				if (this.redirectUrl) {
 					this.GoTo(this.redirectUrl);
-				} else if (user.admin) {
-					this.GoTo('/dashboard');
-				} else if (user.advertiser) {
-					this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
-				} else if (user.adAgency) {
-					this.GoTo('/mAdvertisers', user.id);
-				} else if (user.talentAgency) {
-					this.GoTo('/mTalents', user.id);
+				} else {
+					this.GoHome();
 				}
 				this.redirectUrl = '';
 				this.loginStatus = 1;
@@ -80,6 +74,19 @@ export class Sway {
 		});
 	}
 
+	GoHome() {
+		const user = this.CurrentUser;
+		if (user.admin) {
+			this.GoTo('/dashboard');
+		} else if (user.advertiser) {
+			this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
+		} else if (user.adAgency) {
+			this.GoTo('/mAdvertisers', user.id);
+		} else if (user.talentAgency) {
+			this.GoTo('/mTalents', user.id);
+		}
+	}
+
 	GoTo(...args: string[]) {
 		this.router.navigate(args);
 	}
@@ -98,7 +105,10 @@ export class Sway {
 	}
 
 	public handleError(err: Response): Observable<{}> {
-		const errData = err.json();
+		let errData = err.json();
+		if ('target' in errData) {
+			errData = { status: 'error', msg: 'Connection Error'};
+		}
 		this.error = errData;
 		if (this.error.code === 401) this.loginStatus = 2;
 		return Observable.throw(errData);

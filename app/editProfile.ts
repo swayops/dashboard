@@ -101,7 +101,7 @@ export class EditProfileCmp extends ManageBase {
 	save = (data, done) => {
 		this.api.Put(this.endpoint, data, resp => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
-			this.api.GoTo('reporting', this.user.id);
+			this.api.GoHome();
 		}, err => {
 			this.AddNotification('error', err.msg, 0);
 			this.ScrollToTop();
