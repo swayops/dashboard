@@ -15,6 +15,7 @@ export class CampaignsCmp extends ManageBase {
 		{name: 'Cancel', class: 'btn-blue ghost'},
 		{name: 'Download Report »', class: 'btn-info', click: evt => this.getReport(evt)},
 	];
+
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);
 	}
@@ -26,7 +27,6 @@ export class CampaignsCmp extends ManageBase {
 	}
 
 	getReport(evt: ModalEvent) {
-		console.log(evt);
 		evt.dlg.hide();
 		const val = evt.value;
 

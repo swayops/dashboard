@@ -1,8 +1,12 @@
-import { Component, EventEmitter, Input, Output, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ElementRef, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+
 import { CancelEvent } from './utils';
+
+import { ModalEvent } from './modal';
 
 // TODO major clean up
 @Component({
@@ -23,9 +27,30 @@ export class FormDlg {
 	public data = {};
 	public showDialog = false;
 	public loading = false;
-	public binders: {[key: string]: Binder} = {};
+	public binders: { [key: string]: Binder } = {};
 
-	constructor(public eleRef: ElementRef) { }
+	public imgButtons = [
+		{ name: 'Cancel', class: 'btn-blue ghost' },
+		{ name: 'Save & crop image »', class: 'btn-info', click: evt => this.setImage(evt) },
+	];
+
+	@ViewChild('cropper') public cropper: ImageCropperComponent;
+	public cropperSettings: CropperSettings;
+	public cropData: any = {};
+
+	constructor(public eleRef: ElementRef) {
+		this.cropperSettings = Object.assign(new CropperSettings(), {
+			keepAspect: true,
+			responsive: true,
+			canvasWidth: 300,
+			canvasHeight: 300,
+			croppedWidth: 300,
+			croppedHeight: 300,
+			noFileInput: true,
+			minHeight: 300,
+		});
+		this.cropperSettings.rounded = true;
+	}
 
 	ngOnInit() {
 		if (this.value) this.show(this.value);
@@ -108,6 +133,29 @@ export class FormDlg {
 		this.updateValue(chk);
 	}
 
+	loadImage(e: any) {
+		CancelEvent(e);
+
+
+		const image = new Image(),
+			file = (e.target.files || e.dataTransfer.files)[0],
+			rd = new FileReader(),
+			cropper = this.cropper;
+
+		rd.onloadend = (evt: any) => {
+			image.src = evt.target.result;
+			cropper.setImage(image);
+		};
+
+		rd.readAsDataURL(file);
+	}
+
+	setImage(evt: ModalEvent) {
+		evt.Cancel();
+		evt.dlg.hide();
+		this.data[evt.data.name] = this.cropData.image;
+	}
+
 	get valid(): boolean {
 		if (this.loading) return false;
 
@@ -177,7 +225,7 @@ class Binder {
 
 	get value(): any { return this.data[this.name]; }
 
-	get error(): string|null {
+	get error(): string | null {
 		const val = this.value,
 			fld = this.fld;
 

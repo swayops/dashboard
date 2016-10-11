@@ -1,9 +1,11 @@
 import { Component, Input, ElementRef } from '@angular/core';
 
+import { CancelEvent } from './utils';
+
 @Component({
 	selector: 'modal',
 	template: `
-<div [style.width]=width class="{{ class }} nosel" (keydown.escape)="hide()">
+<div [style.max-width]="width" class="{{ class }} nosel" (keydown.escape)="hide()">
 	<h2 class="heading" *ngIf="title">{{ title }}
 		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
@@ -54,7 +56,6 @@ export class Modal {
 		ele.classList.remove('visible');
 
 		this.body.classList.remove('noscroll');
-		console.log(this.value);
 	}
 
 	// value returns the value of any input fields
@@ -93,6 +94,7 @@ export class ModalEvent {
 	constructor(public dlg: Modal, public event: Event, public name: string, public data: any) {}
 
 	get value() { return this.dlg.value; }
+	Cancel() { CancelEvent(this.event); }
 }
 
 export interface Button {

@@ -17,7 +17,7 @@ export class EditProfileCmp extends ManageBase {
 
 	public fields: any[] = [
 		{
-			title: 'Profile Pic:', placeholder: 'Your profile pic', input: 'file', name: 'pic',
+			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'pic',
 			attrs: { accept: 'image/*' },
 		},
 		{
