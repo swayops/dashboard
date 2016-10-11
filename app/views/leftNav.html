@@ -1,7 +1,9 @@
 <div class="grid-15 mobile-grid-100 grid-parent content-holder left-sb" *ngIf="user">
 	<div class="pushDown"></div>
 	<div class="user-section">
-		<img src="{{ user.imageUrl }}" class="avatar" style="width: 60%; border-radius: 100%; margin-bottom: 10px;">
+		<a class="anchor" [routerLink]="['/editProfile', user.id]" title="Edit My Profile">
+		<img [src]="user.imageUrl || '/static/img/user.png'" class="avatar" style="width: 60%; border-radius: 100%; margin-bottom: 10px;">
+		</a>
 		<label>{{ user.name }}</label>
 	</div>
 
@@ -47,7 +49,7 @@
 
 	<div class="shrink-opt">
 		<a class="toside" (click)="api.Logout()"><i class="ico exit ttip" title="Logout"></i></a>
-		<a class="anchor"  [routerLink]="['/editProfile', user.id]"><i class="ico settings ttip" title="Edit my profile"></i></a>
+		<a class="anchor"  [routerLink]="['/editProfile', user.id]"><i class="ico settings ttip" title="Edit My Profile"></i></a>
 		<div class="clearfix"></div>
 	</div>
 
