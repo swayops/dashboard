@@ -14,7 +14,9 @@ export class TalentsCmp extends ManageBase {
 	public data = {
 		name: '',
 		parentId: null,
-		influencer: {},
+		influencer: {
+			inviteCode: '',
+		},
 		status: true,
 	};
 
@@ -71,6 +73,7 @@ export class TalentsCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
+		data.influencer.inviteCode = this.user.talentAgency.inviteCode;
 		this.api.Post('signUp', data, resp => {
 			let msg = resp.msg;
 			if (resp.status === 'success') {
