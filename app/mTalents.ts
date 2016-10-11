@@ -79,7 +79,10 @@ export class TalentsCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
-		}, err => this.AddNotification('error', err.msg));
+		}, err => {
+			this.AddNotification('error', err.msg);
+			done();
+		});
 	}
 
 	edit = (data, done) => {
@@ -87,6 +90,18 @@ export class TalentsCmp extends ManageBase {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			done();
 			this.Reload();
-		}, err => this.AddNotification('error', err));
+		}, err => {
+			this.AddNotification('error', err.msg);
+			done();
+		});
+	}
+
+	delete = (data) => {
+		this.api.Get('setInviteCode/' + data.id + '/-', resp => {
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Deleted.' : resp.msg, 5000);
+			this.Reload();
+		}, err => {
+			this.AddNotification('error', err.msg);
+		});
 	}
 }
