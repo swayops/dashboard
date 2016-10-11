@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Http, Headers, Response } from '@angular/http';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway, SignUpInfo } from './sway';
+import { Sway } from './sway';
 
 @Component({
 	selector: 'signup',
@@ -16,6 +14,7 @@ export class SignUpCmp {
 
 	constructor(title: Title, public api: Sway) {
 		title.setTitle('Sway :: Sign Up');
+		this.api.Reset();
 	}
 
 	SignUp() {
