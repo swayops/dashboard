@@ -44,7 +44,7 @@ export class AdvertisersCmp extends ManageBase {
 			error: 'Please provide a valid phone number.',
 		},
 		{
-			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'status',
+			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'advertiser.status',
 		},
 	];
 

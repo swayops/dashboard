@@ -46,7 +46,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 			error: 'Please provide a valid phone number.',
 		},
 		{
-			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'status',
+			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'talentAgency.status',
 		},
 	];
 	public editFields = this.EditFields(this.fields);
