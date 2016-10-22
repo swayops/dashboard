@@ -58,10 +58,12 @@ export class EditProfileCmp extends ManageBase {
 		if (u.adAgency) {
 			this.endpoint = 'adAgency/' + u.id;
 			this.fields[1].name = 'adAgency.name';
+			this.fields[4].name = 'adAgency.status';
 		}
 		if (u.talentAgency) {
 			this.endpoint = 'talentAgency/' + u.id;
 			this.fields[1].name = 'talentAgency.name';
+			this.fields[4].name = 'talentAgency.status';
 		}
 		if (u.advertiser) {
 			if (this.api.IsAsUser()) {
@@ -72,6 +74,7 @@ export class EditProfileCmp extends ManageBase {
 			}
 			this.endpoint = 'advertiser/' + u.id;
 			this.fields[1].name = 'advertiser.name';
+			this.fields[4].name = 'advertiser.status';
 		}
 		if (u.inf) {
 			this.fields.push(
@@ -90,6 +93,7 @@ export class EditProfileCmp extends ManageBase {
 			);
 			this.endpoint = 'influencer/' + u.id;
 			this.fields[1].name = 'influencer.name';
+			this.fields[4].name = 'influencer.status';
 		}
 		if (u.admin && !this.endpoint) {
 			this.endpoint = 'admin/' + u.id;
