@@ -14,7 +14,7 @@ export class SignUpCmp {
 
 	constructor(title: Title, public api: Sway) {
 		title.setTitle('Sway :: Sign Up');
-		this.api.Reset();
+		this.api.Logout(false);
 	}
 
 	SignUp() {

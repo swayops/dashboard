@@ -18,7 +18,7 @@ export class ResetPasswordCmp {
 	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
 		title.setTitle('Sway :: Reset Password');
 		this.form.token = route.snapshot.params['token'];
-		this.api.Reset();
+		this.api.Logout(false);
 	}
 
 	check(val: any) {

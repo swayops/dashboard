@@ -67,10 +67,10 @@ export class Sway {
 		});
 	}
 
-	Logout() {
+	Logout(redir = true) {
 		return this.Get('signOut', _ => {
 			this.Reset();
-			this.router.navigate(['/login']); // should say something maybe?
+			if (redir) this.router.navigate(['/login']); // should say something maybe?
 		});
 	}
 
