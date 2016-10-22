@@ -14,9 +14,9 @@ export class TalentAgenciesCmp  extends ManageBase {
 		name: '',
 		parentId: null,
 		talentAgency: {
+			status: true,
 			fee: 0.2,
-		},
-		status: true,
+		}
 	};
 	public fields = [
 		{

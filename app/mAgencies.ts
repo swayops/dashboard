@@ -13,8 +13,9 @@ export class MediaAgenciesCmp extends ManageBase {
 	public data = {
 		name: '',
 		parentId: null,
-		adAgency: {},
-		status: true,
+		adAgency: {
+			status: true,
+		},
 	};
 	public fields = [
 		{
@@ -52,7 +53,7 @@ export class MediaAgenciesCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', this.data, resp => {
+		this.api.Post('signUp', data, resp => {
 			let msg = resp.msg;
 			if (resp.status === 'success') {
 				msg = 'Agency ' + data.name + '(' + resp.id + ') was created successfully!';
