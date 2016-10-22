@@ -61,24 +61,33 @@ export class AdvertisersCmp extends ManageBase {
 			this.api.GoTo('createCampaign', adv.id);
 		}
 	}
+
 	save = (data, done) => {
 		data.parentId = this.id;
-		data.status = true;
+		data.name = data.advertiser.name;
+		delete data.advertiser.name;
 		this.api.Post('signUp', data, resp => {
 			let msg = data.msg;
 			if (resp.status === 'success') {
 				msg = 'Advertiser ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
+			done();
 			this.AddNotification(resp.status, msg);
 			this.Reload();
-		}, err => this.AddNotification('error', err.msg));
+		}, err => {
+			this.AddNotification('error', err.msg);
+			done();
+		});
 	}
 
 	edit = (data, done) => {
 		this.api.Put('advertiser/' + data.id, data, resp => {
-			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			done();
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			this.Reload();
-		}, err => this.AddNotification('error', err.msg));
+		}, err => {
+			this.AddNotification('error', err.msg);
+			done();
+		});
 	}
 }
