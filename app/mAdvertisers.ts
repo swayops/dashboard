@@ -72,9 +72,9 @@ export class AdvertisersCmp extends ManageBase {
 			if (resp.status === 'success') {
 				msg = 'Advertiser ' + data.name + '(' + resp.id + ') was created successfully!';
 			}
-			done();
 			this.AddNotification(resp.status, msg);
 			this.Reload();
+			done();
 		}, err => {
 			this.AddNotification('error', err.msg);
 			done();
@@ -83,9 +83,9 @@ export class AdvertisersCmp extends ManageBase {
 
 	edit = (data, done) => {
 		this.api.Put('advertiser/' + data.id, data, resp => {
-			done();
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			this.Reload();
+			done();
 		}, err => {
 			this.AddNotification('error', err.msg);
 			done();

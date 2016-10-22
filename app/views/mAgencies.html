@@ -25,8 +25,7 @@
 			<td>{{ag.subCount}}</td>
 			<td>{{ag.email}}</td>
 			<td>{{ag.createdAt * 1000 | date}}</td>
-			<td><button class="btn-info btn-micro ghost" (click)=edlg.show(ag)>Edit</button> | <button class="btn-scarlet btn-micro ghost"
-					[disabled]="ag.id < 4" (click)=Delete(ag.id)>X</button></td>
+			<td><button class="btn-info btn-micro ghost" (click)=edlg.show(ag)>Edit</button></td>
 		</tr>
 	</tbody>
 </table>
