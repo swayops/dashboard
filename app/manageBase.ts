@@ -14,7 +14,7 @@ export class ManageBase extends HasAPI {
 	@Input() kw: string;
 
 	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
-			cb?: (resp, err?) => void) {
+		cb?: (resp, err?) => void) {
 		super(api);
 
 		if (name[0] === '-') { // don't prefix the name with Manage
@@ -77,12 +77,14 @@ export class ManageBase extends HasAPI {
 	}
 
 	EditFields(flds: any[]): any[] {
-		return flds.filter(fld => !(fld.adminOnly && this.api.IsAsUser())).map(fld => {
+		return flds.filter(fld => {
+			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.newOnly;
+		}).map(fld => {
 			if (!fld.reqNewOnly && !fld.readOnlyOnEdit) return fld;
 			const opts: any = {
 				req: false,
 			};
-			if(fld.readOnlyOnEdit) {
+			if (fld.readOnlyOnEdit) {
 				opts.attrs = opts.attrs || {};
 				opts.attrs.readonly = true;
 			}

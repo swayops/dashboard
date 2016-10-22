@@ -40,6 +40,10 @@ export class EditProfileCmp extends ManageBase {
 
 	public resetPassFields = [
 		{
+			title: 'Password:', placeholder: 'Your old password', input: 'password', name: 'oldPass', req: true,
+			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
+		},
+		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},

@@ -33,12 +33,12 @@ export class TalentsCmp extends ManageBase {
 		{
 			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
-			reqNewOnly: true,
+			newOnly: true,
 		},
 		{
 			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
 			sameAs: 'pass',
-			reqNewOnly: true,
+			newOnly: true,
 		},
 		{
 			title: 'Instagram ID:', placeholder: 'Instagram ID', input: 'text', name: 'influencer.instagram',
