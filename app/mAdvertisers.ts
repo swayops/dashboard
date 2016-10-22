@@ -65,7 +65,8 @@ export class AdvertisersCmp extends ManageBase {
 	save = (data, done) => {
 		data.parentId = this.id;
 		data.name = data.advertiser.name;
-		delete data.advertiser.name;
+		data.status = data.advertiser.status;
+
 		this.api.Post('signUp', data, resp => {
 			let msg = data.msg;
 			if (resp.status === 'success') {
