@@ -68,7 +68,7 @@ export class TalentsCmp extends ManageBase {
 		},
 	];
 
-	public createFields = this.createFields(this.fields);
+	public createFields = this.CreateFields(this.fields);
 	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
