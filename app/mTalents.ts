@@ -11,6 +11,11 @@ import * as V from './validators';
 	templateUrl: './views/mTalents.html',
 })
 export class TalentsCmp extends ManageBase {
+	public inviteUrl: string;
+	public invModalButtons = [
+		{name: 'Back to manage users »', class: 'btn-small btn-green1'},
+	];
+
 	public data = {
 		name: '',
 		parentId: null,
@@ -60,7 +65,9 @@ export class TalentsCmp extends ManageBase {
 	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('getInfluencersByAgency', 'My Talents', title, api, route.snapshot.params['id']);
+		super('getInfluencersByAgency', 'My Talents', title, api, route.snapshot.params['id'], () => {
+			this.inviteUrl = location.origin + '/invite/' + this.user.talentAgency.inviteCode;
+		});
 	}
 
 	contactInfo(inf: any): string {

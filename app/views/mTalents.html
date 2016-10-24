@@ -1,5 +1,6 @@
 <h2 class="heading">Manage My Talents</h2>
-<button class="btn btn-green1 btn-micro" (click)=cdlg.show(data)>Create +</button>
+<button class="btn btn-green1 btn-micro" (click)=invModal.show()>Invite new talent +</button>
+<button class="btn btn-green1 btn-micro" (click)=cdlg.show(data)>Manually add +</button>
 
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
@@ -39,7 +40,72 @@
 	</tbody>
 </table>
 
-
 <smart-form #cdlg class="dialog" [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Talent"></smart-form>
 <smart-form #edlg class="dialog" [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Talent"></smart-form>
+<modal title="Invite New Talent" #invModal>
+	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+		<b>Use your invite code/ link to add new users into your talent roster! </b> When a user visits your link they will see
+		signup options that put them under your agency umbrella.
+	</div>
+	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+		<h3 style="color:#d2335c;">Your invite code is:</h3> <input type="text" value="{{ inviteUrl }}" class="form-control" readonly onfocus="this.select();" onmouseup="return false;">
+	</div>
 
+	<div class="clearfix br"></div>
+
+	<div class="form-group">
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<img src="/static/img/txt.png" class="avatar">
+		</div>
+		<div class="grid-60 mobile-grid-100 grid-parent">
+			<h3 style="margin:10px 0px 0px 0px;">Text invite</h3>
+			We will personally invite users by texting them on your behalf.<br>
+		</div>
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<br>
+			<a class="btn btn-info">Share</a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<img src="/static/img/fb.png" class="avatar">
+		</div>
+		<div class="grid-60 mobile-grid-100 grid-parent">
+			<h3 style="margin:10px 0px 0px 0px;">Share to Facebook</h3>
+			Share your invite code directly to your Facebook business page.<br>
+		</div>
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<br>
+			<a class="btn btn-info">Share</a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<img src="/static/img/twitter.png" class="avatar">
+		</div>
+		<div class="grid-60 mobile-grid-100 grid-parent">
+			<h3 style="margin:10px 0px 0px 0px;">Share to Twitter</h3>
+			Share your invite code directly to your Facebook business page.<br>
+		</div>
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<br>
+			<a class="btn btn-info">Share</a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<img src="/static/img/email.png" class="avatar">
+		</div>
+		<div class="grid-60 mobile-grid-100 grid-parent">
+			<h3 style="margin:10px 0px 0px 0px;">Email invite</h3>
+			Share your invite code directly to your Facebook business page.<br>
+		</div>
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			<br>
+			<a class="btn btn-info">Share</a>
+		</div>
+	</div>
+</modal>
