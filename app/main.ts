@@ -152,6 +152,8 @@ export const ALL_ROUTES = [
 	declarations: [
 		AppComponent, // app
 
+		HeaderCmp, FooterCmp, LeftNavCmp,
+
 		FormDlg,
 		Modal,
 
