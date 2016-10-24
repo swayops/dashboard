@@ -19,7 +19,7 @@
 		</div>
 		<div class="grid-40 mobile-grid-100 top-search">
 			<div class="form-group has-icon icon-search icon-left">
-				<input type="text" value="" placeholder="What would you like to do?" class="form-control">
+				<select id="globalSearch" multiple class="form-control multiselect multiselect-info" (change)="setSelected($event.target)"></select>
 			</div>
 		</div>
 		<div class="grid-30 mobile-grid-100">
