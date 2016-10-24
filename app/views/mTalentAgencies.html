@@ -30,5 +30,5 @@
 	</tbody>
 </table>
 
-<smart-form #cdlg class="dialog" [fields]=fields (onSave)="save($event.data, $event.done)" title="Create Talent Agency"></smart-form>
+<smart-form #cdlg class="dialog" [fields]=createFields (onSave)="save($event.data, $event.done)" title="Create Talent Agency"></smart-form>
 <smart-form #edlg class="dialog" [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Talent Agency"></smart-form>

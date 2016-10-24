@@ -40,11 +40,11 @@ export class EditProfileCmp extends ManageBase {
 
 	public resetPassFields = [
 		{
-			title: 'Password:', placeholder: 'Your old password', input: 'password', name: 'oldPass', req: true,
+			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass', req: true,
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},
 		{
-			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
+			title: 'New Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},
 		{
@@ -114,10 +114,19 @@ export class EditProfileCmp extends ManageBase {
 			this.AddNotification('error', err.msg, 0);
 			this.ScrollToTop();
 			this.loading = false;
+			done();
 		});
 	}
 
 	resetPass = (data, done) => {
-		done();
+		this.api.Put(this.endpoint, data, resp => {
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your password' : resp.msg, 5000);
+			this.api.GoHome();
+		}, err => {
+			this.AddNotification('error', err.msg, 0);
+			this.ScrollToTop();
+			this.loading = false;
+			done();
+		});
 	}
 }

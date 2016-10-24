@@ -28,14 +28,19 @@ export class MediaAgenciesCmp extends ManageBase {
 			readOnlyOnEdit: true,
 		},
 		{
-			title: 'Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
+			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
-			newOnly: true,
+			editOnly: true,
+		},
+		{
+			title: 'New Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
+			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
+			reqNewOnly: true,
 		},
 		{
 			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
 			sameAs: 'pass',
-			newOnly: true,
+			reqNewOnly: true,
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
@@ -46,6 +51,7 @@ export class MediaAgenciesCmp extends ManageBase {
 		},
 	];
 
+	public createFields = this.CreateFields(this.fields);
 	public editFields = this.EditFields(this.fields);
 
 	constructor(title: Title, api: Sway) {

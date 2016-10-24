@@ -76,6 +76,12 @@ export class ManageBase extends HasAPI {
 		this.list.sort(SortBy(key));
 	}
 
+	CreateFields(flds: any[]): any[] {
+		return flds.filter(fld => {
+			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.editOnly;
+		});
+	}
+
 	EditFields(flds: any[]): any[] {
 		return flds.filter(fld => {
 			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.newOnly;
