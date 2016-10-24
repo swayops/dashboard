@@ -48,7 +48,8 @@
 		signup options that put them under your agency umbrella.
 	</div>
 	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
-		<h3 style="color:#d2335c;">Your invite code is:</h3> <input type="text" value="{{ inviteUrl }}" class="form-control" readonly onfocus="this.select();" onmouseup="return false;">
+		<h3 style="color:#d2335c;">Your invite code is ( <strong>{{ this.user.talentAgency?.inviteCode }}</strong> ):</h3>
+		<input type="text" value="{{ inviteUrl }}" class="form-control" readonly onfocus="this.select();" onmouseup="return false;">
 	</div>
 
 	<!--<div class="clearfix br"></div>
