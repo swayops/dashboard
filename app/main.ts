@@ -126,10 +126,10 @@ export const ALL_ROUTES = [
 		path: 'login',
 		component: LoginCmp,
 	},
-	{
-		path: 'signup',
-		component: SignUpCmp,
-	},
+	// {
+	// 	path: 'signup',
+	// 	component: SignUpCmp,
+	// },
 	{
 		path: 'resetPassword/:token',
 		component: ResetPasswordCmp,
@@ -152,15 +152,6 @@ export const ALL_ROUTES = [
 	declarations: [
 		AppComponent, // app
 
-		// components
-		HeaderCmp, LeftNavCmp, FooterCmp,
-		DashboardCmp, LoginCmp, SignUpCmp,
-		ForgotPasswordCmp, NotFoundCmp, MediaAgenciesCmp,
-		AdvertisersCmp, ReportingCmp, TalentAgenciesCmp,
-		TalentsCmp, CheckPayoutsCmp, OutboundPerksCmp,
-		CampaignPerksCmp, CampaignsCmp, ContentFeedCmp,
-		EditProfileCmp, ResetPasswordCmp, CreateCampaignCmp,
-
 		FormDlg,
 		Modal,
 
@@ -168,7 +159,7 @@ export const ALL_ROUTES = [
 		FilterArrayPipe,
 
 		ImageCropperComponent,
-	],
+	].concat(ALL_ROUTES.map(v => (<any> v).component).filter(v => !!v)),
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(ALL_ROUTES),
