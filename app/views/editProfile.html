@@ -2,7 +2,6 @@
 	<div class="content-holder center-widget">
 		<div class="grid-100 grid-parent">
 			<smart-form #dlg (onSave)="save($event.data, $event.done)" title="Edit Profile"></smart-form>
-			<smart-form #pdlg [fields]=resetPassFields (onSave)="resetPass($event.data, $event.done)" title="Reset Password" saveLabel="Change Password" [value]=null></smart-form>
 		</div>
 	</div>
 </div>

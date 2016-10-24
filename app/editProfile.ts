@@ -38,17 +38,17 @@ export class EditProfileCmp extends ManageBase {
 		},
 	];
 
-	public resetPassFields = [
+	private resetPassFields = [
 		{
-			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass', req: true,
+			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},
 		{
-			title: 'New Password:', placeholder: 'Your password', input: 'password', name: 'pass', req: true,
+			title: 'New Password:', placeholder: 'Your password', input: 'password', name: 'pass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 		},
 		{
-			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2', req: true,
+			title: 'Verify:', placeholder: 'Verify your password', input: 'password', name: 'pass2',
 			sameAs: 'pass',
 		},
 	];
@@ -102,25 +102,13 @@ export class EditProfileCmp extends ManageBase {
 		if (u.admin && !this.endpoint) {
 			this.endpoint = 'admin/' + u.id;
 		}
-		this.dlg.fields = this.fields;
+		this.dlg.fields = this.fields.concat(this.resetPassFields);
 		this.dlg.show(u);
 	}
 
 	save = (data, done) => {
 		this.api.Put(this.endpoint, data, resp => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
-			this.api.GoHome();
-		}, err => {
-			this.AddNotification('error', err.msg, 0);
-			this.ScrollToTop();
-			this.loading = false;
-			done();
-		});
-	}
-
-	resetPass = (data, done) => {
-		this.api.Put(this.endpoint, data, resp => {
-			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your password' : resp.msg, 5000);
 			this.api.GoHome();
 		}, err => {
 			this.AddNotification('error', err.msg, 0);
