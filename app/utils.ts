@@ -34,6 +34,23 @@ export function FilterByProps(kw: string | null, it: Object, ...props: string[])
 	});
 }
 
+@Pipe({ name: 'fmtNum' })
+export class FormatNumberPipe implements PipeTransform {
+	transform(n, fn): string {
+		n = parseFloat(n);
+		if (n === 0 || isNaN(n)) return 'N/A';
+		if (n >= 1e6) {
+			return trimNumber(n / 1e6) + 'M';
+		}
+		if (n >= 1e3) {
+			return trimNumber(n / 1e3) + 'K';
+		}
+		return trimNumber(n);
+	}
+}
+
+function trimNumber(n: number): string { return n.toFixed(2).replace(/\.0\d?$/, ''); }
+
 export function SortBy(...props: string[]): (a, b) => number {
 	return (a, b): number => {
 		let ret = 0;

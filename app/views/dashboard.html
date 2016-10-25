@@ -19,15 +19,15 @@
 	</div>
 	<div class="grid-30 mobile-grid-100 grid-parent">
 		<h2>Supply Side</h2>
-		<p>Agencies: {{ data.talentAgencies }}</p>
-		<p>Avg Influencers Per: {{ data.infPerTalent }}</p>
-		<p>Influencers: {{ data.influencers }}</p>
-		<p>Total Agency Payout: ${{ data.totalAgencyPayout?.toFixed(2) }}</p>
-		<p>Total Influencer Payout: ${{ data.totalInfluencerPayout?.toFixed(2) }}</p>
-		<p>Reach/ Followers: {{ data.reach }}</p>
-		<p>Likes: {{ data.likes }}</p>
-		<p>Comments: {{ data.comments }}</p>
-		<p>Shares: {{ data.shares }}</p>
-		<p>Views / Clicks: {{ data.views }} / {{ data.clicks }}</p>
+		<p>Agencies: {{ data.talentAgencies | fmtNum }}</p>
+		<p>Avg Influencers Per: {{ data.infPerTalent | fmtNum }}</p>
+		<p>Influencers: {{ data.influencers | fmtNum }}</p>
+		<p>Total Agency Payout: ${{ data.totalAgencyPayout?.toFixed(2) | fmtNum }}</p>
+		<p>Total Influencer Payout: ${{ data.totalInfluencerPayout?.toFixed(2) | fmtNum }}</p>
+		<p>Reach/ Followers: {{ data.reach | fmtNum }}</p>
+		<p>Likes: {{ data.likes | fmtNum }}</p>
+		<p>Comments: {{ data.comments | fmtNum }}</p>
+		<p>Shares: {{ data.shares | fmtNum }}</p>
+		<p>Views / Clicks: {{ data.views | fmtNum }} / {{ data.clicks | fmtNum }}</p>
 	</div>
 </div>

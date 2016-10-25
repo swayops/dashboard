@@ -31,7 +31,7 @@ import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 import { FormDlg } from './form';
 import { Modal } from './modal';
 
-import { FilterArrayPipe } from './utils';
+import { FilterArrayPipe, FormatNumberPipe } from './utils';
 
 import { ImageCropperComponent } from 'ng2-img-cropper';
 
@@ -158,7 +158,7 @@ export const ALL_ROUTES = [
 		Modal,
 
 		// pipes and utils
-		FilterArrayPipe,
+		FilterArrayPipe, FormatNumberPipe,
 
 		ImageCropperComponent,
 	].concat(ALL_ROUTES.map(v => (<any> v).component).filter(v => !!v)),
