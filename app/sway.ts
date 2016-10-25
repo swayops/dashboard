@@ -71,7 +71,7 @@ export class Sway {
 		return this.Get('signOut', _ => {
 			this.Reset();
 			if (redir) this.router.navigate(['/login']); // should say something maybe?
-		});
+		}, () => { /* ignore errors */ });
 	}
 
 	GoHome() {
