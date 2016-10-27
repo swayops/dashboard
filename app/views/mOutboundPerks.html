@@ -9,8 +9,8 @@
 <table class="tbl">
 	<thead>
 		<tr>
-			<th class="align-left">Campaign ID</th>
-			<th class="align-left">Campaign Name</th>
+			<th>Campaign ID</th>
+			<th>Campaign Name</th>
 			<th>Perk Name</th>
 			<th>Ship Name</th>
 			<th>Ship Address</th>
@@ -19,7 +19,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/editCampaign', perk.advID, perk.cmpID]">{{perk.cmpID}}</a></td>
+			<td class="align-left"><a [routerLink]="['/editCampaign', perk.advID, perk.cmpID]" target="_blank">{{perk.cmpID}}</a></td>
 			<td>{{perk.cmpName}}</td>
 			<td>{{perk.name}}</td>
 			<td><a href="/infApp/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
