@@ -121,22 +121,12 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	ngAfterViewInit() {
-		const geoSel = $('select.geo').select2({
+		this.geoSel = $('select.geo').select2({
 			data: CountriesAndStates,
 			placeholder: 'Select a Country or a State',
 			allowClear: true,
 			width: '100%',
 		});
-		geoSel.on('select2:select', e => {
-			let val = $(e.currentTarget).val();
-			this.data.geos = val.map(v => {
-				const parts = v.split('-'),
-					ret: any = { country: parts[0] };
-				if (parts.length === 2) ret.state = parts[1];
-				return ret;
-			});
-		});
-		this.geoSel = geoSel;
 		this.updateSidebar();
 	}
 
@@ -171,7 +161,7 @@ export class CreateCampaignCmp extends ManageBase {
 	private setCmp(data: any): any {
 		if (Array.isArray(data.tags) && data.tags.length) data.tags = data.tags.join(', ').trim();
 
-		if (Array.isArray(data.whitelist)) data.whitelist = data.whitelist.join(', ').trim();
+		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
 
 		if (!Array.isArray(data.categories)) data.categories = [];
 		this.opts.cats = !!data.categories.length;
@@ -202,7 +192,18 @@ export class CreateCampaignCmp extends ManageBase {
 		data.perks = Object.assign({}, data.perks);
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map(v => v.trim());
-		if (data.whitelist && data.whitelist.length) data.whitelist = data.whitelist.split(',').map(v => v.trim());
+		if (data.whitelist && data.whitelist.length) {
+			const wl = data.whitelist.split(',').map(v => v.trim());
+			data.whitelist = {};
+			for (let it of wl) data.whitelist[it] = true;
+		}
+
+		data.geos = (this.geoSel.val() || []).map(v => {
+			const parts = v.split('-'),
+				ret: any = { country: parts[0] };
+			if (parts.length === 2) ret.state = parts[1];
+			return ret;
+		});
 
 		const cats = [];
 
