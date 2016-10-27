@@ -138,7 +138,11 @@ export class CreateCampaignCmp extends ManageBase {
 			this.api.Put('campaign/' + data.id, data, resp => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
-				this.api.GoTo('/mCampaigns/' + this.id);
+				if (data.perks) {
+					this.api.GoTo('shippingPerks', this.id);
+				} else {
+					this.api.GoTo('mCampaigns', this.id);
+				}
 			}, err => {
 				this.loading = false;
 				this.AddNotification('error', err.msg);
@@ -148,7 +152,11 @@ export class CreateCampaignCmp extends ManageBase {
 			this.api.Post('campaign', data, resp => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
-				this.api.GoTo('/mCampaigns/' + this.id);
+				if (data.perks) {
+					this.api.GoTo('shippingPerks', this.id);
+				} else {
+					this.api.GoTo('mCampaigns', this.id);
+				}
 			}, err => {
 				this.loading = false;
 				this.AddNotification('error', err.msg);

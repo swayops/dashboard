@@ -142,7 +142,10 @@ export class Sway {
 const authPages = {
 	adAgency: ['mAdvertisers', 'editProfile'],
 	talentAgency: ['mTalents', 'editProfile'],
-	advertiser: ['createCampaign', 'editCampaign', 'mCampaigns', 'reporting', 'contentFeed', 'editProfile'],
+	advertiser: [
+		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting',
+		'contentFeed', 'editProfile', 'shippingPerks',
+	],
 };
 @Injectable()
 export class AuthGuard implements CanActivate {

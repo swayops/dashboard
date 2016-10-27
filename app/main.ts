@@ -19,6 +19,7 @@ import { EditProfileCmp } from './editProfile';
 import { ContentFeedCmp } from './contentFeed';
 import { CampaignsCmp } from './mCampaigns';
 import { CreateCampaignCmp } from './createCampaign';
+import { ShippingPerksCmp } from './shippingPerks';
 import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
@@ -91,6 +92,11 @@ export const ALL_ROUTES = [
 	{
 		path: 'createCampaign/:id/:cid',
 		component: CreateCampaignCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'shippingPerks/:id',
+		component: ShippingPerksCmp,
 		canActivate: [AuthGuard],
 	},
 	{
