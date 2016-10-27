@@ -24,7 +24,7 @@
 			<td>{{perk.name}}</td>
 			<td><a href="/infApp/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
 			<td>{{address(perk)}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk,cmpID, perk.id)">Sent</button></td>
+			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button></td>
 		</tr>
 	</tbody>
 </table>
