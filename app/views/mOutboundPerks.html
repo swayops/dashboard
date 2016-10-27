@@ -9,22 +9,22 @@
 <table class="tbl">
 	<thead>
 		<tr>
-			<th class="align-left">Advertiser</th>
+			<th class="align-left">Campaign ID</th>
+			<th class="align-left">Campaign Name</th>
 			<th>Perk Name</th>
 			<th>Ship Name</th>
 			<th>Ship Address</th>
-			<th>Advertiser Email</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/', perk.id]">{{perk.ownerName}}</a></td>
+			<td class="align-left"><a [routerLink]="['/editCampaign', perk.advID, perk.cmpID]">{{perk.cmpID}}</a></td>
+			<td>{{perk.cmpName}}</td>
 			<td>{{perk.name}}</td>
-			<td>{{perk.shipName}}</td>
-			<td>{{perk.shipAddress}}</td>
-			<td>{{perk.ownerEmail}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)=Sent(perk.id)>Sent</button></td>
+			<td><a href="/infApp/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
+			<td>{{address(perk)}}</td>
+			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk,cmpID, perk.id)">Sent</button></td>
 		</tr>
 	</tbody>
 </table>

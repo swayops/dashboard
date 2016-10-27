@@ -6,7 +6,7 @@ import { ManageBase } from './manageBase';
 
 @Component({
 	selector: 'manage-campaign-perks',
-	templateUrl: './views/mCampaignPerks.html'
+	templateUrl: './views/mCampaignPerks.html',
 })
 export class CampaignPerksCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {
@@ -16,7 +16,7 @@ export class CampaignPerksCmp extends ManageBase {
 	received(id: string) {
 		this.api.Get('approveCampaign/' + id, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Approved!');
-			this.Reload()
+			this.Reload();
 		});
 	}
 }
@@ -24,11 +24,20 @@ export class CampaignPerksCmp extends ManageBase {
 
 @Component({
 	selector: 'manage-outbound-perks',
-	templateUrl: './views/mOutboundPerks.html'
+	templateUrl: './views/mOutboundPerks.html',
 })
 export class OutboundPerksCmp extends ManageBase {
 	constructor(title: Title, api: Sway) {
 		super('getPendingPerks', 'Outbound Perks', title, api);
+	}
+
+	address(inf: { address: any }) {
+		const addr = inf.address;
+		if (!addr) return 'N/A';
+		return [
+			addr.address_line1, addr.address_line2, addr.address_city, addr.address_state,
+			addr.address_zip, addr.address_country,
+		].filter(v => !!v && v.length).join(', ');
 	}
 }
 
