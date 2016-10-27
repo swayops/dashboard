@@ -1,6 +1,6 @@
 <h2 class="heading">Assign influencer information</h2>
 <div *ngIf="!inf">
-	<h3>Woo! All Done.</h3>
+	<h3>Woo Woo! No more influencers to categorize for now. Great work!</h3>
 </div>
 <div *ngIf="inf">
 	<div class="grid-30 mobile-grid-100 grid-parent">
@@ -9,10 +9,7 @@
 			User Name: <b>{{ inf.name }}</b><br>
 			Email: <b><a href="mailto:{{ inf.email }}">{{ inf.email }}</a></b>
 		</p>
-		<p>Sample media:</p>
-		<p>
-			<a target="_blank" href="/infApp/forceLogin/{{inf.id}}" class="btn-primary btn-lg btn">View App</a>
-		</p>
+		<p>Preview social networks:</p>
 		<p *ngIf="inf.twitterUrl">
 			<a target="_blank" href="{{ inf.twitterUrl }}" class="btn-primary btn-lg btn-social-twitter">Twitter</a>
 		</p>
@@ -25,15 +22,20 @@
 		<p *ngIf="inf.youTubeUrl">
 			<a target="_blank" href="{{ inf.youTubeUrl }}" class="btn-primary btn-lg">YouTube</a>
 		</p>
+		<br/><br/>
+		<p>
+			<a target="_blank" href="/infApp/forceLogin/{{inf.id}}" class="btn-default btn-xs">Control influencers account &#187;
+</a>
+		</p>
 	</div>
 	<div class="grid-70 mobile-grid-100 grid-parent">
 		<form>
 			<div class="form-group">
 				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Category:</span>
+					<span class="ttip" title="">Category:</span>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<div class="checkbox grid-30" *ngFor="let c of categories">
+					<div class="checkbox grid-50" *ngFor="let c of categories">
 						<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="inf.categories[c.cat]">
 						<label [attr.for]="c.cat" style="text-transform: capitalize;">{{c.cat}}</label>
 					</div>
@@ -42,7 +44,7 @@
 
 			<div class="form-group">
 				<div class="grid-20 mobile-grid-100 grid-parent">
-					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Gender:</span>
+					<span class="ttip" title="">Gender:</span>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
 					<select class="form-control" name="gender" [(ngModel)]="inf.gender" style="width: 200px">
