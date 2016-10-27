@@ -138,20 +138,40 @@ export class Sway {
 	}
 }
 
-// TODO: admin-only pages filtering
+// *WARNING*, if you get auth errors, make sure your page is in here
+const authPages = {
+	adAgency: ['mAdvertisers'],
+	talentAgency: ['mTalents'],
+	advertiser: ['createCampaign', 'mCampaigns', 'reporting', 'contentFeed'],
+};
 @Injectable()
 export class AuthGuard implements CanActivate {
 	constructor(public router: Router, public api: Sway) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
-			if (logged && (!this.api.error || this.api.error.code !== 401)) return true;
+			if (logged && (!this.api.error || this.api.error.code !== 401)) {
+				const user = this.api.CurrentUser;
+				if (user.admin) return true;
+
+				const userPages = authPages[UserType(user)] || [],
+					pageName = this.pageName(state.url);
+
+				if (userPages.indexOf(pageName) > -1) return true;
+			}
+
 			this.api.redirectUrl = state.url;
 			this.router.navigate(['/login']);
 			return false;
 		});
 	}
 
+	pageName(p: string): string {
+		p = p.substr(1);
+		const idx = p.indexOf('/');
+		if (idx !== -1) return p.substr(0, idx);
+		return p;
+	}
 }
 
 let allNotifications: Notification[] = [];
@@ -186,6 +206,14 @@ export class HasAPI {
 			scrollTop: 0,
 		}, speed);
 	}
+}
+
+export function UserType(user): string {
+	if (user.admin) return 'admin';
+	if (user.advertiser) return 'advertiser';
+	if (user.talentAgency) return 'talentAgency';
+	if (user.adAgency) return 'adAgency';
+	return '';
 }
 
 export interface SignUpInfo {

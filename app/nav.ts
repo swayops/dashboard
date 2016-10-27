@@ -1,6 +1,6 @@
 import { Component, AfterViewChecked, ElementRef } from '@angular/core';
 
-import { Sway, HasAPI } from './sway';
+import { Sway, HasAPI, UserType } from './sway';
 
 import { SearchData } from './utils';
 
@@ -48,7 +48,7 @@ export class HeaderCmp extends HasAPI implements AfterViewChecked {
 	private setSearchData(e: Element) {
 		this.userID = this.user.id;
 
-		const userData = SearchData[getUserType(this.user)] || {},
+		const userData = SearchData[UserType(this.user)] || {},
 			data = objectToList(userData, this.userID).concat(objectToList(SearchData.misc, this.userID));
 
 		return $(e).empty().select2({
@@ -73,10 +73,3 @@ function objectToList(obj: Object, id: string): any[] {
 	return Object.keys(obj).map(k => { return { id: obj[k].replace(/:id/, id), text: k }; });
 }
 
-function getUserType(user): string {
-	if (user.admin) return 'admin';
-	if (user.advertiser) return 'advertiser';
-	if (user.talentAgency) return 'talentAgency';
-	if (user.adAgency) return 'adAgency';
-	return '';
-}
