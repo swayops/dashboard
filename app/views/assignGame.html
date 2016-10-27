@@ -4,10 +4,26 @@
 </div>
 <div *ngIf="inf">
 	<div class="grid-30 mobile-grid-100 grid-parent">
-		<p>Username: <b>{{ inf.name }} (<a href="mailto:{{ inf.email }}">{{ inf.email }}</a>)</b></p>
+		<p>
+			User ID: <b>{{ inf.id }}</b><br>
+			User Name: <b>{{ inf.name }}</b><br>
+			Email: <b><a href="mailto:{{ inf.email }}">{{ inf.email }}</a></b>
+		</p>
 		<p>Sample media:</p>
 		<p>
-			<a target="_blank" href="/infApp/forceLogin/{{inf.id}}" class="btn-primary btn-lg">View profile page</a>
+			<a target="_blank" href="/infApp/forceLogin/{{inf.id}}" class="btn-primary btn-lg btn">View App</a>
+		</p>
+		<p *ngIf="inf.twitterUrl">
+			<a target="_blank" href="{{ inf.twitterUrl }}" class="btn-primary btn-lg btn-social-twitter">Twitter</a>
+		</p>
+		<p *ngIf="inf.facebookUrl">
+			<a target="_blank" href="{{ inf.facebookUrl }}" class="btn-primary btn-lg btn-social-facebook">Facebook</a>
+		</p>
+		<p *ngIf="inf.instagramUrl">
+			<a target="_blank" href="{{ inf.instagramUrl }}" class="btn-primary btn-lg">Instagram</a>
+		</p>
+		<p *ngIf="inf.youTubeUrl">
+			<a target="_blank" href="{{ inf.youTubeUrl }}" class="btn-primary btn-lg">YouTube</a>
 		</p>
 	</div>
 	<div class="grid-70 mobile-grid-100 grid-parent">
@@ -29,7 +45,7 @@
 					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Gender:</span>
 				</div>
 				<div class="grid-80 mobile-grid-100 grid-parent">
-					<select class="form-control" name="gender" [(ngModel)]="inf.gender">
+					<select class="form-control" name="gender" [(ngModel)]="inf.gender" style="width: 200px">
 					<option value="">Not Set</option>
 					<option value="unicorn">Not applicable</option>
 					<option value="f">Female</option>
