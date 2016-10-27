@@ -9,7 +9,7 @@ import { AppComponent, NotFoundCmp } from './app';
 import { AuthGuard, Sway } from './sway';
 
 import { LoginCmp } from './login';
-import { SignUpCmp } from './signup';
+// import { SignUpCmp } from './signup';
 import { ForgotPasswordCmp } from './forgotPassword';
 
 import { DashboardCmp } from './dashboard';
@@ -23,6 +23,7 @@ import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
 import { ReportingCmp } from './reporting';
 import { TalentAgenciesCmp } from './mTalentAgencies';
 import { TalentsCmp } from './mTalents';
+import { AssignGameCmp } from './assignGame';
 import { CheckPayoutsCmp } from './checkPayouts';
 import { ResetPasswordCmp } from './resetPassword';
 
@@ -100,6 +101,11 @@ export const ALL_ROUTES = [
 	{
 		path: 'mOutboundPerks',
 		component: OutboundPerksCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'assignGame',
+		component: AssignGameCmp,
 		canActivate: [AuthGuard],
 	},
 	{

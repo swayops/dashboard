@@ -267,8 +267,7 @@ input[type=checkbox]:checked + label:before {
 .radio label{margin-bottom:10px;}
 
 .checkbox, .radio{padding-left:0px; padding-top: 10px; }
-
-
+.checkbox.grid-30 + .checkbox { margin-top: 0; }
 
 .increment-group{
 	width: 72px;

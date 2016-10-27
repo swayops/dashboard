@@ -7,7 +7,7 @@ import { ManageBase } from './manageBase';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
-import { CountriesAndStates, CountriesAndStatesRev } from './utils';
+import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp } from './utils';
 
 @Component({
 	selector: 'create-campaign',
@@ -53,7 +53,7 @@ export class CreateCampaignCmp extends ManageBase {
 			title, api, route.snapshot.params['id']);
 
 		this.api.Get('getCategories', resp => {
-			this.categories = (resp || []).sort((a, b) => a.cat < b.cat); // sort by name
+			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';

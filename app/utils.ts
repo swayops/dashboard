@@ -82,6 +82,20 @@ export function Throttle(callback: (...args: any[]) => any, thisArg: Object, lim
 	};
 }
 
+export function AlphaCmp(a: string, b: string, rev = false): number {
+	if (a < b) return rev ? 1 : -1;
+	if (a > b) return rev ? -1 : 1;
+	return 0;
+}
+
+export function NumCmp(sA: string, sB: string, rev = false): number {
+	const a = parseFloat(sA),
+		b = parseFloat(sB);
+	if (a < b) return rev ? 1 : -1;
+	if (a > b) return rev ? -1 : 1;
+	return 0;
+}
+
 export function CancelEvent(evt: Event) {
 	if (!evt) return;
 	evt.stopPropagation();

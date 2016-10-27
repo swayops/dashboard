@@ -138,11 +138,11 @@ export class Sway {
 	}
 }
 
+// TODO: admin-only pages filtering
 @Injectable()
 export class AuthGuard implements CanActivate {
 	constructor(public router: Router, public api: Sway) { }
 
-	// TODO check if a certain user can open a certain page or not
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
 			if (logged && (!this.api.error || this.api.error.code !== 401)) return true;

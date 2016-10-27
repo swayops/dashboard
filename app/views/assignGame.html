@@ -1,0 +1,50 @@
+<h2 class="heading">Assign influencer information</h2>
+<div *ngIf="!inf">
+	<h3>Woo! All Done.</h3>
+</div>
+<div *ngIf="inf">
+	<div class="grid-30 mobile-grid-100 grid-parent">
+		<p>Username: <b>{{ inf.name }} (<a href="mailto:{{ inf.email }}">{{ inf.email }}</a>)</b></p>
+		<p>Sample media:</p>
+		<p>
+			<a target="_blank" href="/infApp/forceLogin/{{inf.id}}" class="btn-primary btn-lg">View profile page</a>
+		</p>
+	</div>
+	<div class="grid-70 mobile-grid-100 grid-parent">
+		<form>
+			<div class="form-group">
+				<div class="grid-20 mobile-grid-100 grid-parent">
+					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Category:</span>
+				</div>
+				<div class="grid-80 mobile-grid-100 grid-parent">
+					<div class="checkbox grid-30" *ngFor="let c of categories">
+						<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="inf.categories[c.cat]">
+						<label [attr.for]="c.cat" style="text-transform: capitalize;">{{c.cat}}</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="grid-20 mobile-grid-100 grid-parent">
+					<span class="ttip" title="This will be the title of your campaign as seen by influencers and within your reporting.">Gender:</span>
+				</div>
+				<div class="grid-80 mobile-grid-100 grid-parent">
+					<select class="form-control" name="gender" [(ngModel)]="inf.gender">
+					<option value="">Not Set</option>
+					<option value="unicorn">Not applicable</option>
+					<option value="f">Female</option>
+					<option value="m">Male</option>
+				</select>
+				</div>
+			</div>
+
+			<div align="right">
+				<button class="btn btn-green1" [disabled]="loading" (click)="assign()">Approve and go to next &#187;</button>
+				<br/><br/>
+				<hr>
+				<br/>
+				<button class="btn btn-scarlet ghost btn-micro"  [disabled]="loading" (click)="ban()">Blacklist User!</button>
+			</div>
+		</form>
+	</div>
+</div>
