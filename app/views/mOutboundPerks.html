@@ -22,7 +22,7 @@
 			<td class="align-left"><a [routerLink]="['/editCampaign', perk.advID, perk.cmpID]" target="_blank">{{perk.cmpID}}</a></td>
 			<td>{{perk.cmpName}}</td>
 			<td>{{perk.name}}</td>
-			<td><a href="/infApp/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
+			<td><a href="{{ settings.infAppUrl }}/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
 			<td>{{address(perk)}}</td>
 			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button></td>
 		</tr>

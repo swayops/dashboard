@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let t of list | filter:FilterUsers">
-			<td class="align-left"><a href="{{ api.IsAsUser() ? '/infApp/forceLogin/' + t.id : networkUrl(t) }}" target="_blank">{{t.name}}</a></td>
+			<td class="align-left"><a href="{{ api.IsAsUser() ? settings.infAppUrl + '/forceLogin/' + t.id : networkUrl(t) }}" target="_blank">{{t.name}}</a></td>
 			<td>{{t.id}}</td>
 			<td title="Accepted: {{Num(t.activeDeals)}} | Completed: {{Num(t.completedDeals)}}" class="email ttip">
 				{{Num(t.activeDeals) + Num(t.completedDeals)}}

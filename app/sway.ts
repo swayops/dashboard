@@ -209,6 +209,10 @@ export class HasAPI {
 			scrollTop: 0,
 		}, speed);
 	}
+
+	get settings(): any {
+		return (<any> window).appSettings;
+	}
 }
 
 export function UserType(user): string {
