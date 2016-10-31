@@ -15,7 +15,7 @@
 		<h2>Exchange</h2>
 		<p>Deals Accepted: {{ data.dealAccepted }}</p>
 		<p>Deals Completed: {{ data.dealCompleted }} </p>
-		<p>Completed Rate: {{ data.completionRate }}</p>
+		<p>Completed Rate: {{ data.completionRate | fmtNum }}%</p>
 	</div>
 	<div class="grid-30 mobile-grid-100 grid-parent">
 		<h2>Supply Side</h2>
