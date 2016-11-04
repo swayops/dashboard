@@ -4,6 +4,8 @@ import { Sway, HasAPI, UserType } from './sway';
 
 import { SearchData } from './utils';
 
+import $ from 'jquery';
+
 @Component({
 	selector: 'left-nav',
 	templateUrl: './views/leftNav.html',

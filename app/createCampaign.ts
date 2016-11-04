@@ -9,6 +9,8 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp } from './utils';
 
+import $ from 'jquery';
+
 @Component({
 	selector: 'create-campaign',
 	templateUrl: './views/createCampaign.html',
@@ -30,7 +32,6 @@ export class CreateCampaignCmp extends ManageBase {
 			count: 0,
 		},
 	};
-
 
 	public sidebar: any = {
 		errors: [],
@@ -102,12 +103,25 @@ export class CreateCampaignCmp extends ManageBase {
 		rd.readAsDataURL(file);
 	}
 
+	get allCats(): boolean {
+		if (!this.data.categories) return false;
+		let checked = 0;
+
+		for (let [, v] of Object.entries(this.data.categories)) {
+			if (v) checked++;
+		}
+
+		return checked === this.categories.length;
+	}
+
 	setAllCats(evt: any) {
 		const chk = getCheckbox(evt);
 		if (!chk) return;
 		if (!this.data.categories) this.data.categories = {};
 		const v = !chk.checked;
-		this.categories.forEach(c => this.data.categories[c.cat] = v);
+		for (let c of this.categories) {
+			this.data.categories[c.cat] = v;
+		}
 		chk.checked = v;
 	}
 

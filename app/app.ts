@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular
 
 import { Sway, HasAPI } from './sway';
 
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 @Component({
 	selector: 'not-found',
@@ -96,7 +96,7 @@ export class AppComponent extends HasAPI {
 			$('#shareCodeSection').show('slow');
 		});
 
-		$('.onoffswitch').click(function (this: {}) {
+		$('.onoffswitch').click(function () {
 			let cls = $(this).attr('data-for');
 			if ($(this).find('input').is(':checked')) {
 				$('.' + cls).slideToggle();
@@ -113,7 +113,7 @@ export class AppComponent extends HasAPI {
 			}
 		});
 
-		$('#slct_perks').click(function (this: {}) {
+		$('#slct_perks').click(function () {
 			let cls = $(this).attr('data-for');
 			$('.' + cls).slideToggle();
 			if ($('#perks').prop('checked')) {
@@ -126,7 +126,7 @@ export class AppComponent extends HasAPI {
 
 		});
 
-		$('.onoffswitch').each(function (this: {}) {
+		$('.onoffswitch').each(function () {
 			const cls = $(this).attr('data-for'),
 				checked = $(this).find('input').is(':checked');
 			if (!checked) {
@@ -134,7 +134,7 @@ export class AppComponent extends HasAPI {
 			}
 		});
 
-		$('.prog-bar div').each(function (this: {}, index: number) {
+		$('.prog-bar div').each(function (index: number) {
 			$(this).slider({
 				orientation: 'horizontal',
 				range: 'min',
@@ -154,7 +154,7 @@ export class AppComponent extends HasAPI {
 	initIncrGroup() {
 		$('.increment-group').append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
 
-		$('.increment-group .button').on('click', function (this: {}) {
+		$('.increment-group .button').on('click', function () {
 			let $button = $(this);
 			let oldValue = $button.parent().parent().find('input').val(), newVal = 0;
 
@@ -163,7 +163,7 @@ export class AppComponent extends HasAPI {
 			} else {
 				// Don't allow decrementing below zero
 				if (oldValue > 0) {
-					let newVal = parseFloat(oldValue) - 1;
+					newVal = parseFloat(oldValue) - 1;
 				} else {
 					newVal = 0;
 				}
@@ -173,19 +173,19 @@ export class AppComponent extends HasAPI {
 	};
 
 	initSliderRange() {
-		$('.slider-range').each(function (this: {}, index: number) {
+		$('.slider-range').each(function (index: number) {
 			$(this).slider({
 				range: true,
 				min: parseInt($(this).attr('data-min')) || 0,
 				max: parseInt($(this).attr('data-max')) || 0,
 				values: [$(this).attr('data-start'), $(this).attr('data-end')].map(parseInt),
-				slide: function (this: {}, event, ui) {
+				slide: function (event, ui) {
 					$(this).siblings().val(ui.values[0] + ' - ' + ui.values[1]);
 				},
 			});
 		});
 
-		$('.notification .fui-cross').click(function (this: {}) {
+		$('.notification .fui-cross').click(function () {
 			$(this).parent().fadeOut(450);
 		});
 	}

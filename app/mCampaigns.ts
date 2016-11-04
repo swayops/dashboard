@@ -6,6 +6,8 @@ import { Sway, apiURL } from './sway';
 import { ManageBase } from './manageBase';
 import { ModalEvent } from './modal';
 
+import $ from 'jquery';
+
 @Component({
 	selector: 'campaigns',
 	templateUrl: './views/mCampaigns.html',

@@ -1,8 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "commonjs",
-		"lib": ["es6", "dom", "es2017.object"],
+		"module": "es6",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -10,13 +9,24 @@
 		"noImplicitAny": false,
 		"suppressImplicitAnyIndexErrors": true,
 		//"noImplicitThis": true, // disabled because of the imageCropper
-		"noEmitHelpers": true,
+		//"noEmitHelpers": true,
 		"pretty": true,
 		"allowSyntheticDefaultImports": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"types": [
+			"core-js",
+			"jquery",
+			"jqueryui",
+			"select2"
+		]
 	},
-	"awesomeTypescriptLoaderOptions": {
-		"skipDeclarationFilesCheck": true,
-		"useWebpackText": true //Allows loaders to be chained to awesome-typescript-loader.
+	"files": [
+		"app/app.module.ts",
+		"app/main.ts"
+	],
+
+	"angularCompilerOptions": {
+		"genDir": "aot",
+		"skipMetadataEmit": true
 	}
 }

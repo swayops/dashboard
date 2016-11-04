@@ -5,17 +5,6 @@ import 'core-js/fn/object/assign';
 import 'core-js/fn/object/entries';
 import 'zone.js/dist/zone.min';
 
-import 'ts-helpers';
-
-// Angular
-import '@angular/common';
-import '@angular/core';
-import '@angular/forms';
-import '@angular/http';
-import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
-import '@angular/router';
-
 import 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/take';
@@ -26,7 +15,7 @@ import 'rxjs/add/observable/throw';
 
 import 'ng2-img-cropper';
 
-import 'jquery';
+import './jquery-stuff';
 import 'bootstrap';
 import 'jqueryui';
 import 'select2';
