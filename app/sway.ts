@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 
 export const apiURL = '/api/v1/';
 
+import $ from 'jquery';
+
 @Injectable()
 export class Sway {
 	public mainUser: User;

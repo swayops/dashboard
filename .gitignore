@@ -10,4 +10,4 @@ tmp/
 app/*.ngfactory.*
 app/*.js*
 app/*.metadata.json
-
+aot/
