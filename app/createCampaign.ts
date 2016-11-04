@@ -9,6 +9,8 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp } from './utils';
 
+import $ from 'jquery';
+
 @Component({
 	selector: 'create-campaign',
 	templateUrl: './views/createCampaign.html',
@@ -30,7 +32,6 @@ export class CreateCampaignCmp extends ManageBase {
 			count: 0,
 		},
 	};
-
 
 	public sidebar: any = {
 		errors: [],

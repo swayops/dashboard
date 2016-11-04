@@ -2,6 +2,8 @@ import { Component, Input, ElementRef } from '@angular/core';
 
 import { CancelEvent } from './utils';
 
+import $ from 'jquery';
+
 @Component({
 	selector: 'modal',
 	template: `
@@ -88,7 +90,6 @@ export class Modal {
 		evt.stopPropagation();
 	}
 }
-
 
 export class ModalEvent {
 	constructor(public dlg: Modal, public event: Event, public name: string, public data: any) {}
