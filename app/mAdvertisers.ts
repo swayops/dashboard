@@ -22,7 +22,7 @@ export class AdvertisersCmp extends ManageBase {
 			readOnlyOnEdit: true,
 		},
 		{
-			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'pic',
+			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'imageUrl',
 		},
 		{
 			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
