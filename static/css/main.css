@@ -917,7 +917,7 @@ div#header .menu li:hover .sub-menu{
     opacity: 0.9;
     clear: both;
     overflow: hidden;
-    padding: 35px 0px 35px 0px;
+    padding: 0px 0px 0px 0px;
     box-sizing: border-box;
     vertical-align: middle;
 }
