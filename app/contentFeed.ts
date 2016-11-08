@@ -20,7 +20,8 @@ export class ContentFeedCmp extends ManageBase {
 	initData() {
 		for (let v of this.list) {
 			if (!v.socialImage) {
-				v.socialImage = defaultImages[Math.floor(Math.random() * defaultImages.length)];
+				// v.socialImage = defaultImages[Math.floor(Math.random() * defaultImages.length)];
+				v.socialImage = '/static/img/defaultContentFeed.jpg';
 			}
 		}
 		this.SortBy('infID', true);
@@ -41,4 +42,4 @@ export class ContentFeedCmp extends ManageBase {
 }
 
 
-const defaultImages = [1, 2, 3, 4, 5, 6].map(v => '/images/campaign/default_' + v + '.jpg');
+// const defaultImages = [1, 2, 3, 4, 5, 6].map(v => '/images/campaign/default_' + v + '.jpg');

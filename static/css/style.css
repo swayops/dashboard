@@ -1859,8 +1859,6 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
     font-size: 21px;
 }
 .auditPic {
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
     min-height: 195px;
     opacity: 0.6;
     clear: both;
@@ -1883,6 +1881,13 @@ input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
     margin-top: 60px;
 }
 
+.auditPic > img {
+	width: 95%;
+	margin: 0 auto;
+	display: inline-block;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
 
 /*LOGIN SIGNUP FORGOT PASS SHIT input field styling */
 .formLoggedOut {
