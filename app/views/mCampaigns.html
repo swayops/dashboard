@@ -15,7 +15,7 @@
 			<th>Budget</th>
 			<th title="Active Networks">Networks</th>
 			<th>Status</th>
-			<th>Created Date</th>
+			<th>Created</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -32,7 +32,7 @@
 			</td>
 			<td>{{cmp.status ? 'On' : 'Off'}}</td>
 			<td>{{cmp.createdAt * 1000 | date}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="selDate.show(cmp);">Report</button> <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> <button class="btn-scarlet btn-micro ghost">X</button></td>
+			<td><button class="btn-green1 btn-micro ghost" (click)="selDate.show(cmp);">Report</button> <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> <!--<button class="btn-scarlet btn-micro ghost">X</button>--></td>
 		</tr>
 	</tbody>
 </table>
