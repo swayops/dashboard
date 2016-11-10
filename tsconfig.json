@@ -14,10 +14,7 @@
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"types": [
-			"core-js",
-			"jquery",
-			"jqueryui",
-			"select2"
+			"core-js"
 		]
 	},
 	"files": [

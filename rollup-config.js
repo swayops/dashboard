@@ -10,12 +10,11 @@ const isProd = process.env.NODE_ENV === 'production',
 			typescript: require("typescript"),
 		}),
 		nodeResolve({
+			main: true,
 			jsnext: true,
-			module: true,
-			browser: true,
 		}),
 		commonjs({
-			include: ['node_modules/**']
+			include: ['node_modules/rxjs/**']
 		}),
 	];
 
