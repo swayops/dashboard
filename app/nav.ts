@@ -16,7 +16,11 @@ export class LeftNavCmp extends HasAPI {
 	public assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
-		this.updateAssignGame();
+		// only run updateAssignGame if the logged in user is admin
+		api.OnLogin.subscribe(user => {
+			if (!user || !user.admin) return;
+			this.updateAssignGame();
+		});
 	}
 
 	private updateAssignGame() {
