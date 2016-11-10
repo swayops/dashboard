@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "npm run build:w",
-    "build": "ngc && rm static/app.js*; rollup -c rollup-config.js",
-    "build:w": "ngc && rm static/app.js*; rollup -c rollup-config.js --watch",
-    "build:p": "ngc && rm static/app.js*; NODE_ENV=production rollup -c rollup-config.js && gzip -9v static/app.js*",
+    "build": "ngc && rollup -c rollup-config.js",
+    "build:w": "ngc && rollup -c rollup-config.js --watch",
+    "build:p": "ngc && NODE_ENV=production rollup -c rollup-config.js && gzip -9v static/app.js*",
     "postinstall": "echo running npm run build && npm run build",
     "tsc": "tsc",
     "typings": "typings",
@@ -35,8 +35,8 @@
     "rollup-plugin-typescript": "0.8.1",
     "rollup-plugin-uglify": "1.0.1",
     "rollup-watch": "2.5.0",
-    "rxjs": "5.0.0-rc.2",
-    "typescript": "2.1.1",
+    "rxjs": "5.0.0-beta.12",
+    "typescript": "2.0.x",
     "typings": "1.5.0",
     "zone.js": "0.6.26"
   }
