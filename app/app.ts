@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular
 
 import { Sway, HasAPI } from './sway';
 
-import $ from 'jquery';
+declare var $: any;
 
 @Component({
 	selector: 'not-found',

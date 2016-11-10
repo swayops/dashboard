@@ -14,8 +14,3 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import 'ng2-img-cropper';
-
-import './jquery-stuff';
-import 'bootstrap';
-import 'jqueryui';
-import 'select2';

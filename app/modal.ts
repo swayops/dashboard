@@ -2,7 +2,7 @@ import { Component, Input, ElementRef } from '@angular/core';
 
 import { CancelEvent } from './utils';
 
-import $ from 'jquery';
+declare var $: any;
 
 @Component({
 	selector: 'modal',

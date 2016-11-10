@@ -23,10 +23,10 @@
 
 		<!--amCharts include -->
 		<link rel="stylesheet" href="/static/js/amcharts/plugins/export/export.css">
-		<script src="/static/js/amcharts/amcharts.js"></script>
-		<script src="/static/js/amcharts/pie.js"></script>
-		<script src="/static/js/amcharts/serial.js"></script>
-		<script src="/static/js/amcharts/themes/light.js"></script>
+		<script src="/static/js/amcharts/amcharts.js" defer></script>
+		<script src="/static/js/amcharts/pie.js" defer></script>
+		<script src="/static/js/amcharts/serial.js" defer></script>
+		<script src="/static/js/amcharts/themes/light.js" defer></script>
 		<!-- end amCharts include-->
 	</head>
 	<body class="user-logged-in">
@@ -68,6 +68,9 @@
 				infAppUrl: '{{ infAppUrl }}',
 			};
 		</script>
+		<script src="/static/vendor/jquery-2.2.4.min.js" defer></script>
+		<script src="/static/vendor/jqueryui-1.12.1.min.js" defer></script>
+		<script src="/static/vendor/select2-4.0.3.min.js" defer></script>
 		<script src="/static/app.js" defer></script>
 	</body>
 </html>

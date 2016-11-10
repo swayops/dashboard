@@ -9,7 +9,7 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp } from './utils';
 
-import $ from 'jquery';
+declare var $: any;
 
 @Component({
 	selector: 'create-campaign',
