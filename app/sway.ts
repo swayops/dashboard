@@ -1,4 +1,4 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -13,6 +13,7 @@ export class Sway {
 	public mainUser: User;
 	public curUser: User;
 	public loginStatus = 0;
+	public OnLogin: EventEmitter<any> = new EventEmitter();
 	error: any;
 	redirectUrl: string;
 
@@ -25,6 +26,7 @@ export class Sway {
 		return this.Post('signIn', info, data => {
 			return this.Get('user', user => {
 				this.mainUser = user;
+				this.OnLogin.emit(user);
 				if (this.redirectUrl) {
 					this.GoTo(this.redirectUrl);
 				} else {
@@ -117,9 +119,12 @@ export class Sway {
 	}
 
 	get IsLoggedIn(): Observable<boolean> {
-		// if (this.loginStatus > 0) return Observable.of(this.loginStatus === 1);
+		if (this.loginStatus > 0) return Observable.of(this.loginStatus === 1);
 		return Observable.create(obs => {
 			let sub = this.Get('user', user => {
+				if (!this.mainUser) {
+					this.OnLogin.emit(user);
+				}
 				this.mainUser = user;
 				this.loginStatus = 1;
 				return obs.next(true);

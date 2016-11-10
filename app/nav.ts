@@ -6,12 +6,29 @@ import { SearchData } from './utils';
 
 declare var $: any;
 
+const assignGameUpdateInterval = 60000 * 3; // 3 minutes
+
 @Component({
 	selector: 'left-nav',
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	constructor(api: Sway) { super(api); }
+	public assignGameNum = 0;
+	constructor(api: Sway) {
+		super(api);
+		// only run updateAssignGame if the logged in user is admin
+		api.OnLogin.subscribe(user => {
+			if (!user || !user.admin) return;
+			this.updateAssignGame();
+		});
+	}
+
+	private updateAssignGame() {
+		this.api.Get('getIncompleteInfluencers', resp => {
+			this.assignGameNum = (resp || []).length;
+			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
+		}, err => { /* ignore */});
+	}
 }
 
 @Component({
