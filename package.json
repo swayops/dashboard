@@ -7,7 +7,7 @@
     "build": "ngc && rollup -c rollup-config.js && rm -rf static/app*.gz",
     "build:w": "ngc && rm -rf static/app*.gz; rollup -c rollup-config.js --watch",
     "build:p": "rm -rf aot; ngc && NODE_ENV=production rollup -c rollup-config.js && rm -rf static/app*.gz; gzip -9v static/app.js*",
-    "postinstall": "echo running npm run build && npm run build",
+    "postinstall": "echo running npm run build && npm run build:p",
     "tsc": "tsc",
     "typings": "typings",
     "ngc": "ngc",
