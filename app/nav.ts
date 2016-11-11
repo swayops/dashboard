@@ -6,7 +6,8 @@ import { SearchData } from './utils';
 
 declare var $: any;
 
-const assignGameUpdateInterval = 60000 * 3; // 3 minutes
+const assignGameUpdateInterval = 15 * 1000;
+// 60000 * 3; // 3 minutes
 
 @Component({
 	selector: 'left-nav',
