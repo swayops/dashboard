@@ -1981,3 +1981,13 @@ input[type="file"] {
 	z-index: -1;
 }
 
+.center-widget .form-group .cc-parent > .grid-20 {
+	padding: 0;
+}
+
+.cc-sep {
+	line-height: 45px;
+	text-align: center;
+	font-size: 150%;
+	width: 6.5%;
+}
