@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
@@ -13,8 +13,7 @@ export class ManageBase extends HasAPI {
 
 	@Input() kw: string;
 
-	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
-		cb?: (resp, err?) => void) {
+	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string, cb?: (resp, err?) => void) {
 		super(api);
 
 		if (name[0] === '-') { // don't prefix the name with Manage

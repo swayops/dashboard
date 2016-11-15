@@ -10,7 +10,7 @@
 					<a href="#">
 						<li title="Live Chat with a Sway expert" class="info ttip"><span></span></li>
 					</a>
-					<a [routerLink]="['/billing']">
+					<a [routerLink]="['/mBilling', user.id]" *ngIf="user.advertiser">
 						<li title="View &amp; manage billing" class="card ttip"><span></span></li>
 					</a>
 				</ul>

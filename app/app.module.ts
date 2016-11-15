@@ -26,7 +26,7 @@ import { TalentsCmp } from './mTalents';
 import { AssignGameCmp } from './assignGame';
 import { CheckPayoutsCmp } from './checkPayouts';
 import { ResetPasswordCmp } from './resetPassword';
-
+import { ManageBillingCmp } from './mBilling';
 import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
 
 import { FormDlg } from './form';
@@ -119,6 +119,11 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'mBilling/:id',
+		component: ManageBillingCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'mTalentAgencies',
 		component: TalentAgenciesCmp,
 		canActivate: [AuthGuard],
@@ -181,6 +186,7 @@ export const ALL_ROUTES = [
 		LoginCmp,
 		ResetPasswordCmp,
 		ForgotPasswordCmp,
+		ManageBillingCmp,
 		NotFoundCmp,
 
 		HeaderCmp, FooterCmp, LeftNavCmp,

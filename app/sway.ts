@@ -111,7 +111,7 @@ export class Sway {
 	public handleError(err: Response): Observable<{}> {
 		let errData = err.json();
 		if ('target' in errData) {
-			errData = { status: 'error', msg: 'Connection Error'};
+			errData = { status: 'error', msg: 'Connection Error' };
 		}
 		this.error = errData;
 		if (this.error.code === 401) this.loginStatus = 2;
@@ -150,7 +150,7 @@ const authPages = {
 	adAgency: ['mAdvertisers', 'editProfile'],
 	talentAgency: ['mTalents', 'editProfile'],
 	advertiser: [
-		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting',
+		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting', 'mBilling',
 		'contentFeed', 'editProfile', 'shippingPerks',
 	],
 };
@@ -218,7 +218,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any> window).appSettings;
+		return (<any>window).appSettings;
 	}
 }
 
