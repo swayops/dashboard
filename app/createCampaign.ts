@@ -56,6 +56,10 @@ export class CreateCampaignCmp extends ManageBase {
 		this.api.Get('getCategories', resp => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
+		this.api.Get('billingInfo/' + this.id, resp => {
+			if (!resp.cc) return;
+			this.sidebar.lastFour = resp.cc.cardNumber;
+		});
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
 		if (this.opts.isEdit) {
@@ -126,10 +130,15 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	updateSidebar() {
+		let curBudget = 0;
 		setTimeout(() => {
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
+			if (this.data.budget !== 0 && this.data.budget !== curBudget) {
+				curBudget = this.data.budget;
+				this.api.Get('getProratedBudget/' + curBudget.toString(), resp => this.sidebar.totalCharge = resp.budget);
+			}
 
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
