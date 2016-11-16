@@ -47,6 +47,10 @@ export class MediaAgenciesCmp extends ManageBase {
 			error: 'Please provide a valid phone number.',
 		},
 		{
+			title: 'I/O:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.io',
+			adminOnly: true,
+		},
+		{
 			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.status',
 		},
 	];

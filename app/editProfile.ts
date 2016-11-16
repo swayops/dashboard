@@ -63,6 +63,11 @@ export class EditProfileCmp extends ManageBase {
 			this.endpoint = 'adAgency/' + u.id;
 			this.fields[1].name = 'adAgency.name';
 			this.fields[4].name = 'adAgency.status';
+			if (this.api.IsAsUser()) {
+				this.fields.push({
+					title: 'I/O:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.io',
+				});
+			}
 		}
 		if (u.talentAgency) {
 			this.endpoint = 'talentAgency/' + u.id;
