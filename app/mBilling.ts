@@ -62,7 +62,7 @@ export class ManageBillingCmp extends ManageBase {
 		}
 		if (typeof cc.cvc === 'number') cc.cvc = cc.cvc.toString();
 		if (cc.num) {
-			cc.cardNumber = cc.num.join('-');
+			cc.cardNumber = cc.num.join('');
 			cc.expYear = (parseInt(cc.expYear) - 2000).toString();
 			delete cc.num;
 		} else {
@@ -74,8 +74,9 @@ export class ManageBillingCmp extends ManageBase {
 	}
 
 	checkNext(evt: KeyboardEvent, next: HTMLElement) {
-		const key = evt.which - 48;
-		const val = (<HTMLInputElement> evt.target).value;
+		const key = evt.which - 48,
+			val = (<HTMLInputElement>evt.target).value;
+
 		if (key < 0 || key > 9 || val.length < 4) return;
 		next.focus();
 	}
