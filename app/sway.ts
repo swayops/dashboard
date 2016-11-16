@@ -204,6 +204,13 @@ export class HasAPI {
 	AddNotification(type: string, msg: any, timeout: number = null) {
 		if (timeout == null) timeout = 10000;
 		if (typeof msg === 'object' && 'msg' in msg) msg = msg.msg;
+		if (!msg) return;
+		if (msg[0] === '{') {
+			const rerr = JSON.parse(msg) || { message: 'Unknown error' };
+			if ('message' in rerr) {
+				msg = rerr.message;
+			}
+		}
 		allNotifications.push({ type, msg, timeout });
 	}
 
@@ -218,7 +225,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any>window).appSettings;
+		return (<any> window).appSettings;
 	}
 }
 

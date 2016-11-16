@@ -46,11 +46,11 @@ export class ManageBillingCmp extends ManageBase {
 			if (resp.status === 'success') {
 				this.AddNotification(resp.status, 'Successfully updated your credit card information.');
 			} else {
-				this.AddNotification(resp.status, this.getErrorMsg(resp));
+				this.AddNotification(resp.status, resp);
 			}
 			this.ScrollToTop();
 		}, err => {
-			this.AddNotification('error', this.getErrorMsg(err), 0);
+			this.AddNotification('error', err, 0);
 			this.ScrollToTop();
 			this.loading = false;
 		});
@@ -75,18 +75,10 @@ export class ManageBillingCmp extends ManageBase {
 
 	checkNext(evt: KeyboardEvent, next: HTMLElement) {
 		const key = evt.which - 48,
-			val = (<HTMLInputElement>evt.target).value;
+			val = (<HTMLInputElement> evt.target).value;
 
 		if (key < 0 || key > 9 || val.length < 4) return;
 		next.focus();
 	}
 
-	getErrorMsg(resp: any): string {
-		console.log(resp.msg, resp.msg.substr(0, 1));
-		if (resp.msg.substr(0, 1) === '{') {
-			const rerr = JSON.parse(resp.msg) || { message: 'Unknown error' };
-			return rerr.message;
-		}
-		return resp.msg;
-	}
 }
