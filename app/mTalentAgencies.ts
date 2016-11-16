@@ -9,8 +9,8 @@ import * as V from './validators';
 	selector: 'media-agencies',
 	templateUrl: './views/mTalentAgencies.html',
 })
-export class TalentAgenciesCmp  extends ManageBase {
-		public data = {
+export class TalentAgenciesCmp extends ManageBase {
+	public data = {
 		name: '',
 		parentId: null,
 		talentAgency: {
@@ -28,7 +28,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 			pattern: V.mailRe, error: 'Please provide a valid email address.',
 		},
 		{
-			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
+			title: 'Current Pass:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 			editOnly: true,
 		},
@@ -44,7 +44,7 @@ export class TalentAgenciesCmp  extends ManageBase {
 		},
 		{
 			title: 'Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'Fee', input: 'number',
-				name: 'talentAgency.fee', error: 'Please enter a number between 0.1 and 0.99',
+			name: 'talentAgency.fee', error: 'Please enter a number between 0.1 and 0.99',
 		},
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',

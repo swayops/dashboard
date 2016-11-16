@@ -13,7 +13,7 @@ import * as V from './validators';
 export class TalentsCmp extends ManageBase {
 	public inviteUrl: string;
 	public invModalButtons = [
-		{name: 'Back to manage users »', class: 'btn-small btn-green1'},
+		{ name: 'Back to manage users »', class: 'btn-small btn-green1' },
 	];
 
 	public data = {
@@ -36,7 +36,7 @@ export class TalentsCmp extends ManageBase {
 			readOnlyOnEdit: true,
 		},
 		{
-			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
+			title: 'Current Pass:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 			editOnly: true,
 		},

@@ -25,7 +25,7 @@ export class AdvertisersCmp extends ManageBase {
 			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'imageUrl',
 		},
 		{
-			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
+			title: 'Current Pass:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 			editOnly: true,
 		},
