@@ -67,26 +67,26 @@
 					&nbsp;
 				</div>
 				<div class="grid-50 mobile-grid-100 grid-parent">
-					<input name="zip" type="text" placeholder="Zip" class="form-control" [(ngModel)]="cc.zip" required minlength="5">
+					<input name="zip" type="text" (keypress)="numbersOnly($event)" placeholder="Zip" class="form-control" [(ngModel)]="cc.zip" required>
 					<br>
 					<br>
 				</div>
 
 				<div class="grid-100 mobile-grid-100 grid-parent cc-parent">
 					<div class="grid-20 mobile-grid-20">
-						<input #cc0 name="cc0" type="number" placeholder="1111" class="form-control" [(ngModel)]="cc.num[0]" required min="1000" max="9999" (keyup)="checkNext($event, cc1)" onfocus="this.select()">
+						<input #cc0 name="cc0" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[0]" required (keyup)="checkNext($event, cc1)" onfocus="this.select()">
 					</div>
 					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
 					<div class="grid-20 mobile-grid-20">
-						<input #cc1 name="cc1" type="number" placeholder="1111" class="form-control" [(ngModel)]="cc.num[1]" required min="1000" max="9999" (keyup)="checkNext($event, cc2)" onfocus="this.select()">
+						<input #cc1 name="cc1" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[1]" required (keyup)="checkNext($event, cc2)" onfocus="this.select()">
 					</div>
 					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
 					<div class="grid-20 mobile-grid-20">
-						<input #cc2 name="cc2" type="number" placeholder="1111" class="form-control" [(ngModel)]="cc.num[2]" required min="1000" max="9999" (keyup)="checkNext($event, cc3)" onfocus="this.select()">
+						<input #cc2 name="cc2" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[2]" required (keyup)="checkNext($event, cc3)" onfocus="this.select()">
 					</div>
 					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
 					<div class="grid-20 mobile-grid-20">
-						<input #cc3 name="cc3" type="number" placeholder="1111" class="form-control" [(ngModel)]="cc.num[3]" required min="1000" max="9999" onfocus="this.select()">
+						<input #cc3 name="cc3" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[3]" required onfocus="this.select()">
 					</div>
 					<div class="clearfix br"></div>
 				</div>
@@ -104,7 +104,7 @@
 					<br>
 				</div>
 				<div class="grid-40 mobile-grid-100 grid-parent">
-					<input name="cvc" type="number" placeholder="CVC" class="form-control" [(ngModel)]="cc.cvc" required min="100" max="9999">
+					<input name="cvc" type="text" placeholder="CVC" class="form-control" [(ngModel)]="cc.cvc" required (keypress)="numbersOnly($event)">
 				</div>
 				<div class="grid-10 mobile-grid-100 grid-parent">
 					&nbsp;

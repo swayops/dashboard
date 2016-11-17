@@ -75,10 +75,15 @@ export class ManageBillingCmp extends ManageBase {
 
 	checkNext(evt: KeyboardEvent, next: HTMLElement) {
 		const key = evt.which - 48,
-			val = (<HTMLInputElement> evt.target).value;
+			val = (<HTMLInputElement>evt.target).value;
 
 		if (key < 0 || key > 9 || val.length < 4) return;
 		next.focus();
+	}
+
+	numbersOnly(evt: KeyboardEvent) {
+		const key = evt.which - 48;
+		if (key < 0 || key > 9) evt.preventDefault();
 	}
 
 }
