@@ -63,7 +63,7 @@ export class EditProfileCmp extends ManageBase {
 			this.endpoint = 'adAgency/' + u.id;
 			this.fields[1].name = 'adAgency.name';
 			this.fields[4].name = 'adAgency.status';
-			if (this.api.IsAsUser()) {
+			if (this.api.IsAdmin()) {
 				this.fields.push({
 					title: 'I/O:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.io',
 				});
@@ -75,7 +75,7 @@ export class EditProfileCmp extends ManageBase {
 			this.fields[4].name = 'talentAgency.status';
 		}
 		if (u.advertiser) {
-			if (this.api.IsAsUser()) {
+			if (this.api.IsAdmin()) {
 				this.fields.push({ // only show to admins
 					title: 'DSP Fee:', pattern: /^0\.[1-9][0-9]?$/, placeholder: 'DSP Fee', input: 'number',
 					name: 'advertiser.dspFee', error: 'Please enter a number between 0.1 and 0.99',

@@ -78,8 +78,8 @@ export class Sway {
 		}, () => { /* ignore errors */ });
 	}
 
-	GoHome() {
-		const user = this.CurrentUser;
+	GoHome(goToParent = false) {
+		const user = goToParent ? this.User : this.CurrentUser;
 		if (user.admin) {
 			this.GoTo('/dashboard');
 		} else if (user.advertiser) {
@@ -140,8 +140,13 @@ export class Sway {
 	get User(): User { return this.mainUser; }
 	get CurrentUser(): User { return this.curUser || this.mainUser; }
 
-	IsAsUser(): boolean {
+	IsAdmin(): boolean {
 		return this.User.admin && !!this.curUser && this.User.id !== this.curUser.id;
+	}
+
+	IsAgency(): boolean {
+		const u = this.User;
+		return !!this.curUser && u.id !== this.curUser.id && !u.admin && (!!u.adAgency || !!u.talentAgency);
 	}
 }
 
@@ -160,14 +165,13 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
-			console.log(logged, this.api.error, this.api.CurrentUser, authPages[UserType(this.api.CurrentUser)]);
 			if (logged && (!this.api.error || this.api.error.code !== 401)) {
 				const user = this.api.CurrentUser;
 				if (user.admin) return true;
 
 				const userPages = authPages[UserType(user)] || [],
 					pageName = this.pageName(state.url);
-				console.log(pageName);
+
 				if (userPages.indexOf(pageName) > -1) return true;
 				if (user.adAgency && authPages.advertiser.indexOf(pageName) > -1) return true;
 			}
@@ -227,7 +231,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any> window).appSettings;
+		return (<any>window).appSettings;
 	}
 }
 

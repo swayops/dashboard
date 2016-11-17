@@ -77,13 +77,13 @@ export class ManageBase extends HasAPI {
 
 	CreateFields(flds: any[]): any[] {
 		return flds.filter(fld => {
-			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.editOnly;
+			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.editOnly;
 		});
 	}
 
 	EditFields(flds: any[]): any[] {
 		return flds.filter(fld => {
-			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.newOnly;
+			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.newOnly;
 		}).map(fld => {
 			if (!fld.reqNewOnly && !fld.readOnlyOnEdit) return fld;
 			const opts: any = {

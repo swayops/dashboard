@@ -2,7 +2,7 @@
 	<div class="grid-100 mobile-grid-100" id="header">
 		<div class="grid-30 mobile-grid-100">
 			<div class="grid-50 mobile-grid-50 grid-parent">
-				<a [routerLink]="['/dashboard']" id="logo" title="Home"><img src="/static/img/sway-ops-logo.png" /> <span>SWAY</span></a>
+				<a (click)="api.GoHome()" id="logo" title="Home"><img src="/static/img/sway-ops-logo.png" /> <span>SWAY</span></a>
 			</div>
 
 			<div class="grid-50 mobile-grid-50">
@@ -33,8 +33,8 @@
 				<a title="View support videos and more" class="ttip" href="//swayops.com/wiki/">
 					<span class="my-opt guides">Guides</span></a>
 			</div>
-			<div class="grid-40 mobile-grid-40 grid-parent" *ngIf="api.IsAsUser()">
-				<a [routerLink]="['/dashboard']" title="Return to the admin panel" class="ttip">
+			<div class="grid-40 mobile-grid-40 grid-parent" *ngIf="api.IsAdmin() || api.IsAgency()">
+				<a (click)="api.GoHome(true)" title="Return to the admin panel" class="ttip">
 					<span class="my-opt guides">Admin</span></a>
 			</div>
 
