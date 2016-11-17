@@ -19,19 +19,7 @@ export class ManageBillingCmp extends ManageBase {
 	public history: any[];
 	public loading = false;
 	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
-		super('billingInfo', 'Billing', title, api, route.snapshot.params['id'], resp => {
-			this.list = null;
-			if (!resp || !resp.cc || !resp.cc.cardNumber) {
-				this.cc.num = ['', '', '', ''];
-				this.isEditing = true;
-				return;
-			}
-			this.cc = Object.assign({}, resp.cc);
-			this.activeBalance = resp.activeBalance || 0;
-			this.inactiveBalance = resp.inactiveBalance || 0;
-			this.formatCC(this.cc);
-			this.history = resp.history;
-		});
+		super('billingInfo', 'Billing', title, api, route.snapshot.params['id'], resp => this.init(resp));
 	}
 
 	save(f: any) {
@@ -49,6 +37,7 @@ export class ManageBillingCmp extends ManageBase {
 				this.AddNotification(resp.status, resp);
 			}
 			this.ScrollToTop();
+			this.Reload(r => this.init(r));
 		}, err => {
 			this.AddNotification('error', err, 0);
 			this.ScrollToTop();
@@ -56,6 +45,19 @@ export class ManageBillingCmp extends ManageBase {
 		});
 	}
 
+	private init(resp: any) {
+		this.list = null;
+		if (!resp || !resp.cc || !resp.cc.cardNumber) {
+			this.cc.num = ['', '', '', ''];
+			this.isEditing = true;
+			return;
+		}
+		this.cc = Object.assign({}, resp.cc);
+		this.activeBalance = resp.activeBalance || 0;
+		this.inactiveBalance = resp.inactiveBalance || 0;
+		this.formatCC(this.cc);
+		this.history = resp.history;
+	}
 	private formatCC(cc: any) {
 		if (cc.expMonth) {
 			cc.expMonth = Pad(parseInt(cc.expMonth));
