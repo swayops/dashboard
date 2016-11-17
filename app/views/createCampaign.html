@@ -324,11 +324,11 @@
 		</li>
 		<li>
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p>
+				<p *ngIf="!!sidebar.lastFour">
 					<label>Bill to:</label> <span style="font-size: 10px;">****-****-****-{{sidebar.lastFour}}</span>
 				</p>
-				<p>
-					<label>Total charge:</label> ${{sidebar.totalCharge}}
+				<p *ngIf="!!sidebar.totalCharge">
+					<label>Total charge:</label> ${{sidebar.totalCharge.toFixed(2)}}
 				</p>
 			</div>
 		</li>

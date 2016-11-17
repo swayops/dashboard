@@ -135,9 +135,9 @@ export class CreateCampaignCmp extends ManageBase {
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
-			if (this.data.budget !== 0 && this.data.budget !== curBudget) {
+			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
-				this.api.Get('getProratedBudget/' + curBudget.toString(), resp => this.sidebar.totalCharge = resp.budget);
+				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
 			}
 
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
