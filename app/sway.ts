@@ -160,14 +160,16 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
+			console.log(logged, this.api.error, this.api.CurrentUser, authPages[UserType(this.api.CurrentUser)]);
 			if (logged && (!this.api.error || this.api.error.code !== 401)) {
 				const user = this.api.CurrentUser;
 				if (user.admin) return true;
 
 				const userPages = authPages[UserType(user)] || [],
 					pageName = this.pageName(state.url);
-
+				console.log(pageName);
 				if (userPages.indexOf(pageName) > -1) return true;
+				if (user.adAgency && authPages.advertiser.indexOf(pageName) > -1) return true;
 			}
 
 			this.api.redirectUrl = state.url;
