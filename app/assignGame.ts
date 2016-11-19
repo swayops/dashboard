@@ -33,8 +33,15 @@ export class AssignGameCmp extends HasAPI {
 			this.inf = null;
 			return;
 		}
-		const inf = this.incompleteInfs.shift();
-		inf.categories = inf.categories || {};
+		const inf = this.incompleteInfs.shift(),
+			cats = {};
+
+		if (Array.isArray(inf.categories)) {
+			for (let cat of inf.categories) cats[cat] = true;
+		}
+
+		inf.categories = cats;
+
 		if (inf.male && inf.female) {
 			inf.gender = 'unicorn';
 		} else if (inf.male) {
@@ -42,6 +49,7 @@ export class AssignGameCmp extends HasAPI {
 		} else if (inf.female) {
 			inf.gender = 'f';
 		}
+
 		this.inf = inf;
 	}
 
