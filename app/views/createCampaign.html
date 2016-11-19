@@ -325,10 +325,11 @@
 		<li>
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p *ngIf="!!sidebar.lastFour">
-					<label>Bill to:</label> <span style="font-size: 10px;">****-****-****-{{sidebar.lastFour}}</span>
+					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
 				</p>
 				<p *ngIf="!!sidebar.totalCharge">
-					<label>Total charge:</label> ${{sidebar.totalCharge.toFixed(2)}}
+					<label style="color:#04be5b;">Amount Due Today:</label> ${{sidebar.totalCharge.toFixed(2)}} <br/>
+					<small style="font-size: 10px;"><img src="/static/img/questionTooltip.png"> Note: Upon creation budgets are pro-rated based on the number of days remaining in the month. Your billing method on file will renew your monthly budget on the 1st of every month therafter.</small>
 				</p>
 			</div>
 		</li>

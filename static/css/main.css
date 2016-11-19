@@ -945,6 +945,29 @@ div#header .menu li:hover .sub-menu{
 	font-size	: 11px;
 }
 
+.amcharts-graph-g1 .amcharts-graph-stroke {
+  stroke-dasharray: 500%;
+  -webkit-animation: css-effect 10s ease-out forwards;
+  animation: css-effect 10s ease-out forwards;
+}
+
+@-webkit-keyframes css-effect {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+@keyframes css-effect {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+
 .statTile {
 	background: rgb(0, 0, 0); /* Fall-back for browsers that don't support rgba */
 	background: rgba(0, 0, 0, .05);
