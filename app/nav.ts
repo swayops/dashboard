@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked, ElementRef } from '@angular/core';
+import { Component, AfterViewChecked, ElementRef, Output } from '@angular/core';
 
 import { Sway, HasAPI, UserType } from './sway';
 
@@ -14,7 +14,7 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	public assignGameNum = 0;
+	@Output() public assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin

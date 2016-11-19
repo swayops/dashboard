@@ -49,9 +49,14 @@ export class AssignGameCmp extends HasAPI {
 		this.loading = true;
 		const id = this.inf.id,
 			data = {
-				categories: Object.keys(this.inf.categories),
+				categories: [],
 				gender: this.inf.gender,
 			};
+
+		for (let [k, v] of Object.entries(this.inf.categories)) {
+			if (v) data.categories.push(k);
+		}
+
 		this.api.Put('setAudit/' + id, data, resp => {
 			this.loading = false;
 			this.ScrollToTop();
