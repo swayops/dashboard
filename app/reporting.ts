@@ -24,15 +24,15 @@ export class ReportingCmp {
 			console.error('bad id');
 			return;
 		}
-		api.SetCurrentUser(this.id);
-		this.api.Get('getAdvertiserStats/' + this.id + '/7/0', data => this.curWeek = data.total || {});
-		this.api.Get('getAdvertiserStats/' + this.id + '/14/7', data => this.lastWeek = data.total || {});
-	}
-
-	ngOnInit() {
-		this.api.Get('getAdvertiserStats/' + this.id + '/30/0', data => {
-			this.lastMonth = data || {};
-			this.setGraph('engagements');
+		api.SetCurrentUser(this.id).then(_ => {
+			this.api.Get('getAdvertiserStats/' + this.id + '/7/0', data => this.curWeek = data.total || {});
+			this.api.Get('getAdvertiserStats/' + this.id + '/14/7', data => this.lastWeek = data.total || {});
+			this.api.Get('getAdvertiserStats/' + this.id + '/30/0', data => {
+				this.lastMonth = data || {};
+				this.setGraph('engagements');
+			});
+		}).catch(err => {
+			api.Logout();
 		});
 	}
 
@@ -41,7 +41,7 @@ export class ReportingCmp {
 			const data = this.lastMonth;
 			initChartData(Object.keys(data).map(k => {
 				if (k === 'total') return null;
-				return {date: k, value: data[k][key] || 0};
+				return { date: k, value: data[k][key] || 0 };
 			}).filter(v => !!v));
 		} catch (e) { console.error(e); }
 	}

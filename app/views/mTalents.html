@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let t of list | filter:FilterUsers">
-			<td class="align-left"><a href="{{ api.IsAsUser() ? settings.infAppUrl + '/forceLogin/' + t.id : networkUrl(t) }}" target="_blank">{{t.name}}</a></td>
+			<td class="align-left"><a href="{{ api.IsAdmin() ? settings.infAppUrl + '/forceLogin/' + t.id : networkUrl(t) }}" target="_blank">{{t.name}}</a></td>
 			<td>{{t.id}}</td>
 			<td title="Accepted: {{Num(t.activeDeals)}} | Completed: {{Num(t.completedDeals)}}" class="email ttip">
 				{{Num(t.activeDeals) + Num(t.completedDeals)}}
@@ -44,8 +44,7 @@
 <smart-form #edlg class="dialog" [fields]=editFields (onSave)="edit($event.data, $event.done)" title="Edit Talent"></smart-form>
 <modal title="Invite New Talent" #invModal>
 	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
-		<b>Use your invite code/ link to add new users into your talent roster! </b> When a user visits your link they will see
-		signup options that put them under your agency umbrella.
+		<b>Use your invite code/ link to add new users into your talent roster! </b> When a user visits your link they will see signup options that put them under your agency umbrella.
 	</div>
 	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
 		<h3 style="color:#d2335c;">Your invite code is ( <strong>{{ this.user.talentAgency?.inviteCode }}</strong> ):</h3>

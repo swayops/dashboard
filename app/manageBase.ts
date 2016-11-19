@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
@@ -13,8 +13,7 @@ export class ManageBase extends HasAPI {
 
 	@Input() kw: string;
 
-	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string,
-		cb?: (resp, err?) => void) {
+	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string, cb?: (resp, err?) => void) {
 		super(api);
 
 		if (name[0] === '-') { // don't prefix the name with Manage
@@ -26,7 +25,7 @@ export class ManageBase extends HasAPI {
 		title.setTitle('Sway :: ' + name);
 		if (id) {
 			if (this.apiEndpoint) this.apiEndpoint += '/' + id;
-			api.SetCurrentUser(id).then(_ => this.Reload(cb));
+			api.SetCurrentUser(id).then(_ => this.Reload(cb)).catch(_ => this.api.Logout());
 		} else {
 			this.Reload(cb);
 		}
@@ -78,13 +77,13 @@ export class ManageBase extends HasAPI {
 
 	CreateFields(flds: any[]): any[] {
 		return flds.filter(fld => {
-			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.editOnly;
+			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.editOnly;
 		});
 	}
 
 	EditFields(flds: any[]): any[] {
 		return flds.filter(fld => {
-			return !(fld.adminOnly && this.api.IsAsUser()) && !fld.newOnly;
+			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.newOnly;
 		}).map(fld => {
 			if (!fld.reqNewOnly && !fld.readOnlyOnEdit) return fld;
 			const opts: any = {

@@ -78,8 +78,8 @@ export class Sway {
 		}, () => { /* ignore errors */ });
 	}
 
-	GoHome() {
-		const user = this.CurrentUser;
+	GoHome(goToParent = false) {
+		const user = goToParent ? this.User : this.CurrentUser;
 		if (user.admin) {
 			this.GoTo('/dashboard');
 		} else if (user.advertiser) {
@@ -111,7 +111,7 @@ export class Sway {
 	public handleError(err: Response): Observable<{}> {
 		let errData = err.json();
 		if ('target' in errData) {
-			errData = { status: 'error', msg: 'Connection Error'};
+			errData = { status: 'error', msg: 'Connection Error' };
 		}
 		this.error = errData;
 		if (this.error.code === 401) this.loginStatus = 2;
@@ -140,8 +140,13 @@ export class Sway {
 	get User(): User { return this.mainUser; }
 	get CurrentUser(): User { return this.curUser || this.mainUser; }
 
-	IsAsUser(): boolean {
+	IsAdmin(): boolean {
 		return this.User.admin && !!this.curUser && this.User.id !== this.curUser.id;
+	}
+
+	IsAgency(): boolean {
+		const u = this.User;
+		return !!this.curUser && u.id !== this.curUser.id && !u.admin && (!!u.adAgency || !!u.talentAgency);
 	}
 }
 
@@ -150,7 +155,7 @@ const authPages = {
 	adAgency: ['mAdvertisers', 'editProfile'],
 	talentAgency: ['mTalents', 'editProfile'],
 	advertiser: [
-		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting',
+		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting', 'mBilling',
 		'contentFeed', 'editProfile', 'shippingPerks',
 	],
 };
@@ -168,6 +173,7 @@ export class AuthGuard implements CanActivate {
 					pageName = this.pageName(state.url);
 
 				if (userPages.indexOf(pageName) > -1) return true;
+				if (user.adAgency && authPages.advertiser.indexOf(pageName) > -1) return true;
 			}
 
 			this.api.redirectUrl = state.url;
@@ -204,6 +210,13 @@ export class HasAPI {
 	AddNotification(type: string, msg: any, timeout: number = null) {
 		if (timeout == null) timeout = 10000;
 		if (typeof msg === 'object' && 'msg' in msg) msg = msg.msg;
+		if (!msg) return;
+		if (msg[0] === '{') {
+			const rerr = JSON.parse(msg) || { message: 'Unknown error' };
+			if ('message' in rerr) {
+				msg = rerr.message;
+			}
+		}
 		allNotifications.push({ type, msg, timeout });
 	}
 
@@ -218,7 +231,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any> window).appSettings;
+		return (<any>window).appSettings;
 	}
 }
 

@@ -1,0 +1,131 @@
+<h2 class="heading">Manage billing &amp; payment options</h2>
+
+<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+	Welcome to your billing HQ. You can manage transactions, add new payment methods, and transfer inactive spend into your other campaigns.
+	<br>
+	<br>
+	<p><b>ACTIVE campaign budget: <span style="color:#23c466; font-size: 16px;">${{activeBalance.toFixed(2)}}</span> </b></p>
+	<p *ngIf="!!inactiveBalance">INACTIVE budget credit: <b>${{inactiveBalance.toFixed(2)}}</b> | What is this? This is the amount of currency USD, which resides inside of inactive or archived/ deleted campaigns you've previously made. When you create your next campaign, we will automatically draw from this inactive credit amount before we charge your payment method on file further.
+	</p>
+
+</div>
+
+<div class="grid-60 grid-parent">
+	<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+		<h3 style="color:#d2335c;">Manage payment options:</h3>
+		<p>
+			Please enter a preferred credit/ debit card to be charged when campaigns are created:
+			<br>
+		</p>
+		<div *ngIf="cc.cardNumber && !isEditing">
+			{{cc.firstName}} {{cc.lastName}}
+			<br> {{cc.address}}
+			<br> {{cc.city}}, {{cc.state}} {{cc.zip}}
+			<br>
+			<hr> ****-****-*****-{{cc.cardNumber}}
+			<br> {{cc.expMonth}} | {{cc.expYear}}
+			<br>
+
+			<small><a (click)="isEditing = true" title="Edit">edit billing info</a></small>
+		</div>
+		<form #f="ngForm" (ngSubmit)="save(f)" *ngIf="isEditing">
+			<div class="form-group">
+				<div class="grid-100 mobile-grid-100 grid-parent">
+					<input name="firstName" type="text" placeholder="First Name" class="form-control" [(ngModel)]="cc.firstName" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-100 mobile-grid-100 grid-parent">
+					<input name="lastName" type="text" placeholder="Last Name" class="form-control" [(ngModel)]="cc.lastName" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-100 mobile-grid-100 grid-parent">
+					<input name="address" type="text" placeholder="Street address" class="form-control" [(ngModel)]="cc.address" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-40 mobile-grid-100 grid-parent">
+					<input name="city" type="text" placeholder="City" class="form-control" [(ngModel)]="cc.city" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-10 mobile-grid-100 grid-parent">
+					&nbsp;
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent">
+					<input name="state" type="text" placeholder="State" class="form-control" [(ngModel)]="cc.state" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-40 mobile-grid-100 grid-parent">
+					<input name="country" type="text" placeholder="Country" class="form-control" [(ngModel)]="cc.country" required>
+					<br>
+					<br>
+				</div>
+				<div class="grid-10 mobile-grid-100 grid-parent">
+					&nbsp;
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent">
+					<input name="zip" type="text" (keypress)="numbersOnly($event)" placeholder="Zip" class="form-control" [(ngModel)]="cc.zip" required>
+					<br>
+					<br>
+				</div>
+
+				<div class="grid-100 mobile-grid-100 grid-parent cc-parent">
+					<div class="grid-20 mobile-grid-20">
+						<input #cc0 name="cc0" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[0]" required (keyup)="checkNext($event, cc1)" onfocus="this.select()">
+					</div>
+					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
+					<div class="grid-20 mobile-grid-20">
+						<input #cc1 name="cc1" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[1]" required (keyup)="checkNext($event, cc2)" onfocus="this.select()">
+					</div>
+					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
+					<div class="grid-20 mobile-grid-20">
+						<input #cc2 name="cc2" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[2]" required (keyup)="checkNext($event, cc3)" onfocus="this.select()">
+					</div>
+					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
+					<div class="grid-20 mobile-grid-20">
+						<input #cc3 name="cc3" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[3]" required onfocus="this.select()">
+					</div>
+					<div class="clearfix br"></div>
+				</div>
+				<div class="grid-40 mobile-grid-100 grid-parent">
+					<input name="expMonth" type="number" placeholder="Exp Month" class="form-control" [(ngModel)]="cc.expMonth" required min="1" max="12">
+					<br>
+					<br>
+				</div>
+				<div class="grid-10 mobile-grid-100 grid-parent">
+					&nbsp;
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent">
+					<input name="expYear" type="number" placeholder="Exp Year" class="form-control" [(ngModel)]="cc.expYear" required min="2017">
+					<br>
+					<br>
+				</div>
+				<div class="grid-40 mobile-grid-100 grid-parent">
+					<input name="cvc" type="text" placeholder="CVC" class="form-control" [(ngModel)]="cc.cvc" required (keypress)="numbersOnly($event)">
+				</div>
+				<div class="grid-10 mobile-grid-100 grid-parent">
+					&nbsp;
+				</div>
+				<div class="grid-50 mobile-grid-100 grid-parent">
+					<a href="https://swayops.com/wiki/cvc.php" target="_blank">Where is CVC/ CVV?</a>
+				</div>
+				<div class="grid-100 mobile-grid-100 grid-parent align-right">
+					<br>
+					<button class="btn btn-block btn-sm btn-green1" [disabled]="loading || !f.valid || f.pristine">Save payment info &#187;</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="grid-40 grid-parent">
+	<h3 style="color:#d2335c;">Billing history:</h3>
+	<p *ngFor="let ch of history">
+		<b>{{ch.created * 1000 | date}}</b> | {{ch.transactionID}}
+		<br> {{ch.id}} | {{ch.name}}
+		<br> Amount:
+		<span style="color:#23c466; font-size: 12px; font-weight: bold;">${{ (ch.amount / 100).toFixed(2) }}</span>
+	</p>
+</div>

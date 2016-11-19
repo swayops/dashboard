@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway } from './sway';
@@ -28,7 +28,7 @@ export class MediaAgenciesCmp extends ManageBase {
 			readOnlyOnEdit: true,
 		},
 		{
-			title: 'Current Password:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
+			title: 'Current Pass:', placeholder: 'Your current password', input: 'password', name: 'oldPass',
 			pattern: /^.{8,}$/, error: 'Your password must be at least 8 characters long.',
 			editOnly: true,
 		},
@@ -45,6 +45,10 @@ export class MediaAgenciesCmp extends ManageBase {
 		{
 			title: 'Phone:', pattern: V.phoneRe, placeholder: 'Your primary phone number', input: 'text', name: 'phone',
 			error: 'Please provide a valid phone number.',
+		},
+		{
+			title: 'I/O:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.io',
+			adminOnly: true,
 		},
 		{
 			title: 'Active:', placeholder: 'Deactivate your account?', toggle: true, name: 'adAgency.status',

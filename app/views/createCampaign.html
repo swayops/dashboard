@@ -35,12 +35,14 @@
 								</div>
 								<br>
 								<img-cropper #cropper [image]="cropData" [settings]="cropperSettings"></img-cropper>
-								<br><br>
+								<br>
+								<br>
 								<div style="float: right;">
 									<a href="javascript:" class="btn btn-block btn-xs btn-blue ghost" (click)="toggleImage(true)">Cancel</a>
 									<a href="javascript:" class="btn btn-block btn-xs btn-green1" (click)="toggleImage()">Save &amp; crop image &#187;</a>
 								</div>
-								<br><br>
+								<br>
+								<br>
 							</div>
 						</div>
 					</div>
@@ -60,17 +62,16 @@
 						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget"
-							required>
+						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget" required (change)="updateSidebar()">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						Task To Perform: <br/><a style="font-size:12px;" href="#">[Video Advice]</a>
+						Task To Perform:
+						<br/><a style="font-size:12px;" href="#">[Video Advice]</a>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my Monthly life. Checkout more upcoming items from #NIKE”"
-							[(ngModel)]="data.task" required [disabled]=opts.isEdit></textarea>
+						<textarea class="flat-textarea" name="task" placeholder="Post a photo or video of you and our product. An example caption could be: “I love using NIKE throughout my Monthly life. Checkout more upcoming items from #NIKE”" [(ngModel)]="data.task" required [disabled]=opts.isEdit></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -86,8 +87,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit"
-									required>
+								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit" required>
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -98,8 +98,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit"
-									required>
+								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit" required>
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -110,8 +109,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit"
-									required>
+								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit" required>
 							</div>
 						</div>
 
@@ -119,15 +117,16 @@
 				</div>
 			</div>
 
-			<br/><br/>
+			<br/>
+			<br/>
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">2. Targeting <span>*optional</span></h2>
 				<div class="onoffswitch targeting" data-for="toggle-targeting">
 					<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.social>
 					<label class="onoffswitch-label" for="targeting">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
 				</div>
 			</div>
 			<div class="content-toggle toggle-targeting">
@@ -179,22 +178,22 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
-							class="form-control" [disabled]=opts.isEdit>
+						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
 					</div>
 				</div>
 
 			</div>
 
-			<br/><br/>
+			<br/>
+			<br/>
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
 				<div class="onoffswitch influencers" data-for="toggle-influencers">
 					<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers" [checked]=opts.cats>
 					<label class="onoffswitch-label" for="influencers">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
 				</div>
 			</div>
 
@@ -231,26 +230,25 @@
 				</div>
 
 			</div>
-			<br/><br/>
+			<br/>
+			<br/>
 			<div class="field-set grid-100 grid-parent">
 				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 				<div class="onoffswitch perks" data-for="toggle-perks">
 					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks [disabled]=opts.isEdit>
 					<label class="onoffswitch-label" for="perks">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
 				</div>
 			</div>
 			<div class="content-toggle toggle-perks">
 
 				<div class="form-group">
 					<div class="grid-100 mobile-grid-100 grid-parent">
-						Which perks would you would like to give to each influencer:<br/>
-						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent
-							a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the
-							influencer to post with your product please mention it in the task description. Please let us know a little about
-							the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+						Which perks would you would like to give to each influencer:
+						<br/>
+						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer to post with your product please mention it in the task description. Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
 
 						<div class="form-group">
 							<div class="grid-20 mobile-grid-100 grid-parent">
@@ -265,8 +263,7 @@
 								Number of items:
 							</div>
 							<div class="grid-80 mobile-grid-100 grid-parent">
-								<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control"
-									name="perkCount" [disabled]=opts.isEdit>
+								<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount" [disabled]=opts.isEdit>
 							</div>
 						</div>
 
@@ -275,7 +272,8 @@
 
 			</div>
 
-			<br><br>
+			<br>
+			<br>
 			<div class="grid-50 mobile-grid-40 grid-parent">
 				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
 			</div>
@@ -283,7 +281,8 @@
 				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save &amp; Launch &#187;</button>
 			</div>
 		</form>
-		<br/><br/>
+		<br/>
+		<br/>
 	</div>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb">
@@ -295,33 +294,42 @@
 	<ul class="cat-status">
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Monthly Budget:</label> ${{data.budget || 0}}</p>
+				<p>
+					<label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
+				<p>
+					<label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
 			</div>
 		</li>
 		<li *ngIf=sidebar.geos>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Locations:</label> {{sidebar.geos}}</p>
+				<p>
+					<label>Locations:</label> {{sidebar.geos}}</p>
 			</div>
 		</li>
 		<li *ngIf=sidebar.networks>
 			<div class="grid-100 mobile-grid-100">
-				<p><label>Networks:</label> {{sidebar.networks}}</p>
+				<p>
+					<label>Networks:</label> {{sidebar.networks}}</p>
 			</div>
 		</li>
 		<li *ngIf=sidebar.categories>
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p><label>Influencer Groups:</label> {{sidebar.categories}}</p>
+				<p>
+					<label>Influencer Groups:</label> {{sidebar.categories}}</p>
 			</div>
 		</li>
 		<li>
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p><label>Bill to:</label> <span style="font-size: 10px;">****-****-****-</span>{{last4CC}}</p>
-				<p><label>Total charge:</label> {{aboutToBeCharged}}</p>
+				<p *ngIf="!!sidebar.lastFour">
+					<label>Bill to:</label> <span style="font-size: 10px;">****-****-****-{{sidebar.lastFour}}</span>
+				</p>
+				<p *ngIf="!!sidebar.totalCharge">
+					<label>Total charge:</label> ${{sidebar.totalCharge.toFixed(2)}}
+				</p>
 			</div>
 		</li>
 	</ul>
