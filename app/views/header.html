@@ -7,9 +7,7 @@
 
 			<div class="grid-50 mobile-grid-50">
 				<ul class="hdr-opts">
-					<a href="#">
-						<li onclick="Intercom('show')" title="Live Chat with a Sway expert" class="info ttip"><span></span></li>
-					</a>
+					<li onclick="Intercom('show')" title="Live Chat with a Sway expert" class="info ttip"><span></span></li>
 					<a [routerLink]="['/mBilling', user.id]" *ngIf="user.advertiser">
 						<li title="View &amp; manage billing" class="card ttip"><span></span></li>
 					</a>
