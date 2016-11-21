@@ -173,7 +173,6 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
-			console.log(state.url, UserType(this.api.CurrentUser));
 			if (logged && (!this.api.error || this.api.error.code !== 401)) {
 				const user = this.api.CurrentUser;
 				if (user.admin) return true;
@@ -239,11 +238,12 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any> window).appSettings;
+		return (<any>window).appSettings;
 	}
 }
 
 export function UserType(user): string {
+	if (!user) return '';
 	if (user.admin) return 'admin';
 	if (user.advertiser) return 'advertiser';
 	if (user.talentAgency) return 'talentAgency';
