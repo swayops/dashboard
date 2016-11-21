@@ -9,7 +9,7 @@ import { Sway } from './sway';
 })
 
 export class LoginCmp {
-	public form: any = {email: '', pass: ''};
+	public form: any = { email: '', pass: '' };
 	public loading = false;
 	public error: any;
 

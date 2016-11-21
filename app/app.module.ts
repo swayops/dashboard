@@ -8,7 +8,7 @@ import { AppComponent, NotFoundCmp } from './app';
 import { AuthGuard, Sway } from './sway';
 
 import { LoginCmp } from './login';
-// import { SignUpCmp } from './signup';
+import { SignUpCmp } from './signup';
 import { ForgotPasswordCmp } from './forgotPassword';
 
 import { DashboardCmp } from './dashboard';
@@ -142,10 +142,10 @@ export const ALL_ROUTES = [
 		path: 'login',
 		component: LoginCmp,
 	},
-	// {
-	// 	path: 'signup',
-	// 	component: SignUpCmp,
-	// },
+	{
+		path: 'signup',
+		component: SignUpCmp,
+	},
 	{
 		path: 'resetPassword/:token',
 		component: ResetPasswordCmp,
@@ -184,6 +184,7 @@ export const ALL_ROUTES = [
 		TalentsCmp,
 		CheckPayoutsCmp,
 		LoginCmp,
+		SignUpCmp,
 		ResetPasswordCmp,
 		ForgotPasswordCmp,
 		ManageBillingCmp,
