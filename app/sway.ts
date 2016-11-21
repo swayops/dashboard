@@ -39,7 +39,15 @@ export class Sway {
 	}
 
 	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void) {
-		return this.Post('signUp?autologin=true', info, data => this.router.navigate(['/dashboard']), onError);
+		return this.Post('signUp?autologin=true', info, data => {
+			return this.Get('user', user => {
+				this.mainUser = user;
+				this.redirectUrl = '';
+				this.OnLogin.emit(user);
+				this.GoHome();
+				this.loginStatus = 1;
+			}, onError);
+		}, onError);
 	}
 
 	ForgotPassword(data: any, onSuccess?: (data: any) => void, onError?: (err: any) => void) {
@@ -165,6 +173,7 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		return this.api.IsLoggedIn.map(logged => {
+			console.log(state.url, UserType(this.api.CurrentUser));
 			if (logged && (!this.api.error || this.api.error.code !== 401)) {
 				const user = this.api.CurrentUser;
 				if (user.admin) return true;
@@ -175,7 +184,6 @@ export class AuthGuard implements CanActivate {
 				if (userPages.indexOf(pageName) > -1) return true;
 				if (user.adAgency && authPages.advertiser.indexOf(pageName) > -1) return true;
 			}
-
 			this.api.redirectUrl = state.url;
 			this.router.navigate(['/login']);
 			return false;
@@ -231,7 +239,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any>window).appSettings;
+		return (<any> window).appSettings;
 	}
 }
 

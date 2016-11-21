@@ -1,6 +1,6 @@
 <form class="form" id="login" #f="ngForm" novalidate (ngSubmit)="Login()">
 	<div class="top">
-		<div class="grid-50 grid-parent">&nbsp;<!--<a [routerLink]="['/signup']" class="cr8-account" title="Create new account">Create New</a>--></div>
+		<div class="grid-50 grid-parent"><a [routerLink]="['/signup']" class="cr8-account" title="Create new account">Create New</a></div>
 		<div class="grid-50 grid-parent align-right"><a [routerLink]="['/forgotPassword']" class="forgot">Forgot Password?</a></div>
 		<div class="grid-100 grid-parent">
 			<h2>LOG IN</h2>
@@ -14,7 +14,8 @@
 		</div>
 		<div class="clearfix br"></div>
 		<div class="field-item password">
-			<input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="form.pass" required minlength="8"></div>
+			<input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="form.pass" required minlength="8">
+		</div>
 		<div *ngIf="error" class="notification error">
 			<p>{{error}}</p>
 		</div>
