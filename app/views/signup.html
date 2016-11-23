@@ -17,8 +17,8 @@
 			<div *ngIf="form.pass && form.pass.length < 8" class="notification error">Password requires at least 8 characters.</div>
 			<div *ngIf="f.valid && form.pass2 && form.pass != form.pass2" class="notification error">The passwords need to match.</div>
 			<div class="checkbox">
-				<input id="agreement" type="checkbox" name="agreement" [(ngModel)]="form.agreement">
-				<label for="agreement">I agree to the <a href="http://swayops.com/terms.html">Terms</a> AND <a href="http://swayops.com/privacy.html">privacy</a></label>
+				<input id="agreement" type="checkbox" name="agreement" [(ngModel)]="form.agreement" checked="">
+				<label for="agreement">I agree to the <a href="https://swayops.com/terms-policy-cookies.html" target="_blank">Terms</a> AND <a href="https://swayops.com/terms-policy-cookies.html" target="_blank">privacy</a></label>
 			</div>
 			<div *ngIf="error" class="notification error">
 				<p>{{error}}</p>
