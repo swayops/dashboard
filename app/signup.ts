@@ -8,7 +8,7 @@ import { Sway } from './sway';
 	templateUrl: './views/signup.html',
 })
 export class SignUpCmp {
-	public form: any = { name: '', email: '', pass: '', advertiser: {dspFee: 0.5, exchangeFee: 0.2} };
+	public form: any = { name: '', email: '', pass: '', advertiser: {dspFee: 0.2, exchangeFee: 0.2} };
 	public loading = false;
 	public error: any;
 
