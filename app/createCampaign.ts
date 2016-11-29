@@ -175,7 +175,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.api.Post('campaign', data, resp => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
-				if (data.perks) {
+				if (data.perks && data.perks.type === 1) {
 					this.api.GoTo('shippingPerks', this.id);
 				} else {
 					this.api.GoTo('mCampaigns', this.id);
