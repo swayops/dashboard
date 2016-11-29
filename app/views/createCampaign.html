@@ -235,7 +235,7 @@
 			<div class="field-set grid-100 grid-parent">
 				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 				<div class="onoffswitch perks" data-for="toggle-perks">
-					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]="!!data.perks" [disabled]=opts.isEdit>
+					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]="opts.perks" [disabled]=opts.isEdit>
 					<label class="onoffswitch-label" for="perks">
 						<span class="onoffswitch-inner"></span>
 						<span class="onoffswitch-switch"></span>
@@ -248,7 +248,15 @@
 						Which perks would you would like to give to each influencer:
 						<br/>
 						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer to post with your product please mention it in the task description.</p>
-						<!-- switch should be here -->
+						<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+							<div class="btn-toolbar toolbar-horizontal">
+								<div class="btn-group">
+									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 1" (click)="data.perks.type=1"><span class="fui-txt">Ship Physical Product</span></a>
+									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 2" (click)="data.perks.type=2"><span class="fui-txt">Give Coupons</span></a>
+								</div>
+							</div>
+						</div>
+						<br>
 						<div class="form-group" *ngIf="data.perks.type === 1">
 							<p>Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
 							<div class="form-group">

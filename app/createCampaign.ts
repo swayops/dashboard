@@ -201,7 +201,7 @@ export class CreateCampaignCmp extends ManageBase {
 			data.categories.forEach(v => out[v] = true);
 			return out;
 		})();
-		for (const k of ['tags', 'mention', 'link']) {
+		for (const k of ['tags', 'mention', 'link', 'perks']) {
 			this.opts[k] = !!data[k];
 		}
 		this.opts.social = data.twitter || data.instagram || data.facebook || data.youtube;
@@ -210,11 +210,13 @@ export class CreateCampaignCmp extends ManageBase {
 			img.src = data.imageUrl;
 			this.cropper.setImage(img);
 		}
-		if (!data.perks) data.perks = { name: '', count: 0 };
+		if (!data.perks) data.perks = { name: '', count: 0, type: 1 };
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
-
+		if (Array.isArray(data.perks.codes)) {
+			data.perks.codes = data.perks.codes.join(' ');
+		}
 		this.data = data;
 	}
 
@@ -243,6 +245,9 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		data.categories = cats;
+		if (data.perks.codes) {
+			data.perks.codes = data.perks.codes.split(/\s+/g);
+		}
 		if (data.perks.name === '') data.perks = null;
 		data.imageUrl = null;
 		data.imageData = this.cropData.image;
