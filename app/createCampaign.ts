@@ -153,6 +153,14 @@ export class CreateCampaignCmp extends ManageBase {
 		this.updateSidebar();
 	}
 
+	resetPerks(type: number) {
+		this.data.perks = {
+			name: '',
+			count: 0,
+			type: type,
+		};
+	}
+
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;
@@ -210,14 +218,15 @@ export class CreateCampaignCmp extends ManageBase {
 			img.src = data.imageUrl;
 			this.cropper.setImage(img);
 		}
-		if (!data.perks) data.perks = { name: '', count: 0, type: 1 };
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
+		this.data = data;
+
+		if (!data.perks) this.resetPerks(0);
 		if (Array.isArray(data.perks.codes)) {
 			data.perks.codes = data.perks.codes.join(' ');
 		}
-		this.data = data;
 	}
 
 	private getCmp(data: any): any {
@@ -246,7 +255,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		data.categories = cats;
 		if (data.perks.codes) {
-			data.perks.codes = data.perks.codes.split(/\s+/g);
+			data.perks.codes = data.perks.codes.split(/[\s,]+/g).filter(v => !!v.length);
 		}
 		if (data.perks.name === '') data.perks = null;
 		data.imageUrl = null;
