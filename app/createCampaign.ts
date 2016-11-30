@@ -153,6 +153,14 @@ export class CreateCampaignCmp extends ManageBase {
 		this.updateSidebar();
 	}
 
+	resetPerks(type: number) {
+		this.data.perks = {
+			name: '',
+			count: 0,
+			type: type,
+		};
+	}
+
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;
@@ -175,7 +183,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.api.Post('campaign', data, resp => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
-				if (data.perks) {
+				if (data.perks && data.perks.type === 1) {
 					this.api.GoTo('shippingPerks', this.id);
 				} else {
 					this.api.GoTo('mCampaigns', this.id);
@@ -201,7 +209,7 @@ export class CreateCampaignCmp extends ManageBase {
 			data.categories.forEach(v => out[v] = true);
 			return out;
 		})();
-		for (const k of ['tags', 'mention', 'link']) {
+		for (const k of ['tags', 'mention', 'link', 'perks']) {
 			this.opts[k] = !!data[k];
 		}
 		this.opts.social = data.twitter || data.instagram || data.facebook || data.youtube;
@@ -210,12 +218,15 @@ export class CreateCampaignCmp extends ManageBase {
 			img.src = data.imageUrl;
 			this.cropper.setImage(img);
 		}
-		if (!data.perks) data.perks = { name: '', count: 0 };
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
-
 		this.data = data;
+
+		if (!data.perks) this.resetPerks(0);
+		if (Array.isArray(data.perks.codes)) {
+			data.perks.codes = data.perks.codes.join(' ');
+		}
 	}
 
 	private getCmp(data: any): any {
@@ -243,6 +254,9 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		data.categories = cats;
+		if (data.perks.codes) {
+			data.perks.codes = data.perks.codes.split(/[\s,]+/g).filter(v => !!v.length);
+		}
 		if (data.perks.name === '') data.perks = null;
 		data.imageUrl = null;
 		data.imageData = this.cropData.image;

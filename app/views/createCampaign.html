@@ -235,7 +235,7 @@
 			<div class="field-set grid-100 grid-parent">
 				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 				<div class="onoffswitch perks" data-for="toggle-perks">
-					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]=opts.perks [disabled]=opts.isEdit>
+					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]="opts.perks" [disabled]=opts.isEdit>
 					<label class="onoffswitch-label" for="perks">
 						<span class="onoffswitch-inner"></span>
 						<span class="onoffswitch-switch"></span>
@@ -243,30 +243,65 @@
 				</div>
 			</div>
 			<div class="content-toggle toggle-perks">
-
 				<div class="form-group">
 					<div class="grid-100 mobile-grid-100 grid-parent">
 						Which perks would you would like to give to each influencer:
 						<br/>
-						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer to post with your product please mention it in the task description. Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
-
-						<div class="form-group">
-							<div class="grid-20 mobile-grid-100 grid-parent">
-								Perk Name:
-							</div>
-							<div class="grid-80 mobile-grid-100 grid-parent">
-								<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName" [disabled]=opts.isEdit>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="grid-20 mobile-grid-100 grid-parent">
-								Number of items:
-							</div>
-							<div class="grid-80 mobile-grid-100 grid-parent">
-								<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount" [disabled]=opts.isEdit>
+						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer to post with your product please mention it in the task description.</p>
+						<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
+							<div class="btn-toolbar toolbar-horizontal">
+								<div class="btn-group">
+									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 1" (click)="resetPerks(1)"><span class="fui-txt">Ship Physical Product</span></a>
+									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 2" (click)="resetPerks(2)"><span class="fui-txt">Give Coupons</span></a>
+								</div>
 							</div>
 						</div>
-
+						<br>
+						<div class="form-group" *ngIf="data.perks.type === 1">
+							<p>Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+							<div class="form-group">
+								<div class="grid-20 mobile-grid-100 grid-parent">
+									Perk Name:
+								</div>
+								<div class="grid-80 mobile-grid-100 grid-parent">
+									<input type="text" [(ngModel)]="data.perks.name" placeholder="My product name..." class="form-control" name="perkName" [disabled]=opts.isEdit>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="grid-20 mobile-grid-100 grid-parent">
+									Number of items:
+								</div>
+								<div class="grid-80 mobile-grid-100 grid-parent">
+									<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount" [disabled]=opts.isEdit>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" *ngIf="data.perks.type === 2">
+							<div class="form-group">
+								<div class="grid-20 mobile-grid-100 grid-parent">
+									Coupon Name:
+								</div>
+								<div class="grid-80 mobile-grid-100 grid-parent">
+									<input type="text" [(ngModel)]="data.perks.name" placeholder="My coupon name..." class="form-control" name="perkName" [disabled]=opts.isEdit>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="grid-20 mobile-grid-100 grid-parent">
+									Codes:
+								</div>
+								<div class="grid-80 mobile-grid-100 grid-parent">
+									<textarea [(ngModel)]="data.perks.codes" placeholder="Coupon codes, separated by a comma, space or newline" class="form-control" name="perkCodes" [disabled]=opts.isEdit></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="grid-20 mobile-grid-100 grid-parent">
+									Instructions:
+								</div>
+								<div class="grid-80 mobile-grid-100 grid-parent">
+									<textarea [(ngModel)]="data.perks.instructions" placeholder="Instructions for using the coupon" class="form-control" name="perkInstr" [disabled]=opts.isEdit></textarea>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -328,7 +363,8 @@
 					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
 				</p>
 				<p *ngIf="!!sidebar.totalCharge">
-					<label style="color:#04be5b;">Amount Due Today:</label> ${{sidebar.totalCharge.toFixed(2)}} <br/>
+					<label style="color:#04be5b;">Amount Due Today:</label> ${{sidebar.totalCharge.toFixed(2)}}
+					<br/>
 					<small style="font-size: 10px;"><img src="/static/img/questionTooltip.png"> Note: Upon creation budgets are pro-rated based on the number of days remaining in the month. Your billing method on file will renew your monthly budget on the 1st of every month therafter.</small>
 				</p>
 			</div>
