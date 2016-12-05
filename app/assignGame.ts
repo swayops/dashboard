@@ -1,5 +1,5 @@
 // AssignGame
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
@@ -14,16 +14,16 @@ export class AssignGameCmp extends HasAPI {
 	public categories = [];
 	public loading = false;
 
-	public inf: any;
+	@Output() public inf: any;
 
 	constructor(title: Title, public api: Sway) {
 		super(api);
 		title.setTitle('Assign Game');
 		this.api.Get('getCategories', resp => {
-			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat) ); // sort by name
+			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 		this.api.Get('getIncompleteInfluencers', resp => {
-			this.incompleteInfs = (resp || []).sort((a, b) => NumCmp(a.id, b.id));
+			this.incompleteInfs = (resp || []).filter(hasSocial).sort((a, b) => NumCmp(a.id, b.id));
 			if (resp && resp.length) this.next();
 		});
 	}
@@ -89,4 +89,8 @@ export class AssignGameCmp extends HasAPI {
 			this.AddNotification('error', err.msg);
 		});
 	}
+}
+
+function hasSocial(inf: any): boolean {
+	return inf && (inf.facebookUrl || inf.instagramUrl || inf.twitterUrl || inf.youtubeUrl);
 }
