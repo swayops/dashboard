@@ -1,5 +1,5 @@
 // AssignGame
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Sway, HasAPI } from './sway';
@@ -14,7 +14,7 @@ export class AssignGameCmp extends HasAPI {
 	public categories = [];
 	public loading = false;
 
-	public inf: any;
+	@Output() public inf: any;
 
 	constructor(title: Title, public api: Sway) {
 		super(api);
@@ -90,7 +90,6 @@ export class AssignGameCmp extends HasAPI {
 		});
 	}
 }
-
 
 function hasSocial(inf: any): boolean {
 	return inf && (inf.facebookUrl || inf.instagramUrl || inf.twitterUrl || inf.youtubeUrl);
