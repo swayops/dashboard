@@ -154,6 +154,36 @@ export class CreateCampaignCmp extends ManageBase {
 		});
 		this.geoSel.on('change', _ => this.updateSidebar());
 		this.updateSidebar();
+
+		$(function () {
+			let iid, lastScrollTop;
+
+			function a() {
+				let scrollTop = $(window).scrollTop();
+				if (lastScrollTop === scrollTop) return;
+
+				lastScrollTop = scrollTop;
+
+				let mainTop = $('div[three-column]').offset().top,
+					ele = $('.right-sb');
+				if (scrollTop > mainTop) {
+					scrollTop -= mainTop - 10;
+				} else {
+					scrollTop = 0;
+				}
+
+				ele.css({ marginTop: scrollTop });
+			}
+
+			iid = setInterval(function () {
+				if (!$('create-campaign').length) {
+					clearInterval(iid);
+					return;
+				}
+				a();
+			}, 100);
+			a();
+		});
 	}
 
 	resetPerks(type: number) {
