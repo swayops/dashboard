@@ -86,7 +86,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	toggleImage(cancel?: boolean) {
 		document.getElementById('selImage').classList.toggle('visible');
-		this.updateSidebar();
+		// this.updateSidebar();
 		if (cancel) {
 			this.cropData.image = null;
 			this.cropData.original = new Image();
@@ -309,7 +309,8 @@ export class CreateCampaignCmp extends ManageBase {
 		// Link, @mention, #hashtag, network, product photo
 		if (!d.mention && !d.link && !d.tags) reqs.push('link or @mention or #hashtag');
 		if (!networks.filter(n => !!d[n.toLowerCase()]).length) reqs.push('network');
-		if (!d.imageData && !d.imageUrl && !this.cropData || !this.cropData.image) reqs.push('product photo');
+		// leaving this because it will be needed sooner or later
+		// if (!d.imageData && !d.imageUrl && !this.cropData || !this.cropData.image) reqs.push('product photo');
 		return reqs;
 	}
 
