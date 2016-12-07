@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -33,9 +33,11 @@ export class CreateCampaignCmp extends ManageBase {
 		},
 	};
 
-	public sidebar: any = {
+	@Output() sidebar: any = {
 		errors: [],
 	};
+
+	@Output() public forecast: any = {};
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -84,6 +86,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	toggleImage(cancel?: boolean) {
 		document.getElementById('selImage').classList.toggle('visible');
+		// this.updateSidebar();
 		if (cancel) {
 			this.cropData.image = null;
 			this.cropData.original = new Image();
@@ -127,19 +130,23 @@ export class CreateCampaignCmp extends ManageBase {
 			this.data.categories[c.cat] = v;
 		}
 		chk.checked = v;
+		this.updateSidebar('category');
 	}
 
-	updateSidebar() {
+	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
-			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
+			const cats = this.data.categories;
+			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
+
+			this.sidebar.reqs = this.getReqs(this.data).join(', ');
+			this.sidebar.categories = Object.keys(cats).filter(k => cats[k]).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
 			}
-
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
@@ -150,7 +157,40 @@ export class CreateCampaignCmp extends ManageBase {
 			allowClear: true,
 			width: '100%',
 		});
-		this.updateSidebar();
+		this.geoSel.on('select2:select', _ => this.updateSidebar('geo'));
+		this.geoSel.on('select2:unselect', _ => this.updateSidebar('geo'));
+		this.updateSidebar('init');
+
+		$(function () {
+			let iid, lastScrollTop;
+
+			function a() {
+				let scrollTop = $(window).scrollTop();
+				if (lastScrollTop === scrollTop) return;
+
+				lastScrollTop = scrollTop;
+
+				let mainTop = $('div[three-column]').offset().top,
+					winWidth = $(window).width(),
+					ele = $('.right-sb');
+				if (winWidth > 768 && scrollTop > mainTop) {
+					scrollTop -= mainTop - 10;
+				} else {
+					scrollTop = 0;
+				}
+
+				ele.css({ marginTop: scrollTop });
+			}
+
+			iid = setInterval(function () {
+				if (!$('create-campaign').length) {
+					clearInterval(iid);
+					return;
+				}
+				a();
+			}, 100);
+			a();
+		});
 	}
 
 	resetPerks(type: number) {
@@ -263,6 +303,21 @@ export class CreateCampaignCmp extends ManageBase {
 
 		return data;
 	}
+
+	private getReqs(d: any): string[] {
+		const reqs = [];
+		// Link, @mention, #hashtag, network, product photo
+		if (!d.mention && !d.link && !d.tags) reqs.push('link, @mention or #hashtag');
+		if (!networks.filter(n => !!d[n.toLowerCase()]).length) reqs.push('network');
+		// leaving this because it will be needed sooner or later
+		// if (!d.imageData && !d.imageUrl && !this.cropData || !this.cropData.image) reqs.push('product photo');
+		return reqs;
+	}
+
+	updateForecast() {
+		const data = this.getCmp(this.data);
+		this.api.Post('getForecast', data, resp => this.forecast = resp || {});
+	}
 }
 
 function getCheckbox(evt: any) {
@@ -297,3 +352,5 @@ const categoryImages = {
 };
 
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
+
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category']; // add budget to the list eventually

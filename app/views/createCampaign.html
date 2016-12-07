@@ -62,7 +62,7 @@
 						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget" required (change)="updateSidebar()">
+						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget" required (change)="updateSidebar('budget')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -87,7 +87,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit" required>
+								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -98,7 +98,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit" required>
+								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -109,7 +109,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit" required>
+								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 
@@ -136,16 +136,16 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" [disabled]=opts.isEdit>
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="instagram">Instagram</label>
 
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" [disabled]=opts.isEdit>
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="twitter">Twitter</label>
 
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" [disabled]=opts.isEdit>
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="youtube">YouTube</label>
 
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" [disabled]=opts.isEdit>
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="facebook">Facebook</label>
 						</div>
 					</div>
@@ -156,10 +156,10 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female">
+							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female" (change)="updateSidebar('gender')">
 							<label for="female">Female</label>
 
-							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male">
+							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male" (change)="updateSidebar('gender')">
 							<label for="male">Male</label>
 						</div>
 					</div>
@@ -178,7 +178,7 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
+						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" (blur)="!!data.whitelist && updateForecast()" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
 					</div>
 				</div>
 
@@ -216,7 +216,7 @@
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar()">
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar('category')">
 									<label [attr.for]="c.cat"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
@@ -320,11 +320,12 @@
 		<br/>
 	</div>
 </div>
-<div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb">
+<div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb" style="transition: margin-top 200ms ease-out;">
 	<div class="est-reach">
-		<p>Pre-launch</p>
+		<p>MAX REACH</p>
 		<h3></h3>
-		<p>Cliff Notes</p>
+		<p class="normal">{{forecast.reach | fmtNum:'0' }} Fans</p>
+		<p class="normal">{{forecast.influencers | fmtNum:'0' }} Influencers</p>
 	</div>
 	<ul class="cat-status">
 		<li>
@@ -333,10 +334,10 @@
 					<label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
-		<li>
+		<li *ngIf="sidebar.reqs">
 			<div class="grid-100 mobile-grid-100">
 				<p>
-					<label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
+					<label>Requirements:</label> {{sidebar.reqs}}</p>
 			</div>
 		</li>
 		<li *ngIf=sidebar.geos>
