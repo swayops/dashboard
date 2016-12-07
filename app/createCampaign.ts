@@ -135,8 +135,10 @@ export class CreateCampaignCmp extends ManageBase {
 	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
+			const cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
-			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
+
+			this.sidebar.categories = Object.keys(cats).filter(k => cats[k]).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
