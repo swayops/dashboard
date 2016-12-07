@@ -129,11 +129,13 @@ export class CreateCampaignCmp extends ManageBase {
 			this.data.categories[c.cat] = v;
 		}
 		chk.checked = v;
+		this.updateSidebar('category');
 	}
 
 	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
+			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
@@ -141,7 +143,6 @@ export class CreateCampaignCmp extends ManageBase {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
 			}
-			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
@@ -152,7 +153,8 @@ export class CreateCampaignCmp extends ManageBase {
 			allowClear: true,
 			width: '100%',
 		});
-		this.geoSel.on('change', _ => this.updateSidebar('geo'));
+		this.geoSel.on('select2:select', _ => this.updateSidebar('geo'));
+		this.geoSel.on('select2:unselect', _ => this.updateSidebar('geo'));
 		this.updateSidebar('init');
 
 		$(function () {
