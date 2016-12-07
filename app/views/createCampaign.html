@@ -87,7 +87,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit" required>
+								<input type="text" name="tags" placeholder="#hashtag1, #hashtag2, etc..." class="form-control" [(ngModel)]="data.tags" [disabled]="!opts.tags || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -98,7 +98,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit" required>
+								<input type="text" name="mention" placeholder="@myBrand" class="form-control" [(ngModel)]="data.mention" [disabled]="!opts.mention || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 						<div class="grid-40 mobile-grid-100 grid-parent">
@@ -109,7 +109,7 @@
 						</div>
 						<div class="grid-60 mobile-grid-100 grid-parent">
 							<div class="form-group">
-								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit" required>
+								<input type="text" name="link" placeholder="The link you wish to promote" class="form-control" [(ngModel)]="data.link" [disabled]="!opts.link || opts.isEdit" required (change)="updateSidebar()">
 							</div>
 						</div>
 
@@ -334,10 +334,10 @@
 					<label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
-		<li>
+		<li *ngIf="sidebar.reqs">
 			<div class="grid-100 mobile-grid-100">
 				<p>
-					<label>Requirements:</label> Link, @mention, #hashtag, network, product photo</p>
+					<label>Requirements:</label> {{sidebar.reqs}}</p>
 			</div>
 		</li>
 		<li *ngIf=sidebar.geos>

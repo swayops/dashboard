@@ -86,6 +86,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	toggleImage(cancel?: boolean) {
 		document.getElementById('selImage').classList.toggle('visible');
+		this.updateSidebar();
 		if (cancel) {
 			this.cropData.image = null;
 			this.cropData.original = new Image();
@@ -138,6 +139,7 @@ export class CreateCampaignCmp extends ManageBase {
 			const cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
 
+			this.sidebar.reqs = this.getReqs(this.data).join(', ');
 			this.sidebar.categories = Object.keys(cats).filter(k => cats[k]).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
@@ -300,6 +302,15 @@ export class CreateCampaignCmp extends ManageBase {
 		data.imageData = this.cropData.image;
 
 		return data;
+	}
+
+	private getReqs(d: any): string[] {
+		const reqs = [];
+		// Link, @mention, #hashtag, network, product photo
+		if (!d.mention && !d.link && !d.tags) reqs.push('link or @mention or #hashtag');
+		if (!networks.filter(n => !!d[n.toLowerCase()]).length) reqs.push('network');
+		if (!d.imageData && !d.imageUrl && !this.cropData || !this.cropData.image) reqs.push('product photo');
+		return reqs;
 	}
 
 	updateForecast() {
