@@ -62,7 +62,7 @@
 						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget" required (change)="updateSidebar()">
+						<input type="number" min="150" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget" required (change)="updateSidebar('budget')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -136,16 +136,16 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" [disabled]=opts.isEdit>
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="instagram">Instagram</label>
 
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" [disabled]=opts.isEdit>
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="twitter">Twitter</label>
 
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" [disabled]=opts.isEdit>
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="youtube">YouTube</label>
 
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" [disabled]=opts.isEdit>
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
 							<label for="facebook">Facebook</label>
 						</div>
 					</div>
@@ -156,10 +156,10 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female">
+							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female" (change)="updateSidebar('gender')">
 							<label for="female">Female</label>
 
-							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male">
+							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male" (change)="updateSidebar('gender')">
 							<label for="male">Male</label>
 						</div>
 					</div>
@@ -216,7 +216,7 @@
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar()">
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar('category')">
 									<label [attr.for]="c.cat"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />

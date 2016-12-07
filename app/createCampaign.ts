@@ -131,7 +131,7 @@ export class CreateCampaignCmp extends ManageBase {
 		chk.checked = v;
 	}
 
-	updateSidebar() {
+	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
 			this.sidebar.categories = Object.keys(this.data.categories || {}).join(', ');
@@ -141,7 +141,7 @@ export class CreateCampaignCmp extends ManageBase {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
 			}
-			this.updateForecast();
+			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
@@ -152,8 +152,8 @@ export class CreateCampaignCmp extends ManageBase {
 			allowClear: true,
 			width: '100%',
 		});
-		this.geoSel.on('change', _ => this.updateSidebar());
-		this.updateSidebar();
+		this.geoSel.on('change', _ => this.updateSidebar('geo'));
+		this.updateSidebar('init');
 
 		$(function () {
 			let iid, lastScrollTop;
@@ -336,3 +336,5 @@ const categoryImages = {
 };
 
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
+
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category']; // add budget to the list eventually
