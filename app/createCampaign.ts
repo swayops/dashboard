@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -33,9 +33,11 @@ export class CreateCampaignCmp extends ManageBase {
 		},
 	};
 
-	public sidebar: any = {
+	@Output() sidebar: any = {
 		errors: [],
 	};
+
+	@Output() public forecast: any = {};
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -139,7 +141,7 @@ export class CreateCampaignCmp extends ManageBase {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
 			}
-
+			this.updateForecast();
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
@@ -150,6 +152,7 @@ export class CreateCampaignCmp extends ManageBase {
 			allowClear: true,
 			width: '100%',
 		});
+		this.geoSel.on('change', _ => this.updateSidebar());
 		this.updateSidebar();
 	}
 
@@ -262,6 +265,11 @@ export class CreateCampaignCmp extends ManageBase {
 		data.imageData = this.cropData.image;
 
 		return data;
+	}
+
+	updateForecast() {
+		const data = this.getCmp(this.data);
+		this.api.Post('getForecast', data, resp => this.forecast = resp || {});
 	}
 }
 

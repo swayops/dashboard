@@ -2141,6 +2141,11 @@ div#header #logo {
 	font-family: "Roboto Condensed";
 }
 
+.est-reach p.normal {
+	font-size: 20px;
+	text-transform: none;
+}
+
 
 /*.right-sb{}*/
 

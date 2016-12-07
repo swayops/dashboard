@@ -178,7 +178,7 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
+						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" (blur)="!!data.whitelist && updateForecast()" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
 					</div>
 				</div>
 
@@ -322,9 +322,10 @@
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb">
 	<div class="est-reach">
-		<p>Pre-launch</p>
+		<p>MAX REACH</p>
 		<h3></h3>
-		<p>Cliff Notes</p>
+		<p class="normal">{{forecast.reach | fmtNum }} Fans</p>
+		<p class="normal">{{forecast.influencers | fmtNum }} Influencers</p>
 	</div>
 	<ul class="cat-status">
 		<li>
