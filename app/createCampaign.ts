@@ -165,8 +165,9 @@ export class CreateCampaignCmp extends ManageBase {
 				lastScrollTop = scrollTop;
 
 				let mainTop = $('div[three-column]').offset().top,
+					winWidth = $(window).width(),
 					ele = $('.right-sb');
-				if (scrollTop > mainTop) {
+				if (winWidth > 768 && scrollTop > mainTop) {
 					scrollTop -= mainTop - 10;
 				} else {
 					scrollTop = 0;
