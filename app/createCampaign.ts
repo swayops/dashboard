@@ -222,8 +222,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		this.kwsSel = $('select.kws').select2({
 			data: kwData,
-			placeholder: 'Enter keywords to target influencers by the genre of content their posts often contain.' +
-			'IE: Snowboarding, Boats, Beauty, etc.',
+			placeholder: 'Type a keyword to see availability',
 			allowClear: true,
 			width: '100%',
 		});
