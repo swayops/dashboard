@@ -1,4 +1,4 @@
-import { Component, ViewChild, Output } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -31,6 +31,7 @@ export class CreateCampaignCmp extends ManageBase {
 			name: '',
 			count: 0,
 		},
+		keywords: [],
 	};
 
 	@Output() sidebar: any = {
@@ -50,6 +51,10 @@ export class CreateCampaignCmp extends ManageBase {
 	public cropData: any = {};
 
 	private geoSel;
+	private kwsSel;
+	public hasKeywords = false;
+
+	private onCampaignLoaded: EventEmitter<any> = new EventEmitter();
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
@@ -58,10 +63,20 @@ export class CreateCampaignCmp extends ManageBase {
 		this.api.Get('getCategories', resp => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
+
+		this.api.Get('getKeywords', resp => {
+			if (!resp || !resp.keywords || !resp.keywords) resp = { keywords: [] };
+			this.initKeywords(resp.keywords);
+			this.onCampaignLoaded.subscribe(v => {
+				this.kwsSel.val(v.keywords).change();
+			});
+		});
+
 		this.api.Get('billingInfo/' + this.id, resp => {
 			if (!resp.cc) return;
 			this.sidebar.lastFour = resp.cc.cardNumber;
 		});
+
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
 		if (this.opts.isEdit) {
@@ -143,6 +158,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.sidebar.categories = Object.keys(cats).filter(k => cats[k]).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
+			this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
@@ -151,14 +167,7 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	ngAfterViewInit() {
-		this.geoSel = $('select.geo').select2({
-			data: CountriesAndStates,
-			placeholder: 'Select a Country or a State',
-			allowClear: true,
-			width: '100%',
-		});
-		this.geoSel.on('select2:select', _ => this.updateSidebar('geo'));
-		this.geoSel.on('select2:unselect', _ => this.updateSidebar('geo'));
+		this.initGeo();
 		this.updateSidebar('init');
 
 		$(function () {
@@ -191,6 +200,36 @@ export class CreateCampaignCmp extends ManageBase {
 			}, 100);
 			a();
 		});
+	}
+
+	private initGeo() {
+		this.geoSel = $('select.geo').select2({
+			data: CountriesAndStates,
+			placeholder: 'Select a Country or a State',
+			allowClear: true,
+			width: '100%',
+		});
+		this.geoSel.on('select2:select', _ => this.updateSidebar('geo'));
+		this.geoSel.on('select2:unselect', _ => this.updateSidebar('geo'));
+	}
+
+	private initKeywords(kws: any) {
+		const kwData = [];
+
+		for (let k of kws) {
+			kwData.push({ id: k, text: k });
+		}
+
+		this.kwsSel = $('select.kws').select2({
+			data: kwData,
+			placeholder: 'Enter keywords to target influencers by the genre of content their posts often contain.' +
+			'IE: Snowboarding, Boats, Beauty, etc.',
+			allowClear: true,
+			width: '100%',
+		});
+		this.kwsSel.on('select2:select', _ => this.updateSidebar('kws'));
+		this.kwsSel.on('select2:unselect', _ => this.updateSidebar('kws'));
+		this.hasKeywords = true;
 	}
 
 	resetPerks(type: number) {
@@ -267,6 +306,8 @@ export class CreateCampaignCmp extends ManageBase {
 		if (Array.isArray(data.perks.codes)) {
 			data.perks.codes = data.perks.codes.join(' ');
 		}
+
+		this.onCampaignLoaded.emit(data);
 	}
 
 	private getCmp(data: any): any {
@@ -286,6 +327,8 @@ export class CreateCampaignCmp extends ManageBase {
 			if (parts.length === 2) ret.state = parts[1];
 			return ret;
 		});
+
+		data.keywords = this.kwsSel.val();
 
 		const cats = [];
 
@@ -353,4 +396,5 @@ const categoryImages = {
 
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category']; // add budget to the list eventually
+// add budget to the list eventually
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category', 'kws'];
