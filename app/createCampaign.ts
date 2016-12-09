@@ -157,7 +157,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.sidebar.categories = Object.keys(cats).filter(k => cats[k]).join(', ');
 			this.sidebar.networks = networks.filter(n => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map(k => CountriesAndStatesRev[k]).join(', ');
-			this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
+			if (this.kwsSel) this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
 				this.api.Get('getProratedBudget/' + curBudget, resp => this.sidebar.totalCharge = resp.budget);
@@ -325,7 +325,7 @@ export class CreateCampaignCmp extends ManageBase {
 			return ret;
 		});
 
-		data.keywords = this.kwsSel.val();
+		if (this.kwsSel) data.keywords = this.kwsSel.val();
 
 		const cats = [];
 
