@@ -52,7 +52,6 @@ export class CreateCampaignCmp extends ManageBase {
 
 	private geoSel;
 	private kwsSel;
-	public hasKeywords = false;
 
 	private onCampaignLoaded: EventEmitter<any> = new EventEmitter();
 
@@ -228,7 +227,6 @@ export class CreateCampaignCmp extends ManageBase {
 		});
 		this.kwsSel.on('select2:select', _ => this.updateSidebar('kws'));
 		this.kwsSel.on('select2:unselect', _ => this.updateSidebar('kws'));
-		this.hasKeywords = true;
 	}
 
 	resetPerks(type: number) {
