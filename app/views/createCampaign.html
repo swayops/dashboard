@@ -166,13 +166,21 @@
 				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png" /></span>
+						<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png"></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<select multiple="multiple" class="geo form-control multiselect multiselect-info"></select>
 					</div>
 				</div>
-				<br/>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Enter keywords to target influencers by the genre of content their posts often contain. IE: Snowboarding, Boats, Beauty, etc. Please select multiple keywords to expand the reach of your campaign.">Keywords: <img src="/static/img/questionTooltip.png"></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<select multiple="multiple" class="kws form-control multiselect multiselect-info"></select>
+					</div>
+				</div>
+				<br>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
@@ -356,6 +364,12 @@
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p>
 					<label>Influencer Groups:</label> {{sidebar.categories}}</p>
+			</div>
+		</li>
+		<li *ngIf=sidebar.keywords>
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p>
+					<label>Keywords:</label> {{sidebar.keywords}}</p>
 			</div>
 		</li>
 		<li>
