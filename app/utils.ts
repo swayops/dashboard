@@ -39,6 +39,9 @@ export class FormatNumberPipe implements PipeTransform {
 	transform(ns: string, def = '0'): string {
 		const n = parseFloat(ns);
 		if (n === 0 || isNaN(n)) return def;
+		if (n >= 1e9) {
+			return trimNumber(n / 1e9) + 'B';
+		}
 		if (n >= 1e6) {
 			return trimNumber(n / 1e6) + 'M';
 		}
