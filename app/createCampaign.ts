@@ -64,7 +64,7 @@ export class CreateCampaignCmp extends ManageBase {
 		});
 
 		this.api.Get('getKeywords', resp => {
-			if (!resp || !resp.keywords || !resp.keywords) resp = { keywords: [] };
+			if (!resp || !resp.keywords) resp = { keywords: [] };
 			this.initKeywords(resp.keywords);
 			this.onCampaignLoaded.subscribe(v => {
 				this.kwsSel.val(v.keywords).change();
@@ -288,15 +288,22 @@ export class CreateCampaignCmp extends ManageBase {
 		for (const k of ['tags', 'mention', 'link', 'perks']) {
 			this.opts[k] = !!data[k];
 		}
-		this.opts.social = data.twitter || data.instagram || data.facebook || data.youtube;
 		if (data.imageUrl) {
 			const img = new Image();
 			img.src = data.imageUrl;
 			this.cropper.setImage(img);
 		}
+
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
+			this.opts.targeting = !!data.geos.length;
 		}
+
+		if (!this.opts.targeting) {
+			const hasSocial = data.twitter || data.instagram || data.facebook || data.youtube;
+			this.opts.targeting = hasSocial || !!data.male || !data.female || !!data.whitelist || !!data.keywords;
+		}
+
 		this.data = data;
 
 		if (!data.perks) this.resetPerks(0);

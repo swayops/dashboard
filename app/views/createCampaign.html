@@ -7,7 +7,7 @@
 					<div class="onoffswitch status" data-for="toggle-status">
 						<input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" [(ngModel)]="data.status">
 						<label class="onoffswitch-label" for="status">
-							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-inner showhide"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
 					</div>
@@ -122,9 +122,9 @@
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">2. Targeting <span>*optional</span></h2>
 				<div class="onoffswitch targeting" data-for="toggle-targeting">
-					<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.social>
+					<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting" [checked]=opts.targeting>
 					<label class="onoffswitch-label" for="targeting">
-						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-inner showhide"></span>
 						<span class="onoffswitch-switch"></span>
 					</label>
 				</div>
@@ -199,7 +199,7 @@
 				<div class="onoffswitch influencers" data-for="toggle-influencers">
 					<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers" [checked]=opts.cats>
 					<label class="onoffswitch-label" for="influencers">
-						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-inner showhide"></span>
 						<span class="onoffswitch-switch"></span>
 					</label>
 				</div>
@@ -245,7 +245,7 @@
 				<div class="onoffswitch perks" data-for="toggle-perks">
 					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [checked]="opts.perks" [disabled]=opts.isEdit>
 					<label class="onoffswitch-label" for="perks">
-						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-inner showhide"></span>
 						<span class="onoffswitch-switch"></span>
 					</label>
 				</div>

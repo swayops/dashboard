@@ -2460,12 +2460,20 @@ div#header #logo {
 	color: #FFFFFF;
 }
 
+.onoffswitch-inner.showhide:before {
+	content: "SHOW";
+}
+
 .onoffswitch-inner:after {
 	content: "OFF";
 	padding-right: 15px;
 	background-color: #cad3df;
 	color: #fff;
 	text-align: right;
+}
+
+.onoffswitch-inner.showhide:after {
+	content: "HIDE";
 }
 
 .onoffswitch-switch {
