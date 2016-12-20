@@ -230,6 +230,7 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	resetPerks(type: number) {
+		if (this.opts.isEdit) return;
 		this.data.perks = {
 			name: '',
 			count: 0,
@@ -309,7 +310,12 @@ export class CreateCampaignCmp extends ManageBase {
 		this.data = data;
 
 		if (data.perks) {
-			$('#perks').click();
+			if (this.opts.isEdit) {
+				$('#perks').prop('checked', true);
+				$('.toggle-perks').show();
+			} else {
+				$('#perks').click();
+			}
 		}
 
 		if (!data.perks) this.resetPerks(0);
