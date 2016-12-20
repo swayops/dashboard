@@ -279,7 +279,9 @@ export class CreateCampaignCmp extends ManageBase {
 		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
 
 		if (!Array.isArray(data.categories)) data.categories = [];
-		this.opts.cats = !!data.categories.length;
+		if (!!data.categories.length) {
+			$('#influencers').click();
+		}
 		data.categories = (function () { // convert categories to an object
 			const out = {};
 			data.categories.forEach(v => out[v] = true);
@@ -296,21 +298,25 @@ export class CreateCampaignCmp extends ManageBase {
 
 		if (Array.isArray(data.geos)) {
 			this.geoSel.val(data.geos.map(v => v.state ? v.country + '-' + v.state : v.country)).change();
-			this.opts.targeting = !!data.geos.length;
 		}
 
-		if (!this.opts.targeting) {
-			const hasSocial = data.twitter || data.instagram || data.facebook || data.youtube;
-			this.opts.targeting = hasSocial || !!data.male || !data.female || !!data.whitelist || !!data.keywords;
+		const hasSocial = data.twitter || data.instagram || data.facebook || data.youtube;
+		if (hasSocial || !!data.male || !data.female || !!data.whitelist || !!data.keywords || !!data.geos) {
+			// you didn't see this, move on. - A Sith Lord.
+			$('#targeting').click();
 		}
 
 		this.data = data;
+
+		if (data.perks) {
+			$('#perks').click();
+		}
 
 		if (!data.perks) this.resetPerks(0);
 		if (Array.isArray(data.perks.codes)) {
 			data.perks.codes = data.perks.codes.join(' ');
 		}
-
+		$
 		this.onCampaignLoaded.emit(data);
 	}
 
