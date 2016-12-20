@@ -230,7 +230,7 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	resetPerks(type: number) {
-		if (this.opts.isEdit) return;
+		if (this.opts.isEdit && this.data.perks) return;
 		this.data.perks = {
 			name: '',
 			count: 0,
@@ -322,7 +322,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (Array.isArray(data.perks.codes)) {
 			data.perks.codes = data.perks.codes.join(' ');
 		}
-		$
+
 		this.onCampaignLoaded.emit(data);
 	}
 
