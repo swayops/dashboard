@@ -7,7 +7,7 @@ import { ManageBase } from './manageBase';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
-import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp } from './utils';
+import { CountriesAndStates, CountriesAndStatesRev, AlphaCmp, PersistentEventEmitter } from './utils';
 
 declare var $: any;
 
@@ -53,7 +53,7 @@ export class CreateCampaignCmp extends ManageBase {
 	private geoSel;
 	private kwsSel;
 
-	private onCampaignLoaded: EventEmitter<any> = new EventEmitter();
+	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
