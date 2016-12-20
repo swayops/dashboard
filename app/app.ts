@@ -97,19 +97,10 @@ export class AppComponent extends HasAPI {
 		});
 
 		$('.onoffswitch').click(function () {
-			let cls = $(this).attr('data-for');
-			if ($(this).find('input').is(':checked')) {
+			const cls = $(this).attr('data-for'),
+				inp = $(this).find('input');
+			if (inp.is(':checked') && !inp.is(':disabled')) {
 				$('.' + cls).slideToggle();
-			}
-			if (cls === 'toggle-perks') {
-				if ($('#perks').prop('checked')) {
-					$('#perk').prop('checked', true);
-					$('.perkLink').show();
-				} else {
-
-					$('#perk').prop('checked', false);
-					$('.perkLink').hide();
-				}
 			}
 		});
 
