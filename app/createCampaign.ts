@@ -80,7 +80,10 @@ export class CreateCampaignCmp extends ManageBase {
 		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
 		if (this.opts.isEdit) {
 			const cid = route.snapshot.params['cid'];
-			this.api.Get('campaign/' + cid, resp => this.setCmp(resp));
+			this.api.Get('campaign/' + cid, resp => {
+				this.setCmp(resp);
+				this.updateSidebar('init');
+			});
 		}
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
@@ -167,8 +170,6 @@ export class CreateCampaignCmp extends ManageBase {
 
 	ngAfterViewInit() {
 		this.initGeo();
-		this.updateSidebar('init');
-
 		$(function () {
 			let iid, lastScrollTop;
 
@@ -199,6 +200,7 @@ export class CreateCampaignCmp extends ManageBase {
 			}, 100);
 			a();
 		});
+		this.updateSidebar('init');
 	}
 
 	private initGeo() {

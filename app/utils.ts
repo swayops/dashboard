@@ -122,10 +122,10 @@ export class PersistentEventEmitter<T> {
 	}
 
 	emit(data: T) {
+		this.data = data;
 		for (let cb of this.callbacks) {
 			cb(this.data);
 		}
-		this.data = data;
 		this.completed = true;
 		this.callbacks = null;
 	}
