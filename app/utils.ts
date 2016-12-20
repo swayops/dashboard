@@ -105,6 +105,32 @@ export function CancelEvent(evt: Event) {
 	evt.preventDefault();
 }
 
+
+// this is a simple event emitter than ensures that any callbacks passed to subscribe will always be called.
+export class PersistentEventEmitter<T> {
+	private callbacks: { (arg: T): void }[] = [];
+	private completed: boolean;
+	private data: T;
+	constructor() { /* */ }
+
+	subscribe(cb: (arg: T) => void) {
+		if (this.completed) {
+			cb(this.data);
+		} else {
+			this.callbacks.push(cb);
+		}
+	}
+
+	emit(data: T) {
+		for (let cb of this.callbacks) {
+			cb(this.data);
+		}
+		this.data = data;
+		this.completed = true;
+		this.callbacks = null;
+	}
+}
+
 // used https://github.com/substack/provinces/blob/master/provinces.json for state names
 
 export const SearchData = {
