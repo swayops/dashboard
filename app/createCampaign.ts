@@ -170,7 +170,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	ngAfterViewInit() {
 		this.initGeo();
-		$(function () {
+		$(() => {
 			let iid, lastScrollTop;
 
 			function a() {
@@ -191,7 +191,7 @@ export class CreateCampaignCmp extends ManageBase {
 				ele.css({ marginTop: scrollTop });
 			}
 
-			iid = setInterval(function () {
+			iid = setInterval(() => {
 				if (!$('create-campaign').length) {
 					clearInterval(iid);
 					return;
