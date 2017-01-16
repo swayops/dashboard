@@ -186,7 +186,7 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" (blur)="!!data.whitelist && updateForecast()" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [disabled]=opts.isEdit>
+						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" (blur)="!!data.whitelist && updateForecast()" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
 					</div>
 				</div>
 
@@ -278,7 +278,7 @@
 									Number of items:
 								</div>
 								<div class="grid-80 mobile-grid-100 grid-parent">
-									<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount" [disabled]=opts.isEdit>
+									<input type="number" [(ngModel)]="data.perks.count" placeholder="How many perks do you plan on sending?" class="form-control" name="perkCount">
 								</div>
 							</div>
 						</div>
@@ -296,7 +296,7 @@
 									Codes:
 								</div>
 								<div class="grid-80 mobile-grid-100 grid-parent">
-									<textarea [(ngModel)]="data.perks.codes" placeholder="Coupon codes, separated by a comma, space or newline" class="form-control" name="perkCodes" [disabled]=opts.isEdit></textarea>
+									<textarea [(ngModel)]="data.perks.codes" placeholder="Coupon codes, separated by a comma, space or newline" class="form-control" name="perkCodes"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
