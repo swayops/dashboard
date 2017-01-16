@@ -1,5 +1,5 @@
 <h2 class="heading">
-	Have You Received All Perks For These Campaigns?</h2>
+	Are the campaigns approved? And have You Received All Perks For These Campaigns?</h2>
 <form style="width:250px; float:right;">
 	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
 </form>
@@ -9,22 +9,24 @@
 <table class="tbl">
 	<thead>
 		<tr>
-			<th class="align-left">Perk Name</th>
-			<th>ID</th>
-			<th>Agency ID</th>
+			<th>Name</th>
+			<th>Campaign ID</th>
 			<th>Adv ID</th>
+			<th>Agency ID</th>
+			<th class="align-left">Perk Name</th>
 			<th># of Items</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let perk of list | filter:FilterUsers">
-			<td class="align-left">{{perk.perks?.name}}</td>
+			<td>{{perk.name}}</td>
 			<td>{{perk.id}}</td>
-			<td>{{perk.agencyId}}</td>
 			<td>{{perk.advertiserId}}</td>
-			<td>{{perk.perks?.count}}</td>
-			<td><a class="btn btn-green1 btn-micro ghost" (click)=received(perk.id)>Received</a></td>
+			<td>{{perk.agencyId}}</td>
+			<td>{{perk.perks?.name || 'N/A'}}</td>
+			<td>{{perk.perks?.count || 0 }}</td>
+			<td><a class="btn btn-green1 btn-micro ghost" (click)=received(perk.id)>Approved</a></td>
 		</tr>
 
 	</tbody>
