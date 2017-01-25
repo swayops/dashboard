@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
 import * as V from './validators';
 
 @Component({
@@ -16,7 +16,7 @@ export class TalentAgenciesCmp extends ManageBase {
 		talentAgency: {
 			status: true,
 			fee: 0.2,
-		}
+		},
 	};
 	public fields = [
 		{
@@ -63,7 +63,7 @@ export class TalentAgenciesCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', data, resp => {
+		this.api.Post('signUp', data, (resp) => {
 			let msg = resp.msg;
 			if (resp.status === 'success') {
 				msg = 'Agency ' + data.name + '(' + resp.id + ') was created successfully!';
@@ -71,18 +71,18 @@ export class TalentAgenciesCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});
 	}
 
 	edit = (data, done) => {
-		this.api.Put('talentAgency/' + data.id, data, resp => {
+		this.api.Put('talentAgency/' + data.id, data, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});

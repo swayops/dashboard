@@ -1,7 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Output } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
-
 import { HasAPI, Sway, UserType } from './sway';
 
 import { SearchData } from './utils';
