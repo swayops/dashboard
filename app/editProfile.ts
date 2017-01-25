@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
-import { Sway } from './sway';
-import { ManageBase } from './manageBase';
 import { FormDlg } from './form';
+import { ManageBase } from './manageBase';
+import { Sway } from './sway';
 import * as V from './validators';
 
 @Component({
@@ -17,11 +17,11 @@ export class EditProfileCmp extends ManageBase {
 
 	public fields: any[] = [
 		{
-			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'imageUrl',
-		},
-		{
 			title: 'Account Name:', placeholder: 'Your brand or name', input: 'text', name: 'name', req: true,
 			pattern: /^..+$/, error: 'Please provide a name',
+		},
+		{
+			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'imageUrl',
 		},
 		{
 			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
@@ -84,6 +84,8 @@ export class EditProfileCmp extends ManageBase {
 			this.endpoint = 'advertiser/' + u.id;
 			this.fields[1].name = 'advertiser.name';
 			this.fields[4].name = 'advertiser.status';
+
+			this.dlg.showManageUsers = this.api.IsAdmin() || u.parentId === '2';
 		}
 		if (u.inf) {
 			this.fields.push(
@@ -112,14 +114,29 @@ export class EditProfileCmp extends ManageBase {
 	}
 
 	save = (data, done) => {
-		this.api.Put(this.endpoint, data, resp => {
+		this.api.Put(this.endpoint, data, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated your profile' : resp.msg, 5000);
 			this.api.GoHome();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg, 0);
 			this.ScrollToTop();
 			this.loading = false;
 			done();
 		});
+	}
+
+	planName(id: number): string {
+		switch (id) {
+			case 0:
+				return 'None';
+			case 1:
+				return 'HyperLocal';
+			case 2:
+				return 'Premium';
+			case 2:
+				return 'Enterprise';
+			default:
+				return '';
+		}
 	}
 }

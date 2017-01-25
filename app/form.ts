@@ -1,12 +1,8 @@
-import { Component, EventEmitter, Input, Output, ElementRef, ViewChild } from '@angular/core';
-
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
-
-import { CancelEvent } from './utils';
-
+import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 import { ModalEvent } from './modal';
+import { CancelEvent } from './utils';
 
 // TODO major clean up
 @Component({
@@ -19,6 +15,7 @@ export class FormDlg {
 
 	@Input() value: Object; // setting value automatically shows the form, YMMV
 	@Input() title: string;
+	@Input() showManageUsers: boolean;
 	@Input() fields: ControlOption[];
 	@Input() saveLabel = 'Save »';
 	@Input() cancelLabel = 'Back';
@@ -31,7 +28,7 @@ export class FormDlg {
 
 	public imgButtons = [
 		{ name: 'Cancel', class: 'btn-blue ghost' },
-		{ name: 'Save & crop image »', class: 'btn-info', click: evt => this.setImage(evt) },
+		{ name: 'Save & crop image »', class: 'btn-info', click: (evt) => this.setImage(evt) },
 	];
 
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
@@ -76,7 +73,7 @@ export class FormDlg {
 
 	rebind() {
 		const binders = {};
-		this.fields.forEach(fld => binders[fld.name] = new Binder(this.data, fld));
+		this.fields.forEach((fld) => binders[fld.name] = new Binder(this.data, fld));
 		this.binders = binders;
 	}
 
@@ -123,7 +120,7 @@ export class FormDlg {
 			ctl.classList.add('req');
 		}
 
-		for (let [k, v] of Object.entries(fld.attrs || {})) {
+		for (const [k, v] of Object.entries(fld.attrs || {})) {
 			ctl.setAttribute(k, v);
 		}
 	}
@@ -160,7 +157,7 @@ export class FormDlg {
 		if (this.loading) return false;
 
 		let hasErrors = false;
-		Object.keys(this.binders).forEach(k => {
+		Object.keys(this.binders).forEach((k) => {
 			if (hasErrors) return;
 			const v = this.binders[k];
 			hasErrors = (v.fld.req && v.value === '') || v.error != null;
@@ -206,7 +203,7 @@ class Binder {
 	public touched: boolean;
 
 	constructor(public data: Object, public fld: ControlOption) {
-		let parts = fld.name.split('.'),
+		const parts = fld.name.split('.'),
 			lastKey = parts[parts.length - 1];
 		for (let i = 0; i < parts.length - 1; i++) {
 			const k = parts[i];
