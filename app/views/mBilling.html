@@ -7,7 +7,60 @@
 	<p><b>ACTIVE campaign budget: <span style="color:#23c466; font-size: 16px;">${{activeBalance.toFixed(2)}}</span> </b></p>
 	<p *ngIf="!!inactiveBalance">INACTIVE budget credit: <b>${{inactiveBalance.toFixed(2)}}</b> | What is this? This is the amount of currency USD, which resides inside of inactive or archived/ deleted campaigns you've previously made. When you create your next campaign, we will automatically draw from this inactive credit amount before we charge your payment method on file further.
 	</p>
+	<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="!!user.advertiser && user.parentId === '2'">
+		<div style="background-color: #ecf0f1; padding: 15px; border-radius: 10px;">
+			<div class="grid-50 mobile-grid-50 grid-parent" *ngIf="canChangePlans">
+				<h4>Hyper Local <span style="color:#d2335c;" *ngIf="planID === 1">Current Plan</span></h4>
+				<p>
+					- 1 user login
+					<br> - Use influencers with up to 50,000 followers
+					<br> - Use influencers on Instagram
+					<br> - Giveout coupon perks
+					<br> - Target influencers in the USA
+					<br>
+				</p>
+				<h4>Total Price: $150 /mo</h4>
+				<a *ngIf="planID === 1" style="color: #C0C0C0;" (click)="setPlan(0)"><span class="fui-cross-circle"></span> Deactivate access</a>
+				<a *ngIf="planID > 1" style="color: #C0C0C0;" (click)="setPlan(1)"><span class="fui-triangle-down-small"></span> Downgrade to Hyper-Local access</a>
+				<button *ngIf="planID < 1" class="btn btn-block btn-sm btn-green1" (click)="setPlan(1)"><span class="fui-plus-circle"></span> Upgrade Access</button>
+				<br>
+				<br>
+			</div>
+			<div class="grid-50 mobile-grid-50 grid-parent" *ngIf="canChangePlans">
+				<h4><span class="fui-star-2"></span> Premium <span style="color:#d2335c;" *ngIf="planID === 2">Current Plan</span></h4>
+				<p>
+					- <b>5</b> user logins
+					<br> - Use influencers with up to <b>1 million followers</b>
+					<br> - Use influencers on Instagram, <b>YouTube, FB, Twitter</b>
+					<br> - Giveout coupon perks &amp; <b>physical goods</b>
+					<br> - Target influencers in the <b>USA, Canada, EU</b>
+					<br>
+				</p>
+				<h4>Total Price: $500 /mo</h4>
+				<a *ngIf="planID === 2" style="color: #C0C0C0;" (click)="setPlan(0)"><span class="fui-cross-circle"></span> Deactivate access</a>
+				<a *ngIf="planID > 2" style="color: #C0C0C0;" (click)="setPlan(2)"><span class="fui-triangle-down-small"></span> Downgrade to Premium access</a>
+				<button *ngIf="planID < 2" class="btn btn-block btn-sm btn-green1" (click)="setPlan(2)"><span class="fui-plus-circle"></span> Upgrade Access</button>
+				<br>
+				<br>
+			</div>
+			<div class="grid-50 mobile-grid-50 grid-parent" *ngIf="planID === 3">
+				<h4><span class="fui-star-2"></span> Enterprise <span style="color:#d2335c;" *ngIf="planID === 3">Current Plan</span></h4>
+				<p>- No restrictions</p>
+				<br>
+				<br>
+			</div>
+			<div class="clearfix"></div>
+			<br/>
+			<div align="middle" *ngIf="canSetEnterprise">
+				<input type="number" #price style="width: 150px; height: 38px" class="form-control" placeholder="Price, ex: 1000">
+				<button class="btn btn-block btn-sm btn-green1" (click)="setPlan(3, price.value)" [disabled]="loading || price.value < 500"><span class="fui-plus-circle"></span> Set Enterprise Plan</button>
+			</div>
+			<div align="middle">Need even more power? <a href="#">Get in touch</a> with us to discuss our enterprise options.
+				<br>
+			</div>
+		</div>
 
+	</div>
 </div>
 
 <div class="grid-60 grid-parent">

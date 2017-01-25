@@ -66,12 +66,12 @@ export class Sway {
 		return this.req('put', ep, payload).subscribe((data) => onResp(data), onErr);
 	}
 
-	SetCurrentUser(id?: string): Promise<User> {
+	SetCurrentUser(id: string = null, force: boolean = false): Promise<User> {
 		if (id == null) {
 			this.curUser = null;
 			return Promise.resolve(this.mainUser);
 		}
-		if (id === this.CurrentUser.id) {
+		if (id === this.CurrentUser.id && !force) {
 			return Promise.resolve(this.CurrentUser);
 		}
 		return new Promise((resolve, reject) => {

@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway, HasAPI } from './sway';
+import { HasAPI, Sway } from './sway';
 
 import { FilterByProps, SortBy } from './utils';
 
@@ -25,7 +25,7 @@ export class ManageBase extends HasAPI {
 		title.setTitle('Sway :: ' + name);
 		if (id) {
 			if (this.apiEndpoint) this.apiEndpoint += '/' + id;
-			api.SetCurrentUser(id).then(_ => this.Reload(cb)).catch(_ => this.api.Logout());
+			api.SetCurrentUser(id).then((_) => this.Reload(cb)).catch((_) => this.api.Logout());
 		} else {
 			this.Reload(cb);
 		}
@@ -45,11 +45,11 @@ export class ManageBase extends HasAPI {
 			return;
 		}
 		this.loading = true;
-		this.api.Get(this.apiEndpoint, data => {
+		this.api.Get(this.apiEndpoint, (data) => {
 			this.list = data || [];
 			if (onComplete) onComplete(data, null);
 			this.loading = false;
-		}, err => onComplete && onComplete(null, err));
+		}, (err) => onComplete && onComplete(null, err));
 	}
 
 	FmtMoney(n: number, cut: number = 2): string {
@@ -76,15 +76,15 @@ export class ManageBase extends HasAPI {
 	}
 
 	CreateFields(flds: any[]): any[] {
-		return flds.filter(fld => {
+		return flds.filter((fld) => {
 			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.editOnly;
 		});
 	}
 
 	EditFields(flds: any[]): any[] {
-		return flds.filter(fld => {
+		return flds.filter((fld) => {
 			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.newOnly;
-		}).map(fld => {
+		}).map((fld) => {
 			if (!fld.reqNewOnly && !fld.readOnlyOnEdit) return fld;
 			const opts: any = {
 				req: false,
