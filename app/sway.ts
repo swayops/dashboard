@@ -66,6 +66,10 @@ export class Sway {
 		return this.req('put', ep, payload).subscribe((data) => onResp(data), onErr);
 	}
 
+	Delete(ep: string, onResp: (data: any) => void, onErr?: (err: any) => void) {
+		return this.req('delete', ep).subscribe((data) => onResp(data), onErr);
+	}
+
 	SetCurrentUser(id: string = null, force: boolean = false): Promise<User> {
 		if (id == null) {
 			this.curUser = null;
@@ -164,7 +168,7 @@ const authPages = {
 	talentAgency: ['mTalents', 'editProfile'],
 	advertiser: [
 		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting', 'mBilling',
-		'contentFeed', 'editProfile', 'shippingPerks',
+		'contentFeed', 'editProfile', 'shippingPerks', 'mSubUsers',
 	],
 };
 @Injectable()
