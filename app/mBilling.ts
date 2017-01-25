@@ -95,10 +95,10 @@ export class ManageBillingCmp extends ManageBase {
 		if (key < 0 || key > 9) evt.preventDefault();
 	}
 
-	setPlan(id: number, price: any = 0, monthly: boolean = true) {
+	setPlan(id: number, price: any = 0, monthly: string = 'no') {
 		this.loading = true;
 		const adv = Object.assign({}, this.user.advertiser);
-		adv.subLoad = { plan: id, price: parseFloat(price) || 0, isMonthly: monthly };
+		adv.subLoad = { plan: id, price: parseFloat(price) || 0, isMonthly: monthly === 'yes' };
 		this.api.Put('advertiser/' + this.id, { advertiser: adv }, (resp) => {
 			this.loading = false;
 			this.isEditing = false;

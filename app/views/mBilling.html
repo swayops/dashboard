@@ -19,10 +19,15 @@
 					<br> - Target influencers in the USA
 					<br>
 				</p>
-				<h4>Total Price: $150 /mo</h4>
+				<h4>Total Price:
+					<select class="form-control" style="width: 200px" #plan>
+						<option value="yes">$150 / Month</option>
+						<option value="no">$1500 / Year</option>
+					</select>
+				</h4>
 				<a *ngIf="planID === 1" style="color: #C0C0C0;" (click)="setPlan(0)"><span class="fui-cross-circle"></span> Deactivate access</a>
-				<a *ngIf="planID > 1" style="color: #C0C0C0;" (click)="setPlan(1)"><span class="fui-triangle-down-small"></span> Downgrade to Hyper-Local access</a>
-				<button *ngIf="planID < 1" class="btn btn-block btn-sm btn-green1" (click)="setPlan(1)"><span class="fui-plus-circle"></span> Upgrade Access</button>
+				<a *ngIf="planID > 1" style="color: #C0C0C0;" (click)="setPlan(1, 0, plan.value)"><span class="fui-triangle-down-small"></span> Downgrade to Hyper-Local access</a>
+				<button *ngIf="planID < 1" class="btn btn-block btn-sm btn-green1" (click)="setPlan(1, 0, plan.value)"><span class="fui-plus-circle"></span> Upgrade Access</button>
 				<br>
 				<br>
 			</div>
@@ -36,10 +41,15 @@
 					<br> - Target influencers in the <b>USA, Canada, EU</b>
 					<br>
 				</p>
-				<h4>Total Price: $500 /mo</h4>
+				<h4>Total Price:
+					<select class="form-control" style="width: 200px" #plan>
+						<option value="yes">$500 / Month</option>
+						<option value="no">$5000 / Year</option>
+					</select>
+				</h4>
 				<a *ngIf="planID === 2" style="color: #C0C0C0;" (click)="setPlan(0)"><span class="fui-cross-circle"></span> Deactivate access</a>
-				<a *ngIf="planID > 2" style="color: #C0C0C0;" (click)="setPlan(2)"><span class="fui-triangle-down-small"></span> Downgrade to Premium access</a>
-				<button *ngIf="planID < 2" class="btn btn-block btn-sm btn-green1" (click)="setPlan(2)"><span class="fui-plus-circle"></span> Upgrade Access</button>
+				<a *ngIf="planID > 2" style="color: #C0C0C0;" (click)="setPlan(2, 0, plan.value)"><span class="fui-triangle-down-small"></span> Downgrade to Premium access</a>
+				<button *ngIf="planID < 2" class="btn btn-block btn-sm btn-green1" (click)="setPlan(2, 0, plan.value)"><span class="fui-plus-circle"></span> Upgrade Access</button>
 				<br>
 				<br>
 			</div>
@@ -52,8 +62,12 @@
 			<div class="clearfix"></div>
 			<br/>
 			<div align="middle" *ngIf="canSetEnterprise">
-				<input type="number" #price style="width: 150px; height: 38px" class="form-control" placeholder="Price, ex: 1000">
-				<button class="btn btn-block btn-sm btn-green1" (click)="setPlan(3, price.value)" [disabled]="loading || price.value < 500"><span class="fui-plus-circle"></span> Set Enterprise Plan</button>
+				<input type="number" #price style="width: 150px; height: 38px" class="form-control" placeholder="Price, ex: 1000"> /
+				<select class="form-control" style="width: 200px" #plan>
+					<option value="yes">Month</option>
+					<option value="no">Year</option>
+				</select>
+				<button class="btn btn-block btn-sm btn-green1" (click)="setPlan(3, price.value, plan.value)" [disabled]="loading || price.value < 500"><span class="fui-plus-circle"></span> Set Enterprise Plan</button>
 			</div>
 			<div align="middle">Need even more power? <a href="#">Get in touch</a> with us to discuss our enterprise options.
 				<br>
