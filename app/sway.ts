@@ -1,6 +1,6 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -18,13 +18,13 @@ export class Sway {
 	redirectUrl: string;
 
 	constructor(public router: Router, public http: Http) {
-		this.IsLoggedIn.subscribe(v => this.loginStatus = v ? 1 : 0);
+		this.IsLoggedIn.subscribe((v) => this.loginStatus = v ? 1 : 0);
 	}
 
 	Login(info: { email: string, pass: string }, onError?: (err: any) => void) {
 		this.Reset();
-		return this.Post('signIn', info, data => {
-			return this.Get('user', user => {
+		return this.Post('signIn', info, (data) => {
+			return this.Get('user', (user) => {
 				this.mainUser = user;
 				this.OnLogin.emit(user);
 				if (this.redirectUrl) {
@@ -39,8 +39,8 @@ export class Sway {
 	}
 
 	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void) {
-		return this.Post('signUp?autologin=true', info, data => {
-			return this.Get('user', user => {
+		return this.Post('signUp?autologin=true', info, (data) => {
+			return this.Get('user', (user) => {
 				this.mainUser = user;
 				this.redirectUrl = '';
 				this.OnLogin.emit(user);
@@ -55,15 +55,15 @@ export class Sway {
 	}
 
 	Get(ep: string, onResp: (data: any) => void, onErr?: (err: any) => void) {
-		return this.req('get', ep).subscribe(data => onResp(data), onErr);
+		return this.req('get', ep).subscribe((data) => onResp(data), onErr);
 	}
 
 	Post(ep: string, payload: any, onResp: (data: any) => void, onErr?: (err: any) => void) {
-		return this.req('post', ep, payload).subscribe(data => onResp(data), onErr);
+		return this.req('post', ep, payload).subscribe((data) => onResp(data), onErr);
 	}
 
 	Put(ep: string, payload: any, onResp: (data: any) => void, onErr?: (err: any) => void) {
-		return this.req('put', ep, payload).subscribe(data => onResp(data), onErr);
+		return this.req('put', ep, payload).subscribe((data) => onResp(data), onErr);
 	}
 
 	SetCurrentUser(id?: string): Promise<User> {
@@ -75,12 +75,12 @@ export class Sway {
 			return Promise.resolve(this.CurrentUser);
 		}
 		return new Promise((resolve, reject) => {
-			this.Get('user/' + id, user => { this.curUser = user; resolve(user); }, err => reject(err));
+			this.Get('user/' + id, (user) => { this.curUser = user; resolve(user); }, (err) => reject(err));
 		});
 	}
 
 	Logout(redir = true) {
-		return this.Get('signOut', _ => {
+		return this.Get('signOut', (_) => {
 			this.Reset();
 			if (redir) this.router.navigate(['/login']); // should say something maybe?
 		}, () => { /* ignore errors */ });
@@ -112,8 +112,8 @@ export class Sway {
 		this.error = null;
 		const headers = new Headers({ 'Content-Type': 'application/json' });
 		const options = new RequestOptions({ headers: headers });
-		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map(res => res.json())
-			.catch(err => this.handleError(err));
+		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map((res) => res.json())
+			.catch((err) => this.handleError(err));
 	}
 
 	public handleError(err: Response): Observable<{}> {
@@ -128,15 +128,15 @@ export class Sway {
 
 	get IsLoggedIn(): Observable<boolean> {
 		if (this.loginStatus > 0) return Observable.of(this.loginStatus === 1);
-		return Observable.create(obs => {
-			let sub = this.Get('user', user => {
+		return Observable.create((obs) => {
+			const sub = this.Get('user', (user) => {
 				if (!this.mainUser) {
 					this.OnLogin.emit(user);
 				}
 				this.mainUser = user;
 				this.loginStatus = 1;
 				return obs.next(true);
-			}, err => {
+			}, (err) => {
 				if (err.code === 401) this.error = null; // ignore 401 for this func
 				this.loginStatus = 2;
 				obs.next(false);
@@ -172,7 +172,7 @@ export class AuthGuard implements CanActivate {
 	constructor(public router: Router, public api: Sway) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		return this.api.IsLoggedIn.map(logged => {
+		return this.api.IsLoggedIn.map((logged) => {
 			if (logged && (!this.api.error || this.api.error.code !== 401)) {
 				const user = this.api.CurrentUser;
 				if (user.admin) return true;
@@ -205,11 +205,11 @@ export class HasAPI {
 	set error(err) { this.api.error = err; }
 	@Output() get error() { return this.api.error; }
 
-	@Output() get notifications() {
-		allNotifications.forEach(v => {
+	get notifications(): Notification[] {
+		allNotifications.forEach((v) => {
 			if (v.timeout > 0) setTimeout(() => v.timeout = -1, v.timeout);
 		});
-		allNotifications = allNotifications.filter(v => v.timeout !== -1);
+		allNotifications = allNotifications.filter((v) => v.timeout !== -1);
 		return allNotifications;
 	}
 
@@ -238,7 +238,7 @@ export class HasAPI {
 	}
 
 	get settings(): any {
-		return (<any>window).appSettings;
+		return (window as any).appSettings;
 	}
 }
 

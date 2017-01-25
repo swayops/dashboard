@@ -1,6 +1,8 @@
-import { Component, AfterViewChecked, ElementRef, Output } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, Output } from '@angular/core';
 
-import { Sway, HasAPI, UserType } from './sway';
+import { Subject } from 'rxjs/Subject';
+
+import { HasAPI, Sway, UserType } from './sway';
 
 import { SearchData } from './utils';
 
@@ -14,21 +16,23 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	@Output() public assignGameNum = 0;
+	private assignGameNum_ = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin
-		api.OnLogin.subscribe(user => {
+		api.OnLogin.subscribe((user) => {
 			if (!user || !user.admin) return;
 			this.updateAssignGame();
 		});
 	}
 
+	get assignGameNum(): number { return this.assignGameNum_; }
+
 	private updateAssignGame() {
-		this.api.Get('getIncompleteInfluencers', resp => {
-			this.assignGameNum = (resp || []).length;
+		this.api.Get('getIncompleteInfluencers', (resp) => {
+			this.assignGameNum_ = (resp || []).length;
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
-		}, err => { /* ignore */});
+		}, (err) => { /* ignore */ });
 	}
 }
 
@@ -42,7 +46,7 @@ export class HeaderCmp extends HasAPI implements AfterViewChecked {
 	constructor(api: Sway, private ele: ElementRef) { super(api); }
 
 	ngAfterViewChecked() { // this hacky but can't really cleanly do it
-		const e = (<HTMLElement> this.ele.nativeElement).querySelector('#globalSearch');
+		const e = (this.ele.nativeElement as HTMLElement).querySelector('#globalSearch');
 		if (!e || !this.user) return;
 
 		if (this.finishedInit) {
@@ -90,6 +94,5 @@ export class FooterCmp extends HasAPI {
 }
 
 function objectToList(obj: Object, id: string): any[] {
-	return Object.keys(obj).map(k => { return { id: obj[k].replace(/:id/, id), text: k }; });
+	return Object.keys(obj).map((k) => { return { id: obj[k].replace(/:id/, id), text: k }; });
 }
-

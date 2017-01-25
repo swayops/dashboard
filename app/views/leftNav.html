@@ -2,7 +2,7 @@
 	<div class="pushDown"></div>
 	<div class="user-section">
 		<a class="anchor" [routerLink]="['/editProfile', user.id]" title="Edit My Profile">
-		<img [src]="user.imageUrl || '/static/img/user.png'" class="avatar" style="width: 60%; border-radius: 100%; margin-bottom: 10px;">
+			<img [src]="user.imageUrl || '/static/img/user.png'" class="avatar" style="width: 60%; border-radius: 100%; margin-bottom: 10px;">
 		</a>
 		<label>{{ user.name }}</label>
 	</div>
@@ -15,7 +15,7 @@
 			<li><a [routerLink]="['/mCampaignPerks']" [routerLinkActive]="['is-active']">Inbound</a></li>
 			<li><a [routerLink]="['/mOutboundPerks']" [routerLinkActive]="['is-active']">Perks To Ship</a></li>
 			<li><a [routerLink]="['/checkPayouts']" [routerLinkActive]="['is-active']">Check Payouts</a></li>
-			<li><a [routerLink]="['/assignGame']" [routerLinkActive]="['is-active']">Assign Game [{{assignGameNum}}]</a></li>
+			<li><a [routerLink]="['/assignGame']" [routerLinkActive]="['is-active']">Assign Game [<span [innerHTML]=assignGameNum></span>]</a></li>
 		</ul>
 	</div>
 
@@ -50,7 +50,7 @@
 
 	<div class="shrink-opt">
 		<a class="toside" (click)="api.Logout()"><i class="ico exit ttip" title="Logout"></i></a>
-		<a class="anchor"  [routerLink]="['/editProfile', user.id]"><i class="ico settings ttip" title="Edit My Profile"></i></a>
+		<a class="anchor" [routerLink]="['/editProfile', user.id]"><i class="ico settings ttip" title="Edit My Profile"></i></a>
 		<div class="clearfix"></div>
 	</div>
 

@@ -1,9 +1,9 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Location } from '@angular/common';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
-import { Sway, HasAPI } from './sway';
+import { HasAPI, Sway } from './sway';
 
 declare var $: any;
 
@@ -35,14 +35,14 @@ export class AppComponent extends HasAPI {
 		let lastRoute: string;
 		router.events.subscribe((evt: any) => {
 			if (evt instanceof NavigationStart) {
-				this.noNav = noNavURLs.some(url => evt.url.indexOf(url) === 0);
+				this.noNav = noNavURLs.some((url) => evt.url.indexOf(url) === 0);
 				if (lastRoute && lastRoute !== evt.url) {
 					api.SetCurrentUser(null); // workaround for nav
 				}
 				return;
 			}
 			if (evt instanceof NavigationEnd) {
-				this.api.IsLoggedIn.subscribe(v => {
+				this.api.IsLoggedIn.subscribe((v) => {
 					if (v) {
 						document.body.classList.add('user-logged-in');
 					} else {
@@ -63,7 +63,7 @@ export class AppComponent extends HasAPI {
 	}
 
 	updateTags() {
-		let u = this.api.User,
+		const u = this.api.User,
 			w = window,
 			agile = w['_agile'],
 			ic = w['Intercom'],
@@ -105,7 +105,7 @@ export class AppComponent extends HasAPI {
 		});
 
 		$('#slct_perks').click(function () {
-			let cls = $(this).attr('data-for');
+			const cls = $(this).attr('data-for');
 			$('.' + cls).slideToggle();
 			if ($('#perks').prop('checked')) {
 				$('#perks').prop('checked', false);
@@ -146,8 +146,9 @@ export class AppComponent extends HasAPI {
 		$('.increment-group').append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
 
 		$('.increment-group .button').on('click', function () {
-			let $button = $(this);
-			let oldValue = $button.parent().parent().find('input').val(), newVal = 0;
+			const $button = $(this),
+				oldValue = $button.parent().parent().find('input').val();
+			let newVal = 0;
 
 			if ($button.text() === '+') {
 				newVal = parseFloat(oldValue) + 1;
@@ -189,4 +190,3 @@ export class AppComponent extends HasAPI {
 		this.reinitUI();
 	}
 }
-
