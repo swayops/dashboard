@@ -32,6 +32,11 @@ export class LeftNavCmp extends HasAPI {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 		}, (err) => { /* ignore */ });
 	}
+
+	get email(): string {
+		const v = this.user.subUser || this.user.email || '';
+		return v.length > 12 ? v.substr(0, 12) + '…' : v;
+	}
 }
 
 @Component({

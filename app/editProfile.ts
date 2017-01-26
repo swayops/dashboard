@@ -24,7 +24,7 @@ export class EditProfileCmp extends ManageBase {
 			title: 'Profile Pic:', placeholder: 'Your profile pic', image: true, name: 'imageUrl',
 		},
 		{
-			title: 'Email:', placeholder: 'Your email, used for login', input: 'email', name: 'email', req: true,
+			title: 'Account Email:', placeholder: 'The main account email', input: 'email', name: 'email', req: true,
 			pattern: V.mailRe, error: 'Please provide a valid email address.', attrs: {
 				readonly: true,
 			},
