@@ -95,7 +95,11 @@ export class Sway {
 		if (user.admin) {
 			this.GoTo('/dashboard');
 		} else if (user.advertiser) {
-			this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
+			if (!!user.advertiser.planID) {
+				this.GoTo('/mBilling', user.id);
+			} else {
+				this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
+			}
 		} else if (user.adAgency) {
 			this.GoTo('/mAdvertisers', user.id);
 		} else if (user.talentAgency) {
