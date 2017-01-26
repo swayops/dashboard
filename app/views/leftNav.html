@@ -5,8 +5,8 @@
 			<img [src]="user.imageUrl || '/static/img/user.png'" class="avatar" style="width: 60%; border-radius: 100%; margin-bottom: 10px;">
 		</a>
 		<label>{{ user.name }}</label>
+		<small>({{ user.subUser || user.email }})</small>
 	</div>
-
 	<div class="user-account-options" *ngIf="user.admin">
 		<ul>
 			<li class="li-content"><a [routerLink]="['/dashboard']" [routerLinkActive]="['is-active']">Admin Stats</a></li>
@@ -18,14 +18,12 @@
 			<li><a [routerLink]="['/assignGame']" [routerLinkActive]="['is-active']">Assign Game [<span [innerHTML]=assignGameNum></span>]</a></li>
 		</ul>
 	</div>
-
 	<div class="user-account-options" *ngIf="user.adAgency">
 		<ul>
 			<li class="li-campaign"><a [routerLink]="['/mAdvertisers', user.id]" [routerLinkActive]="['is-active']">My Advertisers</a></li>
 			<!--<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Reporting</a></li>-->
 		</ul>
 	</div>
-
 	<div class="user-account-options" *ngIf="user.talentAgency">
 		<div class="user-account-options">
 			<ul>
@@ -34,7 +32,6 @@
 			</ul>
 		</div>
 	</div>
-
 	<div class="user-account-options" *ngIf="user.advertiser">
 		<div class="cr8-campaign"><a [routerLink]="['/createCampaign', user.id]" class="btn btn-green1">CREATE CAMPAIGN</a></div>
 		<div class="user-account-options">
@@ -53,5 +50,4 @@
 		<a class="anchor" [routerLink]="['/editProfile', user.id]"><i class="ico settings ttip" title="Edit My Profile"></i></a>
 		<div class="clearfix"></div>
 	</div>
-
 </div>

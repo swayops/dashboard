@@ -85,7 +85,7 @@ export class EditProfileCmp extends ManageBase {
 			this.fields[1].name = 'advertiser.name';
 			this.fields[4].name = 'advertiser.status';
 
-			this.dlg.showManageUsers = this.api.IsAdmin() || u.parentId === '2';
+			if (!!u.subUser) this.dlg.showManageUsers = this.api.IsAdmin() || u.parentId === '2';
 		}
 		if (u.inf) {
 			this.fields.push(
@@ -133,7 +133,7 @@ export class EditProfileCmp extends ManageBase {
 				return 'HyperLocal';
 			case 2:
 				return 'Premium';
-			case 2:
+			case 3:
 				return 'Enterprise';
 			default:
 				return '';

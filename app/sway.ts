@@ -289,4 +289,6 @@ interface User {
 	advertiser?: any;
 	hasCmps?: boolean;
 	inf?: any;
+
+	subUser?: string;
 }
