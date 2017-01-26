@@ -104,11 +104,11 @@ export class ManageBillingCmp extends ManageBase {
 			this.isEditing = false;
 			if (resp.status === 'success') {
 				this.AddNotification(resp.status, 'Successfully updated your subscription.');
-				this.planID = id;
 			} else {
 				this.AddNotification(resp.status, resp);
 			}
 			this.ScrollToTop();
+			this.Reload((r) => this.init(r));
 		}, (err) => {
 			this.AddNotification('error', err, 0);
 			this.ScrollToTop();

@@ -40,16 +40,18 @@ export class ManageBase extends HasAPI {
 	}
 
 	Reload(onComplete?: (resp, err?) => void) {
-		if (!this.apiEndpoint) {
-			if (onComplete) onComplete(this.user, null);
-			return;
-		}
-		this.loading = true;
-		this.api.Get(this.apiEndpoint, (data) => {
-			this.list = data || [];
-			if (onComplete) onComplete(data, null);
-			this.loading = false;
-		}, (err) => onComplete && onComplete(null, err));
+		this.api.SetCurrentUser(this.user.id, true).then((user) => {
+			if (!this.apiEndpoint) {
+				if (onComplete) onComplete(user, null);
+				return;
+			}
+			this.loading = true;
+			this.api.Get(this.apiEndpoint, (data) => {
+				this.list = data || [];
+				if (onComplete) onComplete(data, null);
+				this.loading = false;
+			}, (err) => onComplete && onComplete(null, err));
+		});
 	}
 
 	FmtMoney(n: number, cut: number = 2): string {
