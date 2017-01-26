@@ -13,6 +13,8 @@
 			<th>Campaign ID</th>
 			<th>Adv ID</th>
 			<th>Agency ID</th>
+			<th>Budget</th>
+			<th>Goal</th>
 			<th class="align-left">Perk Name</th>
 			<th># of Items</th>
 			<th>Actions</th>
@@ -24,6 +26,8 @@
 			<td>{{perk.id}}</td>
 			<td>{{perk.advertiserId}}</td>
 			<td>{{perk.agencyId}}</td>
+			<td>{{perk.budget}}</td>
+			<td>{{perk.infGoal || perk.perks?.count}}</td>
 			<td>{{perk.perks?.name || 'N/A'}}</td>
 			<td>{{perk.perks?.count || 0 }}</td>
 			<td><a class="btn btn-green1 btn-micro ghost" (click)=received(perk.id)>Approved</a></td>
