@@ -1,25 +1,39 @@
 {
-	/*
-	 * Possible values:
-	 * - the name of a built-in config
-	 * - the name of an NPM module which has a "main" file that exports a config object
-	 * - a relative path to a JSON file
-	 */
 	"extends": "tslint:latest",
 	"rules": {
 		"indent": ["tab"],
 		"interface-name": [false],
-		"quotemark": [
-			true,
-			"single"
-		],
+		"quotemark": [true, "single"],
 		"object-literal-sort-keys": false,
 		"member-ordering": [false],
 		"member-access": [false],
 		"curly": false,
-		"one-variable-per-declaration": false,
+		"one-variable-per-declaration": [false],
 		"no-console": [false],
 		"no-string-literal": false,
-		"radix": false
+		"radix": false,
+		"max-classes-per-file": [false],
+		"only-arrow-functions": [false],
+		"object-literal-shorthand": false,
+		"variable-name": [false],
+		"max-line-length": [true, 180]
+	},
+	"jsRules": {
+		"indent": ["tab"],
+		"interface-name": [false],
+		"quotemark": [true, "single"],
+		"object-literal-sort-keys": false,
+		"member-ordering": [false],
+		"member-access": [false],
+		"curly": false,
+		"one-variable-per-declaration": [false],
+		"no-console": [false],
+		"no-string-literal": false,
+		"radix": false,
+		"max-classes-per-file": [false],
+		"only-arrow-functions": [false],
+		"object-literal-shorthand": false,
+		"variable-name": [false],
+		"max-line-length": [true, 180]
 	}
 }

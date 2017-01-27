@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
-import { Sway } from './sway';
+import { ActivatedRoute } from '@angular/router';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
 import * as V from './validators';
 
 @Component({
@@ -73,7 +72,7 @@ export class AdvertisersCmp extends ManageBase {
 		data.name = data.advertiser.name;
 		data.status = data.advertiser.status;
 
-		this.api.Post('signUp', data, resp => {
+		this.api.Post('signUp', data, (resp) => {
 			let msg = data.msg;
 			if (resp.status === 'success') {
 				msg = 'Advertiser ' + data.name + '(' + resp.id + ') was created successfully!';
@@ -81,18 +80,18 @@ export class AdvertisersCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});
 	}
 
 	edit = (data, done) => {
-		this.api.Put('advertiser/' + data.id, data, resp => {
+		this.api.Put('advertiser/' + data.id, data, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});

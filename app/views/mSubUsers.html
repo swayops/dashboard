@@ -1,0 +1,46 @@
+<h2 class="heading">User details</h2>
+<div>
+	<div><b>Users you can invite: <span style="color:#23c466; font-size: 16px;" [innerHTML]="availUsers"></span> </b></div>
+	<div *ngIf="availUsers !== 'Unlimited'">Total with your access level: <b [innerHTML]="totalUsers"></b> | <a [routerLink]="['/mBilling', user.id]">Upgrade</a></div>
+</div>
+<br>
+<div>
+	<p><b>Users who currently have access to this account:</b></p>
+	<div *ngFor="let email of list">
+		{{email}} | [<a (click)="removeUser(email)" title="Delete">Remove User Access</a>]
+	</div>
+</div>
+<div class="clearfix br"></div>
+<h2 class="heading">Invite new user</h2>
+<div class="clearfix br"></div>
+
+<form #f="ngForm" name="addSubUser">
+	<div class="form-group">
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			Name:
+		</div>
+		<div class="grid-80 mobile-grid-100 grid-parent">
+			<input type="text" #name placeholder="Their name" class="form-control" required>
+		</div>
+		<div class="clearfix br"></div>
+
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			Email:
+		</div>
+		<div class="grid-80 mobile-grid-100 grid-parent">
+			<input type="email" #email placeholder="Their email" class="form-control" required>
+		</div>
+		<div class="clearfix br"></div>
+
+		<div class="grid-20 mobile-grid-100 grid-parent">
+			Password:
+		</div>
+		<div class="grid-80 mobile-grid-100 grid-parent">
+			<input type="password" #pass placeholder="Their password... this can be changed after they login." class="form-control" required>
+		</div>
+		<div class="clearfix br"></div>
+		<div class="clearfix br"></div>
+		<button class="btn btn-small btn-green1" [disabled]="loading || !f.valid" (click)="addUser({name: name.value, email: email.value, pass: pass.value})">Add User &#187;</button>
+	</div>
+
+</form>

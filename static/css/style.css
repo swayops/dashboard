@@ -2226,7 +2226,14 @@ div#header #logo {
 
 .center-widget .form-group .grid-20 {
 	font-size: 15px;
-	padding-top: 12px;
+	min-height: 45px;
+	line-height: 45px;
+}
+
+.center-widget .form-group .grid-20 {
+	font-size: 15px;
+	min-height: 45px;
+	line-height: 45px;
 }
 
 .right-sb .cat-status li:after {
@@ -2973,4 +2980,12 @@ input[type="file"] {
 	text-align: center;
 	font-size: 150%;
 	width: 6.5%;
+}
+
+.subWarning {
+	color: #d2335c;
+}
+
+.campaignPage input[disabled]+label {
+	color: #d2335c;
 }

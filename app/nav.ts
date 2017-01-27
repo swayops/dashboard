@@ -1,6 +1,6 @@
-import { Component, AfterViewChecked, ElementRef, Output } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, Output } from '@angular/core';
 
-import { Sway, HasAPI, UserType } from './sway';
+import { HasAPI, Sway, UserType } from './sway';
 
 import { SearchData } from './utils';
 
@@ -14,21 +14,32 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	@Output() public assignGameNum = 0;
+	private assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin
-		api.OnLogin.subscribe(user => {
-			if (!user || !user.admin) return;
-			this.updateAssignGame();
-		});
+		this.updateAssignGame();
 	}
 
 	private updateAssignGame() {
-		this.api.Get('getIncompleteInfluencers', resp => {
-			this.assignGameNum = (resp || []).length;
+		// don't spam load that if we're not currently in the main admin view
+		const user = this.api.CurrentUser;
+		if (!user) {
+			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval / 3);
+		} else if (!user.admin) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
-		}, err => { /* ignore */});
+		} else {
+			this.api.Get('getIncompleteInfluencers', (resp) => {
+				this.assignGameNum = (resp || []).length;
+				console.log(this.assignGameNum);
+				setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
+			}, (err) => { /* ignore */ });
+		}
+	}
+
+	get email(): string {
+		const v = this.user.subUser || this.user.email || '';
+		return v.length > 12 ? v.substr(0, 12) + '…' : v;
 	}
 }
 
@@ -42,7 +53,7 @@ export class HeaderCmp extends HasAPI implements AfterViewChecked {
 	constructor(api: Sway, private ele: ElementRef) { super(api); }
 
 	ngAfterViewChecked() { // this hacky but can't really cleanly do it
-		const e = (<HTMLElement> this.ele.nativeElement).querySelector('#globalSearch');
+		const e = (this.ele.nativeElement as HTMLElement).querySelector('#globalSearch');
 		if (!e || !this.user) return;
 
 		if (this.finishedInit) {
@@ -90,6 +101,5 @@ export class FooterCmp extends HasAPI {
 }
 
 function objectToList(obj: Object, id: string): any[] {
-	return Object.keys(obj).map(k => { return { id: obj[k].replace(/:id/, id), text: k }; });
+	return Object.keys(obj).map((k) => ({ id: obj[k].replace(/:id/, id), text: k }));
 }
-

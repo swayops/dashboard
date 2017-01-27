@@ -1,33 +1,33 @@
-import { Title, BrowserModule } from '@angular/platform-browser';
-import { NgModule, enableProdMode } from '@angular/core';
+import { enableProdMode, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent, NotFoundCmp } from './app';
 import { AuthGuard, Sway } from './sway';
 
-import { LoginCmp } from './login';
-import { SignUpCmp } from './signup';
-import { ForgotPasswordCmp } from './forgotPassword';
-
-import { DashboardCmp } from './dashboard';
-import { MediaAgenciesCmp } from './mAgencies';
-import { AdvertisersCmp } from './mAdvertisers';
-import { EditProfileCmp } from './editProfile';
-import { ContentFeedCmp } from './contentFeed';
-import { CampaignsCmp } from './mCampaigns';
-import { CreateCampaignCmp } from './createCampaign';
-import { ShippingPerksCmp } from './shippingPerks';
-import { OutboundPerksCmp, CampaignPerksCmp } from './mPerks';
-import { ReportingCmp } from './reporting';
-import { TalentAgenciesCmp } from './mTalentAgencies';
-import { TalentsCmp } from './mTalents';
 import { AssignGameCmp } from './assignGame';
 import { CheckPayoutsCmp } from './checkPayouts';
-import { ResetPasswordCmp } from './resetPassword';
+import { ContentFeedCmp } from './contentFeed';
+import { CreateCampaignCmp } from './createCampaign';
+import { DashboardCmp } from './dashboard';
+import { EditProfileCmp } from './editProfile';
+import { ForgotPasswordCmp } from './forgotPassword';
+import { LoginCmp } from './login';
+import { AdvertisersCmp } from './mAdvertisers';
+import { MediaAgenciesCmp } from './mAgencies';
 import { ManageBillingCmp } from './mBilling';
-import { HeaderCmp, FooterCmp, LeftNavCmp } from './nav';
+import { CampaignsCmp } from './mCampaigns';
+import { CampaignPerksCmp, OutboundPerksCmp } from './mPerks';
+import { SubUsersCmp } from './mSubUsers';
+import { TalentAgenciesCmp } from './mTalentAgencies';
+import { TalentsCmp } from './mTalents';
+import { FooterCmp, HeaderCmp, LeftNavCmp } from './nav';
+import { ReportingCmp } from './reporting';
+import { ResetPasswordCmp } from './resetPassword';
+import { ShippingPerksCmp } from './shippingPerks';
+import { SignUpCmp } from './signup';
 
 import { FormDlg } from './form';
 import { Modal } from './modal';
@@ -61,6 +61,11 @@ export const ALL_ROUTES = [
 	{
 		path: 'mAdvertisers/:id',
 		component: AdvertisersCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'mSubUsers/:id',
+		component: SubUsersCmp,
 		canActivate: [AuthGuard],
 	},
 	{
@@ -171,6 +176,7 @@ export const ALL_ROUTES = [
 		DashboardCmp,
 		MediaAgenciesCmp,
 		AdvertisersCmp,
+		SubUsersCmp,
 		EditProfileCmp,
 		ContentFeedCmp,
 		CampaignsCmp,

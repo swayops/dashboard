@@ -27,7 +27,7 @@ export class FilterArrayPipe implements PipeTransform {
 export function FilterByProps(kw: string | null, it: Object, ...props: string[]): boolean {
 	if (!kw || !it) return true;
 	kw = kw.toLowerCase();
-	return props.some(k => {
+	return props.some((k) => {
 		const v = it[k];
 		if (!v) return false;
 		return v.toLowerCase().indexOf(kw) > -1;
@@ -57,7 +57,7 @@ function trimNumber(n: number): string { return n.toFixed(2).replace(/\.0\d?$/, 
 export function SortBy(...props: string[]): (a, b) => number {
 	return (a, b): number => {
 		let ret = 0;
-		props.some(k => {
+		props.some((k) => {
 			let sortOrder = 1;
 			if (k[0] === '-') {
 				sortOrder = -1;
@@ -77,7 +77,7 @@ export function SortBy(...props: string[]): (a, b) => number {
 
 export function Throttle(callback: (...args: any[]) => any, thisArg: Object, limit: number = 100) {
 	let wait = false;
-	return function () {
+	return function() {
 		if (wait) return;
 		wait = true;
 		setTimeout(() => wait = false, limit);
@@ -108,7 +108,7 @@ export function CancelEvent(evt: Event) {
 
 // this is a simple event emitter than ensures that any callbacks passed to subscribe will always be called.
 export class PersistentEventEmitter<T> {
-	private callbacks: { (arg: T): void }[] = [];
+	private callbacks: Array<(arg: T) => void> = [];
 	private completed: boolean;
 	private data: T;
 	constructor() { /* */ }
@@ -123,7 +123,7 @@ export class PersistentEventEmitter<T> {
 
 	emit(data: T) {
 		this.data = data;
-		for (let cb of this.callbacks) {
+		for (const cb of this.callbacks) {
 			cb(this.data);
 		}
 		this.completed = true;
@@ -494,9 +494,9 @@ export const CountriesAndStates = [
 	{ id: 'zw', text: 'Zimbabwe' },
 ];
 
-export const CountriesAndStatesRev = (function () {
+export const CountriesAndStatesRev = (function() {
 	const out = {};
-	for (let v of CountriesAndStates) {
+	for (const v of CountriesAndStates) {
 		out[v.id] = v.text;
 	}
 	return out;

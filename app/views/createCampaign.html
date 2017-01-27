@@ -1,4 +1,4 @@
-<div class="grid-62 mobile-grid-100 grid-parent" three-column>
+<div class="grid-62 mobile-grid-100 grid-parent campaignPage" three-column>
 	<div class="content-holder center-widget">
 		<form #f="ngForm" novalidate (ngSubmit)="save()">
 			<div class="grid-100 grid-parent">
@@ -76,6 +76,27 @@
 				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]="opts.isEdit">
+							<label for="instagram">Instagram</label>
+
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<label for="twitter">Twitter</label>
+
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<label for="youtube">YouTube</label>
+
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<label for="facebook">Facebook</label>
+						</div>
+						<div class="subWarning" *ngIf="plan < 2">* To be able to select the other networks, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
@@ -132,26 +153,6 @@
 			<div class="content-toggle toggle-targeting">
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="instagram">Instagram</label>
-
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="twitter">Twitter</label>
-
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="youtube">YouTube</label>
-
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="facebook">Facebook</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
@@ -170,6 +171,8 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<select multiple="multiple" class="geo form-control multiselect multiselect-info"></select>
+						<div class="subWarning" *ngIf="plan < 2">* To be able select Canada and Europe, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
+						<div class="subWarning" *ngIf="plan == 2">* To be able select all countires, upgrade to <a [routerLink]="['/mBilling', user.id]">Enterprise</a></div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -257,9 +260,11 @@
 						<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
 							<div class="btn-toolbar toolbar-horizontal">
 								<div class="btn-group">
-									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 1" (click)="resetPerks(1)"><span class="fui-txt">Ship Physical Product</span></a>
+									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 1" (click)="resetPerks(1)" *ngIf="plan > 1"><span class="fui-txt">Ship Physical Product</span></a>
 									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 2" (click)="resetPerks(2)"><span class="fui-txt">Give Coupons</span></a>
 								</div>
+								<div class="clearfix br"></div>
+								<div class="subWarning" *ngIf="plan < 2">* To be able to ship Physical Goods, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
 							</div>
 						</div>
 						<br>
@@ -319,7 +324,7 @@
 				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save &amp; Launch &#187;</button>
+				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
 			</div>
 		</form>
 		<br>
