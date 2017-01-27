@@ -110,7 +110,7 @@ export class ManageBillingCmp extends ManageBase {
 			this.ScrollToTop();
 			this.Reload((r) => this.init(r));
 		}, (err) => {
-			this.AddNotification('error', err, 0);
+			this.AddNotification('error', err);
 			this.ScrollToTop();
 			this.loading = false;
 		});
