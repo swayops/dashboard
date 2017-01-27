@@ -222,8 +222,8 @@ export class HasAPI {
 	}
 
 	// if no timeout is specified, it defaults to 6s
-	AddNotification(type: string, msg: any, timeout: number = null) {
-		if (timeout == null) timeout = 6000;
+	AddNotification(type: string, msg: any, timeout?: number) {
+		if (!timeout) timeout = 6000;
 		if (typeof msg === 'object' && 'msg' in msg) msg = msg.msg;
 		if (!msg) return;
 		if (msg[0] === '{') {
