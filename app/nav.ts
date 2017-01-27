@@ -14,23 +14,24 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	public assignGameNum = 0;
+	private assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin
-		api.OnLogin.subscribe((user) => {
-			if (!user || !user.admin) return;
-			this.updateAssignGame();
-		});
+		this.updateAssignGame();
 	}
 
 	private updateAssignGame() {
 		// don't spam load that if we're not currently in the main admin view
-		if (!this.user.admin) {
+		const user = this.api.CurrentUser;
+		if (!user) {
+			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval / 3);
+		} else if (!user.admin) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 		} else {
 			this.api.Get('getIncompleteInfluencers', (resp) => {
 				this.assignGameNum = (resp || []).length;
+				console.log(this.assignGameNum);
 				setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 			}, (err) => { /* ignore */ });
 		}
