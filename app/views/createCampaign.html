@@ -76,6 +76,26 @@
 				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
+							<label for="instagram">Instagram</label>
+
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
+							<label for="twitter">Twitter</label>
+
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
+							<label for="youtube">YouTube</label>
+
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
+							<label for="facebook">Facebook</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="Please select the items you want influencers to attach to their posts.">Requirements: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
@@ -130,26 +150,6 @@
 				</div>
 			</div>
 			<div class="content-toggle toggle-targeting">
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="instagram">Instagram</label>
-
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="twitter">Twitter</label>
-
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="youtube">YouTube</label>
-
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]=opts.isEdit>
-							<label for="facebook">Facebook</label>
-						</div>
-					</div>
-				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
