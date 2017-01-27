@@ -14,7 +14,7 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	private assignGameNum_ = 0;
+	public assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin
@@ -24,13 +24,16 @@ export class LeftNavCmp extends HasAPI {
 		});
 	}
 
-	get assignGameNum(): number { return this.assignGameNum_; }
-
 	private updateAssignGame() {
-		this.api.Get('getIncompleteInfluencers', (resp) => {
-			this.assignGameNum_ = (resp || []).length;
+		// don't spam load that if we're not currently in the main admin view
+		if (!this.user.admin) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
-		}, (err) => { /* ignore */ });
+		} else {
+			this.api.Get('getIncompleteInfluencers', (resp) => {
+				this.assignGameNum = (resp || []).length;
+				setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
+			}, (err) => { /* ignore */ });
+		}
 	}
 
 	get email(): string {
@@ -97,5 +100,5 @@ export class FooterCmp extends HasAPI {
 }
 
 function objectToList(obj: Object, id: string): any[] {
-	return Object.keys(obj).map((k) => { return { id: obj[k].replace(/:id/, id), text: k }; });
+	return Object.keys(obj).map((k) => ({ id: obj[k].replace(/:id/, id), text: k }));
 }
