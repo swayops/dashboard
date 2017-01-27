@@ -23,10 +23,10 @@ export class CreateCampaignCmp extends ManageBase {
 		male: true,
 		female: true,
 		status: true,
-		facebook: true,
-		twitter: true,
+		facebook: false,
+		twitter: false,
 		instagram: true,
-		youtube: true,
+		youtube: false,
 		perks: {
 			name: '',
 			count: 0,
@@ -127,11 +127,17 @@ export class CreateCampaignCmp extends ManageBase {
 		rd.readAsDataURL(file);
 	}
 
+	get plan(): number {
+		const adv = this.user.advertiser;
+		if (adv.agencyId !== 2) return 3;
+		return (adv && adv.planID) ? adv.planID : 0;
+	}
+
 	get allCats(): boolean {
 		if (!this.data.categories) return false;
 		let checked = 0;
 
-		for (let [, v] of Object.entries(this.data.categories)) {
+		for (const [, v] of Object.entries(this.data.categories)) {
 			if (v) checked++;
 		}
 
@@ -143,7 +149,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (!chk) return;
 		if (!this.data.categories) this.data.categories = {};
 		const v = !chk.checked;
-		for (let c of this.categories) {
+		for (const c of this.categories) {
 			this.data.categories[c.cat] = v;
 		}
 		chk.checked = v;
@@ -179,7 +185,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 				lastScrollTop = scrollTop;
 
-				let mainTop = $('div[three-column]').offset().top,
+				const mainTop = $('div[three-column]').offset().top,
 					winWidth = $(window).width(),
 					ele = $('.right-sb');
 				if (winWidth > 768 && scrollTop > mainTop) {
@@ -217,7 +223,7 @@ export class CreateCampaignCmp extends ManageBase {
 	private initKeywords(kws: any) {
 		const kwData = [];
 
-		for (let k of kws) {
+		for (const k of kws) {
 			kwData.push({ id: k, text: k });
 		}
 
@@ -282,14 +288,17 @@ export class CreateCampaignCmp extends ManageBase {
 		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
 
 		if (!Array.isArray(data.categories)) data.categories = [];
+
 		if (!!data.categories.length) {
 			$('#influencers').click();
 		}
+
 		data.categories = (() => { // convert categories to an object
 			const out = {};
 			data.categories.forEach((v) => out[v] = true);
 			return out;
 		})();
+
 		for (const k of ['tags', 'mention', 'link', 'perks']) {
 			this.opts[k] = !!data[k];
 		}
@@ -335,7 +344,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (data.whitelist && data.whitelist.length) {
 			const wl = data.whitelist.split(',').map((v) => v.trim());
 			data.whitelist = {};
-			for (let it of wl) data.whitelist[it] = true;
+			for (const it of wl) data.whitelist[it] = true;
 		}
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
@@ -349,7 +358,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		const cats = [];
 
-		for (let [k, v] of Object.entries(data.categories)) {
+		for (const [k, v] of Object.entries(data.categories)) {
 			if (v) cats.push(k);
 		}
 
