@@ -2,8 +2,8 @@
 	<user-header *ngIf="!noNav"></user-header>
 	<div *ngIf="subWarning">
 		<div class="notification warning"><strong>
-			You are still on demo status. To upgrade to be able to create campaigns: <a [routerLink]="['/mBilling', user.id]">Click here</a>
-			</strong></div>
+			You are still on demo status. You must upgrade to be able to create campaigns: <a [routerLink]="['/mBilling', user.id]">Click here</a>
+		</strong></div>
 	</div>
 	<div>
 		<div *ngFor="let n of notifications" class="notification {{n.type}}">
