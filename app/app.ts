@@ -30,6 +30,7 @@ const noNavURLs = [
 })
 export class AppComponent extends HasAPI {
 	public noNav: boolean;
+	public subWarning = false;
 	constructor(api: Sway, router: Router, loc: Location, route: ActivatedRoute) {
 		super(api);
 		let lastRoute: string;
@@ -188,5 +189,8 @@ export class AppComponent extends HasAPI {
 		this.initIncrGroup();
 		this.initSliderRange();
 		this.reinitUI();
+
+		const adv = this.user.advertiser;
+		this.subWarning = adv && adv.agencyId === '2' && !adv.planID;
 	}
 }

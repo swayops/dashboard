@@ -46,6 +46,8 @@ export class CreateCampaignCmp extends ManageBase {
 		isEdit: false,
 	};
 
+	public plan = 3;
+
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
 	public cropData: any = {};
@@ -57,7 +59,14 @@ export class CreateCampaignCmp extends ManageBase {
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
-			title, api, route.snapshot.params['id']);
+			title, api, route.snapshot.params['id'], (user) => {
+				const adv = this.user.advertiser;
+				if (!adv || adv.agencyId !== '2') {
+					this.plan = 3;
+				} else {
+					this.plan = adv.planID || 0;
+				}
+			});
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
@@ -125,12 +134,6 @@ export class CreateCampaignCmp extends ManageBase {
 		};
 
 		rd.readAsDataURL(file);
-	}
-
-	get plan(): number {
-		const adv = this.user.advertiser;
-		if (adv.agencyId !== 2) return 3;
-		return (adv && adv.planID) ? adv.planID : 0;
 	}
 
 	get allCats(): boolean {
