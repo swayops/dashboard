@@ -62,6 +62,12 @@ export class AppComponent extends HasAPI {
 				return;
 			}
 		});
+		setInterval(() => {
+			if (!!this.user && !!this.user.advertiser) {
+				const adv = this.user.advertiser;
+				this.subWarning = adv.agencyId === '2' && !adv.planID;
+			}
+		}, 100);
 	}
 
 	updateTags() {
@@ -190,8 +196,5 @@ export class AppComponent extends HasAPI {
 		this.initIncrGroup();
 		this.initSliderRange();
 		this.reinitUI();
-
-		const adv = this.user && this.user.advertiser;
-		this.subWarning = !!adv && adv.agencyId === '2' && !adv.planID;
 	}
 }
