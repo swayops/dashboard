@@ -66,7 +66,6 @@ export class ReportingCmp {
 	}
 }
 
-
 interface Timeline {
 	title: string;
 	msg: string;
