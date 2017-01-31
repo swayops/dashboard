@@ -50,14 +50,10 @@ export class ReportingCmp {
 
 	private setTimeline(data: { [key: string]: Timeline[] }) {
 		const out = new Array<Timeline>();
-		for (const [k, v] of Object.entries(data)) {
-			let i = 0;
-			for (const tl of v) {
-				tl.title = k;
-				tl.ts = (tl.ts * 1000) + i; // js date fix and sorting
-				out.push(tl);
-				i++;
-			}
+		for (const [k, tl] of Object.entries(data)) {
+			tl.title = k;
+			tl.ts = (tl.ts * 1000); // js date fix and sorting
+			out.push(tl);
 		}
 		out.sort((a, b) => {
 			if (!a) return -1;
