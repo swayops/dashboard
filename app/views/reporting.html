@@ -19,6 +19,7 @@
 			<dd>
 				<a style="font-size: 12px;" [routerLink]="[tl.link]" *ngIf="!!tl.link && tl.link.substr(0, 4) !== 'http'" [innerHTML]="tl.linkTitle"></a>
 				<a style="font-size: 12px;" [href]="tl.link" target="_blank" *ngIf="!!tl.link && tl.link.substr(0, 4) === 'http'" [innerHTML]="tl.linkTitle"></a>
+				<a style="font-size: 12px;" href="#" onclick="Intercom('show')" title="Live Chat with a Sway expert" *ngIf="!tl.link">Contact Us!</a>
 				<br>
 				<span style="font-weight: 300; font-size: 11px; color: #000;">{{tl.ts | date:'HH:mm | MMM d, y'}}</span>
 			</dd>
