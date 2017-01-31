@@ -96,7 +96,7 @@ export class FormDlg {
 			return;
 		}
 		const rd = new FileReader();
-		rd.addEventListener('load', function () {
+		rd.addEventListener('load', () => {
 			b.value = rd.result;
 		}, false);
 		rd.readAsDataURL(f);
@@ -132,7 +132,6 @@ export class FormDlg {
 
 	loadImage(e: any) {
 		CancelEvent(e);
-
 
 		const image = new Image(),
 			file = (e.target.files || e.dataTransfer.files)[0],
@@ -242,4 +241,3 @@ class Binder {
 		return null;
 	}
 }
-

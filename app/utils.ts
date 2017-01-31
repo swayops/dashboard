@@ -77,11 +77,11 @@ export function SortBy(...props: string[]): (a, b) => number {
 
 export function Throttle(callback: (...args: any[]) => any, thisArg: Object, limit: number = 100) {
 	let wait = false;
-	return function() {
+	return (...args: any[]) => {
 		if (wait) return;
 		wait = true;
 		setTimeout(() => wait = false, limit);
-		return Reflect.apply(callback, thisArg, arguments);
+		return Reflect.apply(callback, thisArg, args);
 	};
 }
 
@@ -104,7 +104,6 @@ export function CancelEvent(evt: Event) {
 	evt.stopPropagation();
 	evt.preventDefault();
 }
-
 
 // this is a simple event emitter than ensures that any callbacks passed to subscribe will always be called.
 export class PersistentEventEmitter<T> {
@@ -494,7 +493,7 @@ export const CountriesAndStates = [
 	{ id: 'zw', text: 'Zimbabwe' },
 ];
 
-export const CountriesAndStatesRev = (function() {
+export const CountriesAndStatesRev = (() => {
 	const out = {};
 	for (const v of CountriesAndStates) {
 		out[v.id] = v.text;

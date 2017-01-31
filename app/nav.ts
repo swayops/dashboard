@@ -26,12 +26,13 @@ export class LeftNavCmp extends HasAPI {
 		const user = this.api.CurrentUser;
 		if (!user) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval / 3);
+		} else if (this.api.IsAdmin()) {
+			return;
 		} else if (!user.admin) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 		} else {
 			this.api.Get('getIncompleteInfluencers', (resp) => {
 				this.assignGameNum = (resp || []).length;
-				console.log(this.assignGameNum);
 				setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 			}, (err) => { /* ignore */ });
 		}

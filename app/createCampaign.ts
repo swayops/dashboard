@@ -373,6 +373,8 @@ export class CreateCampaignCmp extends ManageBase {
 		data.imageUrl = null;
 		data.imageData = this.cropData.image;
 
+		if (typeof data.infGoal === 'string') data.infGoal = parseFloat(data.infGoal) || 0;
+
 		return data;
 	}
 
