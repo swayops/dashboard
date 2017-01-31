@@ -17,6 +17,7 @@
 			<th>Goal</th>
 			<th class="align-left">Perk Name</th>
 			<th># of Items</th>
+			<th>Items Added</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -30,6 +31,7 @@
 			<td>{{perk.infGoal || perk.perks?.count}}</td>
 			<td>{{perk.perks?.name || 'N/A'}}</td>
 			<td>{{perk.perks?.count || 0 }}</td>
+			<td>{{perk.perks?.pendingCount || 0 }}</td>
 			<td><a class="btn btn-green1 btn-micro ghost" (click)=received(perk.id)>Approved</a></td>
 		</tr>
 
