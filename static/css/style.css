@@ -2989,3 +2989,21 @@ input[type="file"] {
 .campaignPage input[disabled]+label {
 	color: #d2335c;
 }
+
+.palette {
+	padding: 8px;
+	text-transform: none;
+}
+
+.palette dd {
+	font-weight: inherit;
+	font-size: 12px;
+}
+
+.pallete-item {
+	margin: 0px 0px 5px 0px;
+}
+
+.palette dt {
+	font-size: 12px;
+}
