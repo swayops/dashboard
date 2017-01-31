@@ -15,7 +15,7 @@
 
 	</div>
 	<div class="pallete-item" style="width: 20%;">
-		<dl class="palette">
+		<dl class="palette palette-clouds">
 			<dd>
 				<a style="font-size: 12px;" [routerLink]="[tl.link]" *ngIf="!!tl.link && tl.link.substr(0, 4) !== 'http'" [innerHTML]="tl.linkTitle"></a>
 				<a style="font-size: 12px;" [href]="tl.link" target="_blank" *ngIf="!!tl.link && tl.link.substr(0, 4) === 'http'" [innerHTML]="tl.linkTitle"></a>
@@ -34,7 +34,7 @@
 
 	</div>
 	<div class="pallete-item" style="width: 20%;">
-		<dl class="palette">
+		<dl class="palette palette-clouds">
 			<dd><a style="font-size: 12px;" [routerLink]="['/createCampaign', id]">Create Campaign »</a></dd>
 		</dl>
 	</div>
