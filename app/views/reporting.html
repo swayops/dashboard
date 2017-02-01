@@ -56,60 +56,42 @@
 <h2 class="heading">High-level stats for the last 30 days:</h2>
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Est Views</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Est Views</div>
 	<p>{{ curWeek.views || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.views || 'N/A' }}</span>
 </div>
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Engagement Count</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Engagements</div>
 	<p>{{ curWeek.engagements || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.engagements || 'N/A' }}</span>
 </div>
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Influencers Utilized</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Influencers Used</div>
 	<p>{{ curWeek.infs || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.infs || 'N/A' }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Spent</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Spent</div>
 	<p>${{ (curWeek.spent || 0).toFixed(2) }}</p>
-	<span>Week before: ${{ (lastWeek.spent || 0).toFixed(2) }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Likes</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Likes</div>
 	<p>{{ curWeek.likes || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.likes || 'N/A' }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Clicks</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Clicks</div>
 	<p>{{ curWeek.clicks || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.clicks || 'N/A' }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Comments</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Comments</div>
 	<p>{{ curWeek.comments || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.comments || 'N/A' }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Shares</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Shares</div>
 	<p>{{ curWeek.shares || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.shares || 'N/A' }}</span>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
-	<div class="statTileHeader">
-		<div class="statTileCircleGreen"></div> Perks Sent</div>
+	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Perks Sent</div>
 	<p>{{ curWeek.perks || 'N/A' }}</p>
-	<span>Week before: {{ lastWeek.perks || 'N/A' }}</span>
 </div>
 <!--<div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader">

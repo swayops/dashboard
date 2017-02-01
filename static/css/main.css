@@ -969,19 +969,23 @@ div#header .menu li:hover .sub-menu{
 }
 
 .statTile {
-	background: rgb(0, 0, 0); /* Fall-back for browsers that don't support rgba */
-	background: rgba(0, 0, 0, .05);
+	background: #34495e; /* Fall-back for browsers that don't support rgba */
+	background: #34495e;
 	border-radius: 10px;
-	padding: 20px;
+	padding: 15px;
 	margin:0px 10px 10px 0px;
 }
 .statTile p {
-	font-size: 24px;
+	font-size: 14px;
+	opacity: 0.8;
+	color: #fff;
+	margin-bottom: 0px;
 }
 .statTileHeader {
 	font-weight: bold;
-	color: #04be5b;
-	font-size: 14px;
+	color: #fff;
+	font-size: 12px;
+	text-transform: uppercase;
 }
 .statTileCircleGreen {
 	background: #04be5b;
