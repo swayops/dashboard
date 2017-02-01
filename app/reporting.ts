@@ -25,7 +25,7 @@ export class ReportingCmp {
 		}
 		api.SetCurrentUser(this.id).then((_) => {
 			this.api.Get('getAdvertiserStats/' + this.id + '/30/0', (data) => {
-				this.lastMonth = !!data && !!data.total ? data.total : {};
+				this.lastMonth = data || {};
 				this.setGraph('engagements');
 			});
 			this.api.Get('getAdvertiserTimeline/' + this.id, (data) => this.setTimeline(data || {}));
