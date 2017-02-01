@@ -6,36 +6,146 @@
 </form>
 
 <div class="clearfix br"></div>
+<br><br><br>
 
-<table class="tbl">
-	<thead>
-		<tr>
-			<th class="align-left">Campaign</th>
-			<th>ID</th>
-			<th>Budget</th>
-			<th title="Active Networks">Networks</th>
-			<th>Status</th>
-			<th>Created</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let cmp of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">{{cmp.name}}</a></td>
-			<td>{{cmp.id}}</td>
-			<td>${{cmp.budget?.toFixed(0)}}</td>
-			<td>
-				<img width="20" src="/static/img/twitter.png" title="Twitter" *ngIf=cmp.twitter>
-				<img width="20" src="/static/img/facebook.png" title="Facebook" *ngIf=cmp.facebook>
-				<img width="20" src="/static/img/instagram.png" title="Instagram" *ngIf=cmp.instagram>
-				<img width="20" src="/static/img/youtube.png" title="YouTube" *ngIf=cmp.youtube>
-			</td>
-			<td>{{cmp.status ? 'On' : 'Off'}}</td>
-			<td>{{cmp.createdAt * 1000 | date}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="selDate.show(cmp);">Report</button> <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> <!--<button class="btn-scarlet btn-micro ghost">X</button>--></td>
-		</tr>
-	</tbody>
-</table>
+<div class="row tile mCampaign">
+	<div class="grid-10 mobile-grid-100" align="left">
+		<img style="border-radius: 10px; padding-top: 5px;" height="70" src="test.png">
+	</div>
+
+	<div class="grid-30 mobile-grid-100" align="left" style="padding-left: 25px;">
+		
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span class="label label-success">{{cmp.status ? 'On' : 'Off'}}</span></h6>
+		<p class="img-comment" style="font-size: 12px;">Created: {{cmp.createdAt * 1000 | date}} | Support ID: {{cmp.id}}</p>
+		<p class="img-comment" style="font-size: 12px;">Networks:
+			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i> 
+			<i title="Twitter" class="fui-twitter" *ngIf=cmp.twitter></i> 
+			<i title="Facebook" class="fui-facebook" *ngIf=cmp.facebook></i> 
+			<i title="YouTube" class="fui-youtube" *ngIf=cmp.youtube></i>
+		</p>
+
+	</div>
+
+	<div class="grid-60 mobile-grid-100" align="right" style="padding-top: 15px;">
+		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> | <button [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]" class="btn btn-info btn-micro ghost">Edit</button> | <a class="btn btn-scarlet btn-micro ghost">Delete</a>
+	</div>
+	<div class="clearfix"></div>
+
+
+	<!--Milestones-->
+	<div class="grid-100 mobile-grid-100" align="left" style="padding-top: 15px;">
+		<h6>Latest campaign update:</h6>
+		<!--Milestone alert goes here-->
+		<p>Milestone goes here</p>
+		
+
+	</div>
+	<div class="clearfix"></div>
+
+
+	<!--budget progress-->
+	<div class="grid-100 mobile-grid-100" align="left" style="padding-top: 15px;">
+		<h6>Monthly budget:</h6>
+		<div class="progress">
+		  <div class="progress-bar progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+		    <span class="sr-only">40%</span>
+		  </div>
+		</div>
+		<span class="label" style="background-color: #34495e;">Spent of monthly</span> | <span class="label label-success">Total remaining budget</span>
+
+	</div>
+	<div class="clearfix"></div>
+
+	<br>
+	<!--Stat tiles-->
+	<div class="grid-100 mobile-grid-100" align="left">
+		
+		<div class="pallete-item" style="margin-left: 0px;">
+	      	<dl class="palette palette-wet-asphalt">
+	  			<dt>Engagements</dt>
+	 			<dd>{{cmp.engagements}}</dd>
+			</dl>
+			<dl class="palette palette-midnight-blue">
+	 			<dt>Est Views</dt>
+	  			<dd>{{cmp.estViews}}</dd>
+			</dl>
+	  	</div>
+		<div class="pallete-item">
+	      	<dl class="palette palette-wet-asphalt">
+	  			<dt>Likes</dt>
+	 			<dd>{{cmp.likes}}</dd>
+			</dl>
+			<dl class="palette palette-midnight-blue">
+	 			<dt>Link Clicks</dt>
+	  			<dd>{{cmp.clicks}}</dd>
+			</dl>
+	  	</div>
+	  	<div class="pallete-item">
+	      	<dl class="palette palette-wet-asphalt">
+	  			<dt>Comments</dt>
+	 			<dd>{{cmp.comments}}</dd>
+			</dl>
+			<dl class="palette palette-midnight-blue">
+	 			<dt>Shares</dt>
+	  			<dd>{{cmp.shares}}</dd>
+			</dl>
+	  	</div>
+		<div class="pallete-item">
+	      	<dl class="palette palette-wet-asphalt">
+	  			<dt>Sent Perks</dt>
+	 			<dd>{{cmp.sentPerks}}</dd>
+			</dl>
+			<dl class="palette palette-midnight-blue">
+	 			<dt># Influencers</dt>
+	  			<dd>{{cmp.infUsed}}</dd>
+			</dl>
+	  	</div>
+	  	<div class="pallete-item">
+	      	<dl class="palette palette-wet-asphalt">
+	  			<dt>Spent</dt>
+	 			<dd>${{cmp.spent?.toFixed(0)}}</dd>
+			</dl>
+			<dl class="palette palette-midnight-blue">
+	  			<dt>Monthly budget</dt>
+	 			<dd>${{cmp.budget?.toFixed(0)}}</dd>
+			</dl>
+	  	</div>
+
+	</div>
+	<div class="clearfix"></div>
+
+
+	<!--2 rows of influencers-->
+	<div class="grid-50 mobile-grid-100" align="left">
+		<h6 style="margin-bottom: 8px;">Accepted/ Endorsed Influencers:</h6>
+		<div class="infColumn">
+			
+			<p style="font-size: 12px;">
+				<img height="15" src="https://scontent.cdninstagram.com/t51.2885-19/s150x150/12725099_1753906118162422_141247477_a.jpg"> <a>Goldie Walberg</a> | Followers: 23k
+			</p>
+			
+		</div>
+		<hr>
+		<a class="btn btn-info btn-micro">View All...</a>
+	</div>
+
+
+	<div class="grid-50 mobile-grid-100" align="left">
+		<h6 style="margin-bottom: 8px;">Delivered content:</h6>
+		<div class="infColumn">
+			
+			<p style="font-size: 12px;">
+				<img height="15" src="https://scontent.cdninstagram.com/t51.2885-19/s150x150/12725099_1753906118162422_141247477_a.jpg"> <a>Goldie Walberg</a> | Engagements: 23k | <a style="font-size: 12px;">View Post</a>
+			</p>
+			
+		</div><!--inf column end-->
+		<hr>
+		<a class="btn btn-info btn-micro">View All...</a>
+	</div>
+	<div class="clearfix"></div>
+
+</div><!--end row tile-->
+
 
 <modal title="Select a date range for this report" #selDate [buttons]=selDateButtons>
 	<form class="form-inline">

@@ -1000,3 +1000,41 @@ notifications {
 	width: 80%;
 	margin: 10px auto;
 }
+
+/* Css for manage campaigns page */
+.mCampaign .tile p {
+	margin: 0px;
+}
+.mCampaign .tile p .img-comment {
+	font-size: 12px;
+}
+.mCampaign .tile .label {
+	background-color: #04be5b;
+	border-radius: 3px;
+	color:#fff;
+	padding: 4px;
+	font-size: 10px;
+}
+.mCampaign .palette {
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+.mCampaign .palette dt {
+	font-size: 12px;
+	opacity: 1;
+	/*color:black;*/
+}
+.mCampaign .palette dd {
+	/*color: black;*/
+}
+.mCampaign .infColumn {
+	max-height: 85px;
+	overflow: scroll;
+}
+.mCampaign .progress-bar {
+	border-radius: 32px;
+	background-color: #34495e;
+}
+.mCampaign .progress {
+	background-color: #04be5b;
+}
