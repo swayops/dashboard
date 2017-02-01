@@ -57,41 +57,41 @@
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Est Views</div>
-	<p>{{ lastMonth.views | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.views | fmtNum:'N/A' }}</p>
 </div>
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Engagements</div>
-	<p>{{ lastMonth.engagements | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.engagements | fmtNum:'N/A' }}</p>
 </div>
 
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Influencers Used</div>
-	<p>{{ lastMonth.infs | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.infs | fmtNum:'N/A' }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Spent</div>
-	<p>${{ (lastMonth.spent || 0).toFixed(2) }}</p>
+	<p>${{ (lastMonth.total.spent || 0).toFixed(2) }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Likes</div>
-	<p>{{ lastMonth.likes | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.likes | fmtNum:'N/A' }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Clicks</div>
-	<p>{{ lastMonth.clicks | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.clicks | fmtNum:'N/A' }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Comments</div>
-	<p>{{ lastMonth.comments | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.comments | fmtNum:'N/A' }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Shares</div>
-	<p>{{ lastMonth.shares | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.shares | fmtNum:'N/A' }}</p>
 </div>
 <div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader"><div class="statTileCircleGreen"></div> Perks Sent</div>
-	<p>{{ lastMonth.perks | fmtNum:'N/A' }}</p>
+	<p>{{ lastMonth.total.perks | fmtNum:'N/A' }}</p>
 </div>
 <!--<div class="grid-23 mobile-grid-100 grid-parent statTile">
 	<div class="statTileHeader">
