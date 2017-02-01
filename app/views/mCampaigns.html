@@ -26,7 +26,7 @@
 
 	<div class="grid-50 mobile-grid-100" align="right" style="padding-top: 15px;">
 		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> |
-		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a> | <a class="btn btn-scarlet btn-micro ghost">Delete</a>
+		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a>
 	</div>
 	<div class="clearfix"></div>
 
@@ -35,7 +35,7 @@
 		<h6 style="margin-top:0px;">Latest campaign update:</h6>
 		<!--Milestone alert goes here-->
 		<div class="grid-100 mobile-grid-100" style="padding-left: 0px;" [style.color]="cmp.timeline.color" *ngIf="cmp.timeline">
-			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> | 
+			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> |
 			<a style="font-size: 12px;" [routerLink]="[cmp.timeline.link]" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) !== 'http'"
 						[innerHTML]="cmp.timeline.linkTitle"></a>
 						<a style="font-size: 12px;" [href]="cmp.timeline.link" target="_blank" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) === 'http'"
@@ -128,7 +128,7 @@
 		</div>
 	</div>
 	<hr>
-	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5">View All...</a>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infAcc)">View All...</a>
 </div>
 
 <div class="grid-50 mobile-grid-100" align="left">
@@ -142,7 +142,7 @@
 	</div>
 	<!--inf column end-->
 	<hr>
-	<a class="btn btn-info btn-micro" (click)="expandInf(infComp)">View All...</a>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
 </div>
 <div class="clearfix"></div>
 

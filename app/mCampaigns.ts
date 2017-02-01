@@ -19,7 +19,7 @@ export class CampaignsCmp extends ManageBase {
 	];
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id'], (data) => console.log(data));
+		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);
 	}
 
 	ngAfterViewInit() {
