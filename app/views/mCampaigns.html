@@ -13,7 +13,7 @@
 
 	<div class="grid-40 mobile-grid-100" align="left" style="padding-left: 25px;">
 
-		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.status ? 'On' : 'Off'}}</span></h6>
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : 'Off'}}</span></h6>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Networks:
 			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i>
@@ -35,7 +35,7 @@
 		<h6 style="margin-top:0px;">Latest campaign update:</h6>
 		<!--Milestone alert goes here-->
 		<div class="grid-100 mobile-grid-100" style="padding-left: 0px;" [style.color]="cmp.timeline.color" *ngIf="cmp.timeline">
-			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> |
+			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts * 1000 | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> |
 			<a style="font-size: 12px;" [routerLink]="[cmp.timeline.link]" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) !== 'http'"
 						[innerHTML]="cmp.timeline.linkTitle"></a>
 						<a style="font-size: 12px;" [href]="cmp.timeline.link" target="_blank" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) === 'http'"
