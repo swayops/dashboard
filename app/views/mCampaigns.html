@@ -2,7 +2,7 @@
 <a class="btn btn-green1 btn-micro" [routerLink]="['/createCampaign', user.id]">Create +</a>
 
 <form style="width:250px; float:right;">
-	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+	<input class="form-control input-sm" type="text" placeholder="Search by name..." [(ngModel)]="kw" name="kw">
 </form>
 
 <div class="clearfix br"></div>
@@ -11,11 +11,11 @@
 		<img style="border-radius: 10px; padding-top: 5px;" height="70" [src]="cmp.image">
 	</div>
 
-	<div class="grid-30 mobile-grid-100" align="left" style="padding-left: 25px;">
+	<div class="grid-40 mobile-grid-100" align="left" style="padding-left: 25px;">
 
-		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span class="label label-success">{{cmp.status ? 'On' : 'Off'}}</span></h6>
-		<p class="img-comment" style="font-size: 12px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
-		<p class="img-comment" style="font-size: 12px;">Networks:
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.status ? 'On' : 'Off'}}</span></h6>
+		<p class="img-comment" style="font-size: 12px; margin:0px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
+		<p class="img-comment" style="font-size: 12px; margin:0px;">Networks:
 			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i>
 			<i title="Twitter" class="fui-twitter" *ngIf=cmp.twitter></i>
 			<i title="Facebook" class="fui-facebook" *ngIf=cmp.facebook></i>
@@ -24,7 +24,7 @@
 
 	</div>
 
-	<div class="grid-60 mobile-grid-100" align="right" style="padding-top: 15px;">
+	<div class="grid-50 mobile-grid-100" align="right" style="padding-top: 15px;">
 		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> |
 		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a> | <a class="btn btn-scarlet btn-micro ghost">Delete</a>
 	</div>
@@ -32,40 +32,29 @@
 
 	<!--Milestones-->
 	<div class="grid-100 mobile-grid-100" align="left" style="padding-top: 15px;">
-		<h6>Latest campaign update:</h6>
+		<h6 style="margin-top:0px;">Latest campaign update:</h6>
 		<!--Milestone alert goes here-->
-		<div class="pallete-item" style="width: 80%;" *ngIf="cmp.timeline">
-			<dl class="palette" [style.backgroundColor]="cmp.timeline.color">
-				<dd [innerHTML]="cmp.timeline.msg"></dd>
-			</dl>
-
-		</div>
-		<div class="pallete-item" style="width: 20%;" *ngIf="cmp.timeline">
-			<dl class="palette palette-clouds">
-				<dd>
-					<a style="font-size: 12px;" [routerLink]="[cmp.timeline.link]" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) !== 'http'"
+		<div class="grid-100 mobile-grid-100" style="padding-left: 0px;" [style.color]="cmp.timeline.color" *ngIf="cmp.timeline">
+			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> | 
+			<a style="font-size: 12px;" [routerLink]="[cmp.timeline.link]" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) !== 'http'"
 						[innerHTML]="cmp.timeline.linkTitle"></a>
 						<a style="font-size: 12px;" [href]="cmp.timeline.link" target="_blank" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) === 'http'"
 							[innerHTML]="cmp.timeline.linkTitle"></a>
 							<a style="font-size: 12px;" href="javascript:Intercom('show')" title="Live Chat with a Sway expert" *ngIf="!cmp.timeline.link">Contact Us!</a>
-							<br>
-							<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts | date:'HH:mm | MMM d, y'}}</span>
-				</dd>
-			</dl>
 		</div>
 	</div>
-	<div class="clearfix"></div>
+	<div class="clearfix"></div><br>
 
 	<!--budget progress-->
-	<div class="grid-100 mobile-grid-100" align="left" style="padding-top: 15px;">
+	<div class="grid-100 mobile-grid-100" align="left">
 		<h6>Monthly budget:</h6>
 		<div class="progress">
 			<div class="progress-bar progress-bar" role="progressbar" [attr.aria-valuenow]="budgetPercent(cmp, false)" aria-valuemin="0"
 				aria-valuemax="100" [style.width]="budgetPercent(cmp)">
-				<span class="sr-only" [innerHTML]="budgetPercent(cmp)">40%</span>
+				<span style="font-size: 10px; padding-left: 10px;" class="sr-only" [innerHTML]="budgetPercent(cmp)">40%</span>
 		</div>
 	</div>
-	<span class="label" style="background-color: #34495e;">Spent of monthly</span> | <span class="label label-success">Total remaining budget</span>
+	<span class="label" style="background-color: #34495e; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;">Spent of monthly</span> | <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Total remaining budget</span>
 
 </div>
 <div class="clearfix"></div>
@@ -74,53 +63,53 @@
 <!--Stat tiles-->
 <div class="grid-100 mobile-grid-100 stats" align="left">
 
-	<div class="pallete-item">
-		<dl class="palette palette-wet-asphalt">
-			<dt>Engagements</dt>
+	<div class="pallete-item" style="margin-left: 0px;">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Engagements</dt>
 			<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
 		</dl>
-		<dl class="palette palette-midnight-blue">
-			<dt>Est Views</dt>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Est Views</dt>
 			<dd>{{cmpStats(cmp, 'views') | fmtNum }}</dd>
 		</dl>
 	</div>
 	<div class="pallete-item">
-		<dl class="palette palette-wet-asphalt">
-			<dt>Likes</dt>
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Likes</dt>
 			<dd>{{cmpStats(cmp, 'likes') | fmtNum }}</dd>
 		</dl>
-		<dl class="palette palette-midnight-blue">
-			<dt>Link Clicks</dt>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Link Clicks</dt>
 			<dd>{{cmpStats(cmp, 'clicks') | fmtNum }}</dd>
 		</dl>
 	</div>
 	<div class="pallete-item">
-		<dl class="palette palette-wet-asphalt">
-			<dt>Comments</dt>
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Comments</dt>
 			<dd>{{cmpStats(cmp, 'comments') | fmtNum }}</dd>
 		</dl>
-		<dl class="palette palette-midnight-blue">
-			<dt>Shares</dt>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Shares</dt>
 			<dd>{{cmpStats(cmp, 'shares') | fmtNum }}</dd>
 		</dl>
 	</div>
 	<div class="pallete-item">
-		<dl class="palette palette-wet-asphalt">
-			<dt>Sent Perks</dt>
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Sent Perks</dt>
 			<dd>{{cmpStats(cmp, 'perks') | fmtNum }}</dd>
 		</dl>
-		<dl class="palette palette-midnight-blue">
-			<dt># Influencers</dt>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;"># Influencers</dt>
 			<dd>{{cmpStats(cmp, 'infs') | fmtNum }}</dd>
 		</dl>
 	</div>
 	<div class="pallete-item">
-		<dl class="palette palette-wet-asphalt">
-			<dt>Spent</dt>
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Spent</dt>
 			<dd>${{cmpStats(cmp, 'spent').toFixed(2)}}</dd>
 		</dl>
-		<dl class="palette palette-midnight-blue">
-			<dt>Monthly budget</dt>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1;">Monthly budget</dt>
 			<dd>${{cmp.budget?.toFixed(0)}}</dd>
 		</dl>
 	</div>
@@ -133,7 +122,7 @@
 	<h6 style="margin-bottom: 8px;">Accepted / Endorsed Influencers:</h6>
 	<div class="infColumn" #infAcc>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
-			<img height="15" [src]="inf.image"><a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
 			| fmtNum}}
 		</div>
 	</div>
@@ -145,14 +134,14 @@
 	<h6 style="margin-bottom: 8px;">Delivered content:</h6>
 	<div class="infColumn" #infComp>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">
-			<img height="15" [src]="inf.image"><a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Engagements: {{inf.engagements
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Engagements: {{inf.engagements
 			| fmtNum}} |
 			<a style="font-size: 12px;" [href]="inf.postUrl" target="_blank">View Post</a>
 		</div>
 	</div>
 	<!--inf column end-->
 	<hr>
-	<a class="btn btn-info btn-micro" (click)="expandInf(infComp)">>View All...</a>
+	<a class="btn btn-info btn-micro" (click)="expandInf(infComp)">View All...</a>
 </div>
 <div class="clearfix"></div>
 
