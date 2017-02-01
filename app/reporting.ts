@@ -13,7 +13,7 @@ declare function initChartData2();
 })
 
 export class ReportingCmp {
-	public lastMonth: any = {};
+	public lastMonth: any = { total: {} };
 	public timelines: Timeline[];
 	private id;
 	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
@@ -25,7 +25,7 @@ export class ReportingCmp {
 		}
 		api.SetCurrentUser(this.id).then((_) => {
 			this.api.Get('getAdvertiserStats/' + this.id + '/30/0', (data) => {
-				this.lastMonth = data || {};
+				this.lastMonth = data || { total: {} };
 				if (!this.lastMonth.total) {
 					this.lastMonth.total = {};
 				}
