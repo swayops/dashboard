@@ -52,4 +52,8 @@ export class CampaignsCmp extends ManageBase {
 		if (!cmp.stats || !cmp.stats.total) return 0;
 		return cmp.stats.total[key] || 0;
 	}
+
+	expandInf(ele: HTMLElement) {
+		ele.classList.add('expanded');
+	}
 }

@@ -1027,9 +1027,19 @@ notifications {
 .mCampaign .palette dd {
 	/*color: black;*/
 }
+
 .mCampaign .infColumn {
 	max-height: 85px;
 	overflow: auto;
+}
+
+.mCampaign .infColumn.expanded {
+	max-height: none;
+	overflow: auto;
+}
+
+.mCampaign .infColumn.expanded + hr + a {
+	display: none;
 }
 
 .mCampaign .progress-bar {
@@ -1039,7 +1049,7 @@ notifications {
 .mCampaign .progress {
 	background-color: #04be5b;
 	height: 25px;
-	margin-bottom: 2px;
+	margin-bottom: 6px;
 	border-radius: 25px;
 }
 
@@ -1049,4 +1059,8 @@ notifications {
 	height: 25px;
 	padding: 2px 5px;
 	line-height: 25px;
+}
+
+.mCampaign .stats .pallete-item {
+	margin: 0px 0px 5px 12px;
 }
