@@ -2,40 +2,152 @@
 <a class="btn btn-green1 btn-micro" [routerLink]="['/createCampaign', user.id]">Create +</a>
 
 <form style="width:250px; float:right;">
-	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+	<input class="form-control input-sm" type="text" placeholder="Search by name..." [(ngModel)]="kw" name="kw">
 </form>
 
 <div class="clearfix br"></div>
+<div class="row tile mCampaign" *ngFor="let cmp of list | filter:FilterUsers">
+	<div class="grid-10 mobile-grid-100" align="left">
+		<img style="border-radius: 10px; padding-top: 5px;" height="70" [src]="cmp.image">
+	</div>
 
-<table class="tbl">
-	<thead>
-		<tr>
-			<th class="align-left">Campaign</th>
-			<th>ID</th>
-			<th>Budget</th>
-			<th title="Active Networks">Networks</th>
-			<th>Status</th>
-			<th>Created</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let cmp of list | filter:FilterUsers">
-			<td class="align-left"><a [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">{{cmp.name}}</a></td>
-			<td>{{cmp.id}}</td>
-			<td>${{cmp.budget?.toFixed(0)}}</td>
-			<td>
-				<img width="20" src="/static/img/twitter.png" title="Twitter" *ngIf=cmp.twitter>
-				<img width="20" src="/static/img/facebook.png" title="Facebook" *ngIf=cmp.facebook>
-				<img width="20" src="/static/img/instagram.png" title="Instagram" *ngIf=cmp.instagram>
-				<img width="20" src="/static/img/youtube.png" title="YouTube" *ngIf=cmp.youtube>
-			</td>
-			<td>{{cmp.status ? 'On' : 'Off'}}</td>
-			<td>{{cmp.createdAt * 1000 | date}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="selDate.show(cmp);">Report</button> <button class="btn-info btn-micro ghost" [routerLink]="['/editCampaign', cmp.advertiserId, cmp.id]">Edit</button> <!--<button class="btn-scarlet btn-micro ghost">X</button>--></td>
-		</tr>
-	</tbody>
-</table>
+	<div class="grid-40 mobile-grid-100" align="left" style="padding-left: 25px;">
+
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : 'Off'}}</span></h6>
+		<p class="img-comment" style="font-size: 12px; margin:0px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
+		<p class="img-comment" style="font-size: 12px; margin:0px;">Networks:
+			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i>
+			<i title="Twitter" class="fui-twitter" *ngIf=cmp.twitter></i>
+			<i title="Facebook" class="fui-facebook" *ngIf=cmp.facebook></i>
+			<i title="YouTube" class="fui-youtube" *ngIf=cmp.youtube></i>
+		</p>
+
+	</div>
+
+	<div class="grid-50 mobile-grid-100" align="right" style="padding-top: 15px;">
+		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> |
+		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a>
+	</div>
+	<div class="clearfix"></div>
+
+	<!--Milestones-->
+	<div class="grid-100 mobile-grid-100" align="left" style="padding-top: 15px;">
+		<h6 style="margin-top:0px;">Latest campaign update:</h6>
+		<!--Milestone alert goes here-->
+		<div class="grid-100 mobile-grid-100" style="padding-left: 0px;" [style.color]="cmp.timeline.color" *ngIf="cmp.timeline">
+			<span style="font-weight: 300; font-size: 11px; color: #000;">{{cmp.timeline.ts * 1000 | date:'HH:mm | MMM d, y'}}</span> | <span [innerHTML]="cmp.timeline.msg"></span> |
+			<a style="font-size: 12px;" [routerLink]="[cmp.timeline.link]" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) !== 'http'"
+						[innerHTML]="cmp.timeline.linkTitle"></a>
+						<a style="font-size: 12px;" [href]="cmp.timeline.link" target="_blank" *ngIf="!!cmp.timeline.link && cmp.timeline.link.substr(0, 4) === 'http'"
+							[innerHTML]="cmp.timeline.linkTitle"></a>
+							<a style="font-size: 12px;" href="javascript:Intercom('show')" title="Live Chat with a Sway expert" *ngIf="!cmp.timeline.link">Contact Us!</a>
+		</div>
+	</div>
+	<div class="clearfix"></div><br>
+
+	<!--budget progress-->
+	<div class="grid-100 mobile-grid-100" align="left">
+		<h6>Monthly budget:</h6>
+		<div class="progress">
+			<div class="progress-bar progress-bar" role="progressbar" [attr.aria-valuenow]="budgetPercent(cmp, false)" aria-valuemin="0"
+				aria-valuemax="100" [style.width]="budgetPercent(cmp)">
+				<span style="font-size: 10px; padding-left: 10px;" class="sr-only" [innerHTML]="budgetPercent(cmp)">40%</span>
+		</div>
+	</div>
+	<span class="label label-success" style="background-color: #34495e; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px; line-height: initial;">Spent of monthly</span> |
+	<span class="label label-success" style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;">Total remaining budget</span>
+
+</div>
+<div class="clearfix"></div>
+
+<br>
+<!--Stat tiles-->
+<div class="grid-100 mobile-grid-100 stats" align="left">
+
+	<div class="pallete-item" style="margin-left: 0px;">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Engagements</dt>
+			<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+		</dl>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Est Views</dt>
+			<dd>{{cmpStats(cmp, 'views') | fmtNum }}</dd>
+		</dl>
+	</div>
+	<div class="pallete-item">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Likes</dt>
+			<dd>{{cmpStats(cmp, 'likes') | fmtNum }}</dd>
+		</dl>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Link Clicks</dt>
+			<dd>{{cmpStats(cmp, 'clicks') | fmtNum }}</dd>
+		</dl>
+	</div>
+	<div class="pallete-item">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Comments</dt>
+			<dd>{{cmpStats(cmp, 'comments') | fmtNum }}</dd>
+		</dl>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Shares</dt>
+			<dd>{{cmpStats(cmp, 'shares') | fmtNum }}</dd>
+		</dl>
+	</div>
+	<div class="pallete-item">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Sent Perks</dt>
+			<dd>{{cmpStats(cmp, 'perks') | fmtNum }}</dd>
+		</dl>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;"># Influencers</dt>
+			<dd>{{cmpStats(cmp, 'infs') | fmtNum }}</dd>
+		</dl>
+	</div>
+	<div class="pallete-item">
+		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Spent</dt>
+			<dd>${{cmpStats(cmp, 'spent').toFixed(2)}}</dd>
+		</dl>
+		<dl class="palette palette-midnight-blue" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Monthly budget</dt>
+			<dd>${{cmp.budget?.toFixed(0)}}</dd>
+		</dl>
+	</div>
+
+</div>
+<div class="clearfix"></div>
+
+<!--2 rows of influencers-->
+<div class="grid-50 mobile-grid-100" align="left">
+	<h6 style="margin-bottom: 8px;">Accepted / Endorsed Influencers:</h6>
+	<div class="infColumn" #infAcc>
+		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
+			| fmtNum}}
+		</div>
+	</div>
+	<hr>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infAcc)">View All...</a>
+</div>
+
+<div class="grid-50 mobile-grid-100" align="left">
+	<h6 style="margin-bottom: 8px;">Delivered content:</h6>
+	<div class="infColumn" #infComp>
+		<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Engagements: {{inf.engagements
+			| fmtNum}} |
+			<a style="font-size: 12px;" [href]="inf.postUrl" target="_blank">View Post</a>
+		</div>
+	</div>
+	<!--inf column end-->
+	<hr>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
+</div>
+<div class="clearfix"></div>
+
+</div>
+<!--end row tile-->
 
 <modal title="Select a date range for this report" #selDate [buttons]=selDateButtons>
 	<form class="form-inline">
