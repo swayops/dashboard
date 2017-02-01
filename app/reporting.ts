@@ -13,8 +13,6 @@ declare function initChartData2();
 })
 
 export class ReportingCmp {
-	public curWeek: any = {};
-	public lastWeek: any = {};
 	public lastMonth: any = {};
 	public timelines: Timeline[];
 	private id;
@@ -26,10 +24,8 @@ export class ReportingCmp {
 			return;
 		}
 		api.SetCurrentUser(this.id).then((_) => {
-			this.api.Get('getAdvertiserStats/' + this.id + '/7/0', (data) => this.curWeek = data.total || {});
-			this.api.Get('getAdvertiserStats/' + this.id + '/14/7', (data) => this.lastWeek = data.total || {});
 			this.api.Get('getAdvertiserStats/' + this.id + '/30/0', (data) => {
-				this.lastMonth = data || {};
+				this.lastMonth = !!data && !!data.total ? data.total : {};
 				this.setGraph('engagements');
 			});
 			this.api.Get('getAdvertiserTimeline/' + this.id, (data) => this.setTimeline(data || {}));
