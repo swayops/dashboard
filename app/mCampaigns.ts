@@ -44,7 +44,8 @@ export class CampaignsCmp extends ManageBase {
 	}
 
 	budgetPercent(cmp: any, sign = true): number | string {
-		const val = (this.cmpStats(cmp, 'spent') / cmp.budget) * 100;
+		let val = (cmp.spent / (cmp.spent + cmp.remaining)) * 100;
+		if (isNaN(val)) val = 0;
 		return sign ? val.toFixed(0) + '%' : val;
 	}
 
