@@ -1029,12 +1029,24 @@ notifications {
 }
 .mCampaign .infColumn {
 	max-height: 85px;
-	overflow: scroll;
+	overflow: auto;
 }
+
 .mCampaign .progress-bar {
-	border-radius: 32px;
+	border-radius: 25px;
 	background-color: #34495e;
 }
 .mCampaign .progress {
 	background-color: #04be5b;
+	height: 25px;
+	margin-bottom: 2px;
+	border-radius: 25px;
+}
+
+.mCampaign .progress span, .mCampaign .progress + span {
+	color: #fff;
+	display: inline-block;
+	height: 25px;
+	padding: 2px 5px;
+	line-height: 25px;
 }
