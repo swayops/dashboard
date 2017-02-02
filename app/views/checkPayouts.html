@@ -13,6 +13,7 @@
 			<th>Address</th>
 			<th>Amount</th>
 			<th>Requested</th>
+			<th>Signature</th>
 			<th>Send Check</th>
 		</tr>
 	</thead>
@@ -27,6 +28,7 @@
 			<td>{{address(inf)}}</td>
 			<td>${{inf.pendingPayout?.toFixed(2)}}</td>
 			<td>{{inf.requestedCheck * 1000 | date}}</td>
+			<td><a href="https://app.hellosign.com/editor/view/super_group_guid/{{inf.sigId}}" target="_blank">Click for Doc</a></td>
 			<td><button class="btn btn-green1 btn-micro ghost" (click)="approve(inf.id)">Approve</button></td>
 		</tr>
 	</tbody>
