@@ -252,7 +252,7 @@
 			<div class="field-set grid-100 grid-parent">
 				<h2 class="heading" id="giveOut">4. Give out Perks <span>*optional</span></h2>
 				<div class="onoffswitch perks" data-for="toggle-perks">
-					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks" [disabled]=opts.isEdit>
+					<input type="checkbox" name="perks" class="onoffswitch-checkbox" id="perks">
 					<label class="onoffswitch-label" for="perks">
 						<span class="onoffswitch-inner showhide"></span>
 						<span class="onoffswitch-switch"></span>
@@ -272,7 +272,7 @@
 									<a style="min-height: 20px;" class="view-primary" [class.active]="data.perks.type === 2" (click)="resetPerks(2)"><span class="fui-txt">Give Coupons</span></a>
 								</div>
 								<div class="clearfix br"></div>
-								<div class="subWarning" *ngIf="plan < 2">* To be able to ship Physical Goods, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
+								<div class="subWarning" *ngIf="!opts.isEdit && plan < 2">* To be able to ship Physical Goods, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
 							</div>
 						</div>
 						<br>

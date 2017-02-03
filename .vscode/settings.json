@@ -6,5 +6,6 @@
 		"app/*.metadata.json": true,
 		"app/*.js*": true
 	},
-	"tslint.configFile": "./tslint.json"
+	"tslint.configFile": "./tslint.json",
+	"cSpell.enabled": false
 }
