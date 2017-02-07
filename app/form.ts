@@ -104,6 +104,7 @@ export class FormDlg {
 
 	getValue(ctl: any): any {
 		const b = this.binders[ctl.name];
+		if (location && location.href && location.href.indexOf('debug') > -1) console.log(ctl.name, b);
 		if (b.fld.input === 'file') return null;
 		return b.value;
 	}
@@ -124,6 +125,7 @@ export class FormDlg {
 			ctl.setAttribute(k, v);
 		}
 	}
+
 	setCheckbox(chk: HTMLInputElement) {
 		if (!chk || chk.tagName !== 'INPUT' || !chk.name) return;
 		chk.checked = !chk.checked;
