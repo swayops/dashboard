@@ -59,9 +59,10 @@ export class EditProfileCmp extends ManageBase {
 
 	public init() {
 		const u = this.user;
+
 		if (u.adAgency) {
 			this.endpoint = 'adAgency/' + u.id;
-			this.fields[1].name = 'adAgency.name';
+			this.fields[0].name = 'adAgency.name';
 			this.fields[4].name = 'adAgency.status';
 			if (this.api.IsAdmin()) {
 				this.fields.push({
@@ -69,11 +70,13 @@ export class EditProfileCmp extends ManageBase {
 				});
 			}
 		}
+
 		if (u.talentAgency) {
 			this.endpoint = 'talentAgency/' + u.id;
-			this.fields[1].name = 'talentAgency.name';
+			this.fields[0].name = 'talentAgency.name';
 			this.fields[4].name = 'talentAgency.status';
 		}
+
 		if (u.advertiser) {
 			if (this.api.IsAdmin()) {
 				this.fields.push({ // only show to admins
@@ -82,11 +85,12 @@ export class EditProfileCmp extends ManageBase {
 				});
 			}
 			this.endpoint = 'advertiser/' + u.id;
-			this.fields[1].name = 'advertiser.name';
+			this.fields[0].name = 'advertiser.name';
 			this.fields[4].name = 'advertiser.status';
 
 			if (!u.subUser) this.dlg.showManageUsers = this.api.IsAdmin() || u.parentId === '2';
 		}
+
 		if (u.inf) {
 			this.fields.push(
 				{
@@ -102,13 +106,16 @@ export class EditProfileCmp extends ManageBase {
 					title: 'YouTube ID:', placeholder: 'YouTube ID', input: 'text', name: 'influencer.youtube',
 				},
 			);
+
 			this.endpoint = 'influencer/' + u.id;
-			this.fields[1].name = 'influencer.name';
+			this.fields[0].name = 'influencer.name';
 			this.fields[4].name = 'influencer.status';
 		}
+
 		if (u.admin && !this.endpoint) {
 			this.endpoint = 'admin/' + u.id;
 		}
+
 		this.dlg.fields = this.fields.concat(this.resetPassFields);
 		this.dlg.show(u);
 	}
