@@ -53,5 +53,18 @@ export class OutboundPerksCmp extends ManageBase {
 			this.AddNotification('error', err.msg);
 		});
 	}
+
+	Reject(infID: string, cmpID: string, dealID: string) {
+		this.loading = true;
+		this.api.Get('unassignDeal/' + infID + '/' + cmpID + '/' + dealID, resp => {
+			this.loading = false;
+			this.Reload();
+			this.AddNotification('success', 'Approved!', 5000);
+			this.ScrollToTop();
+		}, err => {
+			this.loading = false;
+			this.AddNotification('error', err.msg);
+		});
+	}
 }
 
