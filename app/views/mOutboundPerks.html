@@ -24,7 +24,7 @@
 			<td>{{perk.name}}</td>
 			<td><a href="{{ settings.infAppUrl }}/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
 			<td>{{address(perk)}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button><br><button class="btn-micro ghost" (click)="Reject(perk.infID, perk.cmpID, perk.dealID)" [disabled]="loading">Reject</button></td>
+			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button>&nbsp;|&nbsp;<button class="btn-micro ghost" (click)="Reject(perk.infID, perk.cmpID, perk.dealID)" [disabled]="loading">Reject</button></td>
 		</tr>
 	</tbody>
 </table>
