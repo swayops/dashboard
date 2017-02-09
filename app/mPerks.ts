@@ -66,5 +66,12 @@ export class OutboundPerksCmp extends ManageBase {
 			this.AddNotification('error', err.msg);
 		});
 	}
+
+	Print(html: string) {
+		const wnd = window.open("", "", "_blank");
+		wnd.document.write(html);
+		wnd.focus();
+		wnd.print();
+	}
 }
 
