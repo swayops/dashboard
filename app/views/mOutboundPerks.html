@@ -9,12 +9,12 @@
 <table class="tbl">
 	<thead>
 		<tr>
-			<th>Campaign ID</th>
-			<th>Campaign Name</th>
-			<th>Perk Name</th>
-			<th>Ship Name</th>
-			<th>Ship Address</th>
-			<th>Actions</th>
+			<th width="10%">Campaign ID</th>
+			<th width="10%">Campaign Name</th>
+			<th width="10%">Perk Name</th>
+			<th width="10%">Ship Name</th>
+			<th width="30%">Ship Address</th>
+			<th width="30%">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,7 +24,7 @@
 			<td>{{perk.name}}</td>
 			<td><a href="{{ settings.infAppUrl }}/forceLogin/{{ perk.id }}" target="_blank">{{perk.infName}}</a></td>
 			<td>{{address(perk)}}</td>
-			<td><button class="btn-green1 btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button>&nbsp;<button class="btn-micro ghost" (click)="Reject(perk.infID, perk.cmpID, perk.dealID)" [disabled]="loading">Reject</button></td>
+			<td><button class="brn-blue btn-micro ghost" (click)="Sent(perk.cmpID, perk.id)" [disabled]="loading">Sent</button><br><br><button class="brn-blue btn-micro ghost" (click)="Reject(perk.infID, perk.cmpID, perk.dealID)" [disabled]="loading">Reject</button><br><br><button class="brn-blue btn-micro ghost" (click)="Print(perk.doc)">Print</button></td>
 		</tr>
 	</tbody>
 </table>
