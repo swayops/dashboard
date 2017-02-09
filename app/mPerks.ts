@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
+
+declare var $: any;
 
 @Component({
 	selector: 'manage-campaign-perks',
@@ -21,7 +23,6 @@ export class CampaignPerksCmp extends ManageBase {
 	}
 }
 
-
 @Component({
 	selector: 'manage-outbound-perks',
 	templateUrl: './views/mOutboundPerks.html',
@@ -38,17 +39,17 @@ export class OutboundPerksCmp extends ManageBase {
 		return [
 			addr.address_line1, addr.address_line2, addr.address_city, addr.address_state,
 			addr.address_zip, addr.address_country,
-		].filter(v => !!v && v.length).join(', ');
+		].filter((v) => !!v && v.length).join(', ');
 	}
 
 	Sent(cmpID: string, infID: string) {
 		this.loading = true;
-		this.api.Get('approvePerk/' + infID + '/' + cmpID, resp => {
+		this.api.Get('approvePerk/' + infID + '/' + cmpID, (resp) => {
 			this.loading = false;
 			this.Reload();
 			this.AddNotification('success', 'Approved!', 5000);
 			this.ScrollToTop();
-		}, err => {
+		}, (err) => {
 			this.loading = false;
 			this.AddNotification('error', err.msg);
 		});
@@ -56,22 +57,41 @@ export class OutboundPerksCmp extends ManageBase {
 
 	Reject(infID: string, cmpID: string, dealID: string) {
 		this.loading = true;
-		this.api.Get('unassignDeal/' + infID + '/' + cmpID + '/' + dealID, resp => {
+		this.api.Get('unassignDeal/' + infID + '/' + cmpID + '/' + dealID, (resp) => {
 			this.loading = false;
 			this.Reload();
 			this.AddNotification('success', 'Approved!', 5000);
 			this.ScrollToTop();
-		}, err => {
+		}, (err) => {
 			this.loading = false;
 			this.AddNotification('error', err.msg);
 		});
 	}
 
 	Print(html: string) {
-		const wnd = window.open("", "", "_blank");
-		wnd.document.write(html);
-		wnd.focus();
-		wnd.print();
+		const wnd = window.open('', '_blank', 'width=800, height=600');
+		wnd.document.write(tmpl.replace('{{BODY}}', html));
+		$(wnd.document).ready(() => {
+			// god bless jquery
+			const $imgs = $('img', wnd.document);
+			let loaded = $imgs.length;
+			$imgs.load(() => {
+				if (--loaded <= 0) {
+					wnd.focus();
+					wnd.print();
+				}
+			});
+		});
 	}
 }
 
+const tmpl = `
+<html>
+<head>
+<title>Handout</title>
+</head>
+<body>
+{{BODY}}
+</body>
+</html>
+`;
