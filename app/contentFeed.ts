@@ -35,7 +35,7 @@ export class ContentFeedCmp extends ManageBase {
 				v.socialImage = '/static/img/defaultContentFeed.jpg';
 			}
 		}
-		this.SortBy('infID', true);
+
 		$('.auditRow > .ttip').tooltip();
 	}
 
