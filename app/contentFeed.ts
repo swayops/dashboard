@@ -7,6 +7,8 @@ import { Sway } from './sway';
 
 import { ModalEvent } from './modal';
 
+declare var $: any;
+
 @Component({
 	selector: 'ContentFeed',
 	templateUrl: './views/contentFeed.html',
@@ -20,6 +22,7 @@ export class ContentFeedCmp extends ManageBase {
 	];
 
 	private banned = {};
+
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertiserContentFeed', '-Content Feed', title, api, route.snapshot.params['id'],
 			() => this.initData());
@@ -33,7 +36,9 @@ export class ContentFeedCmp extends ManageBase {
 			}
 		}
 		this.SortBy('infID', true);
+		$('.auditRow > .ttip').tooltip();
 	}
+
 	ban(infID: string) {
 		this.api.Get('advertiserBan/' + this.id + '/' + infID, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Banned!');
