@@ -45,9 +45,10 @@ export class Modal {
 		btn.click(new ModalEvent(this, evt, btn.name, this.data));
 	}
 
-	show(extraData?: any) {
+	show(extraData?: any, resetInputs = false) {
 		this.data = extraData;
 
+		if (resetInputs) $('input, textarea, select', this.ele).val('');
 		const ele = this.ele;
 		ele.classList.add('visible');
 		this.body.classList.add('noscroll');

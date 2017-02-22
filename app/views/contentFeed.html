@@ -43,7 +43,7 @@
 		</div>
 		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
 			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br><br>
-			<button class="btn btn-block btn-micro btn-blue ghost" (click)="urlDialog.show(it)" *ngIf="api.IsAdmin() && !isBanned(it.infID)">Add Bonus</button><br><br>
+			<button class="btn btn-block btn-micro btn-blue ghost" (click)="urlDialog.show(it, true)" *ngIf="api.IsAdmin() && !isBanned(it.infID)">Add Bonus</button><br><br>
 			<button class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)" *ngIf="!isBanned(it.infID)">Ban</button>
 			<br>
 		</div>
