@@ -96,6 +96,7 @@ export class ModalEvent {
 
 	get value() { return this.dlg.value; }
 	Cancel() { CancelEvent(this.event); }
+	Hide() { this.dlg.hide(); }
 }
 
 export interface Button {

@@ -62,6 +62,8 @@ export class ContentFeedCmp extends ManageBase {
 			this.AddNotification('error', err.msg);
 			this.ScrollToTop();
 		});
+
+		evt.Hide();
 	}
 }
 
