@@ -30,11 +30,11 @@
 			Published: <span id="counts" style="font-size: 10px;">{{it.published * 1000 | date}}</span>
 			<p style="max-height: 85px; overflow: scroll;">{{it.caption}}</p>
 			<small>
-				<img height="15" src="./static/img/view.png"> <span id="counts">{{it.views || 'N/A'}} - </span>
-				<img height="15" src="./static/img/like.png"> <span id="counts">{{it.likes || 'N/A'}} - </span>
-				<img height="15" src="./static/img/comment.png"> <span id="counts">{{it.comments || 'N/A'}} - </span>
-				<img height="15" src="./static/img/share.png"> <span id="counts">{{it.shares || 'N/A'}} - </span>
-				<img height="15" src="./static/img/click.png"> <span id="counts">{{it.clicks || 'N/A'}} - </span>
+				<img class="ttip" title="Est Views" height="15" src="./static/img/view.png"> <span id="counts">{{it.views || 'N/A'}} - </span>
+				<img class="ttip" title="Likes" height="15" src="./static/img/like.png"> <span id="counts">{{it.likes || 'N/A'}} - </span>
+				<img class="ttip" title="Comments" height="15" src="./static/img/comment.png"> <span id="counts">{{it.comments || 'N/A'}} - </span>
+				<img class="ttip" title="Shares" height="15" src="./static/img/share.png"> <span id="counts">{{it.shares || 'N/A'}} - </span>
+				<img class="ttip" title="Link Clicks" height="15" src="./static/img/click.png"> <span id="counts">{{it.clicks || 'N/A'}} - </span>
 			</small><br>
 			<small style="font-size: 10px;">
 				Campaign: <span id="counts" style="font-size: 10px;">({{it.campaignID || 'N/A'}}) - {{it.campaignName || 'N/A'}}</span>
