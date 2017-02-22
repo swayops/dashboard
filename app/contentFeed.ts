@@ -58,6 +58,7 @@ export class ContentFeedCmp extends ManageBase {
 			};
 		this.api.Post('addBonus', payload, (resp) => {
 			this.AddNotification('success', 'Successfully Added Bonus Post URL!');
+			this.ScrollToTop();
 		}, (err) => {
 			this.AddNotification('error', err.msg);
 			this.ScrollToTop();
