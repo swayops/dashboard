@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 import { CancelEvent } from './utils';
 
@@ -92,7 +92,7 @@ export class Modal {
 }
 
 export class ModalEvent {
-	constructor(public dlg: Modal, public event: Event, public name: string, public data: any) {}
+	constructor(public dlg: Modal, public event: Event, public name: string, public data: any) { }
 
 	get value() { return this.dlg.value; }
 	Cancel() { CancelEvent(this.event); }

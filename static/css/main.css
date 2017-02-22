@@ -277,7 +277,6 @@ div#header .menu li:hover .sub-menu{
 }
 #banner .btn span{margin-right:15px;}
 
-#banner .scroll-down{}
 #banner .scroll-down a{
 	width:14px;
 	height:24px;
@@ -477,9 +476,6 @@ div#header .menu li:hover .sub-menu{
 	padding:0;
 	margin:0;
 }
-#bottom .widget-menu ul li{
-
-}
 #bottom .widget-menu ul a{
 	font-size: 14px;
 	color:#0082d5;
@@ -627,7 +623,7 @@ div#header .menu li:hover .sub-menu{
     display: inline-block;
     margin-top: 8px;
 }
-#campaign-steps section{}
+
 #campaign-steps .steps{clear:both;}
 #campaign-steps .steps ul{
 	list-style:none;
@@ -756,7 +752,6 @@ div#header .menu li:hover .sub-menu{
 }
 .influencer-g .img .checkbox{position:absolute;top: 8px;    left: 22px;
 }
-.influencer-g .right{}
 .influencer-g .i-n{
 	font-size:15px;
 	font-weight:400;
@@ -905,6 +900,11 @@ div#header .menu li:hover .sub-menu{
 	min-height: 195px;
 	border-radius: 10px;
 }
+
+.auditRow.bonus {
+	background: rgba(0,150,0,.10);
+}
+
 .auditRowHeader {
 	font-weight: 400;
 	text-transform: uppercase;

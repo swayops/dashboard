@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
-import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
+
+import { ModalEvent } from './modal';
 
 @Component({
 	selector: 'ContentFeed',
@@ -11,6 +13,12 @@ import { ManageBase } from './manageBase';
 })
 export class ContentFeedCmp extends ManageBase {
 	public currentSortKey: string = '';
+
+	public urlButtons = [
+		{ name: 'Cancel', class: 'btn-blue ghost' },
+		{ name: 'Add Bonus', class: 'btn-info', click: (evt) => this.addBonus(evt) },
+	];
+
 	private banned = {};
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getAdvertiserContentFeed', '-Content Feed', title, api, route.snapshot.params['id'],
@@ -18,7 +26,7 @@ export class ContentFeedCmp extends ManageBase {
 	}
 
 	initData() {
-		for (let v of this.list) {
+		for (const v of this.list) {
 			if (!v.socialImage) {
 				// v.socialImage = defaultImages[Math.floor(Math.random() * defaultImages.length)];
 				v.socialImage = '/static/img/defaultContentFeed.jpg';
@@ -27,7 +35,7 @@ export class ContentFeedCmp extends ManageBase {
 		this.SortBy('infID', true);
 	}
 	ban(infID: string) {
-		this.api.Get('advertiserBan/' + this.id + '/' + infID, resp => {
+		this.api.Get('advertiserBan/' + this.id + '/' + infID, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'error' ? resp.message : 'Banned!');
 			this.banned[infID] = true;
 			this.Reload();
@@ -39,7 +47,22 @@ export class ContentFeedCmp extends ManageBase {
 		const blacklist = this.user.advertiser.blacklist || {};
 		return blacklist[infID] || this.banned[infID];
 	}
-}
 
+	addBonus(evt: ModalEvent) {
+		const it = evt.data,
+			url = evt.value.url,
+			payload = {
+				cmpID: it.campaignID,
+				infID: it.infID,
+				url: url,
+			};
+		this.api.Post('addBonus', payload, (resp) => {
+			this.AddNotification('success', 'Successfully Added Bonus Post URL!');
+		}, (err) => {
+			this.AddNotification('error', err.msg);
+			this.ScrollToTop();
+		});
+	}
+}
 
 // const defaultImages = [1, 2, 3, 4, 5, 6].map(v => '/images/campaign/default_' + v + '.jpg');

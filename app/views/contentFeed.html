@@ -17,11 +17,11 @@
 					</div>
 			</div>
 
-		</div><br/>
+		</div><br>
 
 <h2 class="heading">Content generated:</h2>
 <template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
-	<div class="grid-100 mobile-grid-100 grid-parent auditRow">
+	<div class="grid-100 mobile-grid-100 grid-parent auditRow" [class.bonus]="it.bonus">
 		<a href="{{it.url}}" target="_blank">
 			<div align="center" class="grid-25 mobile-grid-100 grid-parent auditPic"><img [src]="it.socialImage"></div>
 		</a>
@@ -42,10 +42,17 @@
 			</small>
 		</div>
 		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
-			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br/><br/>
-			<a href="javascript:" class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)" *ngIf="!isBanned(it.infID)">Ban</a>
-			<br/>
+			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br><br>
+			<button class="btn btn-block btn-micro btn-blue ghost" (click)="urlDialog.show(it)" *ngIf="!isBanned(it.infID)">Add Bonus</button><br><br>
+			<button class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)" *ngIf="!isBanned(it.infID)">Ban</button>
+			<br>
 		</div>
 	</div>
 	<div class="clearfix br"></div>
 </template>
+<modal title="Add Bonus Post URL:" width="300px" [buttons]=urlButtons #urlDialog>
+	<div>
+		<label for="url"><strong>Post URL:</strong></label>
+		<input id="url" type="text">
+	</div>
+</modal>
