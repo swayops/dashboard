@@ -23,27 +23,26 @@
 <template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
 	<div class="grid-100 mobile-grid-100 grid-parent auditRow" [class.bonus]="it.bonus">
 		<a href="{{it.url}}" target="_blank">
-			<div align="center" class="grid-25 mobile-grid-100 grid-parent auditPic"><img [src]="it.socialImage"></div>
+			<div align="left" class="grid-25 mobile-grid-100 grid-parent auditPic"><img [src]="it.socialImage"></div>
 		</a>
-		<div class="grid-60 mobile-grid-100 grid-parent auditDesc">
+		<div class="grid-50 mobile-grid-100 grid-parent auditDesc">
 			<div class="auditRowHeader">{{it.username}}</div>
-			<p>{{it.caption}}</p>
+			Published: <span id="counts" style="font-size: 10px;">{{it.published * 1000 | date}}</span>
+			<p style="max-height: 85px; overflow: scroll;">{{it.caption}}</p>
 			<small>
-				Views: <span id="counts">{{it.views || 'N/A'}}</span>
-				Likes: <span id="counts">{{it.likes || 'N/A'}}</span>
-				Comments: <span id="counts">{{it.comments || 'N/A'}}</span>
-				Shares: <span id="counts">{{it.shares || 'N/A'}}</span>
-				Link Clicks: <span id="counts">{{it.clicks || 'N/A'}}</span>
+				<img height="15" src="./static/img/view.png"> <span id="counts">{{it.views || 'N/A'}} - </span>
+				<img height="15" src="./static/img/like.png"> <span id="counts">{{it.likes || 'N/A'}} - </span>
+				<img height="15" src="./static/img/comment.png"> <span id="counts">{{it.comments || 'N/A'}} - </span>
+				<img height="15" src="./static/img/share.png"> <span id="counts">{{it.shares || 'N/A'}} - </span>
+				<img height="15" src="./static/img/click.png"> <span id="counts">{{it.clicks || 'N/A'}} - </span>
 			</small><br>
 			<small style="font-size: 10px;">
-				Published: <span id="counts" style="font-size: 10px;">{{it.published * 1000 | date}}</span>
-				Campaign ID: <span id="counts" style="font-size: 10px;">{{it.campaignID || 'N/A'}}</span>
-				Campaign Name: <span id="counts" style="font-size: 10px;">{{it.campaignName || 'N/A'}}</span>
+				Campaign: <span id="counts" style="font-size: 10px;">({{it.campaignID || 'N/A'}}) - {{it.campaignName || 'N/A'}}</span>
 			</small>
 		</div>
-		<div class="grid-15 mobile-grid-100 grid-parent auditLast" align="center">
+		<div class="grid-25 mobile-grid-100 grid-parent auditLast" align="right" style="padding-right: 20px;">
 			<a href="{{it.url}}" class="btn btn-block btn-micro btn-blue ghost" target="_blank">View</a><br><br>
-			<button class="btn btn-block btn-micro btn-blue ghost" (click)="urlDialog.show(it, true)" *ngIf="api.IsAdmin() && !isBanned(it.infID)">Add Bonus</button><br><br>
+			<button class="btn btn-block btn-micro btn-blue ghost" (click)="urlDialog.show(it, true)" *ngIf="!isBanned(it.infID)">+ Bonus Post</button><br><br>
 			<button class="btn btn-block btn-micro btn-scarlet ghost" (click)="ban(it.infID)" *ngIf="!isBanned(it.infID)">Ban</button>
 			<br>
 		</div>
