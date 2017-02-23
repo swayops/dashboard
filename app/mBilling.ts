@@ -48,6 +48,28 @@ export class ManageBillingCmp extends ManageBase {
 		});
 	}
 
+	del() {
+		this.loading = true;
+		const adv = Object.assign({}, this.user.advertiser);
+		adv.ccLoad = Object.assign({}, this.cc);
+		adv.ccLoad.del = true;
+		this.api.Put('advertiser/' + this.id, { advertiser: adv }, (resp) => {
+			this.loading = false;
+			this.isEditing = false;
+			if (resp.status === 'success') {
+				this.AddNotification(resp.status, 'Successfully updated your credit card information.');
+			} else {
+				this.AddNotification(resp.status, resp);
+			}
+			this.ScrollToTop();
+			this.Reload((r) => this.init(r));
+		}, (err) => {
+			this.AddNotification('error', err, 0);
+			this.ScrollToTop();
+			this.loading = false;
+		});
+	}
+
 	private init(resp: any) {
 		this.list = null;
 		if (!resp || !resp.cc || !resp.cc.cardNumber) {
