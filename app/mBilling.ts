@@ -59,7 +59,7 @@ export class ManageBillingCmp extends ManageBase {
 			this.loading = false;
 			this.isEditing = false;
 			if (resp.status === 'success') {
-				this.AddNotification(resp.status, 'Successfully updated your credit card information.');
+				this.AddNotification(resp.status, 'Successfully removed your credit card information.');
 			} else {
 				this.AddNotification(resp.status, resp);
 			}
