@@ -93,7 +93,7 @@
 			<br> {{cc.expMonth}} | {{cc.expYear}}
 			<br>
 
-			<small><a (click)="isEditing = true" title="Edit">edit billing info</a></small>
+			<small><a (click)="isEditing = true" title="Edit">edit</a> | <a (click)="del()" title="Delete">remove</a>  </small>
 		</div>
 		<form #f="ngForm" (ngSubmit)="save(f)" *ngIf="isEditing">
 			<div class="form-group">
