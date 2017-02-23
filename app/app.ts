@@ -44,6 +44,7 @@ export class AppComponent extends HasAPI {
 				return;
 			}
 			if (evt instanceof NavigationEnd) {
+				this.noNav = noNavURLs.some((url) => evt.url.indexOf(url) === 0);
 				this.api.IsLoggedIn.subscribe((v) => {
 					if (v) {
 						document.body.classList.add('user-logged-in');
@@ -100,11 +101,11 @@ export class AppComponent extends HasAPI {
 		$('div[role=tooltip]').remove(); // workaround logout tooltip bug
 		$('.ttip').tooltip();
 		$('#shareCodeSection').hide();
-		$('#saveGroupBut').click(function () {
+		$('#saveGroupBut').click(function() {
 			$('#shareCodeSection').show('slow');
 		});
 
-		$('.onoffswitch').click(function () {
+		$('.onoffswitch').click(function() {
 			const cls = $(this).attr('data-for'),
 				inp = $(this).find('input');
 			if (inp.is(':checked') && !inp.is(':disabled')) {
@@ -112,7 +113,7 @@ export class AppComponent extends HasAPI {
 			}
 		});
 
-		$('#slct_perks').click(function () {
+		$('#slct_perks').click(function() {
 			const cls = $(this).attr('data-for');
 			$('.' + cls).slideToggle();
 			if ($('#perks').prop('checked')) {
@@ -125,7 +126,7 @@ export class AppComponent extends HasAPI {
 
 		});
 
-		$('.onoffswitch').each(function () {
+		$('.onoffswitch').each(function() {
 			const cls = $(this).attr('data-for'),
 				checked = $(this).find('input').is(':checked');
 			if (!checked) {
@@ -133,7 +134,7 @@ export class AppComponent extends HasAPI {
 			}
 		});
 
-		$('.prog-bar div').each(function (index: number) {
+		$('.prog-bar div').each(function(index: number) {
 			$(this).slider({
 				orientation: 'horizontal',
 				range: 'min',
@@ -142,7 +143,7 @@ export class AppComponent extends HasAPI {
 			});
 		});
 
-		$('[noscroll]').on('scroll touchmove mousewheel', function (e) {
+		$('[noscroll]').on('scroll touchmove mousewheel', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
@@ -153,7 +154,7 @@ export class AppComponent extends HasAPI {
 	initIncrGroup() {
 		$('.increment-group').append('<div class="btn-action"><div class="inc button">+</div><div class="dec button">-</div></div>');
 
-		$('.increment-group .button').on('click', function () {
+		$('.increment-group .button').on('click', function() {
 			const $button = $(this),
 				oldValue = $button.parent().parent().find('input').val();
 			let newVal = 0;
@@ -173,19 +174,19 @@ export class AppComponent extends HasAPI {
 	};
 
 	initSliderRange() {
-		$('.slider-range').each(function (index: number) {
+		$('.slider-range').each(function(index: number) {
 			$(this).slider({
 				range: true,
 				min: parseInt($(this).attr('data-min')) || 0,
 				max: parseInt($(this).attr('data-max')) || 0,
 				values: [$(this).attr('data-start'), $(this).attr('data-end')].map(parseInt),
-				slide: function (event, ui) {
+				slide: function(event, ui) {
 					$(this).siblings().val(ui.values[0] + ' - ' + ui.values[1]);
 				},
 			});
 		});
 
-		$('.notification .fui-cross').click(function () {
+		$('.notification .fui-cross').click(function() {
 			$(this).parent().fadeOut(450);
 		});
 	}
