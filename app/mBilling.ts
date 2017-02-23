@@ -14,7 +14,9 @@ declare var $: any;
 	templateUrl: './views/mBilling.html',
 })
 export class ManageBillingCmp extends ManageBase {
-	public cc: any = {};
+	public cc: any = {
+		num: new Array(4),
+	};
 	public activeBalance = 0;
 	public inactiveBalance = 0;
 	public isEditing = false;
@@ -75,6 +77,9 @@ export class ManageBillingCmp extends ManageBase {
 		if (!resp || !resp.cc || !resp.cc.cardNumber) {
 			this.cc.num = ['', '', '', ''];
 			this.isEditing = true;
+			this.cc = {
+				num: new Array(4),
+			};
 			return;
 		}
 		this.cc = Object.assign({}, resp.cc);
