@@ -44,7 +44,6 @@ export class SubUsersCmp extends ManageBase {
 	}
 
 	addUser(v: any) {
-		console.log(v);
 		this.loading = true;
 		this.api.Post('subUsers/' + this.user.id, v, (resp) => {
 			this.loading = false;

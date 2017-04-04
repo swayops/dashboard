@@ -88,11 +88,7 @@ export class ManageBase extends HasAPI {
 
 	EditFields(flds: any[]): any[] {
 		return flds.filter((fld) => {
-			if (!this.api.IsAdmin()) {
-				console.log(this.api.User, this.api.CurrentUser);
-			}
 			if (fld.adminOnly && !this.api.IsAdmin()) {
-				console.log(this.api.User);
 				return false;
 			}
 			return !fld.newOnly;
