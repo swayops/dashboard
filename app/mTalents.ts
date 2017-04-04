@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
-import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
 import * as V from './validators';
 
 @Component({
@@ -68,12 +68,14 @@ export class TalentsCmp extends ManageBase {
 		},
 	];
 
-	public createFields = this.CreateFields(this.fields);
-	public editFields = this.EditFields(this.fields);
+	public createFields: any[];
+	public editFields: any[];
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getInfluencersByAgency', 'My Talents', title, api, route.snapshot.params['id'], () => {
 			this.inviteUrl = location.origin + '/invite/' + this.user.talentAgency.inviteCode;
+			this.createFields = this.CreateFields(this.fields);
+			this.editFields = this.EditFields(this.fields);
 		});
 	}
 
@@ -84,7 +86,7 @@ export class TalentsCmp extends ManageBase {
 			['Instagram', inf.instaUsername],
 			['Facebook', inf.fbUsername],
 			['YouTube', inf.youtubeUsername],
-		].filter(v => !!v[1]).map(v => v.join(': ')).join('\n');
+		].filter((v) => !!v[1]).map((v) => v.join(': ')).join('\n');
 	}
 
 	networkUrl(inf: any): string {
@@ -95,7 +97,7 @@ export class TalentsCmp extends ManageBase {
 			['youtube', inf.youtubeUsername],
 		];
 		let out = 'mailto:' + inf.email;
-		data.some(v => {
+		data.some((v) => {
 			if (!!v[1] && networkUrls[v[0]]) {
 				out = networkUrls[v[0]] + v[1];
 				return true;
@@ -105,7 +107,7 @@ export class TalentsCmp extends ManageBase {
 	}
 	save = (data, done) => {
 		data.influencer.inviteCode = this.user.talentAgency.inviteCode;
-		this.api.Post('signUp', data, resp => {
+		this.api.Post('signUp', data, (resp) => {
 			let msg = resp.msg;
 			if (resp.status === 'success') {
 				msg = 'Talent ' + data.name + '(' + resp.id + ') was created successfully!';
@@ -113,33 +115,32 @@ export class TalentsCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});
 	}
 
 	edit = (data, done) => {
-		this.api.Put('influencer/' + data.id, data, resp => {
+		this.api.Put('influencer/' + data.id, data, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			done();
 			this.Reload();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});
 	}
 
 	delete = (data) => {
-		this.api.Get('setInviteCode/' + data.id + '/-', resp => {
+		this.api.Get('setInviteCode/' + data.id + '/-', (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Deleted.' : resp.msg, 5000);
 			this.Reload();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 		});
 	}
 }
-
 
 const networkUrls = {
 	instagram: 'https://www.instagram.com/',

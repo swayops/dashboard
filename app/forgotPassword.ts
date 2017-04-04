@@ -25,9 +25,8 @@ export class ForgotPasswordCmp {
 	ForgotPassword() {
 		this.loading = true;
 		this.api.ForgotPassword(this.form,
-			data => { console.log(data); this.success = true; },
-			err => { this.error = err; this.loading = false; }
+			(data) => { console.log(data); this.success = true; },
+			(err) => { this.error = err; this.loading = false; },
 		);
 	}
 }
-

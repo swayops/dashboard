@@ -157,7 +157,7 @@ export class Sway {
 	get CurrentUser(): User { return this.curUser || this.mainUser; }
 
 	IsAdmin(): boolean {
-		return this.User.admin && !!this.curUser && this.User.id !== this.curUser.id;
+		return !!this.User.admin && !!this.curUser && this.User.id !== this.curUser.id;
 	}
 
 	IsAgency(): boolean {

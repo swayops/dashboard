@@ -13,7 +13,7 @@ import { CancelEvent } from './utils';
 export class FormDlg {
 	@Output() onSave = new EventEmitter();
 
-	@Input() value: Object; // setting value automatically shows the form, YMMV
+	@Input() value: {}; // setting value automatically shows the form, YMMV
 	@Input() title: string;
 	@Input() showManageUsers: boolean;
 	@Input() fields: ControlOption[];
@@ -104,7 +104,6 @@ export class FormDlg {
 
 	getValue(ctl: any): any {
 		const b = this.binders[ctl.name];
-		if (location && location.href && location.href.indexOf('debug') > -1) console.log(ctl.name, b);
 		if (b.fld.input === 'file') return null;
 		return b.value;
 	}
@@ -203,7 +202,7 @@ class Binder {
 	public name: string;
 	public touched: boolean;
 
-	constructor(public data: Object, public fld: ControlOption) {
+	constructor(public data: {}, public fld: ControlOption) {
 		const parts = fld.name.split('.'),
 			lastKey = parts[parts.length - 1];
 		for (let i = 0; i < parts.length - 1; i++) {
