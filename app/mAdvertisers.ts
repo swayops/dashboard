@@ -52,11 +52,14 @@ export class AdvertisersCmp extends ManageBase {
 		},
 	];
 
-	public createFields = this.CreateFields(this.fields);
-	public editFields = this.EditFields(this.fields);
+	public createFields: any[];
+	public editFields: any[];
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id']);
+		super('getAdvertisersByAgency', 'Advertisers', title, api, route.snapshot.params['id'], (resp) => {
+			this.createFields = this.CreateFields(this.fields);
+			this.editFields = this.EditFields(this.fields);
+		});
 	}
 
 	openAdv(adv: any) {

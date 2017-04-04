@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway } from './sway';
 import { ManageBase } from './manageBase';
+import { Sway } from './sway';
 import * as V from './validators';
 
 @Component({
@@ -55,15 +55,18 @@ export class MediaAgenciesCmp extends ManageBase {
 		},
 	];
 
-	public createFields = this.CreateFields(this.fields);
-	public editFields = this.EditFields(this.fields);
+	public createFields: any[];
+	public editFields: any[];
 
 	constructor(title: Title, api: Sway) {
-		super('getAllAdAgencies', 'Media Agencies', title, api);
+		super('getAllAdAgencies', 'Media Agencies', title, api, null, (_) => {
+			this.createFields = this.CreateFields(this.fields);
+			this.editFields = this.EditFields(this.fields);
+		});
 	}
 
 	save = (data, done) => {
-		this.api.Post('signUp', data, resp => {
+		this.api.Post('signUp', data, (resp) => {
 			let msg = resp.msg;
 			if (resp.status === 'success') {
 				msg = 'Agency ' + data.name + '(' + resp.id + ') was created successfully!';
@@ -71,18 +74,18 @@ export class MediaAgenciesCmp extends ManageBase {
 			this.AddNotification(resp.status, msg);
 			this.Reload();
 			done();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});
 	}
 
 	edit = (data, done) => {
-		this.api.Put('adAgency/' + data.id, data, resp => {
+		this.api.Put('adAgency/' + data.id, data, (resp) => {
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully updated.' : resp.msg, 5000);
 			done();
 			this.Reload();
-		}, err => {
+		}, (err) => {
 			this.AddNotification('error', err.msg);
 			done();
 		});

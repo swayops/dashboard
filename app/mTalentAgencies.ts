@@ -55,11 +55,14 @@ export class TalentAgenciesCmp extends ManageBase {
 		},
 	];
 
-	public createFields = this.CreateFields(this.fields);
-	public editFields = this.EditFields(this.fields);
+	public createFields: any[];
+	public editFields: any[];
 
 	constructor(title: Title, api: Sway) {
-		super('getAllTalentAgencies', 'Talent Agencies', title, api);
+		super('getAllTalentAgencies', 'Talent Agencies', title, api, null, (resp) => {
+			this.createFields = this.CreateFields(this.fields);
+			this.editFields = this.EditFields(this.fields);
+		});
 	}
 
 	save = (data, done) => {
