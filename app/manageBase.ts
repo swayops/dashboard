@@ -79,13 +79,19 @@ export class ManageBase extends HasAPI {
 
 	CreateFields(flds: any[]): any[] {
 		return flds.filter((fld) => {
-			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.editOnly;
+			if (fld.adminOnly && !this.api.IsAdmin()) {
+				return false;
+			}
+			return !fld.editOnly;
 		});
 	}
 
 	EditFields(flds: any[]): any[] {
 		return flds.filter((fld) => {
-			return !(fld.adminOnly && this.api.IsAdmin()) && !fld.newOnly;
+			if (fld.adminOnly && !this.api.IsAdmin()) {
+				return false;
+			}
+			return !fld.newOnly;
 		}).map((fld) => {
 			if (!fld.reqNewOnly && !fld.readOnlyOnEdit) return fld;
 			const opts: any = {
@@ -99,5 +105,5 @@ export class ManageBase extends HasAPI {
 		});
 	}
 
-	Copy(o: Object): Object { return Object.assign({}, o); }
+	Copy(o: object): object { return Object.assign({}, o); }
 }
