@@ -32,7 +32,7 @@ import { SignUpCmp } from './signup';
 import { FormDlg } from './form';
 import { Modal } from './modal';
 
-import { FilterArrayPipe, FormatNumberPipe } from './utils';
+import { CheckCmp, FilterArrayPipe, FormatNumberPipe, TruncatePipe } from './utils';
 
 import { ImageCropperModule } from 'ng2-img-cropper';
 
@@ -202,7 +202,9 @@ export const ALL_ROUTES = [
 		Modal,
 
 		// pipes and utils
-		FilterArrayPipe, FormatNumberPipe,
+		FilterArrayPipe, FormatNumberPipe, TruncatePipe,
+
+		CheckCmp,
 	],
 	imports: [
 		BrowserModule,

@@ -390,7 +390,10 @@ export class CreateCampaignCmp extends ManageBase {
 
 	updateForecast() {
 		const data = this.getCmp(this.data);
-		this.api.Post('getForecast', data, (resp) => this.forecast = resp || {});
+		this.api.Post('getForecast?breakdown=3', data, (resp) => {
+			resp = resp || {};
+			this.forecast = resp;
+		});
 	}
 }
 

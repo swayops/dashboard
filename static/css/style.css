@@ -73,6 +73,10 @@ body {
 	cursor: pointer;
 }
 
+.btn.wide, button.wide {
+	padding: 5px 40px;
+}
+
 a {
 	cursor: pointer;
 }
@@ -2246,11 +2250,30 @@ div#header #logo {
 	margin: 10px 0px 0px;
 }
 
-.right-sb .cat-status li p {
-	border-bottom: 1px solid #cad3df;
+.right-sb .cat-status li p, .right-sb .cat-status li .inf-reach {
 	margin: 0px;
 	padding: 0px 0px 15px;
 	line-height: 120%;
+}
+
+.right-sb .cat-status :last-child li:after {
+	display: block;
+	width: 70%;
+	height: 1px;
+	border-bottom: 5px solid #cad3df;
+	margin: 0 auto;
+}
+
+.right-sb .cat-status li:last-child:after {
+	border: 0;
+}
+
+.right-sb .cat-status li:after {
+	display: block;
+	width: 70%;
+	height: 1px;
+	border-bottom: 1px solid #cad3df;
+	margin: 0 auto;
 }
 
 .right-sb .cat-status li:last-child p {
@@ -3006,4 +3029,24 @@ input[type="file"] {
 
 .palette dt {
 	font-size: 12px;
+}
+
+.inf-reach {
+	text-align: center;
+}
+
+.inf-reach .inf {
+	margin: 5px;
+	text-align: left;
+}
+
+.inf-reach .inf img {
+	vertical-align: middle;
+	width: 32px;
+}
+
+.inf-reach .inf span {
+	display: inline-block;
+	width: 110px;
+	padding-left:5px;
 }

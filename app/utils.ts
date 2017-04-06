@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 
 export function Pad(n) {
 	if (typeof n !== 'number') return '';
@@ -24,7 +24,7 @@ export class FilterArrayPipe implements PipeTransform {
 	}
 }
 
-export function FilterByProps(kw: string | null, it: Object, ...props: string[]): boolean {
+export function FilterByProps(kw: string | null, it: any, ...props: string[]): boolean {
 	if (!kw || !it) return true;
 	kw = kw.toLowerCase();
 	return props.some((k) => {
@@ -49,6 +49,13 @@ export class FormatNumberPipe implements PipeTransform {
 			return trimNumber(n / 1e3) + 'K';
 		}
 		return trimNumber(n);
+	}
+}
+
+@Pipe({ name: 'trunc' })
+export class TruncatePipe implements PipeTransform {
+	transform(value: string, limit: number = 10): string {
+		return value.length > limit ? value.substring(0, limit) + '…' : value;
 	}
 }
 
@@ -103,6 +110,19 @@ export function CancelEvent(evt: Event) {
 	if (!evt) return;
 	evt.stopPropagation();
 	evt.preventDefault();
+}
+
+@Component({
+	selector: 'check',
+	template: '<span [class]="cond ? \'fui-check\' : \'fui-cross\'" [style.color]="cond ? goodColor : badColor" [style.fontSize]=size></span>',
+	styles: ['span { display: inline-block; margin: 10px; margin-left: 5px; vertical-align: middle; }'],
+})
+
+export class CheckCmp {
+	@Input() cond: string;
+	@Input() goodColor: string = '#04be5b';
+	@Input() badColor: string = '#d2335c';
+	@Input() size: string = 'inherit';
 }
 
 // this is a simple event emitter than ensures that any callbacks passed to subscribe will always be called.

@@ -346,44 +346,49 @@
 		<p class="normal">{{forecast.reach | fmtNum:'0' }} Fans</p>
 		<p class="normal">{{forecast.influencers | fmtNum:'0' }} Influencers</p>
 	</div>
+
 	<ul class="cat-status">
+		<li *ngIf="forecast.breakdown?.length">
+			<div class="inf-reach grid-100 mobile-grid-100">
+				<div *ngFor="let inf of forecast.breakdown" class="inf">
+					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:16 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
+				</div>
+				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)=showInfList>See More</button>
+			</div>
+		</li>
+
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Monthly Budget:</label> ${{data.budget || 0}}</p>
+				<p><check [cond]="data.budget > 0" size="20px"></check><label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
-		<li *ngIf="sidebar.reqs">
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Requirements:</label> {{sidebar.reqs}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.geos>
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Locations:</label> {{sidebar.geos}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.networks>
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Networks:</label> {{sidebar.networks}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.categories>
+
+		<li *ngIf="!!sidebar.categories">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p>
-					<label>Influencer Groups:</label> {{sidebar.categories}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.keywords>
-			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p>
-					<label>Keywords:</label> {{sidebar.keywords}}</p>
+				<p><check [cond]=true size="20px"></check><label>Categories:</label><br>{{sidebar.categories}}</p>
 			</div>
 		</li>
 		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.networks" size="20px"></check><label>Inventory:</label> {{sidebar.networks}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.reqs">
+			<div class="grid-100 mobile-grid-100">
+				<p><check size="20px"></check><label>Requirements:</label> {{sidebar.reqs}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.keywords">
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><check [cond]="!!sidebar.keywords" size="20px"></check><label>Keywords:</label> {{sidebar.keywords}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.geos">
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.geos" size="20px"></check><label>Locations:</label> {{sidebar.geos}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.lastFour || !!sidebar.totalCharge">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p *ngIf="!!sidebar.lastFour">
 					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
