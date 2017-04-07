@@ -30,6 +30,7 @@ import { ShippingPerksCmp } from './shippingPerks';
 import { SignUpCmp } from './signup';
 
 import { FormDlg } from './form';
+import { Loader } from './loader';
 import { Modal } from './modal';
 
 import { CheckCmp, FilterArrayPipe, FormatNumberPipe, TruncatePipe } from './utils';
@@ -200,6 +201,7 @@ export const ALL_ROUTES = [
 
 		FormDlg,
 		Modal,
+		Loader,
 
 		// pipes and utils
 		FilterArrayPipe, FormatNumberPipe, TruncatePipe,

@@ -1,5 +1,6 @@
 <div class="grid-62 mobile-grid-100 grid-parent campaignPage" three-column>
 	<div class="content-holder center-widget">
+		<loader></loader>
 		<form #f="ngForm" novalidate (ngSubmit)="save()">
 			<div class="grid-100 grid-parent">
 				<h2 class="heading">1. Basic campaign settings
@@ -240,7 +241,7 @@
 							</div>
 							<div class="right meta">
 								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
-								<p class="i-s"><span>Influencers: </span>{{c.infs || 'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach || 'N/A'}}</p>
+								<p class="i-s"><span>Influencers: </span>{{c.infs | fmtNum:'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach | fmtNum:'N/A'}}</p>
 							</div>
 						</div>
 					</div>
