@@ -12,8 +12,8 @@ declare var $: any;
 		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
 	</h2>
-	<ng-content></ng-content>
-	<br>
+	<div class="loader" *ngIf="loading"></div>
+	<div class="body"><ng-content></ng-content></div>
 	<div style="float: right" class="buttons">
 		<button *ngFor="let btn of buttons" [class]="defaultButtonClasses + ' ' + (btn.class || 'btn-blue')"
 			(click)="emitAction(btn, $event)">{{btn.text || btn.name}}</button>
@@ -30,12 +30,13 @@ export class Modal {
 	@Input() width: string;
 	@Input() buttons: Button[];
 
-	private data: any;
+	public data: any;
+	private loading: boolean;
 
 	constructor(private eleRef: ElementRef) { }
 
 	emitAction(btn: Button, evt?: Event) {
-		this.cancelEvent(evt);
+		CancelEvent(evt);
 
 		if (!btn || !btn.click) {
 			this.hide();
@@ -52,6 +53,20 @@ export class Modal {
 		const ele = this.ele;
 		ele.classList.add('visible');
 		this.body.classList.add('noscroll');
+	}
+
+	showAsync(fn: (done: (data?: any) => void) => void, resetInputs = false) {
+		this.data = undefined;
+		if (resetInputs) $('input, textarea, select', this.ele).val('');
+		const ele = this.ele;
+		ele.classList.add('visible');
+		this.loading = true;
+
+		this.body.classList.add('noscroll');
+		fn((data?: any) => {
+			this.data = data;
+			this.loading = false;
+		});
 	}
 
 	hide() {
@@ -83,12 +98,6 @@ export class Modal {
 
 	private get ele(): HTMLElement {
 		return this.eleRef.nativeElement;
-	}
-
-	private cancelEvent(evt: Event) {
-		if (!evt) return;
-		evt.preventDefault();
-		evt.stopPropagation();
 	}
 }
 

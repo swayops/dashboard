@@ -353,7 +353,7 @@
 				<div *ngFor="let inf of forecast.breakdown" class="inf">
 					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:16 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
 				</div>
-				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)=showInfList>See More</button>
+				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See More</button>
 			</div>
 		</li>
 
@@ -402,3 +402,11 @@
 		</li>
 	</ul>
 </div>
+<modal title="INFLUENCERS IN FORECAST" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
+	<div *ngFor="let inf of infDlg.data" class="inf">
+		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
+		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum}}</span>
+		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD TO WHITELIST</button>
+		<button class="btn btn-block btn-lg btn-green1 ghost wide">INCLUDED</button>
+	</div>
+</modal>
