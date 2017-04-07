@@ -396,6 +396,7 @@ export class CreateCampaignCmp extends ManageBase {
 	addToWhitelist(email: string) {
 		if (!this.data.whitelist) {
 			this.data.whitelist = email;
+			$('#targeting').click(); // Oh look, boobies over there, don't look here.
 		} else {
 			this.data.whitelist += ', ' + email;
 		}

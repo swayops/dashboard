@@ -233,8 +233,8 @@
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar('category')">
-									<label [attr.for]="c.cat"> </label>
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
+									<label [attr.for]="c.cat" (click)="updateSidebar('category')"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
 							</div>
@@ -405,7 +405,7 @@
 <modal title="INFLUENCERS IN FORECAST" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
 	<div *ngFor="let inf of infDlg.data" class="inf">
 		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
-		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum}}</span>
+		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
 		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD TO WHITELIST</button>
 		<button class="btn btn-block btn-lg btn-green1 ghost wide">INCLUDED</button>
 	</div>

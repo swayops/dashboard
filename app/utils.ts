@@ -125,6 +125,18 @@ export class CheckCmp {
 	@Input() size: string = 'inherit';
 }
 
+export function Iter(obj: any, fn: (k: any, v?: any) => boolean | void) {
+	if (typeof obj !== 'object') return;
+	if (Array.isArray(obj)) {
+		for (const k of obj) {
+			if (fn(k) === true) return;
+		}
+	}
+	for (const k of Object.keys(obj)) {
+		const v = obj[k];
+	}
+}
+
 // this is a simple event emitter than ensures that any callbacks passed to subscribe will always be called.
 export class PersistentEventEmitter<T> {
 	private callbacks: Array<(arg: T) => void> = [];
