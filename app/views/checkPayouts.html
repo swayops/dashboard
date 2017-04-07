@@ -21,9 +21,9 @@
 		<tr *ngFor="let inf of list | filter:FilterUsers">
 			<td class="align-left">{{inf.name}}</td>
 			<td>{{inf.id}}</td>
-			<td><template ngFor let-it [ngForOf]="inf.completedDeals" let-i="index">
+			<td><ng-template ngFor let-it [ngForOf]="inf.completedDeals" let-i="index">
 				<a title="{{it}}" href="{{it}}" target="_blank">{{i+1}}</a>
-			</template></td>
+			</ng-template></td>
 			<td>{{inf.followers}}</td>
 			<td>{{address(inf)}}</td>
 			<td>${{inf.pendingPayout?.toFixed(2)}}</td>

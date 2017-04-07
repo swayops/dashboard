@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { ManageBase } from './manageBase';
+import { Modal } from './modal';
 import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
@@ -34,11 +35,15 @@ export class CreateCampaignCmp extends ManageBase {
 		keywords: [],
 	};
 
+	public infDlgButtons = [
+		{ name: 'Cancel', class: 'btn-blue ghost' },
+	];
+
 	@Output() sidebar: any = {
 		errors: [],
 	};
 
-	@Output() public forecast: any = {};
+	@Output() public forecast: any = { loading: true };
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -140,8 +145,8 @@ export class CreateCampaignCmp extends ManageBase {
 		if (!this.data.categories) return false;
 		let checked = 0;
 
-		for (const [, v] of Object.entries(this.data.categories)) {
-			if (v) checked++;
+		for (const k of Object.keys(this.data.categories)) {
+			if (this.data.categories[k]) checked++;
 		}
 
 		return checked === this.categories.length;
@@ -361,8 +366,8 @@ export class CreateCampaignCmp extends ManageBase {
 
 		const cats = [];
 
-		for (const [k, v] of Object.entries(data.categories)) {
-			if (v) cats.push(k);
+		for (const k of Object.keys(data.categories)) {
+			if (data.categories[k]) cats.push(k);
 		}
 
 		data.categories = cats;
@@ -388,9 +393,42 @@ export class CreateCampaignCmp extends ManageBase {
 		return reqs;
 	}
 
+	addToWhitelist(email: string) {
+		if (!this.data.whitelist) {
+			this.data.whitelist = email;
+			$('#targeting').click(); // Oh look, boobies over there, don't look here.
+		} else {
+			this.data.whitelist += ', ' + email;
+		}
+	}
+
+	delFromWhitelist(email: string) {
+		this.data.whitelist = this.data.whitelist.replace(email, '').replace(/^, |, $/, '');
+	}
+
+	isInWhitelist(email: string) {
+		const wl = this.data.whitelist;
+		return !!wl && wl.indexOf(email) !== -1;
+	}
+
 	updateForecast() {
 		const data = this.getCmp(this.data);
-		this.api.Post('getForecast', data, (resp) => this.forecast = resp || {});
+		this.forecast.loading = true;
+		this.api.Post('getForecast?breakdown=3', data, (resp) => {
+			resp = resp || {};
+			resp.loading = false;
+			this.forecast = resp;
+		});
+	}
+
+	showInfList(m: Modal) {
+		m.showAsync((done: (data?: any) => void) => {
+			const data = this.getCmp(this.data);
+			this.api.Post('getForecast?breakdown=250', data, (resp) => {
+				resp = resp || {};
+				done(resp.breakdown || []);
+			});
+		});
 	}
 }
 

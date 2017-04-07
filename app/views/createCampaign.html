@@ -233,14 +233,14 @@
 						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
 							<div class="left img">
 								<div class="checkbox">
-									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]" (change)="updateSidebar('category')">
-									<label [attr.for]="c.cat"> </label>
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
+									<label [attr.for]="c.cat" (click)="updateSidebar('category')"> </label>
 								</div>
 								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
 							</div>
 							<div class="right meta">
 								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
-								<p class="i-s"><span>Influencers: </span>{{c.infs || 'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach || 'N/A'}}</p>
+								<p class="i-s"><span>Influencers: </span>{{c.infs | fmtNum:'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach | fmtNum:'N/A'}}</p>
 							</div>
 						</div>
 					</div>
@@ -346,44 +346,52 @@
 		<p class="normal">{{forecast.reach | fmtNum:'0' }} Fans</p>
 		<p class="normal">{{forecast.influencers | fmtNum:'0' }} Influencers</p>
 	</div>
+
 	<ul class="cat-status">
 		<li>
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Monthly Budget:</label> ${{data.budget || 0}}</p>
+			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="forecast.loading">
+				<loader size="70px"></loader>
+			</div>
+			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="!forecast.loading">
+				<div *ngFor="let inf of forecast.breakdown" class="inf">
+					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:12 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
+				</div>
+				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See More</button>
 			</div>
 		</li>
-		<li *ngIf="sidebar.reqs">
+
+		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Requirements:</label> {{sidebar.reqs}}</p>
+				<p><check [cond]="data.budget > 0" size="20px"></check><label>Monthly Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
-		<li *ngIf=sidebar.geos>
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Locations:</label> {{sidebar.geos}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.networks>
-			<div class="grid-100 mobile-grid-100">
-				<p>
-					<label>Networks:</label> {{sidebar.networks}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.categories>
+
+		<li *ngIf="!!sidebar.categories">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p>
-					<label>Influencer Groups:</label> {{sidebar.categories}}</p>
-			</div>
-		</li>
-		<li *ngIf=sidebar.keywords>
-			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p>
-					<label>Keywords:</label> {{sidebar.keywords}}</p>
+				<p><check [cond]=true size="20px"></check><label>Categories:</label><br>{{sidebar.categories}}</p>
 			</div>
 		</li>
 		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.networks" size="20px"></check><label>Inventory:</label> {{sidebar.networks}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.reqs">
+			<div class="grid-100 mobile-grid-100">
+				<p><check size="20px"></check><label>Requirements:</label> {{sidebar.reqs}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.keywords">
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><check [cond]="!!sidebar.keywords" size="20px"></check><label>Keywords:</label> {{sidebar.keywords}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.geos">
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.geos" size="20px"></check><label>Locations:</label> {{sidebar.geos}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.lastFour || !!sidebar.totalCharge">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p *ngIf="!!sidebar.lastFour">
 					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
@@ -397,3 +405,11 @@
 		</li>
 	</ul>
 </div>
+<modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
+	<div *ngFor="let inf of infDlg.data" class="inf">
+		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
+		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
+		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD TO WHITELIST</button>
+		<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromWhitelist(inf.email)">INCLUDED</button>
+	</div>
+</modal>

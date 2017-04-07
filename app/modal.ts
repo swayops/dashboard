@@ -7,12 +7,13 @@ declare var $: any;
 @Component({
 	selector: 'modal',
 	template: `
-<div [style.max-width]="width" class="nosel" (keydown.escape)="hide()">
+<div [style.max-width]="width" class="nosel" (keydown.escape)="hide()" style="overflowing: hidden;">
 	<h2 class="heading" *ngIf="title">{{ title }}
 		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
 	</h2>
-	<ng-content></ng-content>
+	<loader *ngIf="loading"></loader>
+	<div class="body"><ng-content></ng-content></div>
 	<br>
 	<div style="float: right" class="buttons">
 		<button *ngFor="let btn of buttons" [class]="defaultButtonClasses + ' ' + (btn.class || 'btn-blue')"
@@ -21,6 +22,12 @@ declare var $: any;
 	<div class="clearfix br"></div>
 </div>
 `,
+	styles: [`
+	.body {
+		overflow: auto;
+		max-height: 600px;
+	}
+`],
 })
 
 export class Modal {
@@ -30,12 +37,13 @@ export class Modal {
 	@Input() width: string;
 	@Input() buttons: Button[];
 
-	private data: any;
+	public data: any;
+	public loading: boolean;
 
 	constructor(private eleRef: ElementRef) { }
 
 	emitAction(btn: Button, evt?: Event) {
-		this.cancelEvent(evt);
+		CancelEvent(evt);
 
 		if (!btn || !btn.click) {
 			this.hide();
@@ -52,6 +60,20 @@ export class Modal {
 		const ele = this.ele;
 		ele.classList.add('visible');
 		this.body.classList.add('noscroll');
+	}
+
+	showAsync(fn: (done: (data?: any) => void) => void, resetInputs = false) {
+		this.data = undefined;
+		if (resetInputs) $('input, textarea, select', this.ele).val('');
+		const ele = this.ele;
+		ele.classList.add('visible');
+		this.loading = true;
+
+		this.body.classList.add('noscroll');
+		fn((data?: any) => {
+			this.data = data;
+			this.loading = false;
+		});
 	}
 
 	hide() {
@@ -83,12 +105,6 @@ export class Modal {
 
 	private get ele(): HTMLElement {
 		return this.eleRef.nativeElement;
-	}
-
-	private cancelEvent(evt: Event) {
-		if (!evt) return;
-		evt.preventDefault();
-		evt.stopPropagation();
 	}
 }
 

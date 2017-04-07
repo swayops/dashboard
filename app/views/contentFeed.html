@@ -20,7 +20,7 @@
 		</div><br>
 
 <h2 class="heading">Content generated:</h2>
-<template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
+<ng-template ngFor let-it [ngForOf]="list | filter:FilterByUserName">
 	<div class="grid-100 mobile-grid-100 grid-parent auditRow" [class.bonus]="it.bonus">
 		<a href="{{it.url}}" target="_blank">
 			<div align="left" class="grid-25 mobile-grid-100 grid-parent auditPic"><img [src]="it.socialImage"></div>
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 	<div class="clearfix br"></div>
-</template>
+</ng-template>
 <modal title="Add Bonus Post URL:" width="300px" [buttons]=urlButtons #urlDialog>
 	<div>
 		<label for="url"><strong>Post URL:</strong></label>
