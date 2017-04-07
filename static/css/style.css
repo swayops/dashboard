@@ -3043,6 +3043,8 @@ input[type="file"] {
 .inf-reach .inf img {
 	vertical-align: middle;
 	width: 32px;
+	text-indent: -10000px;
+	background: #494c5d;
 }
 
 .inf-reach .inf span {
