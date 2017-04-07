@@ -10,7 +10,7 @@
 	</div>
 	<form #f="ngForm">
 		<div class="form-group">
-			<template ngFor let-fld [ngForOf]="fields">
+			<ng-template ngFor let-fld [ngForOf]="fields">
 				<div>
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						{{fld.title}}<span *ngIf=fld.req class="error" title="required"> *</span>
@@ -58,7 +58,7 @@
 					</div>
 					<div class="clearfix br"></div>
 				</div>
-			</template>
+			</ng-template>
 			<div class="clearfix br"></div>
 			<div class="grid-50 mobile-grid-40 grid-parent">
 				<button class="btn btn-block btn-sm btn-blue ghost" (click)="hide($event)">{{ cancelLabel }}</button>
