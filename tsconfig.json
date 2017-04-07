@@ -10,9 +10,11 @@
 		"suppressImplicitAnyIndexErrors": true,
 		//"noImplicitThis": true, // disabled because of the imageCropper
 		//"noEmitHelpers": true,
+		"noEmitOnError": true,
 		"pretty": true,
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
+		"lib": ["es2015", "dom", "dom.iterable"],
 		"types": [
 			"core-js"
 		]

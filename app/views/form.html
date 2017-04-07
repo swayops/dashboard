@@ -37,12 +37,12 @@
 							</modal>
 						</div>
 
-						<textarea #input *ngIf="fld.textarea" class="form-control" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" (blur)="updateValue(input)" (focus)="setAttrs(input)">{{binders[fld.name].value}}</textarea>
+						<textarea #input *ngIf="fld.textarea" class="form-control" [name]="fld.name" [placeholder]="fld.placeholder || fld.title" (blur)="updateValue(input)" (focus)="setAttrs(input)">{{binders[fld.name].value}}</textarea>
 
-						<input #input *ngIf="fld.input" class="form-control" type="{{fld.input}}" name="{{fld.name}}" placeholder="{{fld.placeholder || fld.title}}" [value]="getValue(input)" (change)="updateValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
+						<input #input *ngIf="fld.input" class="form-control" [type]="fld.input" [name]="fld.name" [placeholder]="fld.placeholder || fld.title" [value]="getValue(input)" (change)="updateValue(input)" (focus)="setAttrs(input)" [title]="fld.placeholder || fld.title">
 
 						<div class="onoffswitch status" data-for="toggle-status" *ngIf="fld.toggle" style="margin-top: 5px">
-							<input #input type="checkbox" name="status" class="onoffswitch-checkbox" name="{{fld.name}}" [checked]="getValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
+							<input #input type="checkbox" name="status" class="onoffswitch-checkbox" [name]="fld.name" [checked]="getValue(input)" (focus)="setAttrs(input)" [title]="fld.placeholder || fld.title">
 							<label class="onoffswitch-label" [attr.for]="fld.name" (click)="setCheckbox(input)">
 								<span class="onoffswitch-inner"></span>
 								<span class="onoffswitch-switch"></span>
@@ -50,11 +50,11 @@
 						</div>
 
 						<div class="checkbox" *ngIf="fld.checkbox">
-							<input #input class="form-control" type="checkbox" name="{{fld.name}}" [checked]="getValue(input)" (focus)="setAttrs(input)" title="{{fld.placeholder || fld.title}}">
+							<input #input class="form-control" type="checkbox" [name]="fld.name" [checked]="getValue(input)" (focus)="setAttrs(input)" [title]="fld.placeholder || fld.title">
 							<label [attr.for]="fld.name" (click)="setCheckbox($event.target)">{{fld.placeholder || fld.title}}</label>
 						</div>
 
-						<span style="display: block" *ngIf="binders[fld.name].touched && binders[fld.name].error"><span class="error">*</span> {{binders[fld.name].error}}</span>
+						<span style="display: block" *ngIf="binders[fld.name] && binders[fld.name].touched && binders[fld.name].error"><span class="error">*</span> {{binders[fld.name].error}}</span>
 					</div>
 					<div class="clearfix br"></div>
 				</div>

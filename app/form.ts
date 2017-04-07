@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 import { ModalEvent } from './modal';
@@ -35,7 +35,7 @@ export class FormDlg {
 	public cropperSettings: CropperSettings;
 	public cropData: any = {};
 
-	constructor(public eleRef: ElementRef) {
+	constructor(public eleRef: ElementRef, private chRef: ChangeDetectorRef) {
 		this.cropperSettings = Object.assign(new CropperSettings(), {
 			keepAspect: true,
 			responsive: true,
@@ -47,6 +47,7 @@ export class FormDlg {
 			minHeight: 300,
 		});
 		this.cropperSettings.rounded = true;
+		// chRef.detach();
 	}
 
 	ngOnInit() {
@@ -66,9 +67,12 @@ export class FormDlg {
 	}
 
 	show(data?: any) {
+		this.chRef.detach();
 		this.data = Object.assign({}, data || {});
 		this.rebind();
+		this.chRef.reattach();
 		this.setVisible(true);
+		this.chRef.detectChanges();
 	}
 
 	rebind() {
@@ -104,6 +108,7 @@ export class FormDlg {
 
 	getValue(ctl: any): any {
 		const b = this.binders[ctl.name];
+		if (!b || !b.fld) return null;
 		if (b.fld.input === 'file') return null;
 		return b.value;
 	}
@@ -119,9 +124,10 @@ export class FormDlg {
 			ctl.setAttribute('required', '');
 			ctl.classList.add('req');
 		}
-
-		for (const [k, v] of Object.entries(fld.attrs || {})) {
-			ctl.setAttribute(k, v);
+		if (fld.attrs) {
+			for (const k of Object.keys(fld.attrs)) {
+				ctl.setAttribute(k, fld.attrs[k]);
+			}
 		}
 	}
 
