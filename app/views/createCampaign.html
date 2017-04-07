@@ -410,6 +410,6 @@
 		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
 		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
 		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD TO WHITELIST</button>
-		<button class="btn btn-block btn-lg btn-green1 ghost wide">INCLUDED</button>
+		<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromWhitelist(inf.email)">INCLUDED</button>
 	</div>
 </modal>

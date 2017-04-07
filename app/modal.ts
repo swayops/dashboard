@@ -7,13 +7,14 @@ declare var $: any;
 @Component({
 	selector: 'modal',
 	template: `
-<div [style.max-width]="width" class="nosel" (keydown.escape)="hide()">
+<div [style.max-width]="width" class="nosel" (keydown.escape)="hide()" style="overflowing: hidden;">
 	<h2 class="heading" *ngIf="title">{{ title }}
 		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
 	</h2>
 	<loader *ngIf="loading"></loader>
 	<div class="body"><ng-content></ng-content></div>
+	<br>
 	<div style="float: right" class="buttons">
 		<button *ngFor="let btn of buttons" [class]="defaultButtonClasses + ' ' + (btn.class || 'btn-blue')"
 			(click)="emitAction(btn, $event)">{{btn.text || btn.name}}</button>
@@ -21,6 +22,12 @@ declare var $: any;
 	<div class="clearfix br"></div>
 </div>
 `,
+	styles: [`
+	.body {
+		overflow: auto;
+		max-height: 600px;
+	}
+`],
 })
 
 export class Modal {

@@ -402,6 +402,10 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 	}
 
+	delFromWhitelist(email: string) {
+		this.data.whitelist = this.data.whitelist.replace(email, '').replace(/^, |, $/, '');
+	}
+
 	isInWhitelist(email: string) {
 		const wl = this.data.whitelist;
 		return !!wl && wl.indexOf(email) !== -1;
@@ -420,7 +424,6 @@ export class CreateCampaignCmp extends ManageBase {
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
-			data.whitelist = null;
 			this.api.Post('getForecast?breakdown=250', data, (resp) => {
 				resp = resp || {};
 				done(resp.breakdown || []);
