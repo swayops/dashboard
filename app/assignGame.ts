@@ -2,7 +2,7 @@
 import { Component, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Sway, HasAPI } from './sway';
+import { HasAPI, Sway } from './sway';
 import { AlphaCmp, NumCmp } from './utils';
 
 @Component({
@@ -19,10 +19,10 @@ export class AssignGameCmp extends HasAPI {
 	constructor(title: Title, public api: Sway) {
 		super(api);
 		title.setTitle('Assign Game');
-		this.api.Get('getCategories', resp => {
+		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
-		this.api.Get('getIncompleteInfluencers', resp => {
+		this.api.Get('getIncompleteInfluencers', (resp) => {
 			this.incompleteInfs = (resp || []).filter(hasSocial).sort((a, b) => NumCmp(a.id, b.id));
 			if (resp && resp.length) this.next();
 		});
@@ -37,7 +37,7 @@ export class AssignGameCmp extends HasAPI {
 			cats = {};
 
 		if (Array.isArray(inf.categories)) {
-			for (let cat of inf.categories) cats[cat] = true;
+			for (const cat of inf.categories) cats[cat] = true;
 		}
 
 		inf.categories = cats;
@@ -61,16 +61,16 @@ export class AssignGameCmp extends HasAPI {
 				gender: this.inf.gender,
 			};
 
-		for (let [k, v] of Object.entries(this.inf.categories)) {
-			if (v) data.categories.push(k);
+		for (const k of Object.keys(this.inf.categories)) {
+			if (this.inf.categories[k]) data.categories.push(k);
 		}
 
-		this.api.Put('setAudit/' + id, data, resp => {
+		this.api.Put('setAudit/' + id, data, (resp) => {
 			this.loading = false;
 			this.ScrollToTop();
 			this.AddNotification('success', 'Updated Influencer', 2000);
 			this.next();
-		}, err => {
+		}, (err) => {
 			this.loading = false;
 			this.ScrollToTop();
 			this.AddNotification('error', err.msg);
@@ -78,12 +78,12 @@ export class AssignGameCmp extends HasAPI {
 	}
 
 	ban() {
-		this.api.Post('setBan/' + this.inf.id + '/true', {}, resp => {
+		this.api.Post('setBan/' + this.inf.id + '/true', {}, (resp) => {
 			this.loading = false;
 			this.ScrollToTop();
 			this.AddNotification('success', 'Banned the naughty influencer!', 2000);
 			this.next();
-		}, err => {
+		}, (err) => {
 			this.loading = false;
 			this.ScrollToTop();
 			this.AddNotification('error', err.msg);

@@ -31,7 +31,7 @@ export class Modal {
 	@Input() buttons: Button[];
 
 	public data: any;
-	private loading: boolean;
+	public loading: boolean;
 
 	constructor(private eleRef: ElementRef) { }
 
