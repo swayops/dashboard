@@ -354,7 +354,7 @@
 			</div>
 			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="!forecast.loading">
 				<div *ngFor="let inf of forecast.breakdown" class="inf">
-					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:16 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
+					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:12 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
 				</div>
 				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See More</button>
 			</div>
