@@ -405,7 +405,7 @@
 		</li>
 	</ul>
 </div>
-<modal title="INFLUENCERS IN FORECAST" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
+<modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
 	<div *ngFor="let inf of infDlg.data" class="inf">
 		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
 		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>

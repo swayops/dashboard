@@ -414,7 +414,7 @@ export class CreateCampaignCmp extends ManageBase {
 	updateForecast() {
 		const data = this.getCmp(this.data);
 		this.forecast.loading = true;
-		this.api.Post('getForecast?breakdown=3', data, (resp) => {
+		this.api.Post('getForecast?breakdown=3&trim=1', data, (resp) => {
 			resp = resp || {};
 			resp.loading = false;
 			this.forecast = resp;
@@ -424,7 +424,7 @@ export class CreateCampaignCmp extends ManageBase {
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
-			this.api.Post('getForecast?breakdown=250', data, (resp) => {
+			this.api.Post('getForecast?breakdown=250&trim=1', data, (resp) => {
 				resp = resp || {};
 				done(resp.breakdown || []);
 			});
