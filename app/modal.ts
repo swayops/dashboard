@@ -12,7 +12,7 @@ declare var $: any;
 		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
 	</h2>
-	<div class="loader" *ngIf="loading"></div>
+	<loader *ngIf="loading"></loader>
 	<div class="body"><ng-content></ng-content></div>
 	<div style="float: right" class="buttons">
 		<button *ngFor="let btn of buttons" [class]="defaultButtonClasses + ' ' + (btn.class || 'btn-blue')"

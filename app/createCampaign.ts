@@ -43,7 +43,7 @@ export class CreateCampaignCmp extends ManageBase {
 		errors: [],
 	};
 
-	@Output() public forecast: any = {};
+	@Output() public forecast: any = { loading: true };
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -409,8 +409,10 @@ export class CreateCampaignCmp extends ManageBase {
 
 	updateForecast() {
 		const data = this.getCmp(this.data);
+		this.forecast.loading = true;
 		this.api.Post('getForecast?breakdown=3', data, (resp) => {
 			resp = resp || {};
+			resp.loading = false;
 			this.forecast = resp;
 		});
 	}
