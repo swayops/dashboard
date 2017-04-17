@@ -4,7 +4,7 @@ import { HasAPI, Sway, UserType } from './sway';
 
 import { SearchData } from './utils';
 
-declare var $: any;
+declare const $: any;
 
 const assignGameUpdateInterval = 15 * 1000;
 // 60000 * 3; // 3 minutes

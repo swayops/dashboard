@@ -7,7 +7,7 @@ import { ManageBase } from './manageBase';
 import { Sway } from './sway';
 import { Pad } from './utils';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'mBilling',

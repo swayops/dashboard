@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular
 
 import { HasAPI, Sway } from './sway';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'not-found',

@@ -2,7 +2,7 @@ import { Component, ElementRef, Input } from '@angular/core';
 
 import { CancelEvent } from './utils';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'modal',

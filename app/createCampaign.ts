@@ -10,7 +10,7 @@ import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { AlphaCmp, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'create-campaign',
