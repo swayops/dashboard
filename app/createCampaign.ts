@@ -176,10 +176,9 @@ export class CreateCampaignCmp extends ManageBase {
 				auds = this.data.audiences,
 				cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
-			console.log(auds, this.audiencesObj);
 			sb.reqs = this.getReqs(this.data).join(', ');
 			sb.categories = Object.keys(cats).filter((k) => cats[k]).join(', ');
-			sb.audiences = Object.keys(auds).filter((k) => auds[k]).map((k) => this.audiencesObj[k].name).join(', ');
+			sb.audiences = Object.keys(auds).filter((k) => auds[k]).map((k) => (this.audiencesObj[k] || {}).name || '').join(', ');
 			sb.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
 			sb.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
 			if (this.kwsSel) sb.keywords = (this.kwsSel.val() || []).join(', ');
@@ -195,7 +194,11 @@ export class CreateCampaignCmp extends ManageBase {
 
 		this.initKeywords();
 		this.onCampaignLoaded.subscribe((v) => {
-			this.kwsSel.val(v.keywords).change();
+			const val = v.keywords.map((k) => {
+				return { id: k, text: k };
+			});
+			this.kwsSel.select2({ tags: val }); // go die in a fire
+			this.kwsSel.val(v.keywords).trigger('change');
 		});
 
 		$(() => {
@@ -244,26 +247,15 @@ export class CreateCampaignCmp extends ManageBase {
 
 	private initKeywords() {
 		this.kwsSel = $('select.kws').select2({
+			multiple: true,
 			tags: true,
 			tokenSeparators: [','],
 			placeholder: 'Type a keyword to see availability',
 			allowClear: true,
 			width: '100%',
-			createTag: function(tag) {
-				return {
-					id: tag.term,
-					text: tag.term,
-					isNew: true,
-				};
-			},
 		});
 
-		this.kwsSel.on('select2:select', (e) => {
-			if (e.params.data.isNew) {
-				$(this).find('[value="' + e.params.data.id + '"]').replaceWith('<option selected value="' + e.params.data.id + '">' + e.params.data.text + '</option>');
-			}
-			this.updateSidebar('kws');
-		});
+		this.kwsSel.on('select2:select', () => this.updateSidebar('kws'));
 
 		this.kwsSel.on('select2:unselect', (_) => this.updateSidebar('kws'));
 	}
