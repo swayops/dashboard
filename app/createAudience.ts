@@ -190,7 +190,7 @@ export class CreateAudienceCmp extends ManageBase {
 			}
 
 			iid = setInterval(() => {
-				if (!$('create-campaign').length) {
+				if (!$('create-audience').length) {
 					clearInterval(iid);
 					return;
 				}
