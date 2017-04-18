@@ -23,10 +23,10 @@ export class CreateAudienceCmp extends ManageBase {
 		male: true,
 		female: true,
 		status: true,
-		facebook: false,
-		twitter: false,
+		facebook: true,
+		twitter: true,
 		instagram: true,
-		youtube: false,
+		youtube: true,
 		keywords: [],
 		members: '',
 	};
@@ -248,48 +248,15 @@ export class CreateAudienceCmp extends ManageBase {
 			imageData: data.imageData,
 			members: data.members,
 		};
-		if (this.opts.isEdit) {
-			//
-		} else {
-			this.api.Post('audience', data, (resp) => {
-				this.loading = false;
-				this.AddNotification('success', 'Successfully Added Audience!');
-				this.api.GoTo('mAudience');
-			}, (err) => {
-				this.loading = false;
-				this.AddNotification('error', err.msg);
-				this.ScrollToTop();
-			});
-		}
-		// if (this.opts.isEdit) {
-		// 	this.api.Put('campaign/' + data.id, data, (resp) => {
-		// 		this.loading = false;
-		// 		this.AddNotification('success', 'Successfully Edited Campaign!');
-		// 		if (data.perks) {
-		// 			this.api.GoTo('shippingPerks', this.id);
-		// 		} else {
-		// 			this.api.GoTo('mCampaigns', this.id);
-		// 		}
-		// 	}, (err) => {
-		// 		this.loading = false;
-		// 		this.AddNotification('error', err.msg);
-		// 		this.ScrollToTop();
-		// 	});
-		// } else {
-		// 	this.api.Post('campaign', data, (resp) => {
-		// 		this.loading = false;
-		// 		this.AddNotification('success', 'Successfully Edited Campaign!');
-		// 		if (data.perks && data.perks.type === 1) {
-		// 			this.api.GoTo('shippingPerks', this.id);
-		// 		} else {
-		// 			this.api.GoTo('mCampaigns', this.id);
-		// 		}
-		// 	}, (err) => {
-		// 		this.loading = false;
-		// 		this.AddNotification('error', err.msg);
-		// 		this.ScrollToTop();
-		// 	});
-		// }
+		this.api.Post('audience', data, (resp) => {
+			this.loading = false;
+			this.AddNotification('success', 'Successfully Added Audience!');
+			this.api.GoTo('mAudiences');
+		}, (err) => {
+			this.loading = false;
+			this.AddNotification('error', err.msg);
+			this.ScrollToTop();
+		});
 	}
 
 	// fromCmp converts our campaign data to a ui-friendly format
@@ -323,7 +290,7 @@ export class CreateAudienceCmp extends ManageBase {
 			$('#targeting').click();
 		}
 
-		this.data = data;
+		this.data = Object.assign(this.data, data);
 
 		this.onCampaignLoaded.emit(data);
 	}
