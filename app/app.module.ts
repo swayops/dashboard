@@ -10,6 +10,7 @@ import { AuthGuard, Sway } from './sway';
 import { AssignGameCmp } from './assignGame';
 import { CheckPayoutsCmp } from './checkPayouts';
 import { ContentFeedCmp } from './contentFeed';
+import { CreateAudienceCmp } from './createAudience';
 import { CreateCampaignCmp } from './createCampaign';
 import { DashboardCmp } from './dashboard';
 import { EditProfileCmp } from './editProfile';
@@ -17,6 +18,7 @@ import { ForgotPasswordCmp } from './forgotPassword';
 import { LoginCmp } from './login';
 import { AdvertisersCmp } from './mAdvertisers';
 import { MediaAgenciesCmp } from './mAgencies';
+import { AudiencesCmp } from './mAudiences';
 import { ManageBillingCmp } from './mBilling';
 import { CampaignsCmp } from './mCampaigns';
 import { CampaignPerksCmp, OutboundPerksCmp } from './mPerks';
@@ -37,7 +39,7 @@ import { CheckCmp, FilterArrayPipe, FormatNumberPipe, TruncatePipe } from './uti
 
 import { ImageCropperModule } from 'ng2-img-cropper';
 
-declare var PRODUCTION: boolean;
+declare const PRODUCTION: boolean;
 
 if (PRODUCTION) {
 	enableProdMode();
@@ -85,13 +87,28 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'mAudiences',
+		component: AudiencesCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'createCampaign/:id',
 		component: CreateCampaignCmp,
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'createAudience',
+		component: CreateAudienceCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'editCampaign/:id/:cid',
 		component: CreateCampaignCmp,
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'editAudience/:id',
+		component: CreateAudienceCmp,
 		canActivate: [AuthGuard],
 	},
 	{
@@ -180,8 +197,10 @@ export const ALL_ROUTES = [
 		SubUsersCmp,
 		EditProfileCmp,
 		ContentFeedCmp,
+		AudiencesCmp,
 		CampaignsCmp,
 		CreateCampaignCmp,
+		CreateAudienceCmp,
 		ShippingPerksCmp,
 		CampaignPerksCmp,
 		OutboundPerksCmp,

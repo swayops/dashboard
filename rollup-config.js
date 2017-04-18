@@ -23,8 +23,8 @@ if (isProd) plugins.push(uglify());
 export default {
 	entry: isProd ? 'app/main.ts' : 'app/main.jit.ts',
 	dest: 'static/app.js', // output a single application bundle
+	sourceMapFile: 'static/app.js.map',
 	sourceMap: true,
-	//sourceMapFile: 'static/app.js.map',
 	format: 'iife',
 	intro: 'var PRODUCTION = ' + isProd + ';',
 	plugins: plugins,
