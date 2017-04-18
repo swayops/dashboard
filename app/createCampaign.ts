@@ -90,11 +90,6 @@ export class CreateCampaignCmp extends ManageBase {
 			this.audiencesObj = resp;
 		});
 
-		this.initKeywords();
-		this.onCampaignLoaded.subscribe((v) => {
-			this.kwsSel.val(v.keywords).change();
-		});
-
 		this.api.Get('billingInfo/' + this.id, (resp) => {
 			if (!resp.cc) return;
 			this.sidebar.lastFour = resp.cc.cardNumber;
@@ -197,6 +192,12 @@ export class CreateCampaignCmp extends ManageBase {
 
 	ngAfterViewInit() {
 		this.initGeo();
+
+		this.initKeywords();
+		this.onCampaignLoaded.subscribe((v) => {
+			this.kwsSel.val(v.keywords).change();
+		});
+
 		$(() => {
 			let iid, lastScrollTop;
 

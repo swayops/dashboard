@@ -68,11 +68,6 @@ export class CreateAudienceCmp extends ManageBase {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 
-		this.initKeywords();
-		this.onCampaignLoaded.subscribe((v) => {
-			this.kwsSel.val(v.keywords).change();
-		});
-
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editAudience';
 		if (this.opts.isEdit) {
@@ -167,6 +162,12 @@ export class CreateAudienceCmp extends ManageBase {
 
 	ngAfterViewInit() {
 		this.initGeo();
+
+		this.initKeywords();
+		this.onCampaignLoaded.subscribe((v) => {
+			this.kwsSel.val(v.keywords).change();
+		});
+
 		$(() => {
 			let iid, lastScrollTop;
 
@@ -218,18 +219,8 @@ export class CreateAudienceCmp extends ManageBase {
 			placeholder: 'Type a keyword to see availability',
 			allowClear: true,
 			width: '100%',
-			createTag: function(tag) {
-				return {
-					id: tag.term,
-					text: tag.term,
-					isNew: true,
-				};
-			},
 		});
 		this.kwsSel.on('select2:select', (e) => {
-			if (e.params.data.isNew) {
-				$(this).find('[value="' + e.params.data.id + '"]').replaceWith('<option selected value="' + e.params.data.id + '">' + e.params.data.text + '</option>');
-			}
 			this.updateSidebar('kws');
 		});
 		this.kwsSel.on('select2:unselect', (_) => this.updateSidebar('kws'));
