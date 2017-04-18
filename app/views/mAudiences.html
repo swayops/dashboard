@@ -22,8 +22,7 @@
 			<td>{{v.id}}</td>
 			<td>{{v.sub}}</td>
 			<td>
-				<a (click)="Delete(v.id)" class="btn btn-scarlet btn-small ghost">Delete</a> |
-				<a [routerLink]="['/editAudience', v.id]" class="btn btn-green1 btn-small">Edit</a>
+				<a [routerLink]="['/editAudience', v.id]" class="btn btn-green1 btn-small">Edit</a> | <a (click)="Delete(v.id)" class="btn btn-scarlet btn-small ghost">Delete</a>
 			</td>
 		</tr>
 	</tbody>
