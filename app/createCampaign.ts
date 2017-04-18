@@ -23,6 +23,7 @@ export class CreateCampaignCmp extends ManageBase {
 	public data: any = {
 		advertiserId: null,
 		categories: {},
+		audiences: {},
 		male: true,
 		female: true,
 		status: true,
@@ -48,6 +49,8 @@ export class CreateCampaignCmp extends ManageBase {
 	@Output() public forecast: any = { loading: true };
 
 	public categories = [];
+	public audiences = [];
+	public audiencesObj = {};
 	public categoryImages = categoryImages;
 	public opts: any = {
 		isEdit: false,
@@ -77,6 +80,14 @@ export class CreateCampaignCmp extends ManageBase {
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
+		});
+
+		this.api.Get('audience', (resp) => {
+			resp = resp || {};
+			const aud = Object.keys(resp).map((k) => resp[k]);
+
+			this.audiences = aud.sort((a, b) => AlphaCmp(a.name, b.name)); // sort by name
+			this.audiencesObj = resp;
 		});
 
 		this.api.Get('getKeywords', (resp) => {
@@ -169,17 +180,20 @@ export class CreateCampaignCmp extends ManageBase {
 	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
-			const cats = this.data.categories;
+			const sb = this.sidebar,
+				auds = this.data.audiences,
+				cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
-
-			this.sidebar.reqs = this.getReqs(this.data).join(', ');
-			this.sidebar.categories = Object.keys(cats).filter((k) => cats[k]).join(', ');
-			this.sidebar.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
-			this.sidebar.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
-			if (this.kwsSel) this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
+			console.log(auds, this.audiencesObj);
+			sb.reqs = this.getReqs(this.data).join(', ');
+			sb.categories = Object.keys(cats).filter((k) => cats[k]).join(', ');
+			sb.audiences = Object.keys(auds).filter((k) => auds[k]).map((k) => this.audiencesObj[k].name).join(', ');
+			sb.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
+			sb.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
+			if (this.kwsSel) sb.keywords = (this.kwsSel.val() || []).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
-				this.api.Get('getProratedBudget/' + curBudget, (resp) => this.sidebar.totalCharge = resp.budget);
+				this.api.Get('getProratedBudget/' + curBudget, (resp) => sb.totalCharge = resp.budget);
 			}
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
@@ -298,14 +312,21 @@ export class CreateCampaignCmp extends ManageBase {
 		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
 
 		if (!Array.isArray(data.categories)) data.categories = [];
+		if (!Array.isArray(data.audiences)) data.audiences = [];
 
-		if (!!data.categories.length) {
+		if (!!data.categories.length || !!data.audiences.length) {
 			$('#influencers').click();
 		}
 
 		data.categories = (() => { // convert categories to an object
 			const out = {};
 			data.categories.forEach((v) => out[v] = true);
+			return out;
+		})();
+
+		data.audiences = (() => {
+			const out = {};
+			data.audiences.forEach((v) => out[v] = true);
 			return out;
 		})();
 
@@ -367,12 +388,17 @@ export class CreateCampaignCmp extends ManageBase {
 		if (this.kwsSel) data.keywords = this.kwsSel.val();
 
 		const cats = [];
-
 		for (const k of Object.keys(data.categories)) {
 			if (data.categories[k]) cats.push(k);
 		}
-
 		data.categories = cats;
+
+		const auds = [];
+		for (const k of Object.keys(data.audiences)) {
+			if (data.audiences[k]) auds.push(k);
+		}
+		data.audiences = auds;
+
 		if (data.perks.codes) {
 			data.perks.codes = data.perks.codes.split(/[\s,]+/g).filter((v) => !!v.length);
 		}
