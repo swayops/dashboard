@@ -245,7 +245,7 @@ export class CreateCampaignCmp extends ManageBase {
 	private initKeywords() {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
-			tokenSeparators: [',', ' '],
+			tokenSeparators: [','],
 			placeholder: 'Type a keyword to see availability',
 			allowClear: true,
 			width: '100%',
