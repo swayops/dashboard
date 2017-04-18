@@ -90,12 +90,9 @@ export class CreateCampaignCmp extends ManageBase {
 			this.audiencesObj = resp;
 		});
 
-		this.api.Get('getKeywords', (resp) => {
-			if (!resp || !resp.keywords) resp = { keywords: [] };
-			this.initKeywords(resp.keywords);
-			this.onCampaignLoaded.subscribe((v) => {
-				this.kwsSel.val(v.keywords).change();
-			});
+		this.initKeywords();
+		this.onCampaignLoaded.subscribe((v) => {
+			this.kwsSel.val(v.keywords).change();
 		});
 
 		this.api.Get('billingInfo/' + this.id, (resp) => {
@@ -244,15 +241,8 @@ export class CreateCampaignCmp extends ManageBase {
 		this.geoSel.on('select2:unselect', (_) => this.updateSidebar('geo'));
 	}
 
-	private initKeywords(kws: any) {
-		const kwData = [];
-
-		for (const k of kws) {
-			kwData.push({ id: k, text: k });
-		}
-
+	private initKeywords() {
 		this.kwsSel = $('select.kws').select2({
-			data: kwData,
 			tags: true,
 			tokenSeparators: [',', ' '],
 			placeholder: 'Type a keyword to see availability',
