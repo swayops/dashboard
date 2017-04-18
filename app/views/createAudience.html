@@ -223,6 +223,7 @@
 	</ul>
 </div>
 <modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
+	<div *ngIf="infDlg.data && infDlg.data.length"><button class="btn" (click)="addAllMembers(infDlg)">Add All</button></div><br>
 	<div *ngFor="let inf of infDlg.data" class="inf">
 		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
 		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>

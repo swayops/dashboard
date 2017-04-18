@@ -60,7 +60,9 @@ export class CreateAudienceCmp extends ManageBase {
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super(null, route.snapshot.url[0].path === 'editAudience' ? '-Edit Audience' : '-Create Audience',
-			title, api, route.snapshot.params['id']);
+			title, api);
+
+		this.id = route.snapshot.params['id'];
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
@@ -367,6 +369,15 @@ export class CreateAudienceCmp extends ManageBase {
 			resp.loading = false;
 			this.forecast = resp;
 		});
+	}
+
+	addAllMembers(m: Modal) {
+		const mems = (m.data || []).map((v) => v.email).join(', ');
+		if (!this.data.members) {
+			$('#targeting').click(); // Oh look, boobies over there, don't look here.
+		}
+		this.data.members = mems;
+		m.hide();
 	}
 
 	showInfList(m: Modal) {
