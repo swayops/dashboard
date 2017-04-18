@@ -68,14 +68,6 @@ export class CreateAudienceCmp extends ManageBase {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 
-		this.api.Get('getKeywords', (resp) => {
-			if (!resp || !resp.keywords) resp = { keywords: [] };
-			this.initKeywords(resp.keywords);
-			this.onCampaignLoaded.subscribe((v) => {
-				this.kwsSel.val(v.keywords).change();
-			});
-		});
-
 		this.data.advertiserId = this.id;
 		this.opts.isEdit = route.snapshot.url[0].path === 'editAudience';
 		if (this.opts.isEdit) {
@@ -170,6 +162,12 @@ export class CreateAudienceCmp extends ManageBase {
 
 	ngAfterViewInit() {
 		this.initGeo();
+
+		this.initKeywords();
+		this.onCampaignLoaded.subscribe((v) => {
+			this.kwsSel.val(v.keywords).change();
+		});
+
 		$(() => {
 			let iid, lastScrollTop;
 
@@ -192,7 +190,7 @@ export class CreateAudienceCmp extends ManageBase {
 			}
 
 			iid = setInterval(() => {
-				if (!$('create-campaign').length) {
+				if (!$('create-audience').length) {
 					clearInterval(iid);
 					return;
 				}
@@ -214,20 +212,17 @@ export class CreateAudienceCmp extends ManageBase {
 		this.geoSel.on('select2:unselect', (_) => this.updateSidebar('geo'));
 	}
 
-	private initKeywords(kws: any) {
-		const kwData = [];
-
-		for (const k of kws) {
-			kwData.push({ id: k, text: k });
-		}
-
+	private initKeywords() {
 		this.kwsSel = $('select.kws').select2({
-			data: kwData,
+			tags: true,
+			tokenSeparators: [','],
 			placeholder: 'Type a keyword to see availability',
 			allowClear: true,
 			width: '100%',
 		});
-		this.kwsSel.on('select2:select', (_) => this.updateSidebar('kws'));
+		this.kwsSel.on('select2:select', (e) => {
+			this.updateSidebar('kws');
+		});
 		this.kwsSel.on('select2:unselect', (_) => this.updateSidebar('kws'));
 	}
 
