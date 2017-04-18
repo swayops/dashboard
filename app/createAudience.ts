@@ -79,7 +79,7 @@ export class CreateAudienceCmp extends ManageBase {
 		if (this.opts.isEdit) {
 			const aid = route.snapshot.params['id'];
 			this.api.Get('audience/' + aid, (resp) => {
-				this.setCmp(resp);
+				this.setCmp(resp[aid]);
 				this.updateSidebar('init');
 			});
 		}

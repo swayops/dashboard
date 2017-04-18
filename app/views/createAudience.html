@@ -52,19 +52,18 @@
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="checkbox">
-							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')" [disabled]="opts.isEdit">
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')">
 							<label for="instagram">Instagram</label>
 
-							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')">
 							<label for="twitter">Twitter</label>
 
-							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')">
 							<label for="youtube">YouTube</label>
 
-							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')" [disabled]="opts.isEdit || plan < 2">
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')">
 							<label for="facebook">Facebook</label>
 						</div>
-						<div class="subWarning" *ngIf="plan < 2">* To be able to select the other networks, upgrade to <a [routerLink]="['/mBilling', user.id]">Premium</a></div>
 					</div>
 				</div>
 			</div>
