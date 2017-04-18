@@ -236,11 +236,23 @@
 									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
 									<label [attr.for]="c.cat" (click)="updateSidebar('category')"> </label>
 								</div>
-								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
+								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" style="width: 70px; height: 70px">
 							</div>
 							<div class="right meta">
 								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
 								<p class="i-s"><span>Influencers: </span>{{c.infs | fmtNum:'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach | fmtNum:'N/A'}}</p>
+							</div>
+						</div>
+						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let a of this.audiences">
+							<div class="left img">
+								<div class="checkbox">
+									<input [name]="a.id" [id]="a.id" type="checkbox" [(ngModel)]="data.audiences[a.id]">
+									<label [attr.for]="a.id" (click)="updateSidebar('audience')"> </label>
+								</div>
+								<img [src]="a.imageUrl" style="width: 70px; height: 70px">
+							</div>
+							<div class="right meta">
+								<p class="i-n" style="text-transform: capitalize;">{{a.name}}</p>
 							</div>
 						</div>
 					</div>
@@ -369,6 +381,11 @@
 		<li *ngIf="!!sidebar.categories">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p><check [cond]=true size="20px"></check><label>Categories:</label><br>{{sidebar.categories}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.audiences">
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><check [cond]=true size="20px"></check><label>Audiences:</label><br>{{sidebar.audiences}}</p>
 			</div>
 		</li>
 		<li>

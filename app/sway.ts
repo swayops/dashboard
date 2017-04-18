@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 export const apiURL = '/api/v1/';
 
-declare var $: any;
+declare const $: any;
 
 @Injectable()
 export class Sway {

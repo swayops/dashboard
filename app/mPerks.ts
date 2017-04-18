@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ManageBase } from './manageBase';
 import { Sway } from './sway';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'manage-campaign-perks',

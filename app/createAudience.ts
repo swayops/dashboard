@@ -10,32 +10,25 @@ import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { AlphaCmp, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
 
-/// **WARNING** any changes here should be reflected in createAudience as well.
-
 declare const $: any;
 
 @Component({
-	selector: 'create-campaign',
-	templateUrl: './views/createCampaign.html',
+	selector: 'create-audience',
+	templateUrl: './views/createAudience.html',
 	entryComponents: [ImageCropperComponent],
 })
-export class CreateCampaignCmp extends ManageBase {
+export class CreateAudienceCmp extends ManageBase {
 	public data: any = {
-		advertiserId: null,
 		categories: {},
-		audiences: {},
 		male: true,
 		female: true,
 		status: true,
-		facebook: false,
-		twitter: false,
+		facebook: true,
+		twitter: true,
 		instagram: true,
-		youtube: false,
-		perks: {
-			name: '',
-			count: 0,
-		},
+		youtube: true,
 		keywords: [],
+		members: '',
 	};
 
 	public infDlgButtons = [
@@ -49,8 +42,6 @@ export class CreateCampaignCmp extends ManageBase {
 	@Output() public forecast: any = { loading: true };
 
 	public categories = [];
-	public audiences = [];
-	public audiencesObj = {};
 	public categoryImages = categoryImages;
 	public opts: any = {
 		isEdit: false,
@@ -68,26 +59,11 @@ export class CreateCampaignCmp extends ManageBase {
 	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
-			title, api, route.snapshot.params['id'], (user) => {
-				const adv = this.user.advertiser;
-				if (!adv || adv.agencyId !== '2') {
-					this.plan = 3;
-				} else {
-					this.plan = adv.planID || 0;
-				}
-			});
+		super(null, route.snapshot.url[0].path === 'editAudience' ? '-Edit Audience' : '-Create Audience',
+			title, api, route.snapshot.params['id']);
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
-		});
-
-		this.api.Get('audience', (resp) => {
-			resp = resp || {};
-			const aud = Object.keys(resp).map((k) => resp[k]);
-
-			this.audiences = aud.sort((a, b) => AlphaCmp(a.name, b.name)); // sort by name
-			this.audiencesObj = resp;
 		});
 
 		this.api.Get('getKeywords', (resp) => {
@@ -98,17 +74,12 @@ export class CreateCampaignCmp extends ManageBase {
 			});
 		});
 
-		this.api.Get('billingInfo/' + this.id, (resp) => {
-			if (!resp.cc) return;
-			this.sidebar.lastFour = resp.cc.cardNumber;
-		});
-
 		this.data.advertiserId = this.id;
-		this.opts.isEdit = route.snapshot.url[0].path === 'editCampaign';
+		this.opts.isEdit = route.snapshot.url[0].path === 'editAudience';
 		if (this.opts.isEdit) {
-			const cid = route.snapshot.params['cid'];
-			this.api.Get('campaign/' + cid, (resp) => {
-				this.setCmp(resp);
+			const aid = route.snapshot.params['id'];
+			this.api.Get('audience/' + aid, (resp) => {
+				this.setCmp(resp[aid]);
 				this.updateSidebar('init');
 			});
 		}
@@ -180,20 +151,17 @@ export class CreateCampaignCmp extends ManageBase {
 	updateSidebar(why?: string) {
 		let curBudget = 0;
 		setTimeout(() => {
-			const sb = this.sidebar,
-				auds = this.data.audiences,
-				cats = this.data.categories;
+			const cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
-			console.log(auds, this.audiencesObj);
-			sb.reqs = this.getReqs(this.data).join(', ');
-			sb.categories = Object.keys(cats).filter((k) => cats[k]).join(', ');
-			sb.audiences = Object.keys(auds).filter((k) => auds[k]).map((k) => this.audiencesObj[k].name).join(', ');
-			sb.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
-			sb.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
-			if (this.kwsSel) sb.keywords = (this.kwsSel.val() || []).join(', ');
+
+			this.sidebar.reqs = this.getReqs(this.data).join(', ');
+			this.sidebar.categories = Object.keys(cats).filter((k) => cats[k]).join(', ');
+			this.sidebar.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
+			this.sidebar.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
+			if (this.kwsSel) this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
 			if (!!this.data.budget && this.data.budget !== curBudget) {
 				curBudget = this.data.budget;
-				this.api.Get('getProratedBudget/' + curBudget, (resp) => sb.totalCharge = resp.budget);
+				this.api.Get('getProratedBudget/' + curBudget, (resp) => this.sidebar.totalCharge = resp.budget);
 			}
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
@@ -273,48 +241,31 @@ export class CreateCampaignCmp extends ManageBase {
 	save = () => {
 		if (this.loading) return;
 		this.loading = true;
-		const data = this.getCmp(this.data);
-		if (this.opts.isEdit) {
-			this.api.Put('campaign/' + data.id, data, (resp) => {
-				this.loading = false;
-				this.AddNotification('success', 'Successfully Edited Campaign!');
-				if (data.perks) {
-					this.api.GoTo('shippingPerks', this.id);
-				} else {
-					this.api.GoTo('mCampaigns', this.id);
-				}
-			}, (err) => {
-				this.loading = false;
-				this.AddNotification('error', err.msg);
-				this.ScrollToTop();
-			});
-		} else {
-			this.api.Post('campaign', data, (resp) => {
-				this.loading = false;
-				this.AddNotification('success', 'Successfully Edited Campaign!');
-				if (data.perks && data.perks.type === 1) {
-					this.api.GoTo('shippingPerks', this.id);
-				} else {
-					this.api.GoTo('mCampaigns', this.id);
-				}
-			}, (err) => {
-				this.loading = false;
-				this.AddNotification('error', err.msg);
-				this.ScrollToTop();
-			});
-		}
+		let data = this.getCmp(this.data);
+		data = {
+			id: data.id,
+			name: data.name,
+			imageData: data.imageData,
+			members: data.members,
+		};
+		this.api.Post('audience', data, (resp) => {
+			this.loading = false;
+			this.AddNotification('success', 'Successfully Added Audience!');
+			this.api.GoTo('mAudiences');
+		}, (err) => {
+			this.loading = false;
+			this.AddNotification('error', err.msg);
+			this.ScrollToTop();
+		});
 	}
 
 	// fromCmp converts our campaign data to a ui-friendly format
 	private setCmp(data: any): any {
-		if (Array.isArray(data.tags) && data.tags.length) data.tags = data.tags.join(', ').trim();
-
-		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
+		if (data.members) data.members = Object.keys(data.members).join(', ').trim();
 
 		if (!Array.isArray(data.categories)) data.categories = [];
-		if (!Array.isArray(data.audiences)) data.audiences = [];
 
-		if (!!data.categories.length || !!data.audiences.length) {
+		if (!!data.categories.length) {
 			$('#influencers').click();
 		}
 
@@ -324,15 +275,6 @@ export class CreateCampaignCmp extends ManageBase {
 			return out;
 		})();
 
-		data.audiences = (() => {
-			const out = {};
-			data.audiences.forEach((v) => out[v] = true);
-			return out;
-		})();
-
-		for (const k of ['tags', 'mention', 'link', 'perks']) {
-			this.opts[k] = !!data[k];
-		}
 		if (data.imageUrl) {
 			const img = new Image();
 			img.src = data.imageUrl;
@@ -343,26 +285,12 @@ export class CreateCampaignCmp extends ManageBase {
 			this.geoSel.val(data.geos.map((v) => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
 
-		if (data.male || data.female || data.whitelist || data.keywords || data.geos) {
+		if (data.male || data.female || data.members || data.keywords || data.geos) {
 			// you didn't see this, move on. - A Sith Lord.
 			$('#targeting').click();
 		}
 
-		this.data = data;
-
-		if (data.perks) {
-			if (this.opts.isEdit) {
-				$('#perks').prop('checked', true);
-				$('.toggle-perks').show();
-			} else {
-				$('#perks').click();
-			}
-		}
-
-		if (!data.perks) this.resetPerks(0);
-		if (Array.isArray(data.perks.codes)) {
-			data.perks.codes = data.perks.codes.join(' ');
-		}
+		this.data = Object.assign(this.data, data);
 
 		this.onCampaignLoaded.emit(data);
 	}
@@ -372,10 +300,10 @@ export class CreateCampaignCmp extends ManageBase {
 		data.perks = Object.assign({}, data.perks);
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
-		if (data.whitelist && data.whitelist.length) {
-			const wl = data.whitelist.split(',').map((v) => v.trim());
-			data.whitelist = {};
-			for (const it of wl) data.whitelist[it] = true;
+		if (data.members && data.members.length) {
+			const wl = data.members.split(',').map((v) => v.trim());
+			data.members = {};
+			for (const it of wl) data.members[it] = true;
 		}
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
@@ -388,21 +316,13 @@ export class CreateCampaignCmp extends ManageBase {
 		if (this.kwsSel) data.keywords = this.kwsSel.val();
 
 		const cats = [];
+
 		for (const k of Object.keys(data.categories)) {
 			if (data.categories[k]) cats.push(k);
 		}
+
 		data.categories = cats;
 
-		const auds = [];
-		for (const k of Object.keys(data.audiences)) {
-			if (data.audiences[k]) auds.push(k);
-		}
-		data.audiences = auds;
-
-		if (data.perks.codes) {
-			data.perks.codes = data.perks.codes.split(/[\s,]+/g).filter((v) => !!v.length);
-		}
-		if (data.perks.name === '') data.perks = null;
 		data.imageUrl = null;
 		data.imageData = this.cropData.image;
 
@@ -421,21 +341,21 @@ export class CreateCampaignCmp extends ManageBase {
 		return reqs;
 	}
 
-	addToWhitelist(email: string) {
-		if (!this.data.whitelist) {
-			this.data.whitelist = email;
+	addToMembers(email: string) {
+		if (!this.data.members) {
+			this.data.members = email;
 			$('#targeting').click(); // Oh look, boobies over there, don't look here.
 		} else {
-			this.data.whitelist += ', ' + email;
+			this.data.members += ', ' + email;
 		}
 	}
 
-	delFromWhitelist(email: string) {
-		this.data.whitelist = this.data.whitelist.replace(email, '').replace(/^, |, $/, '');
+	delFromMembers(email: string) {
+		this.data.members = this.data.members.replace(email, '').replace(/^, |, $/, '');
 	}
 
-	isInWhitelist(email: string) {
-		const wl = this.data.whitelist;
+	isInMembers(email: string) {
+		const wl = this.data.members;
 		return !!wl && wl.indexOf(email) !== -1;
 	}
 
@@ -494,4 +414,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category', 'kws'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'members', 'category', 'kws'];

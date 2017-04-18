@@ -1,0 +1,27 @@
+<h2 class="heading">Manage Audiences</h2>
+<button class="btn btn-green1 btn-micro" [routerLink]="['/createAudience']">Create</button>
+
+<form style="width:250px; float:right;">
+	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+</form>
+
+<div class="clearfix br"></div>
+
+<table class="tbl">
+	<thead>
+		<tr>
+			<th class="align-left">Name</th>
+			<th>ID</th>
+			<th>Members</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let v of list | filter:FilterUsers">
+			<td class="align-left"><a (click)=edlg.show(v)>{{v.name}}</a></td>
+			<td>{{v.id}}</td>
+			<td>{{v.sub}}</td>
+			<td><button [routerLink]="['/editAudience', v.id]">Edit</button></td>
+		</tr>
+	</tbody>
+</table>

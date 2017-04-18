@@ -7,7 +7,7 @@ import { Sway } from './sway';
 
 import { ModalEvent } from './modal';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
 	selector: 'ContentFeed',

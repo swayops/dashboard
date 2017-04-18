@@ -1,0 +1,232 @@
+<div class="grid-62 mobile-grid-100 grid-parent campaignPage" three-column>
+	<div class="content-holder center-widget">
+		<form #f="ngForm" novalidate (ngSubmit)="save()">
+			<div class="grid-100 grid-parent">
+				<h2 class="heading">1. Basic campaign settings</h2>
+
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Thumbnail: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent" style="margin-top:13px;">
+						<span class="result rounded" *ngIf="cropData.image">
+							<img [src]="cropData.image" style="max-width: 500px; border-radius: 10px;" height="200px">
+							<br>
+						</span>
+						<a href="javascript:" class="btn btn-xs btn-green1" (click)="toggleImage()">Select</a> <a href="http://swayops.com/wiki/selecting-deals.php" target="_blank">See placement examples</a>
+						<div class="dialog" id="selImage">
+							<div style="width: 750px;" class="nosel">
+								<h2 class="heading">Select A Featured Image
+									<a href="javascript:" class="fui-cross" (click)="toggleImage(true)" title="Close" style="float: right"></a>
+								</h2>
+								<div>
+									<input id="custom-input" type="file" (change)="setImage($event)">
+									<label for="custom-input" class="btn btn-xs btn-green1"><strong>Choose file &#187;</strong></label>
+								</div>
+								<br>
+								<img-cropper #cropper [image]="cropData" [settings]="cropperSettings"></img-cropper>
+								<br>
+								<br>
+								<div style="float: right;">
+									<a href="javascript:" class="btn btn-block btn-xs btn-blue ghost" (click)="toggleImage(true)">Cancel</a>
+									<a href="javascript:" class="btn btn-block btn-xs btn-green1" (click)="toggleImage()">Save &amp; crop image &#187;</a>
+								</div>
+								<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will be the name of your audience.">Audience Name:</span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" name="name" placeholder="Audience name" class="form-control" [(ngModel)]="data.name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Select the social networks for influencers to post on. Be aware that our algorithms will automatically attempt to reach as many customers as possible on your behalf. Limiting social networks will limit performance in most cases.">Networks: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input id="instagram" name="instagram" type="checkbox" [(ngModel)]="data.instagram" (change)="updateSidebar('network')">
+							<label for="instagram">Instagram</label>
+
+							<input id="twitter" name="twitter" type="checkbox" [(ngModel)]="data.twitter" (change)="updateSidebar('network')">
+							<label for="twitter">Twitter</label>
+
+							<input id="youtube" name="youtube" type="checkbox" [(ngModel)]="data.youtube" (change)="updateSidebar('network')">
+							<label for="youtube">YouTube</label>
+
+							<input id="facebook" name="facebook" type="checkbox" [(ngModel)]="data.facebook" (change)="updateSidebar('network')">
+							<label for="facebook">Facebook</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">2. Targeting <span>*optional</span></h2>
+				<div class="onoffswitch targeting" data-for="toggle-targeting">
+					<input type="checkbox" name="targeting" class="onoffswitch-checkbox" id="targeting">
+					<label class="onoffswitch-label" for="targeting">
+						<span class="onoffswitch-inner showhide"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+			<div class="content-toggle toggle-targeting">
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will attempt to only leverage influencers who match your gender target.">Gender: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="checkbox">
+							<input type="checkbox" name="female" id="female" [(ngModel)]="data.female" (change)="updateSidebar('gender')">
+							<label for="female">Female</label>
+
+							<input type="checkbox" name="male" id="male" [(ngModel)]="data.male" (change)="updateSidebar('gender')">
+							<label for="male">Male</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will attempt to only leverage influencers who primarily reside within your geo selection.">Geo: <img src="/static/img/questionTooltip.png"></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<select multiple="multiple" class="geo form-control multiselect multiselect-info"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Enter keywords to target influencers by the genre of content their posts often contain. IE: Snowboarding, Boats, Beauty, etc. Please select multiple keywords to expand the reach of your campaign.">Keywords: <img src="/static/img/questionTooltip.png"></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<select multiple="multiple" class="kws form-control multiselect multiselect-info"></select>
+					</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Enter in emails of your audience members.">Members: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="text" name="members" [(ngModel)]="data.members" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
+					</div>
+				</div>
+
+			</div>
+
+			<br>
+			<br>
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
+				<div class="onoffswitch influencers" data-for="toggle-influencers">
+					<input type="checkbox" name="influencers" class="onoffswitch-checkbox" id="influencers">
+					<label class="onoffswitch-label" for="influencers">
+						<span class="onoffswitch-inner showhide"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+			<div class="content-toggle toggle-influencers">
+				<div class="form-group">
+					<div class="grid-100 mobile-grid-100 grid-parent">
+						<div class="grid-70 mobile-grid-100 grid-parent">
+							<div class="form-group">
+								Please select the influencer groups you would like to prioritize:
+							</div>
+						</div>
+						<div class="grid-30 mobile-grid-100 grid-parent">
+							<div class="checkbox">
+								<input name="selectAllInfluencers" type="checkbox" [checked]=allCats>
+								<label for="selectAllInfluencers" (click)=setAllCats($event)>Select All</label>
+							</div>
+						</div>
+						<br>
+						<div class="grid-50 mobile-grid-100 grid-parent influencer-g" *ngFor="let c of this.categories">
+							<div class="left img">
+								<div class="checkbox">
+									<input [name]="c.cat" [id]="c.cat" type="checkbox" [(ngModel)]="data.categories[c.cat]">
+									<label [attr.for]="c.cat" (click)="updateSidebar('category')"> </label>
+								</div>
+								<img src="{{ categoryImages[c.cat] || '/static/img/influencers/i-g2.png' }}" />
+							</div>
+							<div class="right meta">
+								<p class="i-n" style="text-transform: capitalize;">{{c.cat}}</p>
+								<p class="i-s"><span>Influencers: </span>{{c.infs | fmtNum:'N/A'}} &nbsp;&nbsp;&nbsp; <span>Est Reach: </span>{{c.reach | fmtNum:'N/A'}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<br>
+			<br>
+			<div class="grid-50 mobile-grid-40 grid-parent">
+				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
+			</div>
+			<div class="grid-50 mobile-grid-60 grid-parent align-right">
+				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save Audience &#187;</button>
+			</div>
+		</form>
+		<br>
+		<br>
+	</div>
+</div>
+<div class="grid-23 mobile-grid-100 grid-parent content-holder right-sb" style="transition: margin-top 200ms ease-out;">
+	<div class="est-reach">
+		<p>MAX REACH</p>
+		<h3></h3>
+		<p class="normal">{{forecast.reach | fmtNum:'0' }} Fans</p>
+		<p class="normal">{{forecast.influencers | fmtNum:'0' }} Influencers</p>
+	</div>
+
+	<ul class="cat-status">
+		<li>
+			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="forecast.loading">
+				<loader size="70px"></loader>
+			</div>
+			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="!forecast.loading">
+				<div *ngFor="let inf of forecast.breakdown" class="inf">
+					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:12 }}</span> <b>|</b> Fans: {{inf.followers | fmtNum}}
+				</div>
+				<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See More</button>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.categories">
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><check [cond]=true size="20px"></check><label>Categories:</label><br>{{sidebar.categories}}</p>
+			</div>
+		</li>
+		<li>
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.networks" size="20px"></check><label>Inventory:</label> {{sidebar.networks}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.keywords">
+			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
+				<p><check [cond]="!!sidebar.keywords" size="20px"></check><label>Keywords:</label> {{sidebar.keywords}}</p>
+			</div>
+		</li>
+		<li *ngIf="!!sidebar.geos">
+			<div class="grid-100 mobile-grid-100">
+				<p><check [cond]="!!sidebar.geos" size="20px"></check><label>Locations:</label> {{sidebar.geos}}</p>
+			</div>
+		</li>
+	</ul>
+</div>
+<modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
+	<div *ngFor="let inf of infDlg.data" class="inf">
+		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
+		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
+		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToMembers(inf.email)" *ngIf="!isInMembers(inf.email)">ADD TO Members</button>
+		<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)">INCLUDED</button>
+	</div>
+</modal>
