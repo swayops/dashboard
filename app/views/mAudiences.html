@@ -21,7 +21,10 @@
 			<td class="align-left"><a (click)=edlg.show(v)>{{v.name}}</a></td>
 			<td>{{v.id}}</td>
 			<td>{{v.sub}}</td>
-			<td><button [routerLink]="['/editAudience', v.id]">Edit</button></td>
+			<td>
+				<a (click)="Delete(v.id)" class="btn btn-scarlet btn-small ghost">Delete</a> |
+				<a [routerLink]="['/editAudience', v.id]" class="btn btn-green1 btn-small">Edit</a>
+			</td>
 		</tr>
 	</tbody>
 </table>
