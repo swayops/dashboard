@@ -8,7 +8,7 @@ import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
-import { AlphaCmp, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
+import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
 
 declare const $: any;
 
@@ -356,16 +356,6 @@ export class CreateAudienceCmp extends ManageBase {
 		return !!wl && wl.indexOf(email) !== -1;
 	}
 
-	updateForecast() {
-		const data = this.getCmp(this.data);
-		this.forecast.loading = true;
-		this.api.Post('getForecast?breakdown=3', data, (resp) => {
-			resp = resp || {};
-			resp.loading = false;
-			this.forecast = resp;
-		});
-	}
-
 	addAllMembers(m: Modal) {
 		const mems = (m.data || []).map((v) => v.email).join(', ');
 		if (!this.data.members) {
@@ -375,15 +365,28 @@ export class CreateAudienceCmp extends ManageBase {
 		m.hide();
 	}
 
+	updateForecast() {
+		const data = this.getCmp(this.data);
+		this.forecast.loading = true;
+		this.getForecast(5, data, (resp) => {
+			resp.loading = false;
+			this.forecast = resp;
+		});
+	}
+
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
-			this.api.Post('getForecast?breakdown=250', data, (resp) => {
-				resp = resp || {};
-				done(resp.breakdown || []);
-			});
+			this.getForecast(250, data, done);
 		});
 	}
+
+	// should be moved somewhere else but for now it'll be copied around...
+	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
+		this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
+			done(resp && resp.breakdown ? resp.breakdown : []);
+		});
+	}, 5000, true);
 }
 
 function getCheckbox(evt: any) {

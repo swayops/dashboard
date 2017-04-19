@@ -50,7 +50,6 @@ export class ReportingCmp {
 	}
 
 	private setTimeline(data: { [key: string]: any }) {
-		console.log(data);
 		const out = new Array<Timeline>(),
 			admin = new Array<any>();
 		for (const k of Object.keys(data)) {

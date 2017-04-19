@@ -82,16 +82,6 @@ export function SortBy(...props: string[]): (a, b) => number {
 	};
 }
 
-export function Throttle(callback: (...args: any[]) => any, thisArg: any, limit: number = 100) {
-	let wait = false;
-	return (...args: any[]) => {
-		if (wait) return;
-		wait = true;
-		setTimeout(() => wait = false, limit);
-		return Reflect.apply(callback, thisArg, args);
-	};
-}
-
 export function AlphaCmp(a: string, b: string, rev = false): number {
 	if (a < b) return rev ? 1 : -1;
 	if (a > b) return rev ? -1 : 1;
@@ -160,6 +150,25 @@ export class PersistentEventEmitter<T> {
 		this.completed = true;
 		this.callbacks = null;
 	}
+}
+
+export function CallLimiter(fn: (...any) => any, timeout: number, instantFirstCall = false): (...any) => void {
+	let lastArgs: any[];
+	// note to self, try using setTimeout instead.
+	setInterval(() => {
+		if (lastArgs != null) {
+			fn(...lastArgs);
+			lastArgs = null;
+		}
+	}, timeout);
+	return (...args): void => {
+		if (instantFirstCall) {
+			fn(...args);
+			instantFirstCall = false;
+		} else {
+			lastArgs = args;
+		}
+	};
 }
 
 // used https://github.com/substack/provinces/blob/master/provinces.json for state names
