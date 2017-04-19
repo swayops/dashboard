@@ -15,6 +15,8 @@ declare function initChartData2();
 export class ReportingCmp {
 	public lastMonth: any = { total: {} };
 	public timelines: Timeline[];
+	public adminMessages: any[];
+
 	private id;
 	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
 		title.setTitle('Sway :: Reporting');
@@ -31,7 +33,7 @@ export class ReportingCmp {
 				}
 				this.setGraph('engagements');
 			});
-			this.api.Get('getAdvertiserTimeline/' + this.id, (data) => this.setTimeline(data || {}));
+			this.api.Get('getAdvertiserTimeline/' + this.id, (data) => this.setTimeline(data || {}), (err) => console.log(err));
 		}).catch((err) => {
 			api.Logout();
 		});
@@ -47,10 +49,18 @@ export class ReportingCmp {
 		} catch (e) { console.error(e); }
 	}
 
-	private setTimeline(data: { [key: string]: Timeline[] }) {
-		const out = new Array<Timeline>();
+	private setTimeline(data: { [key: string]: any }) {
+		console.log(data);
+		const out = new Array<Timeline>(),
+			admin = new Array<any>();
 		for (const k of Object.keys(data)) {
-			for (const tl of data[k]) {
+			const v = data[k];
+			if (!Array.isArray(v)) { // pending
+				v.name = k;
+				admin.push(v);
+				continue;
+			}
+			for (const tl of v) {
 				tl.title = k;
 				tl.ts = (tl.ts * 1000); // js date fix and sorting
 				out.push(tl);
@@ -64,6 +74,12 @@ export class ReportingCmp {
 			return 0;
 		});
 		this.timelines = out;
+		this.adminMessages = admin;
+	}
+
+	get hasNoCampaigns() {
+		if (!!this.timelines && this.timelines.length > 0)
+			return !this.timelines;
 	}
 }
 
