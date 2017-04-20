@@ -8,7 +8,7 @@ import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
-import { AlphaCmp, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
+import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
 
 /// **WARNING** any changes here should be reflected in createAudience as well.
 
@@ -277,7 +277,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.api.Put('campaign/' + data.id, data, (resp) => {
 				this.loading = false;
 				this.AddNotification('success', 'Successfully Edited Campaign!');
-				if (data.perks) {
+				if (data.perks && data.perks.type !== 2) { // only if it's not a coupon perk.
 					this.api.GoTo('shippingPerks', this.id);
 				} else {
 					this.api.GoTo('mCampaigns', this.id);
@@ -441,8 +441,7 @@ export class CreateCampaignCmp extends ManageBase {
 	updateForecast() {
 		const data = this.getCmp(this.data);
 		this.forecast.loading = true;
-		this.api.Post('getForecast?breakdown=3', data, (resp) => {
-			resp = resp || {};
+		this.getForecast(5, data, (resp) => {
 			resp.loading = false;
 			this.forecast = resp;
 		});
@@ -451,12 +450,16 @@ export class CreateCampaignCmp extends ManageBase {
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
-			this.api.Post('getForecast?breakdown=250', data, (resp) => {
-				resp = resp || {};
-				done(resp.breakdown || []);
-			});
+			this.getForecast(250, data, done);
 		});
 	}
+
+	// should be moved somewhere else but for now it'll be copied around...
+	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
+		this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
+			done(resp && resp.breakdown ? resp.breakdown : []);
+		});
+	}, 5000, true);
 }
 
 function getCheckbox(evt: any) {

@@ -27,7 +27,22 @@
 	</div>
 	<div class="clearfix"></div>
 </div>
-<div *ngIf="!!timelines && timelines.length === 0">
+<div *ngFor="let m of adminMessages">
+	<div class="pallete-item" style="width: 80%;">
+		<dl class="palette" [style.backgroundColor]="m.color">
+			<dt><strong>{{m.name}}</strong></dt>
+			<dt>{{m.msg}}</dt>
+		</dl>
+
+	</div>
+	<div class="pallete-item" style="width: 20%;">
+		<dl class="palette palette-clouds" style="height: 25px; padding-top: 20px">
+			<dd><a style="font-size: 12px;" [href]="m.link" target="_blank" [title]="m.linkTitle" [innerText]="m.linkTitle"></a></dd>
+		</dl>
+	</div>
+</div>
+
+<div *ngIf="timelines?.length === 0 && adminMessages?.length === 0">
 	<div class="pallete-item" style="width: 80%;">
 		<dl class="palette" style="background-color: #bdc3c7">
 			<dt>You have no campaigns yet!</dt>
