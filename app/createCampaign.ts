@@ -194,7 +194,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		this.initKeywords();
 		this.onCampaignLoaded.subscribe((v) => {
-			const val = v.keywords.map((k) => {
+			const val = (v.keywords || []).map((k) => {
 				return { id: k, text: k };
 			});
 			this.kwsSel.select2({ tags: val }); // go die in a fire
