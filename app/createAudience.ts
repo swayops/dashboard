@@ -377,16 +377,16 @@ export class CreateAudienceCmp extends ManageBase {
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
-			this.getForecast(250, data, done);
+			this.getForecast(250, data, (resp) => done(resp.breakdown || []));
 		});
 	}
 
 	// should be moved somewhere else but for now it'll be copied around...
 	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
 		this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
-			done(resp && resp.breakdown ? resp.breakdown : []);
+			done(resp || {});
 		});
-	}, 5000, true);
+	}, 5000);
 }
 
 function getCheckbox(evt: any) {
