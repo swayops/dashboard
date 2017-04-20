@@ -245,6 +245,10 @@ export class CreateAudienceCmp extends ManageBase {
 			imageData: data.imageData,
 			members: data.members,
 		};
+
+		// this should be done server side but for now we can do it here.
+		if (!data.imageData) data.imageUrl = data.imageUrl;
+
 		this.api.Post('audience', data, (resp) => {
 			this.loading = false;
 			this.AddNotification('success', 'Successfully Added Audience!');
@@ -294,7 +298,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 	private getCmp(data: any): any {
 		data = Object.assign({}, data);
-		data.perks = Object.assign({}, data.perks);
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
 		if (data.members && data.members.length) {
@@ -320,7 +323,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 		data.categories = cats;
 
-		data.imageUrl = null;
 		data.imageData = this.cropData.image;
 
 		if (typeof data.infGoal === 'string') data.infGoal = parseFloat(data.infGoal) || 0;

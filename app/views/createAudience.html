@@ -9,6 +9,10 @@
 						<span class="ttip" title="This image will draw influencers into your campaign. It should represent the product or service you are promoting.">Thumbnail: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent" style="margin-top:13px;">
+						<span class="result rounded" *ngIf="!cropData.image && data.imageUrl">
+							<img [src]="data.imageUrl" style="max-width: 500px; border-radius: 10px;" height="200px">
+							<br>
+						</span>
 						<span class="result rounded" *ngIf="cropData.image">
 							<img [src]="cropData.image" style="max-width: 500px; border-radius: 10px;" height="200px">
 							<br>
