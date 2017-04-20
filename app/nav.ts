@@ -14,7 +14,7 @@ const assignGameUpdateInterval = 15 * 1000;
 	templateUrl: './views/leftNav.html',
 })
 export class LeftNavCmp extends HasAPI {
-	private assignGameNum = 0;
+	@Output() public assignGameNum = 0;
 	constructor(api: Sway) {
 		super(api);
 		// only run updateAssignGame if the logged in user is admin
@@ -25,9 +25,7 @@ export class LeftNavCmp extends HasAPI {
 		// don't spam load that if we're not currently in the main admin view
 		const user = this.api.CurrentUser;
 		if (!user) {
-			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval / 3);
-		} else if (this.api.IsAdmin()) {
-			return;
+			setTimeout(() => this.updateAssignGame(), 5000);
 		} else if (!user.admin) {
 			setTimeout(() => this.updateAssignGame(), assignGameUpdateInterval);
 		} else {
@@ -101,6 +99,6 @@ export class FooterCmp extends HasAPI {
 	constructor(api: Sway) { super(api); }
 }
 
-function objectToList(obj: Object, id: string): any[] {
+function objectToList(obj: object, id: string): any[] {
 	return Object.keys(obj).map((k) => ({ id: obj[k].replace(/:id/, id), text: k }));
 }
