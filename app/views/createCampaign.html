@@ -185,12 +185,9 @@
 						<span class="ttip" title="This will attempt to leverage influencers who would be deemed brand-safe">Brand Safe: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<div class="onoffswitch brandSafe" data-for="toggle-brandSafe">
-							<input type="checkbox" name="brandSafe" class="onoffswitch-checkbox" id="brandSafe" [(ngModel)]="data.brandSafe">
-							<label class="onoffswitch-label" for="brandSafe">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
+						<div class="checkbox">
+							<input type="checkbox" name="brandSafe" id="brandSafe" [(ngModel)]="data.brandSafe" (change)="updateSidebar('brandSafe')">
+							<label for="brandSafe" style="display:inline-block; height: 23px; width: 39px"></label>
 						</div>
 					</div>
 				</div>
