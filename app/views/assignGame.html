@@ -55,6 +55,18 @@
 				</select>
 				</div>
 			</div>
+			<div class="form-group">
+				<div class="grid-20 mobile-grid-100 grid-parent">
+					<span class="ttip" title="">Brand Safe:</span>
+				</div>
+				<div class="grid-80 mobile-grid-100 grid-parent">
+					<select class="form-control" name="brandSafe" [(ngModel)]="inf.brandSafe" style="width: 200px">
+					<option value="">Not Set</option>
+					<option value="t">True</option>
+					<option value="f">False</option>
+				</select>
+				</div>
+			</div>
 
 			<div align="right">
 				<button class="btn btn-green1" [disabled]="loading" (click)="next()">Skip</button>

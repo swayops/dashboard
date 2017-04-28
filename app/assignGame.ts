@@ -59,6 +59,7 @@ export class AssignGameCmp extends HasAPI {
 			data = {
 				categories: [],
 				gender: this.inf.gender,
+				brandSafe: this.inf.brandSafe,
 			};
 
 		for (const k of Object.keys(this.inf.categories)) {
