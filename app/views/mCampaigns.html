@@ -124,7 +124,7 @@
 	<div class="infColumn" #infAcc>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
 			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
-			| fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x rounded btn-danger" title="Remove Influencer">X</button>
+			| fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x rounded btn-danger" title="Remove Influencer">x</button>
 		</div>
 	</div>
 	<hr>
