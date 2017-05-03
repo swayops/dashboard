@@ -18,6 +18,11 @@ export class CampaignsCmp extends ManageBase {
 		{ name: 'Download Report »', class: 'btn-info', click: (evt) => this.getReport(evt) },
 	];
 
+	public delInfButtons = [
+		{ name: 'No', class: 'btn-blue ghost' },
+		{ name: 'Yes', class: 'btn-danger', click: (evt) => this.removeInf(evt) },
+	];
+
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
 		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);
 	}
@@ -43,6 +48,21 @@ export class CampaignsCmp extends ManageBase {
 		window.open(url);
 	}
 
+	removeInf(evt: ModalEvent) {
+		evt.dlg.hide();
+		const data = evt.data;
+		this.loading = true;
+		this.api.Get('unassignDeal/' + data.infID + '/' + data.cmpID + '/' + data.dealID, (resp) => {
+			this.loading = false;
+			this.Reload();
+			this.AddNotification('success', 'Removed ' + data.name, 5000);
+			this.ScrollToTop();
+		}, (err) => {
+			this.loading = false;
+			this.AddNotification('error', err.msg);
+		});
+	}
+
 	budgetPercent(cmp: any, sign = true): number | string {
 		let val = (cmp.spent / (cmp.spent + cmp.remaining)) * 100;
 		if (isNaN(val)) val = 0;
@@ -57,4 +77,5 @@ export class CampaignsCmp extends ManageBase {
 	expandInf(ele: HTMLElement) {
 		ele.classList.add('expanded');
 	}
+
 }
