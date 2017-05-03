@@ -266,6 +266,13 @@ a {
 	border-radius: 30px 30px;
 }
 
+.btn-x {
+	padding: 0;
+	min-width: 16px;
+	line-height: 16px;
+	font-size: 12px;
+}
+
 
 /*=========================== BLUE =========================*/
 

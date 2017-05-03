@@ -67,15 +67,6 @@
 						 required (change)="updateSidebar('budget')">
 					</div>
 				</div>
-				<div class="form-group" *ngIf="!data.whitelist && (!data.perks || data.perks.count === 0)">
-					<div class=" grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="We will attempt to endorse influencers near this price (NOTE: If you are to assign a whitelist or a perk to this campaign, this value is ignored)">Price Per Inf: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="number" name="infGoal" placeholder="We will attempt to endorse influencers near this price." class="form-control"
-						 [(ngModel)]="data.infGoal" step="0.00001" required [disabled]="opts.isEdit">
-					</div>
-				</div>
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						Task To Perform:

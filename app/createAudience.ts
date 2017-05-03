@@ -325,8 +325,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 		data.imageData = this.cropData.image;
 
-		if (typeof data.infGoal === 'string') data.infGoal = parseFloat(data.infGoal) || 0;
-
 		return data;
 	}
 

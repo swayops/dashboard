@@ -124,7 +124,7 @@
 	<div class="infColumn" #infAcc>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
 			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
-			| fmtNum}}
+			| fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x rounded btn-danger" title="Remove Influencer">x</button>
 		</div>
 	</div>
 	<hr>
@@ -160,4 +160,8 @@
 			<input style="max-width:250px;" type="text" class="form-control dp" id="endDate" placeholder="End date..." readonly>
 		</div>
 	</form>
+</modal>
+
+<modal title="Remove Influencer?" #removeInf [buttons]=delInfButtons>
+	Are you sure you want to remove <em><strong>{{removeInf.data?.name}}</strong></em>?
 </modal>

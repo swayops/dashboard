@@ -9,7 +9,7 @@ declare const $: any;
 	template: `
 <div [style.max-width]="width" class="nosel" (keydown.escape)="hide()" style="overflowing: hidden;">
 	<h2 class="heading" *ngIf="title">{{ title }}
-		<a href="javascript:close()" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
+		<a href="javascript:" class="fui-cross" (click)="hide()" title="Close" style="float: right"></a>
 		<br>
 	</h2>
 	<loader *ngIf="loading"></loader>
