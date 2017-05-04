@@ -106,4 +106,10 @@ export class ManageBase extends HasAPI {
 	}
 
 	Copy(o: object): object { return Object.assign({}, o); }
+
+	ObjectLen(o: any): number {
+		if (!o) return 0;
+		if ('length' in o) return o.length;
+		return Object.keys(o).length;
+	}
 }
