@@ -1,0 +1,28 @@
+<h2 class="heading">Influencer Rep Top List</h2>
+
+<form style="width:250px; float:right;">
+	<input class="form-control input-sm" type="text" placeholder="Search this table..." [(ngModel)]="kw" name="kw">
+</form>
+
+<div class="clearfix br"></div>
+
+<table class="tbl">
+	<thead>
+		<tr>
+			<th class="align-left">Name</th>
+			<th>ID</th>
+			<th>Rep</th>
+			<th>Followers</th>
+			<th>Contact</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let inf of list | filter:FilterUsers">
+			<td class="align-left">{{inf.name}}</td>
+			<td>{{inf.id}}</td>
+			<td>{{inf.CurrentRep}}</td>
+			<td>{{inf.followers}}</td>
+			<td>{{inf.contactInfo(inf)}}</td>
+		</tr>
+	</tbody>
+</table>
