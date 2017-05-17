@@ -429,8 +429,11 @@
 		</li>
 		<li *ngIf="!!sidebar.lastFour">
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
-				<p *ngIf="!!sidebar.lastFour">
+				<p>
 					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
+				</p>
+				<p>
+					<small style="font-size: 10px;"><img src="/static/img/questionTooltip.png"> Note: Upon creation your campaign budget will be charged upfront to ensure it is available to distribute to influencers. Your billing method on file will renew your monthly budget on the 30 day anniversary until turned off or cancelled.</small>
 				</p>
 			</div>
 		</li>
