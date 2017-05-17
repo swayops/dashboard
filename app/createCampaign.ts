@@ -170,7 +170,6 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	updateSidebar(why?: string) {
-		let curBudget = 0;
 		setTimeout(() => {
 			const sb = this.sidebar,
 				auds = this.data.audiences,
@@ -182,10 +181,6 @@ export class CreateCampaignCmp extends ManageBase {
 			sb.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
 			sb.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
 			if (this.kwsSel) sb.keywords = (this.kwsSel.val() || []).join(', ');
-			if (!!this.data.budget && this.data.budget !== curBudget) {
-				curBudget = this.data.budget;
-				this.api.Get('getProratedBudget/' + curBudget, (resp) => sb.totalCharge = resp.budget);
-			}
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
