@@ -143,7 +143,6 @@ export class CreateAudienceCmp extends ManageBase {
 	}
 
 	updateSidebar(why?: string) {
-		let curBudget = 0;
 		setTimeout(() => {
 			const cats = this.data.categories;
 			if (forecastKeys.indexOf(why) > -1) this.updateForecast();
@@ -153,10 +152,6 @@ export class CreateAudienceCmp extends ManageBase {
 			this.sidebar.networks = networks.filter((n) => !!this.data[n.toLowerCase()]).join(', ');
 			this.sidebar.geos = (this.geoSel.val() || []).map((k) => CountriesAndStatesRev[k]).join(', ');
 			if (this.kwsSel) this.sidebar.keywords = (this.kwsSel.val() || []).join(', ');
-			if (!!this.data.budget && this.data.budget !== curBudget) {
-				curBudget = this.data.budget;
-				this.api.Get('getProratedBudget/' + curBudget, (resp) => this.sidebar.totalCharge = resp.budget);
-			}
 		}, 100); // has to be delayed otherwise we would have to hack how our checkboxes work..
 	}
 
