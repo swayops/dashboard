@@ -131,7 +131,22 @@
 	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infAcc)">View All...</a>
 </div>
 
+<!-- this should only exist if they are enterprise plan and the campaign has "pre-approve media" toggle ON-->
 <div class="grid-50 mobile-grid-100" align="left">
+	<h6 style="margin-bottom: 8px;">Pre-Approve Media:</h6>
+	<div class="infColumn" #infComp>
+
+		<div style="font-size: 12px;" *ngFor="let inf of cmp.preApprove">
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | <button class="btn btn-x btn-danger" style="padding:3px;" title="MSG Changes to Influencer"> MSG Changes </button> | <button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media"> Approve </button> | <a style="font-size: 12px;" target="_blank" href="https://www.instagram.com/p/BTkm7Srh6qe/">View Media</a>
+		</div>
+	</div>
+	<!--inf column end-->
+	<hr>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
+</div>
+
+<!-- if the above div exists make this grid class="grid-100 mobile-grid-100"... otherwise it should be grid-50 mobile grid 100-->
+<div class="grid-100 mobile-grid-100" align="left">
 	<h6 style="margin-bottom: 8px;">Delivered content:</h6>
 	<div class="infColumn" #infComp>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">

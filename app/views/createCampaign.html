@@ -58,6 +58,23 @@
 					</div>
 				</div>
 
+				<!--for enterprise plans only!-->
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Do you wish to pre-approve each piece of content before an influencer may post it live?">Pre-Approve Media?: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="onoffswitch preApprove" data-for="toggle-preApprove" style="float: none; margin-top: 5px;">
+							<input type="checkbox" name="preApprove" class="onoffswitch-checkbox" id="preApprove" [(ngModel)]="data.preApprove">
+							<label class="onoffswitch-label" for="preApprove">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+						</div>
+					</div>
+				</div>
+				<!--END for enterprise plans only!-->
+
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
