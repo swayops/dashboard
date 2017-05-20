@@ -235,6 +235,41 @@
 
 			<br>
 			<br>
+
+			<!-- this section shows only for enterprise only -->
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">2.1. Scheduling <span>*optional</span></h2>
+				<div class="onoffswitch scheduling" data-for="toggle-scheduling">
+					<input type="checkbox" name="scheduling" class="onoffswitch-checkbox" id="scheduling">
+					<label class="onoffswitch-label" for="scheduling">
+						<span class="onoffswitch-inner showhide"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+			<div class="content-toggle toggle-scheduling">
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar.">{{infName1}}: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input style="max-width:250px;" type="text" class="form-control dp" id="postDate" placeholder="Post date..." readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar.">{{infName2}}: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input style="max-width:250px;" type="text" class="form-control dp" id="postDate" placeholder="Post date..." readonly>
+					</div>
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<!-- end this section for enterprise only-->
+
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
 				<div class="onoffswitch influencers" data-for="toggle-influencers">
