@@ -59,13 +59,13 @@
 				</div>
 
 				<!--for enterprise plans only!-->
-				<div class="form-group">
+				<div class="form-group"  *ngIf="plan === 3">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="Do you wish to pre-approve each piece of content before an influencer may post it live?">Pre-Approve Media?: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<div class="onoffswitch preApprove" data-for="toggle-preApprove" style="float: none; margin-top: 5px;">
-							<input type="checkbox" name="preApprove" class="onoffswitch-checkbox" id="preApprove" [(ngModel)]="data.preApprove">
+							<input type="checkbox" name="preApprove" class="onoffswitch-checkbox" id="preApprove" [(ngModel)]="data.reqSub">
 							<label class="onoffswitch-label" for="preApprove">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
@@ -235,7 +235,7 @@
 
 			<br>
 			<br>
-
+			<div *ngIf="false">
 			<!-- this section shows only for enterprise only -->
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">2.1. Scheduling <span>*optional</span></h2>
@@ -269,7 +269,7 @@
 			<br>
 			<br>
 			<!-- end this section for enterprise only-->
-
+			</div>
 			<div class="field-set grid-100 grid-parent head-toggle">
 				<h2 class="heading">3. Influencer Groups <span>*optional</span></h2>
 				<div class="onoffswitch influencers" data-for="toggle-influencers">

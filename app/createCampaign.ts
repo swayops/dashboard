@@ -71,7 +71,7 @@ export class CreateCampaignCmp extends ManageBase {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], (user) => {
 				const adv = this.user.advertiser;
-				if (!adv || adv.agencyId !== '2') {
+				if (!adv) {
 					this.plan = 3;
 				} else {
 					this.plan = adv.planID || 0;
