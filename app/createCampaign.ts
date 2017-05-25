@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
-import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
+import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, Iter, PersistentEventEmitter } from './utils';
 
 /// **WARNING** any changes here should be reflected in createAudience as well.
 
@@ -36,7 +36,11 @@ export class CreateCampaignCmp extends ManageBase {
 			count: 0,
 		},
 		keywords: [],
+		whitelistSchedule: {},
 	};
+
+	public whitelistKeys = new Set<string>();
+	public scheduling = false;
 
 	public infDlgButtons = [
 		{ name: 'Cancel', class: 'btn-blue ghost' },
@@ -67,7 +71,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
-	constructor(title: Title, api: Sway, route: ActivatedRoute) {
+	constructor(title: Title, api: Sway, route: ActivatedRoute, private cdRef: ChangeDetectorRef) {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], (user) => {
 				const adv = this.user.advertiser;
@@ -303,8 +307,6 @@ export class CreateCampaignCmp extends ManageBase {
 	private setCmp(data: any): any {
 		if (Array.isArray(data.tags) && data.tags.length) data.tags = data.tags.join(', ').trim();
 
-		if (data.whitelist) data.whitelist = Object.keys(data.whitelist).join(', ').trim();
-
 		if (!Array.isArray(data.categories)) data.categories = [];
 		if (!Array.isArray(data.audiences)) data.audiences = [];
 
@@ -337,10 +339,22 @@ export class CreateCampaignCmp extends ManageBase {
 			this.geoSel.val(data.geos.map((v) => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
 
-		if (data.male || data.female || data.whitelist || data.keywords || data.geos) {
+		if (data.male || data.female || data.keywords || data.geos) {
 			// you didn't see this, move on. - A Sith Lord.
 			$('#targeting').click();
 		}
+
+		this.whitelistKeys = new Set<string>(Object.keys(data.whitelistSchedule || {}));
+		if (this.whitelistKeys.size) {
+			$('#whitelist').click();
+		}
+
+		Iter(data.whitelistSchedule, (_, v) => {
+			if (v.to && v.from) {
+				this.scheduling = true;
+				return true;
+			}
+		});
 
 		this.data = data;
 
@@ -366,11 +380,15 @@ export class CreateCampaignCmp extends ManageBase {
 		data.perks = Object.assign({}, data.perks);
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
-		if (data.whitelist && data.whitelist.length) {
-			const wl = data.whitelist.split(',').map((v) => v.trim());
-			data.whitelist = {};
-			for (const it of wl) data.whitelist[it] = true;
-		}
+
+		Iter(data.whitelistSchedule, (_, v) => {
+			if (typeof v.from === 'string') {
+				v.from = (new Date(v.from)).getTime() / 1000;
+			}
+			if (typeof v.to === 'string') {
+				v.to = (new Date(v.to)).getTime() / 1000;
+			}
+		});
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
 			const parts = v.split('-'),
@@ -413,22 +431,23 @@ export class CreateCampaignCmp extends ManageBase {
 		return reqs;
 	}
 
-	addToWhitelist(email: string) {
-		if (!this.data.whitelist) {
-			this.data.whitelist = email;
-			$('#targeting').click(); // Oh look, boobies over there, don't look here.
-		} else {
-			this.data.whitelist += ', ' + email;
+	addToWhitelist(emails: string) {
+		if (!$('#whitelist').is(':checked')) {
+			$('#whitelist').click(); // Oh look, boobies over there, don't look here.
+		}
+		for (const email of emails.split(',').map((v) => v.trim())) {
+			this.data.whitelistSchedule[email] = { from: 0, to: 0 };
+			this.whitelistKeys.add(email);
 		}
 	}
 
 	delFromWhitelist(email: string) {
-		this.data.whitelist = this.data.whitelist.replace(email, '').replace(/^, |, $/, '');
+		delete this.data.whitelistSchedule[email];
+		this.whitelistKeys.delete(email);
 	}
 
 	isInWhitelist(email: string) {
-		const wl = this.data.whitelist;
-		return !!wl && wl.indexOf(email) !== -1;
+		return email in this.data.whitelistSchedule;
 	}
 
 	updateForecast() {
@@ -489,4 +508,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelist', 'category', 'kws'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws'];

@@ -59,6 +59,14 @@ export class TruncatePipe implements PipeTransform {
 	}
 }
 
+@Pipe({ name: 'objFor' })
+export class ObjectForPipe implements PipeTransform {
+	transform(value: any, args: any[] = null): any {
+		console.log(value);
+		return Object.keys(value).map((key) => Object.assign({ key }, value[key]));
+	}
+}
+
 function trimNumber(n: number): string { return n.toFixed(2).replace(/\.0\d?$/, ''); }
 
 export function SortBy(...props: string[]): (a, b) => number {
