@@ -246,44 +246,31 @@
 						 class="form-control">
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="grid-80 mobile-grid-80 grid-parent">
-						<span class="ttip" title="Scheduling.">Scheduling: <img src="/static/img/questionTooltip.png"/></span>
+				<div class="form-group" *ngFor="let key of whitelistKeys">
+					<div class="grid-60 mobile-grid-90 grid-parent" style="font-size: 20px;">
+						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar.">{{key}}: <img src="/static/img/questionTooltip.png"></span>
+
 					</div>
-					<div class="grid-20 mobile-grid-20">
-						<div class="onoffswitch whitelist" data-for="toggle-schedule">
-							<input type="checkbox" name="schedule" class="onoffswitch-checkbox" id="schedule">
-							<label class="onoffswitch-label" for="schedule">
+					<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px">
+						Schedule
+						<div class="onoffswitch whitelist">
+							<input type="checkbox" name="schedule-{{key}}" class="onoffswitch-checkbox" id="schedule-{{key}}" [(ngModel)]="data.whitelistSchedule[key].scheduling">
+							<label class="onoffswitch-label" for="schedule-{{key}}">
 								<span class="onoffswitch-inner"></span>
 								<span class="onoffswitch-switch"></span>
 							</label>
 						</div>
 					</div>
-				</div>
-				<div class="form-group" *ngFor="let key of whitelistKeys">
-					<div class="grid-90 mobile-grid-90 grid-parent">
-						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar.">{{key}}: <img src="/static/img/questionTooltip.png"></span>
-
-					</div>
-					<div class="grid-10 mobile-grid-10 grid-parent" style="text-align: right">
+					<div class="grid-10 mobile-grid-10" style="text-align: right">
 						<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromWhitelist(key);"></span>
 					</div>
-					<div class="grid-100 mobile-grid-100 grid-parent">
+					<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="data.whitelistSchedule[key].scheduling">
 						<div class="grid-50 mobile-grid-100">
 							From: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].from" useValueAsDate [ngModelOptions]="{standalone: true}">
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							To: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].to" useValueAsDate [ngModelOptions]="{standalone: true}">
 						</div>
-					</div>
-					<hr>
-				</div>
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar.">{{infName2}}: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input style="max-width:250px;" type="text" class="form-control dp" id="postDate" placeholder="Post date..." readonly>
 					</div>
 				</div>
 			</div>
