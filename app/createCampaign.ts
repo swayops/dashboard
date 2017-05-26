@@ -392,6 +392,9 @@ export class CreateCampaignCmp extends ManageBase {
 			if (nv.to instanceof Date) {
 				nv.to = nv.to.getTime() / 1000;
 			}
+
+			if (nv.from === nv.to) nv.to = nv.from + 86400000;
+
 			data.whitelistSchedule[k] = nv;
 		});
 
