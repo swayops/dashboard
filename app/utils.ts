@@ -129,9 +129,11 @@ export function Iter(obj: any, fn: (k: any, v?: any) => boolean | void) {
 		for (const k of obj) {
 			if (fn(k) === true) return;
 		}
+		return;
 	}
 	for (const k of Object.keys(obj)) {
 		const v = obj[k];
+		if (fn(k, v) === true) return;
 	}
 }
 

@@ -378,16 +378,22 @@ export class CreateCampaignCmp extends ManageBase {
 	private getCmp(data: any): any {
 		data = Object.assign({}, data);
 		data.perks = Object.assign({}, data.perks);
+		data.whitelistSchedule = Object.assign({}, data.whitelistSchedule);
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
 
-		Iter(data.whitelistSchedule, (_, v) => {
-			if (typeof v.from === 'string') {
-				v.from = (new Date(v.from)).getTime() / 1000;
+		Iter(data.whitelistSchedule, (k, v) => {
+			const nv = {
+				from: v.from,
+				to: v.to,
+			};
+			if (nv.from instanceof Date) {
+				nv.from = nv.from.getTime() / 1000;
 			}
-			if (typeof v.to === 'string') {
-				v.to = (new Date(v.to)).getTime() / 1000;
+			if (nv.to instanceof Date) {
+				nv.to = nv.to.getTime() / 1000;
 			}
+			data.whitelistSchedule[k] = nv;
 		});
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
