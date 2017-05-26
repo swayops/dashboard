@@ -351,8 +351,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 		Iter(data.whitelistSchedule, (_, v) => {
 			if (v.to && v.from) {
-				this.scheduling = true;
-				return true;
+				v.scheduling = true;
 			}
 		});
 
