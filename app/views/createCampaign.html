@@ -240,7 +240,7 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" #wl (change)="addToWhitelist(wl.value); wl.value = ''" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
+						<input type="text" (change)="addToWhitelistInput($event)" (keyup.enter)="addToWhitelistInput($event)" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
 						 class="form-control">
 					</div>
 				</div>

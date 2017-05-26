@@ -136,8 +136,8 @@
 	<h6 style="margin-bottom: 8px;">Pre-Approve Media:</h6>
 	<div class="infColumn" #infComp>
 
-		<div style="font-size: 12px;" *ngFor="let inf of cmp.preApprove">
-			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | <button class="btn btn-x btn-danger" style="padding:3px;" title="MSG Changes to Influencer"> MSG Changes </button> | <button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media"> Approve </button> | <a style="font-size: 12px;" target="_blank" href="https://www.instagram.com/p/BTkm7Srh6qe/">View Media</a>
+		<div style="font-size: 12px;" *ngFor="let inf of cmp.submitted">
+			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | <button class="btn btn-x btn-danger" style="padding:3px;" title="MSG Changes to Influencer">MSG Changes</button> | <button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(inf)">Approve</button> | <a style="font-size: 12px;" target="_blank" [href]="inf.postUrl">View Media</a>
 		</div>
 	</div>
 	<!--inf column end-->

@@ -447,6 +447,15 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 	}
 
+	addToWhitelistInput(e) {
+		e.preventDefault();
+		const ele = e.target,
+			val = ele.value.trim();
+		if (!val) return;
+		this.addToWhitelist(val);
+		ele.value = '';
+	}
+
 	delFromWhitelist(email: string) {
 		delete this.data.whitelistSchedule[email];
 		this.whitelistKeys.delete(email);
