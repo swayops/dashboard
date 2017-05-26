@@ -1,6 +1,6 @@
 <div class="grid-62 mobile-grid-100 grid-parent campaignPage" three-column>
 	<div class="content-holder center-widget">
-		<form #f="ngForm" novalidate (ngSubmit)="save()">
+		<form #f="ngForm" novalidate>
 			<div class="grid-100 grid-parent">
 				<h2 class="heading">1. Basic campaign settings
 
@@ -240,8 +240,7 @@
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" (change)="addToWhitelistInput($event)" (keyup.enter)="addToWhitelistInput($event)" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
-						 class="form-control">
+						<input type="text" (change)="addToWhitelistInput($event)" class="form-control">
 					</div>
 				</div>
 				<div class="form-group" *ngFor="let key of whitelistKeys">
@@ -417,7 +416,7 @@
 				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
+				<button (click)="save()" type="button" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
 			</div>
 		</form>
 		<br>
