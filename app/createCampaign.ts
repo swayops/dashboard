@@ -63,7 +63,7 @@ export class CreateCampaignCmp extends ManageBase {
 	public plan = 3;
 
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
-	public cropperSettings: CropperSettings;
+	public cropperSettings: any;
 	public cropData: any = {};
 
 	private geoSel;
@@ -75,11 +75,7 @@ export class CreateCampaignCmp extends ManageBase {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], (user) => {
 				const adv = this.user.advertiser;
-				if (!adv) {
-					this.plan = 3;
-				} else {
-					this.plan = adv.planID || 0;
-				}
+				this.plan = !adv ? 3 : adv.planID || 0;
 			});
 
 		this.api.Get('getCategories', (resp) => {
@@ -109,7 +105,8 @@ export class CreateCampaignCmp extends ManageBase {
 			});
 		}
 
-		this.cropperSettings = Object.assign(new CropperSettings(), {
+		this.cropperSettings = {
+			...new CropperSettings(),
 			keepAspect: true,
 			responsive: true,
 			canvasWidth: 750,
@@ -121,7 +118,7 @@ export class CreateCampaignCmp extends ManageBase {
 			// height: 389,
 			// minWidth: 750,
 			minHeight: 389,
-		});
+		};
 	}
 
 	toggleImage(cancel?: boolean) {
@@ -375,9 +372,9 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	private getCmp(data: any): any {
-		data = Object.assign({}, data);
-		data.perks = Object.assign({}, data.perks);
-		data.whitelistSchedule = Object.assign({}, data.whitelistSchedule);
+		data = { ...data };
+		data.perks = { ...data.perks };
+		data.whitelistSchedule = { ...data.whitelistSchedule };
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
 
