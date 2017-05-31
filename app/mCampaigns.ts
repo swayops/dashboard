@@ -78,4 +78,17 @@ export class CampaignsCmp extends ManageBase {
 		ele.classList.add('expanded');
 	}
 
+	approveMedia(cmpID: string, infID: string) {
+		this.loading = true;
+		this.api.Get('approveSubmission/' + this.id + '/' + cmpID + '/' + infID, (resp) => {
+			this.loading = false;
+			this.Reload();
+			this.AddNotification('success', 'Approved Submission', 5000);
+			this.ScrollToTop();
+		}, (err) => {
+			this.loading = false;
+			this.AddNotification('error', err.msg);
+		});
+	}
+
 }
