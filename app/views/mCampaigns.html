@@ -123,34 +123,23 @@
 	<h6 style="margin-bottom: 8px;">Accepted / Endorsed Influencers:</h6>
 	<div class="infColumn" #infAcc>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
+			<div style="font-size: 12px;" *ngIf="!!inf.submission">
+				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
+				<a class="btn btn-x btn-danger" style="padding:3px; display: inline-block;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=MSG Change">MSG Changes</a> |
+				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
+				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission.content);">View Media</a>
+			</div>
+			<div *ngIf="!inf.submission">
 			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
 			| fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
+			</div>
 		</div>
 	</div>
 	<hr>
 	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infAcc)">View All...</a>
 </div>
 
-<!-- this should only exist if they are enterprise plan and the campaign has "pre-approve media" toggle ON-->
 <div class="grid-50 mobile-grid-100" align="left">
-	<h6 style="margin-bottom: 8px;">Pre-Approve Media:</h6>
-	<div class="infColumn" #infComp>
-		<ng-template ngFor let-inf [ngForOf]="cmp.submitted">
-			<div style="font-size: 12px;" *ngIf="!inf.submission.approved">
-				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
-				<a class="btn btn-x btn-danger" style="padding:3px;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=MSG Change">MSG Changes</a> |
-				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
-				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission.content);">View Media</a>
-			</div>
-		</ng-template>
-	</div>
-	<!--inf column end-->
-	<hr>
-	<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
-</div>
-
-<!-- if the above div exists make this grid class="grid-100 mobile-grid-100"... otherwise it should be grid-50 mobile grid 100-->
-<div class="grid-100 mobile-grid-100" align="left">
 	<h6 style="margin-bottom: 8px;">Delivered content:</h6>
 	<div class="infColumn" #infComp>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">
