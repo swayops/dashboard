@@ -136,7 +136,7 @@
 	<h6 style="margin-bottom: 8px;">Pre-Approve Media:</h6>
 	<div class="infColumn" #infComp>
 		<ng-template ngFor let-inf [ngForOf]="cmp.submitted">
-			<div style="font-size: 12px;" *ngIf="!!inf.submission.approved">
+			<div style="font-size: 12px;" *ngIf="!inf.submission.approved">
 				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
 				<a class="btn btn-x btn-danger" style="padding:3px;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=MSG Change">MSG Changes</a> |
 				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
