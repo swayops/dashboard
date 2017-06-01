@@ -127,11 +127,12 @@
 				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
 				<a class="btn btn-x btn-danger" style="padding:3px; display: inline-block;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=MSG Change">MSG Changes</a> |
 				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
-				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission.content);">View Media</a>
+				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission.content);">View Media</a> |
+				<button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
 			</div>
 			<div *ngIf="!inf.submission">
-			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Followers: {{inf.followers
-			| fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
+				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
+				Followers: {{inf.followers | fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
 			</div>
 		</div>
 	</div>
