@@ -75,7 +75,7 @@ export class CreateCampaignCmp extends ManageBase {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], (user) => {
 				const adv = this.user.advertiser;
-				this.plan = (!adv || adv.isIO) ? 3 : adv.planID || 0;
+				this.plan = (!adv || this.user.isIO) ? 3 : adv.planID || 0;
 			});
 
 		this.api.Get('getCategories', (resp) => {

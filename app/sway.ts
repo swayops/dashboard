@@ -293,6 +293,7 @@ interface User {
 	advertiser?: any;
 	hasCmps?: boolean;
 	inf?: any;
+	isIO?: boolean;
 
 	subUser?: string;
 }
