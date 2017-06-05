@@ -121,13 +121,13 @@
 <!--2 rows of influencers-->
 <div class="grid-50 mobile-grid-100" align="left">
 	<h6 style="margin-bottom: 8px;">Accepted / Endorsed Influencers:</h6>
-	<div class="infColumn" #infAcc>
+	<div class="infColumn" #infPre>
 		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
 			<div style="font-size: 12px;" *ngIf="!!inf.submission">
 				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
 				<a class="btn btn-x btn-danger" style="padding:3px; display: inline-block;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=Request for Changes to Post Submission for Sway Campaign: {{cmp.name}}">MSG Changes</a> |
 				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
-				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission.content);">View Media</a> |
+				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission);">View Media</a> |
 				<button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
 			</div>
 			<div *ngIf="!inf.submission">
@@ -137,7 +137,7 @@
 		</div>
 	</div>
 	<hr>
-	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infAcc)">View All...</a>
+	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infPre)">View All...</a>
 </div>
 
 <div class="grid-50 mobile-grid-100" align="left">
@@ -175,9 +175,11 @@
 	Are you sure you want to remove <em><strong>{{removeInf.data?.name}}</strong></em>?
 </modal>
 <modal title="View Media" #viewMedia>
-	<ng-template ngFor let-url [ngForOf]="viewMedia.data">
+	<h2>{{viewMedia.data?.caption}}</h2>
+	<ng-template ngFor let-url [ngForOf]="viewMedia.data?.content">
 		<div class="grid-50 grid-mobile-100">
-			<a [href]="url" target="_blank"><img [src]="url" style="max-width: 100%"></a>
+			<a [href]="url" target="_blank" *ngIf="url.substr(0, 1) === '/'"><img [src]="url" style="max-width: 100%"></a>
+			<a [href]="url" target="_blank" *ngIf="url.substr(0, 1) !== '/'">{{url}}</a>
 		</div>
 	</ng-template>
 </modal>
