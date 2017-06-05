@@ -1,4 +1,5 @@
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export function Pad(n) {
 	if (typeof n !== 'number') return '';
@@ -56,6 +57,14 @@ export class FormatNumberPipe implements PipeTransform {
 export class TruncatePipe implements PipeTransform {
 	transform(value: string, limit: number = 10): string {
 		return value.length > limit ? value.substring(0, limit) + '…' : value;
+	}
+}
+
+@Pipe({ name: 'safeURL' })
+export class SafePipe implements PipeTransform {
+	constructor(private sanitizer: DomSanitizer) { }
+	transform(url: string) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}
 }
 
@@ -121,9 +130,11 @@ export function Iter(obj: any, fn: (k: any, v?: any) => boolean | void) {
 		for (const k of obj) {
 			if (fn(k) === true) return;
 		}
+		return;
 	}
 	for (const k of Object.keys(obj)) {
 		const v = obj[k];
+		if (fn(k, v) === true) return;
 	}
 }
 

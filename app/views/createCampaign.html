@@ -1,6 +1,6 @@
 <div class="grid-62 mobile-grid-100 grid-parent campaignPage" three-column>
 	<div class="content-holder center-widget">
-		<form #f="ngForm" novalidate (ngSubmit)="save()">
+		<form #f="ngForm" novalidate>
 			<div class="grid-100 grid-parent">
 				<h2 class="heading">1. Basic campaign settings
 
@@ -57,6 +57,23 @@
 						<input type="text" name="name" placeholder="Your campaign name" class="form-control" [(ngModel)]="data.name" required>
 					</div>
 				</div>
+
+				<!--for enterprise plans only!-->
+				<div class="form-group"  *ngIf="plan === 3">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Do you wish to pre-approve each piece of content before an influencer may post it live?">Pre-Approve Media?: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="onoffswitch preApprove" data-for="toggle-preApprove" style="float: none; margin-top: 5px;">
+							<input type="checkbox" name="preApprove" class="onoffswitch-checkbox" id="preApprove" [(ngModel)]="data.reqSub">
+							<label class="onoffswitch-label" for="preApprove">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+						</div>
+					</div>
+				</div>
+				<!--END for enterprise plans only!-->
 
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
@@ -203,17 +220,55 @@
 						<select multiple="multiple" class="kws form-control multiselect multiselect-info"></select>
 					</div>
 				</div>
-				<br>
+			</div>
+
+			<br>
+			<br>
+			<div class="field-set grid-100 grid-parent head-toggle">
+				<h2 class="heading">2.1. Whitelist <span>*optional</span></h2>
+				<div class="onoffswitch whitelist" data-for="toggle-whitelist">
+					<input type="checkbox" name="whitelist" class="onoffswitch-checkbox" id="whitelist">
+					<label class="onoffswitch-label" for="whitelist">
+						<span class="onoffswitch-inner showhide"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+			<div class="content-toggle toggle-whitelist">
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
 						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="whitelist" [(ngModel)]="data.whitelist" (blur)="!!data.whitelist && updateForecast()" placeholder="invite@MyInfluencer.com, anotherPerson@y.com"
-						 class="form-control">
+						<input type="text" (change)="addToWhitelistInput($event)" class="form-control">
 					</div>
 				</div>
-
+				<div class="form-group" *ngFor="let key of whitelistKeys">
+					<div class="grid-60 mobile-grid-100 grid-parent" style="font-size: 16px;">{{key}}</div>
+					<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan !== 3"> </div>
+					<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan === 3">
+						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar, starting at 12AM UTC.">Schedule: <img src="/static/img/questionTooltip.png"></span>
+						<div class="onoffswitch whitelist">
+							<input type="checkbox" name="schedule-{{key}}" class="onoffswitch-checkbox" id="schedule-{{key}}" [(ngModel)]="data.whitelistSchedule[key].scheduling">
+							<label class="onoffswitch-label" for="schedule-{{key}}">
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
+					</div>
+					<div class="grid-10 mobile-grid-10" style="text-align: right">
+						<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromWhitelist(key);"></span>
+					</div>
+					<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="data.whitelistSchedule[key].scheduling">
+						<div class="grid-40 mobile-grid-100">
+							From: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].from" useValueAsDate [ngModelOptions]="{standalone: true}">
+						</div>
+						<div class="grid-40 mobile-grid-100">
+							To: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].to" useValueAsDate [ngModelOptions]="{standalone: true}">
+						</div>
+						<div class="grid-20" style="padding-top: 22px; font-weight: bold;">12AM UTC</div>
+					</div>
+				</div>
 			</div>
 
 			<br>
@@ -362,7 +417,7 @@
 				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
+				<button (click)="save()" type="button" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
 			</div>
 		</form>
 		<br>
