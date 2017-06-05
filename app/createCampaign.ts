@@ -75,7 +75,7 @@ export class CreateCampaignCmp extends ManageBase {
 		super(null, route.snapshot.url[0].path === 'editCampaign' ? '-Edit Campaign' : '-Create Campaign',
 			title, api, route.snapshot.params['id'], (user) => {
 				const adv = this.user.advertiser;
-				this.plan = !adv ? 3 : adv.planID || 0;
+				this.plan = (!adv || adv.isIO) ? 3 : adv.planID || 0;
 			});
 
 		this.api.Get('getCategories', (resp) => {
@@ -486,6 +486,10 @@ export class CreateCampaignCmp extends ManageBase {
 			done(resp || {});
 		});
 	}, 5000);
+
+	get canPreApprove(): boolean {
+		return this.plan === 3 || this.user.isIO;
+	}
 }
 
 function getCheckbox(evt: any) {
