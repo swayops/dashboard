@@ -35,7 +35,7 @@ import { FormDlg } from './form';
 import { Loader } from './loader';
 import { Modal } from './modal';
 
-import { CheckCmp, FilterArrayPipe, FormatNumberPipe, ObjectForPipe, TruncatePipe } from './utils';
+import { CheckCmp, FilterArrayPipe, FormatNumberPipe, SafePipe, TruncatePipe } from './utils';
 
 import { ImageCropperModule } from 'ng2-img-cropper';
 
@@ -225,7 +225,7 @@ export const ALL_ROUTES = [
 		Loader,
 
 		// pipes and utils
-		FilterArrayPipe, FormatNumberPipe, TruncatePipe, ObjectForPipe,
+		FilterArrayPipe, FormatNumberPipe, TruncatePipe, SafePipe,
 
 		DateValueAccessor,
 		CheckCmp,
