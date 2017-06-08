@@ -270,7 +270,36 @@
 					</div>
 				</div>
 			</div>
-
+			<div *ngIf="plan===3">
+				<br>
+				<br>
+				<div class="field-set grid-100 grid-parent head-toggle">
+					<h2 class="heading">2.1. Blacklist <span>*optional</span></h2>
+					<div class="onoffswitch blacklist" data-for="toggle-blacklist">
+						<input type="checkbox" name="blacklist" class="onoffswitch-checkbox" id="blacklist">
+						<label class="onoffswitch-label" for="blacklist">
+							<span class="onoffswitch-inner showhide"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+				<div class="content-toggle toggle-blacklist">
+					<div class="form-group">
+						<div class="grid-20 mobile-grid-100 grid-parent">
+							<span class="ttip" title="Enter in emails of influencers you want to blacklist from this campaign.">Email(s): <img src="/static/img/questionTooltip.png" /></span>
+						</div>
+						<div class="grid-80 mobile-grid-100 grid-parent">
+							<input type="text" (change)="addToBlacklistInput($event)" class="form-control">
+						</div>
+					</div>
+					<div class="form-group" *ngFor="let key of ObjKeys(data.cmpBlacklist).sort()">
+						<div class="grid-90 mobile-grid-90 grid-parent" style="font-size: 16px;">{{key}}</div>
+						<div class="grid-10 mobile-grid-10" style="text-align: right">
+							<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromBlacklist(key);"></span>
+						</div>
+					</div>
+				</div>
+			</div>
 			<br>
 			<br>
 			<div class="field-set grid-100 grid-parent head-toggle">
