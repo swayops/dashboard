@@ -29,8 +29,8 @@ export class ManageBillingCmp extends ManageBase {
 
 	save(f: any) {
 		this.loading = true;
-		const adv = Object.assign({}, this.user.advertiser);
-		adv.ccLoad = Object.assign({}, this.cc);
+		const adv = { ...this.user.advertiser };
+		adv.ccLoad = { ...this.cc };
 		this.formatCC(adv.ccLoad);
 		delete adv.blacklist;
 		this.api.Put('advertiser/' + this.id, { advertiser: adv }, (resp) => {
@@ -52,8 +52,8 @@ export class ManageBillingCmp extends ManageBase {
 
 	del() {
 		this.loading = true;
-		const adv = Object.assign({}, this.user.advertiser);
-		adv.ccLoad = Object.assign({}, this.cc);
+		const adv = { ...this.user.advertiser };
+		adv.ccLoad = { ...this.cc };
 		adv.ccLoad.del = true;
 		this.api.Put('advertiser/' + this.id, { advertiser: adv }, (resp) => {
 			this.loading = false;
@@ -82,7 +82,7 @@ export class ManageBillingCmp extends ManageBase {
 			};
 			return;
 		}
-		this.cc = Object.assign({}, resp.cc);
+		this.cc = { ...resp.cc };
 		this.activeBalance = resp.activeBalance || 0;
 		this.inactiveBalance = resp.inactiveBalance || 0;
 		this.formatCC(this.cc);
@@ -124,7 +124,7 @@ export class ManageBillingCmp extends ManageBase {
 
 	setPlan(id: number, price: any = 0, monthly: string = 'no') {
 		this.loading = true;
-		const adv = Object.assign({}, this.user.advertiser);
+		const adv = { ... this.user.advertiser };
 		adv.subLoad = { plan: id, price: parseFloat(price) || 0, isMonthly: monthly === 'yes' };
 		this.api.Put('advertiser/' + this.id, { advertiser: adv }, (resp) => {
 			this.loading = false;

@@ -7,7 +7,7 @@
 	<p><b>ACTIVE campaign budget: <span style="color:#23c466; font-size: 16px;">${{activeBalance.toFixed(2)}}</span> </b></p>
 	<p *ngIf="!!inactiveBalance">INACTIVE budget credit: <b>${{inactiveBalance.toFixed(2)}}</b> | What is this? This is the amount of currency USD, which resides inside of inactive or archived/ deleted campaigns you've previously made. When you create your next campaign, we will automatically draw from this inactive credit amount before we charge your payment method on file further.
 	</p>
-	<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="!!user.advertiser && user.parentId === '2'">
+	<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="!!user.advertiser && (user.parentId === '2' || !user.isIO)">
 		<div style="background-color: #ecf0f1; padding: 15px; border-radius: 10px;">
 			<div class="grid-50 mobile-grid-50 grid-parent" *ngIf="canChangePlans">
 				<h4>Hyper Local <span style="color:#d2335c;" *ngIf="planID === 1">Current Plan</span></h4>
