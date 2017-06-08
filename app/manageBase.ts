@@ -101,15 +101,17 @@ export class ManageBase extends HasAPI {
 				opts.attrs = opts.attrs || {};
 				opts.attrs.readonly = true;
 			}
-			return Object.assign({}, fld, opts);
+			return { ...fld, ...opts };
 		});
 	}
 
-	Copy(o: object): object { return Object.assign({}, o); }
+	Copy(o: object): object { return { ...o }; }
 
 	ObjectLen(o: any): number {
 		if (!o) return 0;
 		if ('length' in o) return o.length;
 		return Object.keys(o).length;
 	}
+
+	ObjKeys(o: object) { return Object.keys(o); }
 }

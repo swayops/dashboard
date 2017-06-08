@@ -37,6 +37,7 @@ export class CreateCampaignCmp extends ManageBase {
 		},
 		keywords: [],
 		whitelistSchedule: {},
+		cmpBlacklist: {},
 	};
 
 	public whitelistKeys = new Set<string>();
@@ -368,6 +369,8 @@ export class CreateCampaignCmp extends ManageBase {
 			data.perks.codes = data.perks.codes.join(' ');
 		}
 
+		if (!data.cmpBlacklist) data.cmpBlacklist = {};
+
 		this.onCampaignLoaded.emit(data);
 	}
 
@@ -458,6 +461,29 @@ export class CreateCampaignCmp extends ManageBase {
 	delFromWhitelist(email: string) {
 		delete this.data.whitelistSchedule[email];
 		this.whitelistKeys.delete(email);
+	}
+
+
+	addToBlacklist(emails: string) {
+		if (!$('#blacklist').is(':checked')) {
+			$('#blacklist').click(); // Oh look, boobies over there, don't look here.
+		}
+		for (const email of emails.split(',').map((v) => v.trim())) {
+			this.data.cmpBlacklist[email] = true;
+		}
+	}
+
+	addToBlacklistInput(e) {
+		e.preventDefault();
+		const ele = e.target,
+			val = ele.value.trim();
+		if (!val) return;
+		this.addToBlacklist(val);
+		ele.value = '';
+	}
+
+	delFromBlacklist(email: string) {
+		delete this.data.cmpBlacklist[email];
 	}
 
 	isInWhitelist(email: string) {
