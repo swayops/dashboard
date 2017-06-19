@@ -38,6 +38,9 @@ export class CreateCampaignCmp extends ManageBase {
 		keywords: [],
 		whitelistSchedule: {},
 		cmpBlacklist: {},
+		followerTarget: new Target(),
+		engTarget: new Target(),
+		priceTarget: new Target(true),
 	};
 
 	public whitelistKeys = new Set<string>();
@@ -353,7 +356,9 @@ export class CreateCampaignCmp extends ManageBase {
 			}
 		});
 
-		this.data = data;
+		data.followerTarget = Target.FromObject(data.followerTarget);
+		data.engTarget = Target.FromObject(data.engTarget);
+		data.priceTarget = Target.FromObject(data.priceTarget, true);
 
 		if (data.perks) {
 			if (this.opts.isEdit) {
@@ -371,6 +376,8 @@ export class CreateCampaignCmp extends ManageBase {
 
 		if (!data.cmpBlacklist) data.cmpBlacklist = {};
 
+		this.data = data;
+
 		this.onCampaignLoaded.emit(data);
 	}
 
@@ -378,6 +385,10 @@ export class CreateCampaignCmp extends ManageBase {
 		data = { ...data };
 		data.perks = { ...data.perks };
 		data.whitelistSchedule = { ...data.whitelistSchedule };
+
+		data.followerTarget = data.followerTarget.ToObject();
+		data.engTarget = data.engTarget.ToObject();
+		data.priceTarget = data.priceTarget.ToObject();
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
 
@@ -462,7 +473,6 @@ export class CreateCampaignCmp extends ManageBase {
 		delete this.data.whitelistSchedule[email];
 		this.whitelistKeys.delete(email);
 	}
-
 
 	addToBlacklist(emails: string) {
 		if (!$('#blacklist').is(':checked')) {
@@ -552,4 +562,23 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter'];
+
+class Target {
+	static FromObject(obj: any, isFloat: boolean = false) {
+		if (!obj || obj.from == null || obj.to == null) return new Target(isFloat);
+		return new Target(isFloat, obj.from, obj.to);
+	}
+	constructor(public isFloat: boolean = false, public from: number = null, public to: number = null) { }
+
+	ToObject(): any {
+		let from = this.from,
+			to = this.to;
+		if (from == null || to == null) return null;
+		if (typeof from === 'string') from = this.isFloat ? parseFloat(from) : parseInt(from);
+		if (typeof to === 'string') to = this.isFloat ? parseFloat(to) : parseInt(to);
+		if (isNaN(from) || isNaN(to)) return null;
+		if (from === 0 && to === 0) return null;
+		return { from, to };
+	}
+}
