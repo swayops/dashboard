@@ -360,6 +360,8 @@ export class CreateCampaignCmp extends ManageBase {
 		data.engTarget = Target.FromObject(data.engTarget);
 		data.priceTarget = Target.FromObject(data.priceTarget, true);
 
+		this.data = data;
+
 		if (data.perks) {
 			if (this.opts.isEdit) {
 				$('#perks').prop('checked', true);
@@ -375,8 +377,6 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		if (!data.cmpBlacklist) data.cmpBlacklist = {};
-
-		this.data = data;
 
 		this.onCampaignLoaded.emit(data);
 	}
