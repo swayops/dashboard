@@ -163,12 +163,15 @@ export class PersistentEventEmitter<T> {
 	}
 }
 
-export function CallLimiter(fn: (...any) => any, timeout: number, instantFirstCall = false): (...any) => void {
-	let lastArgs: any[];
-	// note to self, try using setTimeout instead.
+export function CallLimiter(fn: (...any) => any, timeout: number, instantFirstCall = true): (...any) => void {
+	let lastArgs: any[],
+		inProgress = false;
 	setInterval(() => {
+		if (inProgress) return;
 		if (lastArgs != null) {
-			fn(...lastArgs);
+			console.log(lastArgs);
+			inProgress = true;
+			fn(...lastArgs).add(() => inProgress = false);
 			lastArgs = null;
 		}
 	}, timeout);
