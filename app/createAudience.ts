@@ -286,13 +286,13 @@ export class CreateAudienceCmp extends ManageBase {
 			$('#targeting').click();
 		}
 
-		this.data = Object.assign(this.data, data);
+		this.data = {...this.data, ...data};
 
 		this.onCampaignLoaded.emit(data);
 	}
 
 	private getCmp(data: any): any {
-		data = Object.assign({}, data);
+		data = {...data};
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
 		if (data.members && data.members.length) {
@@ -381,7 +381,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
 			done(resp || {});
 		});
-	}, 5000);
+	}, 10000);
 }
 
 function getCheckbox(evt: any) {
