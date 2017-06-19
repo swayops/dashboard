@@ -221,7 +221,6 @@
 					</div>
 				</div>
 			</div>
-
 			<br>
 			<br>
 			<div class="field-set grid-100 grid-parent head-toggle">
@@ -274,7 +273,7 @@
 				<br>
 				<br>
 				<div class="field-set grid-100 grid-parent head-toggle">
-					<h2 class="heading">2.1. Blacklist <span>*optional</span></h2>
+					<h2 class="heading">2.2. Blacklist <span>*optional</span></h2>
 					<div class="onoffswitch blacklist" data-for="toggle-blacklist">
 						<input type="checkbox" name="blacklist" class="onoffswitch-checkbox" id="blacklist">
 						<label class="onoffswitch-label" for="blacklist">
@@ -296,6 +295,47 @@
 						<div class="grid-90 mobile-grid-90 grid-parent" style="font-size: 16px;">{{key}}</div>
 						<div class="grid-10 mobile-grid-10" style="text-align: right">
 							<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromBlacklist(key);"></span>
+						</div>
+					</div>
+				</div>
+				<br>
+				<br>
+				<div class="field-set grid-100 grid-parent head-toggle">
+					<h2 class="heading">2.3. Filters <span>*optional</span></h2>
+					<div class="onoffswitch filters" data-for="toggle-filters">
+						<input type="checkbox" name="filters" class="onoffswitch-checkbox" id="filters">
+						<label class="onoffswitch-label" for="filters">
+							<span class="onoffswitch-inner showhide"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+				<div class="content-toggle toggle-filters">
+					<div class="form-group">
+						<div class="grid-20 mobile-grid-100 grid-parent">
+							<span class="ttip" title="Filter by the number of followers">Followers: <img src="/static/img/questionTooltip.png" /></span>
+						</div>
+						<div class="grid-80 mobile-grid-100 grid-parent">
+							<input type="number" [(ngModel)]="data.followerTarget.from" placeholder="min" class="form-control minmax" min="0" name="minFollowers" (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.followerTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxFollowers" (change)="updateSidebar('filter')">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="grid-20 mobile-grid-100 grid-parent">
+							<span class="ttip" title="Filter by the number of average engagements">Engagements: <img src="/static/img/questionTooltip.png" /></span>
+						</div>
+						<div class="grid-80 mobile-grid-100 grid-parent">
+							<input type="number" [(ngModel)]="data.engTarget.from" placeholder="min" class="form-control minmax" min="0" name="minEng" (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.engTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxEng" (change)="updateSidebar('filter')">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="grid-20 mobile-grid-100 grid-parent">
+							<span class="ttip" title="This will only attempt to leverage influencers who would be paid between the given price range">Price: <img src="/static/img/questionTooltip.png" /></span>
+						</div>
+						<div class="grid-80 mobile-grid-100 grid-parent">
+							<input type="number" [(ngModel)]="data.priceTarget.from" placeholder="min" class="form-control minmax" min="0" step="0.01" name="minPrice" (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.priceTarget.to" placeholder="max" class="form-control minmax" min="0"  step="0.01" name="maxPrice" (change)="updateSidebar('filter')">
 						</div>
 					</div>
 				</div>

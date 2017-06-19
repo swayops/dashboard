@@ -1039,3 +1039,8 @@ notifications {
 .mCampaign .stats .pallete-item {
 	margin: 0px 0px 5px 12px;
 }
+
+.form-control.minmax {
+	width: 48%;
+	text-align: center;
+}
