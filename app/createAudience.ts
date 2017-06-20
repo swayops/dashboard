@@ -422,4 +422,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'members', 'category', 'kws', 'filters'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'members', 'category', 'kws', 'filter'];
