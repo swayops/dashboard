@@ -8,7 +8,7 @@ import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
-import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, Iter, PersistentEventEmitter } from './utils';
+import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, Iter, PersistentEventEmitter, Target } from './utils';
 
 /// **WARNING** any changes here should be reflected in createAudience as well.
 
@@ -563,22 +563,3 @@ const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
 const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter'];
-
-class Target {
-	static FromObject(obj: any, isFloat: boolean = false) {
-		if (!obj || obj.from == null || obj.to == null) return new Target(isFloat);
-		return new Target(isFloat, obj.from, obj.to);
-	}
-	constructor(public isFloat: boolean = false, public from: number = null, public to: number = null) { }
-
-	ToObject(): any {
-		let from = this.from,
-			to = this.to;
-		if (from == null || to == null) return null;
-		if (typeof from === 'string') from = this.isFloat ? parseFloat(from) : parseInt(from);
-		if (typeof to === 'string') to = this.isFloat ? parseFloat(to) : parseInt(to);
-		if (isNaN(from) || isNaN(to)) return null;
-		if (from === 0 && to === 0) return null;
-		return { from, to };
-	}
-}

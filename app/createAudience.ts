@@ -8,7 +8,7 @@ import { Sway } from './sway';
 
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
-import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter } from './utils';
+import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter, Target } from './utils';
 
 declare const $: any;
 
@@ -29,6 +29,7 @@ export class CreateAudienceCmp extends ManageBase {
 		youtube: true,
 		keywords: [],
 		members: '',
+		followerTarget: new Target(),
 	};
 
 	public infDlgButtons = [
@@ -286,6 +287,8 @@ export class CreateAudienceCmp extends ManageBase {
 			$('#targeting').click();
 		}
 
+		data.followerTarget = Target.FromObject(data.followerTarget);
+
 		this.data = { ...this.data, ...data };
 
 		this.onCampaignLoaded.emit(data);
@@ -319,6 +322,7 @@ export class CreateAudienceCmp extends ManageBase {
 		data.categories = cats;
 
 		data.imageData = this.cropData.image;
+		data.followerTarget = data.followerTarget.ToObject();
 
 		return data;
 	}
@@ -418,4 +422,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'members', 'category', 'kws'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'members', 'category', 'kws', 'filters'];
