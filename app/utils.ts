@@ -169,7 +169,6 @@ export function CallLimiter(fn: (...any) => any, timeout: number, instantFirstCa
 	setInterval(() => {
 		if (inProgress) return;
 		if (lastArgs != null) {
-			console.log(lastArgs);
 			inProgress = true;
 			fn(...lastArgs).add(() => inProgress = false);
 			lastArgs = null;
@@ -183,6 +182,25 @@ export function CallLimiter(fn: (...any) => any, timeout: number, instantFirstCa
 			lastArgs = args;
 		}
 	};
+}
+
+export class Target {
+	static FromObject(obj: any, isFloat: boolean = false) {
+		if (!obj || obj.from == null || obj.to == null) return new Target(isFloat);
+		return new Target(isFloat, obj.from, obj.to);
+	}
+	constructor(public isFloat: boolean = false, public from: number = null, public to: number = null) { }
+
+	ToObject(): any {
+		let from = this.from,
+			to = this.to;
+		if (from == null || to == null) return null;
+		if (typeof from === 'string') from = this.isFloat ? parseFloat(from) : parseInt(from);
+		if (typeof to === 'string') to = this.isFloat ? parseFloat(to) : parseInt(to);
+		if (isNaN(from) || isNaN(to)) return null;
+		if (from === 0 && to === 0) return null;
+		return { from, to };
+	}
 }
 
 // used https://github.com/substack/provinces/blob/master/provinces.json for state names
