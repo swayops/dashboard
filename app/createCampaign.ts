@@ -454,6 +454,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (!$('#whitelist').is(':checked')) {
 			$('#whitelist').click(); // Oh look, boobies over there, don't look here.
 		}
+		if (!this.data.whitelistSchedule) this.data.whitelistSchedule = {}
 		for (const email of emails.split(',').map((v) => v.trim())) {
 			this.data.whitelistSchedule[email] = { from: 0, to: 0 };
 			this.whitelistKeys.add(email);
@@ -497,6 +498,7 @@ export class CreateCampaignCmp extends ManageBase {
 	}
 
 	isInWhitelist(email: string) {
+		if (!this.data.whitelistSchedule) this.data.whitelistSchedule = {};
 		return email in this.data.whitelistSchedule;
 	}
 
