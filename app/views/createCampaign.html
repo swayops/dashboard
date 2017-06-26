@@ -77,11 +77,25 @@
 
 				<div class="form-group">
 					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
+						<span class="ttip" title="You will be billed the full amount upfront. If at the end of your campaign budget remains, you may transfer it via the billing page to another campaign or request the delta be refunded.">Budget: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
 						<input type="number" name="budget" placeholder="$150 minimum recommended" class="form-control" [(ngModel)]="data.budget"
 						 required (change)="updateSidebar('budget')">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="If toggled to on, you will be billed the full budget amount on a monthly basis and your campaign will be treated as a monthly recurring campaign.">Monthly Budget: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<div class="onoffswitch monthly" data-for="toggle-monthly" style="float: none; margin-top: 5px;">
+							<input type="checkbox" name="monthly" class="onoffswitch-checkbox" id="monthly" [(ngModel)]="data.monthly">
+							<label class="onoffswitch-label" for="monthly">
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -478,7 +492,29 @@
 				</div>
 
 			</div>
-
+			<div *ngIf="plan === 3">
+				<br>
+				<br>
+				<div class="field-set grid-100 grid-parent">
+					<h2 class="heading">5. Terms &amp; Conditions <span>*optional</span></h2>
+					<div class="onoffswitch terms" data-for="toggle-terms">
+						<input type="checkbox" name="terms" class="onoffswitch-checkbox" id="terms" [checked]="!!data.terms">
+						<label class="onoffswitch-label" for="terms">
+							<span class="onoffswitch-inner showhide"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+				<div class="content-toggle toggle-terms">
+					<div class="form-group">
+						<div class="grid-100 mobile-grid-100 grid-parent">
+							Your Terms And Conditions:
+							<br>
+							<textarea [(ngModel)]="data.terms" name="terms"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
 			<br>
 			<br>
 
@@ -517,7 +553,7 @@
 
 		<li>
 			<div class="grid-100 mobile-grid-100">
-				<p><check [cond]="data.budget > 0" size="20px"></check><label>Monthly Budget:</label> ${{data.budget || 0}}</p>
+				<p><check [cond]="data.budget > 0" size="20px"></check><label>Budget:</label> ${{data.budget || 0}}</p>
 			</div>
 		</li>
 

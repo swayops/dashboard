@@ -41,6 +41,7 @@ export class CreateCampaignCmp extends ManageBase {
 		followerTarget: new Target(),
 		engTarget: new Target(),
 		priceTarget: new Target(true),
+		monthly: true,
 	};
 
 	public whitelistKeys = new Set<string>();
@@ -360,6 +361,8 @@ export class CreateCampaignCmp extends ManageBase {
 		data.engTarget = Target.FromObject(data.engTarget);
 		data.priceTarget = Target.FromObject(data.priceTarget, true);
 
+		if (data.monthly == null) data.monthly = true;
+
 		this.data = data;
 
 		if (data.perks) {
@@ -454,7 +457,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (!$('#whitelist').is(':checked')) {
 			$('#whitelist').click(); // Oh look, boobies over there, don't look here.
 		}
-		if (!this.data.whitelistSchedule) this.data.whitelistSchedule = {}
+		if (!this.data.whitelistSchedule) this.data.whitelistSchedule = {};
 		for (const email of emails.split(',').map((v) => v.trim())) {
 			this.data.whitelistSchedule[email] = { from: 0, to: 0 };
 			this.whitelistKeys.add(email);
