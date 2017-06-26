@@ -361,7 +361,7 @@ export class CreateCampaignCmp extends ManageBase {
 		data.engTarget = Target.FromObject(data.engTarget);
 		data.priceTarget = Target.FromObject(data.priceTarget, true);
 
-		if (data.monthly == null) data.monthly = true;
+		// if (data.monthly == null) data.monthly = true;
 
 		this.data = data;
 
