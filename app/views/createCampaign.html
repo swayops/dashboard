@@ -238,68 +238,58 @@
 			<br>
 			<br>
 			<div class="field-set grid-100 grid-parent head-toggle">
-				<h2 class="heading">2.1. Whitelist <span>*optional</span></h2>
-				<div class="onoffswitch whitelist" data-for="toggle-whitelist">
-					<input type="checkbox" name="whitelist" class="onoffswitch-checkbox" id="whitelist">
-					<label class="onoffswitch-label" for="whitelist">
-						<span class="onoffswitch-inner showhide"></span>
-						<span class="onoffswitch-switch"></span>
-					</label>
-				</div>
-			</div>
-			<div class="content-toggle toggle-whitelist">
-				<div class="form-group">
-					<div class="grid-20 mobile-grid-100 grid-parent">
-						<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Invite only: <img src="/static/img/questionTooltip.png" /></span>
-					</div>
-					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" (change)="addToWhitelistInput($event)" class="form-control">
-					</div>
-				</div>
-				<div class="form-group" *ngFor="let key of whitelistKeys">
-					<div class="grid-60 mobile-grid-100 grid-parent" style="font-size: 16px;">{{key}}</div>
-					<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan !== 3"> </div>
-					<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan === 3">
-						<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar, starting at 12AM UTC.">Schedule: <img src="/static/img/questionTooltip.png"></span>
-						<div class="onoffswitch whitelist">
-							<input type="checkbox" name="schedule-{{key}}" class="onoffswitch-checkbox" id="schedule-{{key}}" [(ngModel)]="data.whitelistSchedule[key].scheduling">
-							<label class="onoffswitch-label" for="schedule-{{key}}">
-								<span class="onoffswitch-inner"></span>
-								<span class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-					<div class="grid-10 mobile-grid-10" style="text-align: right">
-						<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromWhitelist(key);"></span>
-					</div>
-					<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="data.whitelistSchedule[key].scheduling">
-						<div class="grid-40 mobile-grid-100">
-							From: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].from" useValueAsDate [ngModelOptions]="{standalone: true}">
-						</div>
-						<div class="grid-40 mobile-grid-100">
-							To: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].to" useValueAsDate [ngModelOptions]="{standalone: true}">
-						</div>
-						<div class="grid-20" style="padding-top: 22px; font-weight: bold;">12AM UTC</div>
-					</div>
-				</div>
-			</div>
-			<div *ngIf="plan===3">
-				<br>
-				<br>
-				<div class="field-set grid-100 grid-parent head-toggle">
-					<h2 class="heading">2.2. Blacklist <span>*optional</span></h2>
-					<div class="onoffswitch blacklist" data-for="toggle-blacklist">
-						<input type="checkbox" name="blacklist" class="onoffswitch-checkbox" id="blacklist">
-						<label class="onoffswitch-label" for="blacklist">
+				<h2 class="heading">2.1. White/Blacklists <span>*optional</span></h2>
+				<div class="onoffswitch whiteblacklists" data-for="toggle-whiteblacklists">
+					<input type="checkbox" name="whiteblacklists" class="onoffswitch-checkbox" id="whiteblacklists">
+					<label class="onoffswitch-label" for="whiteblacklists">
 							<span class="onoffswitch-inner showhide"></span>
 							<span class="onoffswitch-switch"></span>
 						</label>
-					</div>
 				</div>
-				<div class="content-toggle toggle-blacklist">
+			</div>
+			<div class="content-toggle toggle-whiteblacklists">
+				<div class="white">
+					<h3>2.1.1. Whitelist:</h3>
 					<div class="form-group">
 						<div class="grid-20 mobile-grid-100 grid-parent">
-							<span class="ttip" title="Enter in emails of influencers you want to blacklist from this campaign.">Email(s): <img src="/static/img/questionTooltip.png" /></span>
+							<span class="ttip" title="Enter in emails of influencers you want to invite to this campaign. By using this filter, all other influencers not matching your email addresses will be disallowed to participate in the campaign.">Whitelist: <img src="/static/img/questionTooltip.png" /></span>
+						</div>
+						<div class="grid-80 mobile-grid-100 grid-parent">
+							<input type="text" (change)="addToWhitelistInput($event)" class="form-control">
+						</div>
+					</div>
+					<div class="form-group" *ngFor="let key of whitelistKeys">
+						<div class="grid-60 mobile-grid-100 grid-parent" style="font-size: 16px;">{{key}}</div>
+						<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan !== 3"> </div>
+						<div class="grid-30 mobile-grid-90" style="padding-top: 10px; line-height: 18px" *ngIf="plan === 3">
+							<span class="ttip" title="Schedule this influencers post by selecting a date on the calendar, starting at 12AM UTC.">Schedule: <img src="/static/img/questionTooltip.png"></span>
+							<div class="onoffswitch whitelist">
+								<input type="checkbox" name="schedule-{{key}}" class="onoffswitch-checkbox" id="schedule-{{key}}" [(ngModel)]="data.whitelistSchedule[key].scheduling">
+								<label class="onoffswitch-label" for="schedule-{{key}}">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+								</label>
+							</div>
+						</div>
+						<div class="grid-10 mobile-grid-10" style="text-align: right">
+							<span class="fui-cross" style="color: rgb(210, 51, 92); font-size: 20px; cursor: pointer" title="Remove" (click)="delFromWhitelist(key);"></span>
+						</div>
+						<div class="grid-100 mobile-grid-100 grid-parent" *ngIf="data.whitelistSchedule[key].scheduling">
+							<div class="grid-40 mobile-grid-100">
+								From: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].from" useValueAsDate [ngModelOptions]="{standalone: true}">
+							</div>
+							<div class="grid-40 mobile-grid-100">
+								To: <input type="date" class="form-control dp" [(ngModel)]="data.whitelistSchedule[key].to" useValueAsDate [ngModelOptions]="{standalone: true}">
+							</div>
+							<div class="grid-20" style="padding-top: 22px; font-weight: bold;">12AM UTC</div>
+						</div>
+					</div>
+				</div>
+				<div class="black" *ngIf="plan === 3">
+					<hr><br>
+					<div class="form-group">
+						<div class="grid-20 mobile-grid-100 grid-parent">
+							<span class="ttip" title="Enter in emails of influencers you want to blacklist from this campaign.">Blacklist: <img src="/static/img/questionTooltip.png" /></span>
 						</div>
 						<div class="grid-80 mobile-grid-100 grid-parent">
 							<input type="text" (change)="addToBlacklistInput($event)" class="form-control">
@@ -312,10 +302,12 @@
 						</div>
 					</div>
 				</div>
-				<br>
-				<br>
+			</div>
+			<br>
+			<br>
+			<div *ngIf="plan===3">
 				<div class="field-set grid-100 grid-parent head-toggle">
-					<h2 class="heading">2.3. Filters <span>*optional</span></h2>
+					<h2 class="heading">2.2. Filters <span>*optional</span></h2>
 					<div class="onoffswitch filters" data-for="toggle-filters">
 						<input type="checkbox" name="filters" class="onoffswitch-checkbox" id="filters">
 						<label class="onoffswitch-label" for="filters">
@@ -330,8 +322,10 @@
 							<span class="ttip" title="Filter by the number of followers">Followers: <img src="/static/img/questionTooltip.png" /></span>
 						</div>
 						<div class="grid-80 mobile-grid-100 grid-parent">
-							<input type="number" [(ngModel)]="data.followerTarget.from" placeholder="min" class="form-control minmax" min="0" name="minFollowers" (change)="updateSidebar('filter')"> -
-							<input type="number" [(ngModel)]="data.followerTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxFollowers" (change)="updateSidebar('filter')">
+							<input type="number" [(ngModel)]="data.followerTarget.from" placeholder="min" class="form-control minmax" min="0" name="minFollowers"
+							 (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.followerTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxFollowers"
+							 (change)="updateSidebar('filter')">
 						</div>
 					</div>
 					<div class="form-group">
@@ -339,8 +333,10 @@
 							<span class="ttip" title="Filter by the number of average engagements">Engagements: <img src="/static/img/questionTooltip.png" /></span>
 						</div>
 						<div class="grid-80 mobile-grid-100 grid-parent">
-							<input type="number" [(ngModel)]="data.engTarget.from" placeholder="min" class="form-control minmax" min="0" name="minEng" (change)="updateSidebar('filter')"> -
-							<input type="number" [(ngModel)]="data.engTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxEng" (change)="updateSidebar('filter')">
+							<input type="number" [(ngModel)]="data.engTarget.from" placeholder="min" class="form-control minmax" min="0" name="minEng"
+							 (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.engTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxEng"
+							 (change)="updateSidebar('filter')">
 						</div>
 					</div>
 					<div class="form-group">
@@ -348,8 +344,10 @@
 							<span class="ttip" title="This will only attempt to leverage influencers who would be paid between the given price range">Price: <img src="/static/img/questionTooltip.png" /></span>
 						</div>
 						<div class="grid-80 mobile-grid-100 grid-parent">
-							<input type="number" [(ngModel)]="data.priceTarget.from" placeholder="min" class="form-control minmax" min="0" step="0.01" name="minPrice" (change)="updateSidebar('filter')"> -
-							<input type="number" [(ngModel)]="data.priceTarget.to" placeholder="max" class="form-control minmax" min="0"  step="0.01" name="maxPrice" (change)="updateSidebar('filter')">
+							<input type="number" [(ngModel)]="data.priceTarget.from" placeholder="min" class="form-control minmax" min="0" step="0.01"
+							 name="minPrice" (change)="updateSidebar('filter')"> -
+							<input type="number" [(ngModel)]="data.priceTarget.to" placeholder="max" class="form-control minmax" min="0" step="0.01"
+							 name="maxPrice" (change)="updateSidebar('filter')">
 						</div>
 					</div>
 				</div>
