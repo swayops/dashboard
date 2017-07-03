@@ -15,7 +15,8 @@ declare const $: any;
 })
 export class ManageBillingCmp extends ManageBase {
 	public cc: any = {
-		num: new Array(4),
+		num: '',
+		type: '',
 	};
 	public activeBalance = 0;
 	public inactiveBalance = 0;
@@ -23,6 +24,7 @@ export class ManageBillingCmp extends ManageBase {
 	public history: any[];
 	public loading = false;
 	public planID: number = 0;
+
 	constructor(title: Title, public api: Sway, route: ActivatedRoute) {
 		super('billingInfo', 'Billing', title, api, route.snapshot.params['id'], (resp) => this.init(resp));
 	}
@@ -75,11 +77,8 @@ export class ManageBillingCmp extends ManageBase {
 	private init(resp: any) {
 		this.list = null;
 		if (!resp || !resp.cc || !resp.cc.cardNumber) {
-			this.cc.num = ['', '', '', ''];
 			this.isEditing = true;
-			this.cc = {
-				num: new Array(4),
-			};
+			this.cc = { num: '' };
 			return;
 		}
 		this.cc = { ...resp.cc };
@@ -99,27 +98,21 @@ export class ManageBillingCmp extends ManageBase {
 		}
 		if (typeof cc.cvc === 'number') cc.cvc = cc.cvc.toString();
 		if (cc.num) {
-			cc.cardNumber = cc.num.join('');
+			cc.cardNumber = cc.num.replace(/-/g, '');
 			cc.expYear = (parseInt(cc.expYear) - 2000).toString();
 			delete cc.num;
 		} else {
-			cc.num = ['', '', '', cc.cardNumber || ''];
+			cc.num = (cc.cardNumber || '');
 			cc.expYear = (parseInt(cc.expYear) + 2000).toString();
 		}
 		if (typeof cc.expYear === 'number') cc.expYear = cc.expYear.toString();
 	}
 
-	checkNext(evt: KeyboardEvent, next: HTMLElement) {
-		const key = evt.which - 48,
-			val = (evt.target as HTMLInputElement).value;
-
-		if (key < 0 || key > 9 || val.length < 4) return;
-		next.focus();
-	}
-
 	numbersOnly(evt: KeyboardEvent) {
 		const key = evt.which - 48;
-		if (key < 0 || key > 9) evt.preventDefault();
+		if (key === -3) return; // allow "-"
+		if (key < 0 || key > 9) return evt.preventDefault();
+		this.cc.type = CreditCard.Type(this.cc.num);
 	}
 
 	setPlan(id: number, price: any = 0, monthly: string = 'no') {
@@ -149,4 +142,61 @@ export class ManageBillingCmp extends ManageBase {
 
 	get canSetEnterprise(): boolean { return this.api.IsAdmin() || this.api.IsAgency(); }
 	get canChangePlans(): boolean { return this.planID !== 3 || this.canSetEnterprise; }
+
+	get validCC(): boolean {
+		const len = this.cc.num.replace(/-/g, '').length;
+		return this.cc.type !== '' && len >= 13 && len <= 19;
+	}
+}
+
+class CreditCard {
+	private static inst = new CreditCard();
+	private ccPrefixes = [
+		{ name: 'American Express', pre: [34, 37] },
+		{ name: 'Maestro', pre: [5018, 5020, 5038, 5893, 6304, 6759, 6761, 6762, 6763] },
+		{ name: 'Discover', pre: [6011, 622, 644, 645, 646, 647, 648, 649, 65] },
+		{ name: 'Diners Club - Carte Blanche', pre: [6011, 622, 644, 645, 646, 647, 648, 649, 65] },
+		{ name: 'Diners Club - International', pre: [36] },
+		{ name: 'Diners Club - USA & Canada', pre: [54] },
+		{ name: 'InstaPayment', pre: [637, 638, 639] },
+		{ name: 'JCB', pre: [35] },
+		{ name: 'Visa', pre: [4] },
+		{ name: 'MasterCard', pre: [51, 52, 53, 54, 55].concat(range(222, 272)) },
+		{ name: 'Visa Electron', pre: [4026, 417500, 4508, 4844, 4913, 4917] },
+	];
+	private revPrefixes = {};
+	constructor() {
+		for (const cc of this.ccPrefixes) {
+			for (const pre of cc.pre) {
+				this.revPrefixes[pre] = cc;
+			}
+		}
+	}
+
+	// based on http://www.freeformatter.com/credit-card-number-generator-validator.html
+	static Type(n: string): string {
+		const self = CreditCard.inst;
+		if (n === '') return '';
+		let v = self.revPrefixes[n.substr(0, 4)];
+		if (v != null) return v.name;
+
+		v = self.revPrefixes[n.substr(0, 3)];
+		if (v != null) return v.name;
+
+		v = self.revPrefixes[n.substr(0, 2)];
+		if (v != null) return v.name;
+
+		v = self.revPrefixes[n.substr(0, 1)];
+		if (v != null) return v.name;
+
+		return '';
+	}
+}
+
+function range(min, max): number[] {
+	const out = new Array<number>(max - min);
+	for (let i = 0; i < out.length; i++) {
+		out[i] = min + i;
+	}
+	return out;
 }

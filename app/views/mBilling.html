@@ -140,20 +140,9 @@
 				</div>
 
 				<div class="grid-100 mobile-grid-100 grid-parent cc-parent">
-					<div class="grid-20 mobile-grid-20">
-						<input #cc0 name="cc0" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[0]" required (keyup)="checkNext($event, cc1)" onfocus="this.select()">
-					</div>
-					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
-					<div class="grid-20 mobile-grid-20">
-						<input #cc1 name="cc1" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[1]" required (keyup)="checkNext($event, cc2)" onfocus="this.select()">
-					</div>
-					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
-					<div class="grid-20 mobile-grid-20">
-						<input #cc2 name="cc2" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[2]" required (keyup)="checkNext($event, cc3)" onfocus="this.select()">
-					</div>
-					<div class="grid-5 mobile-grid-5 cc-sep">-</div>
-					<div class="grid-20 mobile-grid-20">
-						<input #cc3 name="cc3" type="text" (keypress)="numbersOnly($event)" placeholder="1111" class="form-control" [(ngModel)]="cc.num[3]" required onfocus="this.select()">
+					<div class="grid-100 mobile-grid-100">
+						<div>Type: <strong>{{this.cc.type}}</strong></div>
+						<input name="cc" type="text" (keypress)="numbersOnly($event)" placeholder="1111-...." class="form-control" [(ngModel)]="cc.num" required onfocus="this.select()">
 					</div>
 					<div class="clearfix br"></div>
 				</div>
@@ -181,7 +170,7 @@
 				</div>
 				<div class="grid-100 mobile-grid-100 grid-parent align-right">
 					<br>
-					<button class="btn btn-block btn-sm btn-green1" [disabled]="loading || !f.valid || f.pristine">Save payment info &#187;</button>
+					<button class="btn btn-block btn-sm btn-green1" [disabled]="loading || !f.valid || f.pristine || !validCC">Save payment info &#187;</button>
 				</div>
 			</div>
 		</form>

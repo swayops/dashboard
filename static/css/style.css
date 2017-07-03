@@ -3001,7 +3001,7 @@ input[type="file"] {
 	z-index: -1;
 }
 
-.center-widget .form-group .cc-parent>.grid-20 {
+.center-widget .form-group .cc-parent > .grid-100 {
 	padding: 0;
 }
 
