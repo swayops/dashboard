@@ -108,11 +108,11 @@ export class ManageBillingCmp extends ManageBase {
 		if (typeof cc.expYear === 'number') cc.expYear = cc.expYear.toString();
 	}
 
-	numbersOnly(evt: KeyboardEvent) {
+	numbersOnly(evt: KeyboardEvent, updateType = false) {
 		const key = evt.which - 48;
 		if (key === -3) return; // allow "-"
 		if (key < 0 || key > 9) return evt.preventDefault();
-		this.cc.type = CreditCard.Type(this.cc.num);
+		if (updateType) this.cc.type = CreditCard.Type(this.cc.num);
 	}
 
 	setPlan(id: number, price: any = 0, monthly: string = 'no') {

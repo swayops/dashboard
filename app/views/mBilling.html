@@ -141,7 +141,7 @@
 
 				<div class="grid-100 mobile-grid-100 grid-parent cc-parent">
 					<div class="grid-100 mobile-grid-100">
-						<div>Type: <strong>{{this.cc.type}}</strong></div>
+						<div>&nbsp; <strong>{{this.cc.type}}</strong></div>
 						<input name="cc" type="text" (keypress)="numbersOnly($event)" placeholder="1111-...." class="form-control" [(ngModel)]="cc.num" required onfocus="this.select()">
 					</div>
 					<div class="clearfix br"></div>
@@ -160,7 +160,7 @@
 					<br>
 				</div>
 				<div class="grid-40 mobile-grid-100 grid-parent">
-					<input name="cvc" type="text" placeholder="CVC" class="form-control" [(ngModel)]="cc.cvc" required (keypress)="numbersOnly($event)">
+					<input name="cvc" type="text" placeholder="CVC" class="form-control" [(ngModel)]="cc.cvc" required (keypress)="numbersOnly($event, true)">
 				</div>
 				<div class="grid-10 mobile-grid-100 grid-parent">
 					&nbsp;
