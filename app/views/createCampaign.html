@@ -520,7 +520,7 @@
 				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
-				<button (click)="save()" type="button" class="btn btn-block btn-lg btn-green1" [disabled]="plan === 0 || !f.valid || loading">Save &amp; Launch &#187;</button>
+				<button (click)="save()" type="button" class="btn btn-block btn-lg btn-green1" [disabled]="loading || data.status && (plan === 0 || !f.valid)">Save &amp; Launch &#187;</button>
 			</div>
 		</form>
 		<br>

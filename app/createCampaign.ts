@@ -347,9 +347,6 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		this.whitelistKeys = new Set<string>(Object.keys(data.whitelistSchedule || {}));
-		if (this.whitelistKeys.size) {
-			$('#whitelist').click();
-		}
 
 		Iter(data.whitelistSchedule, (_, v) => {
 			if (v.to && v.from) {
@@ -380,6 +377,10 @@ export class CreateCampaignCmp extends ManageBase {
 		}
 
 		if (!data.cmpBlacklist) data.cmpBlacklist = {};
+
+		if (this.whitelistKeys.size || Object.keys(data.cmpBlacklist).length) {
+			$('#whiteblacklists').click();
+		}
 
 		this.onCampaignLoaded.emit(data);
 	}
