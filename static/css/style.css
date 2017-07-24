@@ -3102,3 +3102,7 @@ input[type="file"] {
 .infList .inf > .btn-green1 {
 	width: 231px;
 }
+
+tr.sorter > th {
+	cursor: pointer;
+}

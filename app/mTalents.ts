@@ -76,6 +76,7 @@ export class TalentsCmp extends ManageBase {
 			this.inviteUrl = location.origin + '/invite/' + this.user.talentAgency.inviteCode;
 			this.createFields = this.CreateFields(this.fields);
 			this.editFields = this.EditFields(this.fields);
+			this.SortBy('-createdAt');
 		});
 	}
 

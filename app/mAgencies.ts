@@ -62,6 +62,7 @@ export class MediaAgenciesCmp extends ManageBase {
 		super('getAllAdAgencies', 'Media Agencies', title, api, null, (_) => {
 			this.createFields = this.CreateFields(this.fields);
 			this.editFields = this.EditFields(this.fields);
+			this.SortBy('-createdAt');
 		});
 	}
 
