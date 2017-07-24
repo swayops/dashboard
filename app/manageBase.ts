@@ -16,6 +16,7 @@ export class ManageBase extends HasAPI {
 	constructor(public apiEndpoint: string, name: string, title: Title, api: Sway, public id?: string, cb?: (resp, err?) => void) {
 		super(api);
 
+		// tslint:disable-next-line:prefer-conditional-expression
 		if (name[0] === '-') { // don't prefix the name with Manage
 			name = name.substr(1);
 		} else {
