@@ -62,6 +62,7 @@ export class TalentAgenciesCmp extends ManageBase {
 		super('getAllTalentAgencies', 'Talent Agencies', title, api, null, (resp) => {
 			this.createFields = this.CreateFields(this.fields);
 			this.editFields = this.EditFields(this.fields);
+			this.SortBy('-createdAt');
 		});
 	}
 

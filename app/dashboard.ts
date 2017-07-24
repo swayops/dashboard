@@ -16,6 +16,6 @@ export class DashboardCmp {
 			api.GoTo(!cu.advertiser || cu.hasCmps ? '/reporting' : '/createCampaign', api.CurrentUser.id);
 		}
 		title.setTitle('Sway :: Dashboard');
-		this.api.Get('getAdminStats', data => this.data = data);
+		this.api.Get('getAdminStats', (data) => this.data = data);
 	}
 }

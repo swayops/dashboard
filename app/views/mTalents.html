@@ -10,13 +10,13 @@
 
 <table class="tbl">
 	<thead>
-		<tr>
-			<th class="align-left">Name</th>
-			<th>ID</th>
+		<tr class="sorter">
+			<th class="align-left" (click)="SortBy('name')">Name</th>
+			<th (click)="SortBy('id')">ID</th>
 			<th>Deals</th>
 			<th>Earnings</th>
 			<th>Your cut</th>
-			<th>Followers</th>
+			<th (click)="SortBy('followers')">Followers</th>
 			<th>Contact</th>
 			<th>Actions</th>
 		</tr>

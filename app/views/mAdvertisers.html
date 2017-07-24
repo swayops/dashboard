@@ -9,12 +9,12 @@
 
 <table class="tbl">
 	<thead>
-		<tr>
-			<th class="align-left">Advertiser</th>
-			<th>ID</th>
-			<th>Subs</th>
+		<tr class="sorter">
+			<th class="align-left" (click)="SortBy('name')">Advertiser</th>
+			<th (click)="SortBy('id')">ID</th>
+			<th (click)="SortBy('numCmps')">Subs</th>
 			<th>Email</th>
-			<th>Signup Date</th>
+			<th (click)="SortBy('createdAt')">Signup Date</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
