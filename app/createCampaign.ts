@@ -73,6 +73,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	private geoSel;
 	private kwsSel;
+	public waitingForExport = false;
 
 	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
@@ -519,6 +520,20 @@ export class CreateCampaignCmp extends ManageBase {
 		m.showAsync((done: (data?: any) => void) => {
 			const data = this.getCmp(this.data);
 			this.getForecast(250, data, (resp) => done(resp.breakdown || []));
+		});
+	}
+
+	exportForecast() {
+		if (this.waitingForExport) return;
+		this.waitingForExport = true;
+		this.api.PostBinary('getForecastExport/forecast.pdf', this.getCmp(this.data)).subscribe((resp) => {
+			this.waitingForExport = false;
+			const link = document.createElement('a');
+			const objURL = window.URL.createObjectURL(resp._body);
+			link.href = objURL;
+			link.download = 'forecast.pdf';
+			link.click();
+			setTimeout(function() { URL.revokeObjectURL(objURL); }, 100);
 		});
 	}
 

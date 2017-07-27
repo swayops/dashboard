@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { Headers, Http, RequestOptions, Response, ResponseContentType } from '@angular/http';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -122,6 +122,15 @@ export class Sway {
 		const options = new RequestOptions({ headers: headers });
 		return this.http[method.toLocaleLowerCase()](apiURL + ep, body, options).map((res) => res.json())
 			.catch((err) => this.handleError(err));
+	}
+
+	public PostBinary(ep: string, body?: any): Observable<any> {
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const options = new RequestOptions({
+			headers: headers,
+			responseType: ResponseContentType.Blob,
+		});
+		return this.http.post(apiURL + ep, body, options);
 	}
 
 	public handleError(err: Response): Observable<{}> {
