@@ -124,6 +124,12 @@ export class Sway {
 			.catch((err) => this.handleError(err));
 	}
 
+	public PostBinary(ep: string, body?: any): Observable<any> {
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const options = new RequestOptions({ headers: headers });
+		return this.http.post(apiURL + ep, body, options);
+	}
+
 	public handleError(err: Response): Observable<{}> {
 		let errData = err.json();
 		if ('target' in errData) {

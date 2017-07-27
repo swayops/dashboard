@@ -518,8 +518,8 @@
 			<br>
 
 			<div class="grid-50 mobile-grid-40 grid-parent">
-			
-				<a href="https://dash.swayops.com/api/v1/getForecastExport/filename" class="btn btn-block btn-lg btn-blue ghost">Save PDF Forecast</a>
+
+				<a class="btn btn-block btn-lg btn-blue ghost" (click)="exportForecast()" [class.active]="waitingForExport">Save PDF Forecast</a>
 				<!--<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Save PDF Forecast</a>-->
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
