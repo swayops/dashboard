@@ -528,9 +528,8 @@ export class CreateCampaignCmp extends ManageBase {
 		this.waitingForExport = true;
 		this.api.PostBinary('getForecastExport/forecast.pdf', this.getCmp(this.data)).subscribe((resp) => {
 			this.waitingForExport = false;
-			const blob = new Blob([resp]);
 			const link = document.createElement('a');
-			const objURL = window.URL.createObjectURL(blob);
+			const objURL = window.URL.createObjectURL(resp._body);
 			link.href = objURL;
 			link.download = 'forecast.pdf';
 			link.click();

@@ -519,7 +519,7 @@
 
 			<div class="grid-50 mobile-grid-40 grid-parent">
 
-				<a class="btn btn-block btn-lg btn-blue ghost" (click)="exportForecast()" [class.active]="waitingForExport">Save PDF Forecast</a>
+				<button class="btn btn-block btn-lg btn-blue ghost" type="button" (click)="exportForecast()" [disabled]="waitingForExport">Save PDF Forecast</button>
 				<!--<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Save PDF Forecast</a>-->
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
