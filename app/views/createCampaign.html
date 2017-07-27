@@ -518,11 +518,19 @@
 			<br>
 
 			<div class="grid-50 mobile-grid-40 grid-parent">
-				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
+			
+				<a href="https://dash.swayops.com/api/v1/getForecastExport/filename" class="btn btn-block btn-lg btn-blue ghost">Save PDF Forecast</a>
+				<!--<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Save PDF Forecast</a>-->
 			</div>
 			<div class="grid-50 mobile-grid-60 grid-parent align-right">
 				<button (click)="save()" type="button" class="btn btn-block btn-lg btn-green1" [disabled]="loading || data.status && (plan === 0 || !f.valid)">Save &amp; Launch &#187;</button>
 			</div>
+			<div class="grid-100 mobile-grid-100 grid-parent">
+			<p>
+					<small style="font-size: 10px;"><img src="/static/img/questionTooltip.png"> Note: Upon creation your campaign budget will be charged upfront to ensure it is available to distribute to influencers. Unless you have turned off campaign auto renew above, your billing method on file will renew your monthly budget on the 30 day anniversary or your campaign until turned off or cancelled.</small>
+			</p>
+			</div>
+
 		</form>
 		<br>
 		<br>
@@ -590,9 +598,6 @@
 			<div class="grid-100 mobile-grid-100" style="text-transform:capitalize;">
 				<p>
 					<label>Billing Method:</label> <span style="font-size: 12px;">****-****-****-{{sidebar.lastFour}}</span>
-				</p>
-				<p>
-					<small style="font-size: 10px;"><img src="/static/img/questionTooltip.png"> Note: Upon creation your campaign budget will be charged upfront to ensure it is available to distribute to influencers. Your billing method on file will renew your monthly budget on the 30 day anniversary until turned off or cancelled.</small>
 				</p>
 			</div>
 		</li>
