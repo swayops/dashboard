@@ -8,7 +8,7 @@ import { Sway } from './sway';
 	templateUrl: './views/forgotPassword.html',
 })
 
-export class ForgotPasswordCmp {
+export class ForgotPasswordCmp implements OnInit {
 	public form = { email: '', token: null };
 	public loading = false;
 	public success = false;
