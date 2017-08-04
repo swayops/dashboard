@@ -17,6 +17,8 @@ export class Sway {
 	error: any;
 	redirectUrl: string;
 
+	private updatedIntercom: boolean;
+
 	constructor(public router: Router, public http: Http) {
 		this.IsLoggedIn.subscribe((v) => this.loginStatus = v ? 1 : 0);
 	}
@@ -153,6 +155,7 @@ export class Sway {
 			const sub = this.Get('user', (user) => {
 				if (!this.mainUser) {
 					this.OnLogin.emit(user);
+					if (user.advertiser) this.updateIntercom(user);
 				}
 				this.mainUser = user;
 				this.loginStatus = 1;
@@ -177,7 +180,20 @@ export class Sway {
 		const u = this.User;
 		return !!this.curUser && u.id !== this.curUser.id && !u.admin && (!!u.adAgency || !!u.talentAgency);
 	}
+
+	private updateIntercom(user: User) {
+		if (this.updatedIntercom) return;
+		this.Get('getCampaignsByAdvertiser/' + user.id, (data) => {
+			(window as any).Intercom('boot', {
+				app_id: 'gtphmh27',
+				HAS_CREATED_ATLEAST_1_CAMPAIGN: Array.isArray(data) && data.length > 0,
+				PLAN_TYPE: plan_types[user.advertiser.planID || 0],
+			});
+		});
+	}
 }
+
+const plan_types = ['None', 'Hyper Local', 'Premium', 'Enterprise'];
 
 // *WARNING*, if you get auth errors, make sure your page is in here
 const authPages = {
