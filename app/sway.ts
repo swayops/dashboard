@@ -38,14 +38,18 @@ export class Sway {
 		}, onError);
 	}
 
-	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void) {
+	SignUpAdvertiser(info: SignUpInfo, onError?: (err: any) => void, forceReload: boolean = false) {
 		return this.Post('signUp?autologin=true', info, (data) => {
 			return this.Get('user', (user) => {
 				this.mainUser = user;
 				this.redirectUrl = '';
 				this.OnLogin.emit(user);
-				this.GoHome();
-				this.loginStatus = 1;
+				if (forceReload) {
+					location.replace('/reporting');
+				} else {
+					this.GoHome();
+					this.loginStatus = 1;
+				}
 			}, onError);
 		}, onError);
 	}
@@ -276,6 +280,24 @@ export interface SignUpInfo {
 	advertiser: {
 		dspFee: number;
 	};
+}
+
+export function LoadScript(src: string, args?: { [key: string]: any }): Promise<Event> {
+	return new Promise<Event>((resolve) => {
+		const n = document.createElement('script');
+		n.onload = (e) => resolve(e);
+		n.type = 'text/javascript';
+		n.async = true;
+		n.defer = true;
+		n.charset = 'utf-8';
+		if (args) {
+			for (const k of Object.keys(args)) {
+				n.setAttribute(k, args[k]);
+			}
+		}
+		n.src = src;
+		document.getElementsByTagName('head')[0].appendChild(n);
+	});
 }
 
 interface Notification {
