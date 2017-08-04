@@ -233,7 +233,9 @@ export class CreateCampaignCmp extends ManageBase {
 			}, 100);
 			a();
 		});
-		this.updateSidebar('init');
+
+		// if we're editing, wait for the campaign data to fully load first.
+		if (!this.opts.isEdit) this.updateSidebar('init');
 	}
 
 	private initGeo() {
