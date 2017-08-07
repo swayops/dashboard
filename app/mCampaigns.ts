@@ -64,6 +64,21 @@ export class CampaignsCmp extends ManageBase {
 		});
 	}
 
+	delCampaign(id: string) {
+		if (!confirm('Are you sure you want to delete this campaign?')) {
+			return;
+		}
+		this.loading = true;
+		this.api.Delete('campaign/' + id, (resp) => {
+			this.loading = false;
+			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Removed Campaign.' : resp.msg, 5000);
+			this.Reload();
+		}, (err) => {
+			this.AddNotification('error', err, 5000);
+			this.loading = false;
+		});
+	}
+
 	budgetPercent(cmp: any, sign = true): number | string {
 		let val = (cmp.spent / (cmp.spent + cmp.remaining)) * 100;
 		if (isNaN(val)) val = 0;

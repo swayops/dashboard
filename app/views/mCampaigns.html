@@ -26,7 +26,8 @@
 
 	<div class="grid-50 mobile-grid-100" align="right" style="padding-top: 15px;">
 		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> |
-		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a>
+		<button [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</button> |
+		<button (click)="delCampaign(cmp.id)" class="btn btn-danger btn-micro ghost">Delete</button>
 	</div>
 	<div class="clearfix"></div>
 
