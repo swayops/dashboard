@@ -13,7 +13,7 @@
 
 	<div class="grid-40 mobile-grid-100" align="left" style="padding-left: 25px;">
 
-		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : 'Off'}}</span></h6>
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : cmp.archived ? 'Archived' : 'Off'}}</span></h6>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Networks:
 			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i>
@@ -26,7 +26,8 @@
 
 	<div class="grid-50 mobile-grid-100" align="right" style="padding-top: 15px;">
 		<button (click)="selDate.show(cmp);" class="btn btn-green1 btn-micro ghost">Download Report</button> |
-		<a [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</a>
+		<button [routerLink]="['/editCampaign', user.id, cmp.id]" class="btn btn-info btn-micro ghost">Edit</button> |
+		<button (click)="delCampaign(cmp.id)" class="btn btn-danger btn-micro ghost">Delete</button>
 	</div>
 	<div class="clearfix"></div>
 
