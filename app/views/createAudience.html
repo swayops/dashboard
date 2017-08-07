@@ -154,6 +154,7 @@
 			<br>
 			<br>
 
+			<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See Influencers</button>
 			<div *ngIf="infDlg.data && infDlg.data.length"><button class="btn" (click)="addAllMembers(infDlg)">Add All</button></div><br>
 			<div *ngFor="let inf of infDlg.data" class="inf">
 				<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a>
