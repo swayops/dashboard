@@ -171,7 +171,7 @@ export class AppComponent extends HasAPI {
 			}
 			$button.parent().parent().find('input').val(newVal);
 		});
-	};
+	}
 
 	initSliderRange() {
 		$('.slider-range').each(function(index: number) {
