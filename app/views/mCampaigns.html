@@ -13,7 +13,7 @@
 
 	<div class="grid-40 mobile-grid-100" align="left" style="padding-left: 25px;">
 
-		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : 'Off'}}</span></h6>
+		<h6 style="margin-bottom: 8px;">{{cmp.name}} - <span style="background-color: #04be5b; border-radius: 3px; color:#fff; padding: 4px; font-size: 10px;" class="label label-success">Status: {{cmp.active ? 'On' : cmp.archived ? 'Archived' : 'Off'}}</span></h6>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Created: {{cmp.created * 1000 | date}} | Support ID: {{cmp.id}}</p>
 		<p class="img-comment" style="font-size: 12px; margin:0px;">Networks:
 			<i title="Instagram" class="fui-instagram" *ngIf=cmp.instagram></i>
