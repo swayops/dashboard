@@ -15,7 +15,8 @@ declare const $: any;
 export class CampaignsCmp extends ManageBase {
 	public selDateButtons = [
 		{ name: 'Cancel', class: 'btn-blue ghost' },
-		{ name: 'Download Report »', class: 'btn-info', click: (evt) => this.getReport(evt) },
+		{ name: 'Download XLSX »', class: 'btn-info', click: (evt) => this.getReport(evt) },
+		{ name: 'Download Pretty PDF »', class: 'btn-info', click: (evt) => this.getReport(evt, true) },
 	];
 
 	public delInfButtons = [
@@ -33,7 +34,7 @@ export class CampaignsCmp extends ManageBase {
 		});
 	}
 
-	getReport(evt: ModalEvent) {
+	getReport(evt: ModalEvent, pdf = false) {
 		evt.dlg.hide();
 		const val = evt.value;
 
@@ -43,7 +44,7 @@ export class CampaignsCmp extends ManageBase {
 		}
 
 		const parts = [evt.data.id, val.startDate, val.endDate],
-			url = apiURL + 'getCampaignReport/' + parts.join('/') + '/report-' + parts.join('-') + '.xlsx';
+			url = apiURL + 'getCampaignReport/' + parts.join('/') + '/report-' + parts.join('-') + (pdf ? '.pdf?pdf=true' : '.xlsx');
 
 		window.open(url);
 	}
