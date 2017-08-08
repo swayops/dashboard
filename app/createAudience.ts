@@ -30,6 +30,8 @@ export class CreateAudienceCmp extends ManageBase {
 		keywords: [],
 		members: '',
 		followerTarget: new Target(),
+		engTarget: new Target(),
+		priceTarget: new Target(true),
 	};
 
 	@Output() infData: any[] = [];

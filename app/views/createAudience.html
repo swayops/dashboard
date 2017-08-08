@@ -149,6 +149,28 @@
 						<input type="number" [(ngModel)]="data.followerTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxFollowers" (change)="updateSidebar('filter')">
 					</div>
 				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="Filter by the number of average engagements">Engagements: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="number" [(ngModel)]="data.engTarget.from" placeholder="min" class="form-control minmax" min="0" name="minEng"
+							(change)="updateSidebar('filter')"> -
+						<input type="number" [(ngModel)]="data.engTarget.to" placeholder="max" class="form-control minmax" min="0" name="maxEng"
+							(change)="updateSidebar('filter')">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="grid-20 mobile-grid-100 grid-parent">
+						<span class="ttip" title="This will only attempt to leverage influencers who would be paid between the given price range">Price: <img src="/static/img/questionTooltip.png" /></span>
+					</div>
+					<div class="grid-80 mobile-grid-100 grid-parent">
+						<input type="number" [(ngModel)]="data.priceTarget.from" placeholder="min" class="form-control minmax" min="0" step="0.01"
+							name="minPrice" (change)="updateSidebar('filter')"> -
+						<input type="number" [(ngModel)]="data.priceTarget.to" placeholder="max" class="form-control minmax" min="0" step="0.01"
+							name="maxPrice" (change)="updateSidebar('filter')">
+					</div>
+				</div>
 			</div>
 
 			<br>
@@ -164,7 +186,7 @@
 			<div class="infList">
 				<div *ngFor="let inf of infData" class="grid-100 grid-parent" style="margin-bottom: 10px;">
 					<div class="grid-20 mobile-grid-30">
-						<img style="border-radius: 5px; height: auto; width: 100%; margin-right: 10px; background-color: #fff;" [src]=inf.profilePicture> 
+						<img style="border-radius: 5px; height: auto; width: 100%; margin-right: 10px; background-color: #fff;" [src]=inf.profilePicture>
 					</div>
 					<div class="grid-50 mobile-grid-70" style="line-height: inherit;">
 						<a (click)="inf.showDetails = ! inf.showDetails"><span style="font-size: 16px;">{{ inf.name | trunc:20 }}</span></a> - Social icons linking to each
