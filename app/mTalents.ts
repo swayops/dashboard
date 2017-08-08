@@ -145,7 +145,7 @@ export class TalentsCmp extends ManageBase {
 
 const networkUrls = {
 	instagram: 'https://www.instagram.com/',
-	youtube: 'https://www.youtube.com/user/',
+	youtube: 'https://www.youtube.com/channel/',
 	twitter: 'https://twitter.com/',
 	facebook: 'https://www.facebook.com/',
 };

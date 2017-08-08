@@ -190,10 +190,10 @@
 					</div>
 					<div class="grid-50 mobile-grid-70" style="line-height: inherit;">
 						<a (click)="inf.showDetails = ! inf.showDetails"><span style="font-size: 16px;">{{ inf.name | trunc:20 }}</span></a> -
-						<a target="_blank" href="{{ inf.url }}"  *ngIf="inf.hasTwitter"><i title="Twitter" class="fui-twitter"></i></a>
-						<a target="_blank" href="{{ inf.url }}"  *ngIf="inf.hasFacebook"><i title="Facebook" class="fui-facebook"></i></a>
-						<a target="_blank" href="{{ inf.url }}"  *ngIf="inf.hasInsta"><i title="Instagram" class="fui-instagram"></i></a>
-						<a target="_blank" href="{{ inf.url }}"  *ngIf="inf.hasYoutube"><i title="YouTube" class="fui-youtube"></i></a>
+						<a target="_blank" href="https://twitter.com/{{ inf.twUsername }}"  *ngIf="inf.twUsername"><i title="Twitter" class="fui-twitter"></i></a>
+						<a target="_blank" href="https://www.facebook.com/{{ inf.fbUsername }}"  *ngIf="inf.fbUsername"><i title="Facebook" class="fui-facebook"></i></a>
+						<a target="_blank" href="https://www.instagram.com/{{ inf.instaUsername }}"  *ngIf="inf.instaUsername"><i title="Instagram" class="fui-instagram"></i></a>
+						<a target="_blank" href="https://www.youtube.com/channel/{{ inf.ytUsername }}"  *ngIf="inf.ytUsername"><i title="YouTube" class="fui-youtube"></i></a>
 						<br>
 						<img style="width: auto; height: auto; background:none;" src="static/img/location-icon.png"> {{inf.geo}}
 						<br>
