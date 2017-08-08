@@ -32,9 +32,9 @@ export class CreateAudienceCmp extends ManageBase {
 		followerTarget: new Target(),
 	};
 
-	public infDlgButtons = [
-		{ name: 'Cancel', class: 'btn-blue ghost' },
-	];
+	@Output() infData: any[] = [];
+
+	private infDataPage: number = 0; // TODO: use this for pagination
 
 	@Output() sidebar: any = {
 		errors: [],
@@ -355,28 +355,21 @@ export class CreateAudienceCmp extends ManageBase {
 		return !!wl && wl.indexOf(email) !== -1;
 	}
 
-	addAllMembers(m: Modal) {
-		const mems = (m.data || []).map((v) => v.email).join(', ');
+	addAllMembers() {
+		const mems = this.infData.map((v) => v.email).join(', ');
 		if (!this.data.members) {
 			$('#targeting').click(); // Oh look, boobies over there, don't look here.
 		}
 		this.data.members = mems;
-		m.hide();
 	}
 
 	updateForecast() {
 		const data = this.getCmp(this.data);
 		this.forecast.loading = true;
-		this.getForecast(5, data, (resp) => {
+		this.getForecast(100, data, (resp) => {
 			resp.loading = false;
 			this.forecast = resp;
-		});
-	}
-
-	showInfList(m: Modal) {
-		m.showAsync((done: (data?: any) => void) => {
-			const data = this.getCmp(this.data);
-			this.getForecast(250, data, (resp) => done(resp.breakdown || []));
+			this.infData = (resp.breakdown || []);
 		});
 	}
 

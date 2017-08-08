@@ -3060,12 +3060,27 @@ input[type="file"] {
 	padding-left:5px;
 }
 
+create-audience .infList > .grid-parent {
+	margin-bottom: 2px;
+}
+
+create-audience .infList > .grid-parent button.wide {
+	padding: 5px 20px;
+}
+
+create-audience .infList > .grid-parent > div {
+	line-height: 64px;
+}
+
+create-audience .infList > .grid-parent > .grid-30, create-audience .infList > .grid-parent > .grid-20 {
+	padding: 0;
+}
 
 .infList .inf {
 	height: 64px;
 }
 
-.infList .inf img {
+.infList .inf img, create-audience .infList img {
 	vertical-align: middle;
 	width: 64px;
 	height: 64px;

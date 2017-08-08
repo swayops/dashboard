@@ -154,26 +154,27 @@
 			<br>
 			<br>
 
-			<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="showInfList(infDlg)">See Influencers</button>
-			<div *ngIf="infDlg.data && infDlg.data.length"><button class="btn" (click)="addAllMembers(infDlg)">Add All</button></div><br>
-			<div *ngFor="let inf of infDlg.data" class="inf">
-				<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a>
-				<img src="/static/img/location-icon.png"> {{inf.Location}} <br>
-				Followers: {{inf.followers | fmtNum}} <br>
-				Avg Engagements: {{inf.avgEngs | fmtNum:'N/A'}} <br>
-				Avg Price: {{inf.avgPrice | fmtNum:'N/A'}} <br>
-				<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToMembers(inf.email)" *ngIf="!isInMembers(inf.email)">ADD To Members</button>
-				<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)">INCLUDED</button>
+			<div class="grid-50 mobile-grid-50 grid-parent align-left">
+				<button class="btn btn-block btn-lg" type="button" (click)="addAllMembers()" [disabled]="!infData">Add All</button>
 			</div>
-
-			<br>
-			<br>
-
-			<div class="grid-50 mobile-grid-40 grid-parent">
-				<a href="javascript:history.back()" class="btn btn-block btn-lg btn-blue ghost">Back</a>
-			</div>
-			<div class="grid-50 mobile-grid-60 grid-parent align-right">
+			<div class="grid-50 mobile-grid-50 grid-parent align-right">
 				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save Audience &#187;</button>
+			</div>
+			<br><br><br>
+			<div class="infList">
+				<div *ngFor="let inf of infData" class="grid-100 grid-parent">
+					<div class="grid-30 mobile-grid-30">
+						<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a>
+					</div>
+					<div class="grid-50 mobile-grid-70">
+						Followers: {{inf.followers | fmtNum}} |
+						Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}
+					</div>
+					<div class="grid-20 mobile-grid-100 align-right">
+						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf.email)" *ngIf="!isInMembers(inf.email)">ADD</button>
+						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)" *ngIf="isInMembers(inf.email)">INCLUDED</button>
+					</div>
+				</div>
 			</div>
 		</form>
 		<br>
