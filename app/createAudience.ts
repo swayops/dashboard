@@ -246,6 +246,7 @@ export class CreateAudienceCmp extends ManageBase {
 			name: data.name,
 			imageData: data.imageData,
 			members: data.members,
+			token: data.token,
 		};
 
 		// this should be done server side but for now we can do it here.
