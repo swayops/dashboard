@@ -122,7 +122,7 @@
 						<span class="ttip" title="Enter in emails of your audience members.">Members: <img src="/static/img/questionTooltip.png" /></span>
 					</div>
 					<div class="grid-80 mobile-grid-100 grid-parent">
-						<input type="text" name="members" [(ngModel)]="data.members" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control">
+						<input type="text" name="members" [(ngModel)]="data.members" placeholder="invite@MyInfluencer.com, anotherPerson@y.com" class="form-control" [readonly]="data.members === 'ALL'">
 					</div>
 				</div>
 
@@ -206,10 +206,10 @@
 					</div>
 					<div class="grid-30 mobile-grid-100 align-right" style="line-height: inherit;">
 					<br>
-						Rate: <b>${{inf.avgEngs | fmtNum:'N/A'}} - {{inf.avgEngsIncreased | fmtNum:'N/A'}}</b>
+						Rate: <b>${{inf.fromRate | fmtNum:'N/A'}} - {{inf.toRate | fmtNum:'N/A'}}</b>
 						<br>
-						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf.email)" *ngIf="!isInMembers(inf.email)">ADD TO AUDIENCE</button>
-						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)" *ngIf="isInMembers(inf.email)">INCLUDED</button>
+						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf.email)" *ngIf="!data.token && !isInMembers(inf.email)">ADD TO AUDIENCE</button>
+						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)" *ngIf="data.token || isInMembers(inf.email)" [disabled]="!!data.token">INCLUDED</button>
 					</div>
 					<!--dropdown with extra info-->
 					<div class="grid-100 grid-parent">
@@ -217,9 +217,7 @@
 						Extra insight data coming soon.
 						</div>
 					</div>
-
 				</div>
-				<button (click)="showMore()" type="button" class="btn">Show More</button>
 			</div>
 		</form>
 		<br>

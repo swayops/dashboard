@@ -344,7 +344,7 @@ export class CreateAudienceCmp extends ManageBase {
 	}
 
 	addToMembers(email: string) {
-		if (!this.data.members) {
+		if (!this.data.members || this.data.members === 'ALL') {
 			this.data.members = email;
 			$('#targeting').click(); // Oh look, boobies over there, don't look here.
 		} else {
@@ -362,11 +362,8 @@ export class CreateAudienceCmp extends ManageBase {
 	}
 
 	addAllMembers() {
-		const mems = this.influencers.map((v) => v.email).join(', ');
-		if (!this.data.members) {
-			$('#targeting').click(); // Oh look, boobies over there, don't look here.
-		}
-		this.data.members = mems;
+		this.data.token = this.forecast.token;
+		this.data.members = 'ALL';
 	}
 
 	updateForecast(paginate = false) {
@@ -378,6 +375,8 @@ export class CreateAudienceCmp extends ManageBase {
 		} else {
 			this.forecastPagination.start = 0;
 			this.influencers = [];
+			this.data.token = null;
+			this.data.members = '';
 		}
 		this.forecast.loading = true;
 		this.getForecast(token, start, 2, data, (resp) => {
@@ -396,7 +395,9 @@ export class CreateAudienceCmp extends ManageBase {
 	// should be moved somewhere else but for now it'll be copied around...
 	private getForecast = CallLimiter((token: string, start: number, results: number, data: any, done: (data?: any) => void) => {
 		let ep = 'getForecast?start=' + start.toString() + '&results=' + results.toString();
+		const oldToken = this.forecast.token || '';
 		if (!!token) ep += '&token=' + token;
+		if (oldToken && oldToken !== token) ep += '&deleteToken=' + oldToken;
 		return this.api.Post(ep, data, (resp) => {
 			done(resp || {});
 		});
