@@ -383,7 +383,7 @@ export class CreateAudienceCmp extends ManageBase {
 			this.forecast.token = null;
 		}
 		this.forecast.loading = true;
-		this.getForecast(token, start, 2, data, (resp) => {
+		this.getForecast(token, start, 25, data, (resp) => {
 			resp.loading = false;
 			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
