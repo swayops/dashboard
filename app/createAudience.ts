@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
@@ -34,8 +34,6 @@ export class CreateAudienceCmp extends ManageBase {
 		priceTarget: new Target(true),
 	};
 
-	@Output() infData: any[] = [];
-
 	private infDataPage: number = 0; // TODO: use this for pagination
 
 	@Output() sidebar: any = {
@@ -43,6 +41,12 @@ export class CreateAudienceCmp extends ManageBase {
 	};
 
 	@Output() public forecast: any = { loading: true };
+	@Output() public influencers: any[] = [];
+
+	private forecastPagination = {
+		start: 0,
+		end: 2,
+	};
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -358,29 +362,54 @@ export class CreateAudienceCmp extends ManageBase {
 	}
 
 	addAllMembers() {
-		const mems = this.infData.map((v) => v.email).join(', ');
+		const mems = this.influencers.map((v) => v.email).join(', ');
 		if (!this.data.members) {
 			$('#targeting').click(); // Oh look, boobies over there, don't look here.
 		}
 		this.data.members = mems;
 	}
 
-	updateForecast() {
+	updateForecast(paginate = false) {
 		const data = this.getCmp(this.data);
+		let token = '', start = 0;
+		if (paginate && this.forecast.token) {
+			token = this.forecast.token;
+			start = this.forecastPagination.start;
+		} else {
+			this.forecastPagination.start = 0;
+			this.influencers = [];
+		}
 		this.forecast.loading = true;
-		this.getForecast(100, data, (resp) => {
+		this.getForecast(token, start, 2, data, (resp) => {
 			resp.loading = false;
+			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
-			this.infData = (resp.breakdown || []);
+			this.influencers = this.influencers.concat(resp.breakdown || []);
+			this.forecastPagination.start = this.influencers.length;
 		});
 	}
 
+	showMore() {
+		this.updateForecast(true);
+	}
+
 	// should be moved somewhere else but for now it'll be copied around...
-	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
-		return this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
+	private getForecast = CallLimiter((token: string, start: number, results: number, data: any, done: (data?: any) => void) => {
+		let ep = 'getForecast?start=' + start.toString() + '&results=' + results.toString();
+		if (!!token) ep += '&token=' + token;
+		return this.api.Post(ep, data, (resp) => {
 			done(resp || {});
 		});
-	}, 10000);
+	}, 5000);
+
+	// source: https://stackoverflow.com/a/44150539/145587
+	@HostListener('window:scroll', ['$event'])
+	onScroll($event: Event): void {
+		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			if (!this.forecast.breakdown) return; // means our list is done so no need to make an extra api call
+			this.updateForecast(true);
+		}
+	}
 }
 
 function getCheckbox(evt: any) {

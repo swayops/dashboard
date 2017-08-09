@@ -177,14 +177,14 @@
 			<br>
 
 			<div class="grid-50 mobile-grid-50 grid-parent align-left">
-				<button class="btn btn-block btn-lg" type="button" (click)="addAllMembers()" [disabled]="!infData">Add All</button>
+				<button class="btn btn-block btn-lg" type="button" (click)="addAllMembers()" [disabled]="!influencers.length">Add All</button>
 			</div>
 			<div class="grid-50 mobile-grid-50 grid-parent align-right">
 				<button type="submit" class="btn btn-block btn-lg btn-green1" [disabled]="!f.valid || loading">Save Audience &#187;</button>
 			</div>
 			<br><br><br>
 			<div class="infList">
-				<div *ngFor="let inf of infData" class="grid-100 grid-parent" style="margin-bottom: 10px;">
+				<div *ngFor="let inf of influencers" class="grid-100 grid-parent" style="margin-bottom: 10px;">
 					<div class="grid-20 mobile-grid-30">
 						<img style="border-radius: 5px; height: auto; width: 100%; margin-right: 10px; background-color: #fff;" [src]=inf.profilePicture>
 					</div>
@@ -219,6 +219,7 @@
 					</div>
 
 				</div>
+				<button (click)="showMore()" type="button" class="btn">Show More</button>
 			</div>
 		</form>
 		<br>
@@ -261,12 +262,3 @@
 		</li>
 	</ul>
 </div>
-<modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
-	<div *ngIf="infDlg.data && infDlg.data.length"><button class="btn" (click)="addAllMembers(infDlg)">Add All</button></div><br>
-	<div *ngFor="let inf of infDlg.data" class="inf">
-		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
-		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
-		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToMembers(inf.email)" *ngIf="!isInMembers(inf.email)">ADD TO Members</button>
-		<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)">INCLUDED</button>
-	</div>
-</modal>
