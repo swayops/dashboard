@@ -2048,6 +2048,9 @@ div#header #logo {
 .user-account-options ul li.li-content:before {
 	background: transparent url(../img/user-account-options.png) no-repeat -26px -158px;
 }
+.user-account-options ul li.li-labs:before {
+	background: transparent url(../img/user-account-options.png) no-repeat -26px -190px;
+}
 
 .user-account-options ul li.li-campaign:hover:before {
 	background-position: 0px 0px;
@@ -2067,6 +2070,10 @@ div#header #logo {
 
 .user-account-options ul li.li-content:hover:before {
 	background-position: 0px -158px;
+}
+
+.user-account-options ul li.li-labs:hover:before {
+	background-position: 0px -190px;
 }
 
 .user-account-options ul li:hover a, .user-account-options ul li a.is-active {
