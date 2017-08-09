@@ -541,7 +541,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	// should be moved somewhere else but for now it'll be copied around...
 	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
-		return this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
+		return this.api.Post('getForecast?start=0&results=' + num.toString(), data, (resp) => {
 			done(resp || {});
 		});
 	}, 10000);
