@@ -304,7 +304,9 @@ export class CreateAudienceCmp extends ManageBase {
 		data = { ...data };
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
-		if (data.members && data.members.length) {
+		if (data.members === 'ALL') {
+			data.members = null;
+		} else if (data.members && data.members.length) {
 			const wl = data.members.split(',').map((v) => v.trim());
 			data.members = {};
 			for (const it of wl) data.members[it] = true;
