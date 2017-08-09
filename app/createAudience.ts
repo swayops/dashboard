@@ -380,6 +380,7 @@ export class CreateAudienceCmp extends ManageBase {
 			this.influencers = [];
 			this.data.token = null;
 			this.data.members = '';
+			this.forecast.token = null;
 		}
 		this.forecast.loading = true;
 		this.getForecast(token, start, 2, data, (resp) => {
@@ -389,10 +390,6 @@ export class CreateAudienceCmp extends ManageBase {
 			this.influencers = this.influencers.concat(resp.breakdown || []);
 			this.forecastPagination.start = this.influencers.length;
 		});
-	}
-
-	showMore() {
-		this.updateForecast(true);
 	}
 
 	// should be moved somewhere else but for now it'll be copied around...
