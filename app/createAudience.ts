@@ -31,6 +31,7 @@ export class CreateAudienceCmp extends ManageBase {
 		followerTarget: new Target(),
 		engTarget: new Target(),
 		priceTarget: new Target(true),
+		members: {},
 	};
 
 	private infDataPage: number = 0; // TODO: use this for pagination
@@ -218,7 +219,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
 			tokenSeparators: [','],
-			placeholder: 'Type a keyword OR username to see availability...',
+			placeholder: 's',
 			allowClear: true,
 			width: '100%',
 		});
