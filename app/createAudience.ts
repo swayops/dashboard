@@ -10,6 +10,8 @@ import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter, Target } from './utils';
 
+import { GetAudienceEndpoint } from './mAudiences';
+
 declare const $: any;
 
 @Component({
@@ -59,6 +61,7 @@ export class CreateAudienceCmp extends ManageBase {
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
 	public cropData: any = {};
+	public aid: string = '';
 
 	private geoSel;
 	private kwsSel;
@@ -66,24 +69,25 @@ export class CreateAudienceCmp extends ManageBase {
 	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super(null, route.snapshot.url[0].path === 'editAudience' ? '-Edit Audience' : '-Create Audience',
-			title, api);
+		super(null, !!route.snapshot.params['aid'] ? '-Edit Audience' : '-Create Audience', title, api, null);
 
 		this.id = route.snapshot.params['id'];
+		this.aid = route.snapshot.params['aid'];
+
+		console.log(this.id, this.aid);
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 
-		this.data.advertiserId = this.id;
-		this.opts.isEdit = route.snapshot.url[0].path === 'editAudience';
-		if (this.opts.isEdit) {
-			const aid = route.snapshot.params['id'];
-			this.api.Get('audience/' + aid, (resp) => {
-				this.setCmp(resp[aid]);
+		this.opts.isEdit = !!this.aid;
+		this.api.SetCurrentUser(this.id).then((user) => {
+			if (!this.opts.isEdit) return;
+			this.api.Get(GetAudienceEndpoint(this.api, this.id, this.aid, true), (resp) => {
+				this.setCmp((this.aid in resp) ? resp[this.aid] : resp);
 				this.updateSidebar('init');
 			});
-		}
+		});
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
 			keepAspect: true,
@@ -201,7 +205,7 @@ export class CreateAudienceCmp extends ManageBase {
 			a();
 		});
 		// don't auto update until the data is fully loaded.
-		if (!this.id) this.updateSidebar('init');
+		if (!this.aid) this.updateSidebar('init');
 	}
 
 	private initGeo() {
@@ -219,7 +223,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
 			tokenSeparators: [','],
-			placeholder: 's',
+			placeholder: 'Filter by a keyword or a username...',
 			allowClear: true,
 			width: '100%',
 		});
@@ -253,10 +257,10 @@ export class CreateAudienceCmp extends ManageBase {
 		// this should be done server side but for now we can do it here.
 		if (!data.imageData) data.imageUrl = data.imageUrl;
 
-		this.api.Post('audience', data, (resp) => {
+		this.api.Post(GetAudienceEndpoint(this.api, this.id), data, (resp) => {
 			this.loading = false;
 			this.AddNotification('success', 'Successfully Added Audience!');
-			this.api.GoTo('mAudiences');
+			this.api.GoTo('mAudiences', this.id);
 		}, (err) => {
 			this.loading = false;
 			this.AddNotification('error', err.msg);
@@ -383,7 +387,7 @@ export class CreateAudienceCmp extends ManageBase {
 		const oldToken = this.forecast.token || '';
 		if (!!token) ep += '&token=' + token;
 		if (oldToken && oldToken !== token) ep += '&deleteToken=' + oldToken;
-		if (this.id) ep += '&audienceID=' + this.id;
+		if (this.aid) ep += '&audienceID=' + this.aid;
 		return this.api.Post(ep, data, (resp) => {
 			done(resp || {});
 		});

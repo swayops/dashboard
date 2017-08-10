@@ -39,19 +39,7 @@ export class AudiencesCmp extends ManageBase {
 
 	Delete(id: string) {
 		this.loading = true;
-		let ep = '';
-		if (this.id) {
-			if (this.api.CurrentUser.adAgency) {
-				ep = 'agency/audience/' + this.id + '/' + id;
-			} else if (this.api.CurrentUser.advertiser) {
-				ep = 'advertiser/audience/' + this.id + '/' + id;
-			} else {
-				return console.error('invalid user', this.api.CurrentUser);
-			}
-		} else {
-			ep = 'audience/' + id;
-		}
-		this.api.Delete(ep, (resp) => {
+		this.api.Delete(GetAudienceEndpoint(this.api, this.id, id), (resp) => {
 			this.loading = false;
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Removed Audience.' : resp.msg, 5000);
 			this.Reload(() => this.init());
@@ -60,4 +48,34 @@ export class AudiencesCmp extends ManageBase {
 			this.loading = false;
 		});
 	}
+}
+
+export function GetAudienceEndpoint(api: Sway, id: string, audID: string = '', edit: boolean = false): string {
+	let ep = '';
+
+	if (id) {
+		const cuser = api.CurrentUser;
+		if (cuser.adAgency) {
+			if (edit) {
+				ep = 'getAgencyAudience';
+			} else {
+				ep = 'agency/audience/' + id;
+			}
+		} else if (cuser.advertiser) {
+			if (edit) {
+				ep = 'getAdvertiserAudience';
+			} else {
+				ep = 'advertiser/audience/' + id;
+			}
+		} else {
+			console.error('invalid user', cuser);
+			return '';
+		}
+	} else {
+		ep = 'audience/';
+	}
+
+	if (audID) ep += '/' + audID;
+
+	return ep;
 }

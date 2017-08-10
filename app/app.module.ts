@@ -119,11 +119,6 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
-		path: 'editAudience/:id',
-		component: CreateAudienceCmp,
-		canActivate: [AuthGuard],
-	},
-	{
 		path: 'editAudience/:id/:aid',
 		component: CreateAudienceCmp,
 		canActivate: [AuthGuard],
