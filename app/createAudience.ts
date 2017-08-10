@@ -218,7 +218,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
 			tokenSeparators: [','],
-			placeholder: 'Type a keyword to see availability',
+			placeholder: 'Type a keyword OR username to see availability...',
 			allowClear: true,
 			width: '100%',
 		});
