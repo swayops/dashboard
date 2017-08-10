@@ -14,10 +14,20 @@ declare const $: any;
 })
 export class AudiencesCmp extends ManageBase {
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('audience', 'Audiences', title, api, null, () => this.init());
+		super(null, 'Audiences', title, api, null);
+		this.id = route.snapshot.params['id'];
+		api.SetCurrentUser(this.id || '1').then((user) => {
+			if (!this.id && user.admin) {
+				this.apiEndpoint = 'audience';
+			} else {
+				this.apiEndpoint = 'getUserAudiences/' + this.id + '?canEdit=true';
+			}
+			this.Reload(() => this.init());
+		});
+
 	}
 	private init() {
-		if (Array.isArray(this.list)) return;
+		if (Array.isArray(this.list) || this.list == null) return;
 		const list = [];
 		for (const k of Object.keys(this.list).sort()) {
 			const o = this.list[k];
@@ -29,7 +39,19 @@ export class AudiencesCmp extends ManageBase {
 
 	Delete(id: string) {
 		this.loading = true;
-		this.api.Delete('audience/' + id, (resp) => {
+		let ep = '';
+		if (this.id) {
+			if (this.api.CurrentUser.adAgency) {
+				ep = 'agency/audience/' + this.id + '/' + id;
+			} else if (this.api.CurrentUser.advertiser) {
+				ep = 'advertiser/audience/' + this.id + '/' + id;
+			} else {
+				return console.error('invalid user', this.api.CurrentUser);
+			}
+		} else {
+			ep = 'audience/' + id;
+		}
+		this.api.Delete(ep, (resp) => {
 			this.loading = false;
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Removed Audience.' : resp.msg, 5000);
 			this.Reload(() => this.init());

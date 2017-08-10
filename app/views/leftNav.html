@@ -12,7 +12,7 @@
 			<li class="li-content"><a [routerLink]="['/dashboard']" [routerLinkActive]="['is-active']">Admin Stats</a></li>
 			<li class="li-influencers"><a [routerLink]="['/mAgencies']" [routerLinkActive]="['is-active']">Media Agencies</a></li>
 			<li class="li-perks"><a [routerLink]="['/mTalentAgencies']" [routerLinkActive]="['is-active']">Talent Agencies</a></li>
-			<li class="li-perks"><a [routerLink]="['/mAudiences']" [routerLinkActive]="['is-active']">Audiences</a></li>
+			<li class="li-perks"><a [routerLink]="['/mAudiences']" [routerLinkActive]="['is-active']">Audience Lab</a></li>
 			<li><a [routerLink]="['/mCampaignPerks']" [routerLinkActive]="['is-active']">Inbound</a></li>
 			<li><a [routerLink]="['/mOutboundPerks']" [routerLinkActive]="['is-active']">Perks To Ship</a></li>
 			<li><a [routerLink]="['/checkPayouts']" [routerLinkActive]="['is-active']">Check Payouts</a></li>
@@ -22,6 +22,7 @@
 	<div class="user-account-options" *ngIf="user.adAgency">
 		<ul>
 			<li class="li-campaign"><a [routerLink]="['/mAdvertisers', user.id]" [routerLinkActive]="['is-active']">My Advertisers</a></li>
+			<li class="li-perks"><a [routerLink]="['/mAudiences', user.id]" [routerLinkActive]="['is-active']">Audience Lab</a></li>
 			<!--<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Reporting</a></li>-->
 		</ul>
 	</div>
@@ -39,6 +40,7 @@
 			<ul>
 				<li class="li-reporting"><a [routerLink]="['/reporting', user.id]" [routerLinkActive]="['is-active']">Dashboard</a></li>
 				<li class="li-campaign"><a [routerLink]="['/mCampaigns', user.id]" [routerLinkActive]="['is-active']">My Campaigns</a></li>
+				<li class="li-perks"><a [routerLink]="['/mAudiences', user.id]" [routerLinkActive]="['is-active']">Audience Lab</a></li>
 				<li class="li-content"><a [routerLink]="['/contentFeed', user.id]" [routerLinkActive]="['is-active']">Post Feed</a></li>
 			</ul>
 		</div>
