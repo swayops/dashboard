@@ -206,8 +206,8 @@
 					<br>
 						Rate: <b>${{inf.fromRate | fmtNum:'N/A'}} - {{inf.toRate | fmtNum:'N/A'}}</b>
 						<br>
-						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf.email)" *ngIf="!data.token && !isInMembers(inf.email)">ADD TO AUDIENCE</button>
-						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf.email)" *ngIf="data.token || isInMembers(inf.email)" [disabled]="!!data.token">INCLUDED</button>
+						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf)" *ngIf="!data.token && !inf.inAudience">ADD TO AUDIENCE</button>
+						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf)" *ngIf="data.token || inf.inAudience" [disabled]="!!data.token">INCLUDED</button>
 					</div>
 					<!--dropdown with extra info-->
 					<div class="grid-100 grid-parent">

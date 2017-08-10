@@ -28,7 +28,6 @@ export class CreateAudienceCmp extends ManageBase {
 		instagram: true,
 		youtube: true,
 		keywords: [],
-		members: '',
 		followerTarget: new Target(),
 		engTarget: new Target(),
 		priceTarget: new Target(true),
@@ -200,7 +199,8 @@ export class CreateAudienceCmp extends ManageBase {
 			}, 100);
 			a();
 		});
-		this.updateSidebar('init');
+		// don't auto update until the data is fully loaded.
+		if (!this.id) this.updateSidebar('init');
 	}
 
 	private initGeo() {
@@ -265,8 +265,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 	// fromCmp converts our campaign data to a ui-friendly format
 	private setCmp(data: any): any {
-		if (data.members) data.members = Object.keys(data.members).join(', ').trim();
-
 		if (!Array.isArray(data.categories)) data.categories = [];
 
 		if (!!data.categories.length) {
@@ -289,13 +287,13 @@ export class CreateAudienceCmp extends ManageBase {
 			this.geoSel.val(data.geos.map((v) => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
 
-		if (data.male || data.female || data.members || data.keywords || data.geos) {
+		if (data.male || data.female || data.keywords || data.geos) {
 			// you didn't see this, move on. - A Sith Lord.
 			$('#targeting').click();
 		}
 
 		data.followerTarget = Target.FromObject(data.followerTarget);
-
+		if (!data.members) data.members = {};
 		this.data = { ...this.data, ...data };
 
 		this.onCampaignLoaded.emit(data);
@@ -305,13 +303,6 @@ export class CreateAudienceCmp extends ManageBase {
 		data = { ...data };
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
-		if (data.members === 'ALL') {
-			data.members = null;
-		} else if (data.members && data.members.length) {
-			const wl = data.members.split(',').map((v) => v.trim());
-			data.members = {};
-			for (const it of wl) data.members[it] = true;
-		}
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
 			const parts = v.split('-'),
@@ -333,6 +324,8 @@ export class CreateAudienceCmp extends ManageBase {
 		data.imageData = this.cropData.image;
 		data.followerTarget = data.followerTarget.ToObject();
 
+		if (data.token) data.members = {};
+
 		return data;
 	}
 
@@ -346,27 +339,19 @@ export class CreateAudienceCmp extends ManageBase {
 		return reqs;
 	}
 
-	addToMembers(email: string) {
-		if (!this.data.members || this.data.members === 'ALL') {
-			this.data.members = email;
-			$('#targeting').click(); // Oh look, boobies over there, don't look here.
-		} else {
-			this.data.members += ', ' + email;
-		}
+	addToMembers(inf: any) {
+		this.data.members[inf.email] = true;
+		inf.inAudience = true;
 	}
 
-	delFromMembers(email: string) {
-		this.data.members = this.data.members.replace(email, '').replace(/^, |, $/, '');
-	}
-
-	isInMembers(email: string) {
-		const wl = this.data.members;
-		return !!wl && wl.indexOf(email) !== -1;
+	delFromMembers(inf: any) {
+		delete this.data.members[inf.email];
+		inf.inAudience = false;
 	}
 
 	addAllMembers() {
 		this.data.token = this.forecast.token;
-		this.data.members = 'ALL';
+		this.data.members = {};
 	}
 
 	updateForecast(paginate = false) {
@@ -379,11 +364,10 @@ export class CreateAudienceCmp extends ManageBase {
 			this.forecastPagination.start = 0;
 			this.influencers = [];
 			this.data.token = null;
-			this.data.members = '';
 			this.forecast.token = null;
 		}
 		this.forecast.loading = true;
-		this.getForecast(token, start, 25, data, (resp) => {
+		this.getForecast(token, start, 10, data, (resp) => {
 			resp.loading = false;
 			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
@@ -398,6 +382,7 @@ export class CreateAudienceCmp extends ManageBase {
 		const oldToken = this.forecast.token || '';
 		if (!!token) ep += '&token=' + token;
 		if (oldToken && oldToken !== token) ep += '&deleteToken=' + oldToken;
+		if (this.id) ep += '&audienceID=' + this.id;
 		return this.api.Post(ep, data, (resp) => {
 			done(resp || {});
 		});
