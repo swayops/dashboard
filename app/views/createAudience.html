@@ -159,7 +159,8 @@
 			<br>
 
 			<div class="grid-20 mobile-grid-30 grid-parent align-left">
-				<button class="btn btn-block btn-lg" type="button" (click)="addAllMembers()" [disabled]="!influencers.length">Add All</button>
+				<button class="btn btn-block btn-lg" type="button" (click)="allMembers(true)" [disabled]="!influencers.length" *ngIf="!data.token">Add All</button>
+				<button class="btn btn-block btn-lg btn-green" type="button" (click)="allMembers(false)" [disabled]="!influencers.length" *ngIf="!!data.token">Remove All</button>
 			</div>
 			<div class="form-group grid-parent grid-50 mobile-grid-70">
 				<div class="grid-95 mobile-grid-95 grid-parent">
@@ -196,7 +197,7 @@
 					<br>
 						Rate: <b>${{inf.fromRate | fmtNum:'N/A'}} - {{inf.toRate | fmtNum:'N/A'}}</b>
 						<br>
-						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf)" *ngIf="!data.token && !inf.inAudience">ADD TO AUDIENCE</button>
+						<button class="btn btn-block btn-lg btn-blue ghost wide" (click)="addToMembers(inf)" *ngIf="!data.token && !inf.inAudience">ADD</button>
 						<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromMembers(inf)" *ngIf="data.token || inf.inAudience" [disabled]="!!data.token">INCLUDED</button>
 					</div>
 					<!--dropdown with extra info-->

@@ -223,7 +223,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
 			tokenSeparators: [','],
-			placeholder: 'Filter by a keyword or a username...',
+			placeholder: 'Search ...',
 			allowClear: true,
 			width: '100%',
 		});
@@ -354,8 +354,8 @@ export class CreateAudienceCmp extends ManageBase {
 		inf.inAudience = false;
 	}
 
-	addAllMembers() {
-		this.data.token = this.forecast.token;
+	allMembers(select: boolean) {
+		this.data.token = select ? this.forecast.token : null;
 		this.data.members = {};
 	}
 
