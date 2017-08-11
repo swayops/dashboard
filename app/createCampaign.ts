@@ -517,7 +517,12 @@ export class CreateCampaignCmp extends ManageBase {
 		return email in this.data.whitelistSchedule;
 	}
 
-	updateForecast(paginate = false, done: (data: any) => null = null) {
+	addAllInf() {
+		for (const inf of this.influencers) {
+			this.addToWhitelist(inf.email);
+		}
+	}
+	updateForecast(paginate = false, done: (data?: any) => void = null) {
 		const data = this.getCmp(this.data);
 		let token = '', start = 0;
 		if (paginate && this.forecast.token) {
