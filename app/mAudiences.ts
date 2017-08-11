@@ -52,7 +52,6 @@ export class AudiencesCmp extends ManageBase {
 
 export function GetAudienceEndpoint(api: Sway, id: string, audID: string = '', edit: boolean = false): string {
 	let ep = '';
-
 	if (id) {
 		const cuser = api.CurrentUser;
 		if (cuser.adAgency) {

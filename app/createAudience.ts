@@ -36,8 +36,6 @@ export class CreateAudienceCmp extends ManageBase {
 		members: {},
 	};
 
-	private infDataPage: number = 0; // TODO: use this for pagination
-
 	@Output() sidebar: any = {
 		errors: [],
 	};
@@ -73,8 +71,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 		this.id = route.snapshot.params['id'];
 		this.aid = route.snapshot.params['aid'];
-
-		console.log(this.id, this.aid);
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
@@ -372,7 +368,7 @@ export class CreateAudienceCmp extends ManageBase {
 			this.forecast.token = null;
 		}
 		this.forecast.loading = true;
-		this.getForecast(token, start, 10, data, (resp) => {
+		this.getForecast(token, start, 25, data, (resp) => {
 			resp.loading = false;
 			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
