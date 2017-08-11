@@ -528,7 +528,7 @@ export class CreateCampaignCmp extends ManageBase {
 		if (paginate && this.forecast.token) {
 			token = this.forecast.token;
 			start = this.forecastPagination.start;
-			if (start > 5) {
+			if (this.influencers.length > 0) {
 				if (done) done(this.influencers);
 				return; // we only need top 250
 			}
@@ -539,7 +539,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.forecast.token = null;
 		}
 		this.forecast.loading = true;
-		this.getForecast(token, start, start > 0 ? 250 : 5, data, (resp) => {
+		this.getForecast(token, 0, paginate ? 250 : 5, data, (resp) => {
 			resp.loading = false;
 			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
@@ -563,7 +563,10 @@ export class CreateCampaignCmp extends ManageBase {
 	showInfList(m: Modal) {
 		this.influencers = [];
 		m.showAsync((done: (data?: any) => void) => {
-			this.updateForecast(true, done);
+			this.updateForecast(true, (infList) => {
+				this.influencers = infList;
+				done(infList);
+			});
 		});
 	}
 
