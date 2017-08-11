@@ -605,11 +605,10 @@
 	</ul>
 </div>
 <modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
-	<div class="grid-100 mobile-grid-100 grid-parent align-left">
-		<button class="btn btn-block" type="button" (click)="addAllInf()" [disabled]="!influencers.length">Add All Influencers</button>
+	<div class="grid-100 mobile-grid-100 grid-parent align-left" *ngIf="influencers.length">
+		<button class="btn btn-block" type="button" (click)="addAllInf()">Add All Influencers</button>
 		<br><br><br>
 	</div>
-
 	<div *ngFor="let inf of influencers" class="grid-100 grid-parent" style="margin-bottom: 10px;">
 		<div class="grid-20 mobile-grid-30">
 			<img style="border-radius: 5px; height: auto; width: 100%; margin-right: 10px; background-color: #fff;" [src]=inf.profilePicture>

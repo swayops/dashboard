@@ -561,6 +561,7 @@ export class CreateCampaignCmp extends ManageBase {
 	}, 5000);
 
 	showInfList(m: Modal) {
+		this.influencers = [];
 		m.showAsync((done: (data?: any) => void) => {
 			this.updateForecast(true, done);
 		});
