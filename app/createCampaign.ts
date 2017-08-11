@@ -623,4 +623,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter', 'audiences'];
