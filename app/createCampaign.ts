@@ -517,13 +517,16 @@ export class CreateCampaignCmp extends ManageBase {
 		return email in this.data.whitelistSchedule;
 	}
 
-	updateForecast(paginate = false) {
+	updateForecast(paginate = false, done: (data: any) => null = null) {
 		const data = this.getCmp(this.data);
 		let token = '', start = 0;
 		if (paginate && this.forecast.token) {
 			token = this.forecast.token;
 			start = this.forecastPagination.start;
-			if (start > 5) return; // we only need top 250
+			if (start > 5) {
+				if (done) done(this.influencers);
+				return; // we only need top 250
+			}
 		} else {
 			this.forecastPagination.start = 0;
 			this.influencers = [];
@@ -537,6 +540,7 @@ export class CreateCampaignCmp extends ManageBase {
 			this.forecast = resp;
 			this.influencers = this.influencers.concat(resp.breakdown || []);
 			this.forecastPagination.start = this.influencers.length;
+			if (done) done(this.influencers);
 		});
 	}
 
@@ -553,8 +557,7 @@ export class CreateCampaignCmp extends ManageBase {
 
 	showInfList(m: Modal) {
 		m.showAsync((done: (data?: any) => void) => {
-			const data = this.getCmp(this.data);
-			this.getForecast(this.forecast.token, 5, 250, data, (resp) => done(resp.breakdown || []));
+			this.updateForecast(true, done);
 		});
 	}
 

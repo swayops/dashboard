@@ -491,7 +491,8 @@
 				</div>
 
 			</div>
-			<div *ngIf="plan === 3">
+			<div *ngIf="false && plan === 3">
+				<!-- remove the false && once the app supports this -->
 				<br>
 				<br>
 				<div class="field-set grid-100 grid-parent">
@@ -550,7 +551,7 @@
 				<loader size="70px"></loader>
 			</div>
 			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="!forecast.loading">
-				<div *ngFor="let inf of influencers.slice(0, 10)" class="inf">
+				<div *ngFor="let inf of influencers.slice(0, 5)" class="inf">
 					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:12 }}</span> <b>|</b> Fans: {{inf.followers
 					| fmtNum}}
 				</div>
