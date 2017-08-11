@@ -10,6 +10,8 @@ import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, Iter, PersistentEventEmitter, Target } from './utils';
 
+import { GetAudienceEndpoint } from './mAudiences';
+
 /// **WARNING** any changes here should be reflected in createAudience as well.
 
 declare const $: any;
@@ -56,6 +58,11 @@ export class CreateCampaignCmp extends ManageBase {
 	};
 
 	@Output() public forecast: any = { loading: true };
+	@Output() public influencers: any[] = [];
+
+	private forecastPagination = {
+		start: 0,
+	};
 
 	public categories = [];
 	public audiences = [];
@@ -88,14 +95,6 @@ export class CreateCampaignCmp extends ManageBase {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 
-		this.api.Get('audience', (resp) => {
-			resp = resp || {};
-			const aud = Object.keys(resp).map((k) => resp[k]);
-
-			this.audiences = aud.sort((a, b) => AlphaCmp(a.name, b.name)); // sort by name
-			this.audiencesObj = resp;
-		});
-
 		this.api.Get('billingInfo/' + this.id, (resp) => {
 			if (!resp.cc) return;
 			this.sidebar.lastFour = resp.cc.cardNumber;
@@ -125,6 +124,15 @@ export class CreateCampaignCmp extends ManageBase {
 			// minWidth: 750,
 			minHeight: 389,
 		};
+		this.api.SetCurrentUser(this.id).then((user) => {
+			this.api.Get('getUserAudiences/' + this.id, (resp) => {
+				resp = (this.id in resp) ? resp[this.id] : resp;
+				const aud = Object.keys(resp).map((k) => resp[k]);
+
+				this.audiences = aud.sort((a, b) => AlphaCmp(a.name, b.name)); // sort by name
+				this.audiencesObj = resp;
+			});
+		});
 	}
 
 	toggleImage(cancel?: boolean) {
@@ -509,19 +517,56 @@ export class CreateCampaignCmp extends ManageBase {
 		return email in this.data.whitelistSchedule;
 	}
 
-	updateForecast() {
+	addAllInf() {
+		for (const inf of this.influencers) {
+			this.addToWhitelist(inf.email);
+		}
+	}
+	updateForecast(paginate = false, done: (data?: any) => void = null) {
 		const data = this.getCmp(this.data);
+		let token = '', start = 0;
+		if (paginate && this.forecast.token) {
+			token = this.forecast.token;
+			start = this.forecastPagination.start;
+			if (this.influencers.length > 0) {
+				if (done) done(this.influencers);
+				return; // we only need top 250
+			}
+		} else {
+			this.forecastPagination.start = 0;
+			this.influencers = [];
+			this.data.token = null;
+			this.forecast.token = null;
+		}
 		this.forecast.loading = true;
-		this.getForecast(5, data, (resp) => {
+		this.getForecast(token, 0, paginate ? 250 : 5, data, (resp) => {
 			resp.loading = false;
+			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
+			this.influencers = this.influencers.concat(resp.breakdown || []);
+			this.forecastPagination.start = this.influencers.length;
+			if (done) done(this.influencers);
 		});
 	}
 
+	// should be moved somewhere else but for now it'll be copied around...
+	private getForecast = CallLimiter((token: string, start: number, results: number, data: any, done: (data?: any) => void) => {
+		let ep = 'getForecast?start=' + start.toString() + '&results=' + results.toString();
+		const oldToken = this.forecast.token || '';
+		if (!!token) ep += '&token=' + token;
+		if (oldToken && oldToken !== token) ep += '&deleteToken=' + oldToken;
+		return this.api.Post(ep, data, (resp) => {
+			done(resp || {});
+		});
+	}, 5000);
+
 	showInfList(m: Modal) {
+		this.influencers = [];
 		m.showAsync((done: (data?: any) => void) => {
-			const data = this.getCmp(this.data);
-			this.getForecast(250, data, (resp) => done(resp.breakdown || []));
+			this.updateForecast(true, (infList) => {
+				this.influencers = infList;
+				done(infList);
+			});
 		});
 	}
 
@@ -538,13 +583,6 @@ export class CreateCampaignCmp extends ManageBase {
 			setTimeout(function() { URL.revokeObjectURL(objURL); }, 100);
 		});
 	}
-
-	// should be moved somewhere else but for now it'll be copied around...
-	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
-		return this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
-			done(resp || {});
-		});
-	}, 10000);
 
 	get canPreApprove(): boolean {
 		return this.plan === 3 || this.user.isIO;
@@ -585,4 +623,4 @@ const categoryImages = {
 const networks = ['Instagram', 'Twitter', 'Youtube', 'Facebook'];
 
 // add budget to the list eventually
-const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter'];
+const forecastKeys = ['init', 'geo', 'network', 'gender', 'whitelistSchedule', 'category', 'kws', 'filter', 'audiences'];

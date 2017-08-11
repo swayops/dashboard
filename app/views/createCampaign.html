@@ -397,7 +397,7 @@
 							<div class="left img">
 								<div class="checkbox">
 									<input [name]="a.id" [id]="a.id" type="checkbox" [(ngModel)]="data.audiences[a.id]">
-									<label [attr.for]="a.id" (click)="updateSidebar('audience')"> </label>
+									<label [attr.for]="a.id" (click)="updateSidebar('audiences')"> </label>
 								</div>
 								<img [src]="a.imageUrl" style="width: 70px; height: 70px">
 							</div>
@@ -491,7 +491,8 @@
 				</div>
 
 			</div>
-			<div *ngIf="plan === 3">
+			<div *ngIf="false && plan === 3">
+				<!-- remove the false && once the app supports this -->
 				<br>
 				<br>
 				<div class="field-set grid-100 grid-parent">
@@ -550,7 +551,7 @@
 				<loader size="70px"></loader>
 			</div>
 			<div class="inf-reach grid-100 mobile-grid-100" *ngIf="!forecast.loading">
-				<div *ngFor="let inf of forecast.breakdown" class="inf">
+				<div *ngFor="let inf of influencers.slice(0, 5)" class="inf">
 					<img [src]=inf.profilePicture> <span [title]=inf.name>{{ inf.name | trunc:12 }}</span> <b>|</b> Fans: {{inf.followers
 					| fmtNum}}
 				</div>
@@ -604,10 +605,40 @@
 	</ul>
 </div>
 <modal title="Top 250 Influencers in Forecast" width="800px" [buttons]="infDlgButtons" #infDlg class="infList">
-	<div *ngFor="let inf of infDlg.data" class="inf">
-		<img [src]=inf.profilePicture> <a [href]=inf.url [title]=inf.name target="_blank">{{ inf.name | trunc:20 }}</a><b> | </b>
-		<span class="numFollowers">Followers: {{inf.followers | fmtNum}}</span><b> | </b><span class="numEng">Avg. Engs.: {{inf.avgEngs | fmtNum:'N/A'}}</span>
-		<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD TO WHITELIST</button>
-		<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromWhitelist(inf.email)">INCLUDED</button>
+	<div class="grid-100 mobile-grid-100 grid-parent align-left" *ngIf="influencers.length">
+		<button class="btn btn-block" type="button" (click)="addAllInf()">Add All Influencers</button>
+		<br><br><br>
+	</div>
+	<div *ngFor="let inf of influencers" class="grid-100 grid-parent" style="margin-bottom: 10px;">
+		<div class="grid-20 mobile-grid-30">
+			<img style="border-radius: 5px; height: auto; width: 100%; margin-right: 10px; background-color: #fff;" [src]=inf.profilePicture>
+		</div>
+		<div class="grid-50 mobile-grid-70" style="line-height: inherit;">
+			<a (click)="inf.showDetails = ! inf.showDetails"><span style="font-size: 16px;">{{ inf.name | trunc:20 }}</span></a> -
+			<a target="_blank" href="https://twitter.com/{{ inf.twUsername }}"  *ngIf="inf.twUsername"><i title="Twitter" class="fui-twitter"></i></a>
+			<a target="_blank" href="https://www.facebook.com/{{ inf.fbUsername }}"  *ngIf="inf.fbUsername"><i title="Facebook" class="fui-facebook"></i></a>
+			<a target="_blank" href="https://www.instagram.com/{{ inf.instaUsername }}"  *ngIf="inf.instaUsername"><i title="Instagram" class="fui-instagram"></i></a>
+			<a target="_blank" href="https://www.youtube.com/channel/{{ inf.ytUsername }}"  *ngIf="inf.ytUsername"><i title="YouTube" class="fui-youtube"></i></a>
+			<br>
+			<img style="width: auto; height: auto; background:none;" src="static/img/location-icon.png"> {{inf.geo}}
+			<br>
+			Total Followers: <b>{{inf.followers | fmtNum}}</b>
+			<br>
+			Avg. Engagements: <b>{{inf.avgEngs | fmtNum:'N/A'}}</b>
+			<br>
+		</div>
+		<div class="grid-30 mobile-grid-100 align-right" style="line-height: inherit;">
+		<br>
+			Rate: <b>${{inf.fromRate | fmtNum:'N/A'}} - {{inf.toRate | fmtNum:'N/A'}}</b>
+			<br>
+			<button class="btn btn-block btn-lg btn-orange ghost wide atwl" (click)="addToWhitelist(inf.email)" *ngIf="!isInWhitelist(inf.email)">ADD</button>
+			<button class="btn btn-block btn-lg btn-green1 ghost wide" (click)="delFromWhitelist(inf.email)" *ngIf="isInWhitelist(inf.email)">INCLUDED</button>
+		</div>
+		<!--dropdown with extra info-->
+		<div class="grid-100 grid-parent">
+			<div class="grid-50 mobile-grid-70" style="line-height: inherit;" *ngIf="inf.showDetails">
+			Extra insight data coming soon.
+			</div>
+		</div>
 	</div>
 </modal>

@@ -94,6 +94,11 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'mAudiences/:id',
+		component: AudiencesCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'createCampaign/:id',
 		component: CreateCampaignCmp,
 		canActivate: [AuthGuard],
@@ -104,12 +109,17 @@ export const ALL_ROUTES = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'createAudience/:id',
+		component: CreateAudienceCmp,
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'editCampaign/:id/:cid',
 		component: CreateCampaignCmp,
 		canActivate: [AuthGuard],
 	},
 	{
-		path: 'editAudience/:id',
+		path: 'editAudience/:id/:aid',
 		component: CreateAudienceCmp,
 		canActivate: [AuthGuard],
 	},

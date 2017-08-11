@@ -114,7 +114,7 @@ export class Sway {
 	}
 
 	GoTo(...args: string[]) {
-		this.router.navigate(args);
+		this.router.navigate(args.filter((arg) => !!arg));
 	}
 
 	Reset() {
@@ -197,11 +197,12 @@ const plan_types = ['None', 'Hyper Local', 'Premium', 'Enterprise'];
 
 // *WARNING*, if you get auth errors, make sure your page is in here
 const authPages = {
-	adAgency: ['mAdvertisers', 'editProfile'],
+	adAgency: ['mAdvertisers', 'mAudiences', 'createAudience', 'editAudience', 'editProfile'],
 	talentAgency: ['mTalents', 'editProfile'],
 	advertiser: [
 		'createCampaign', 'editCampaign', 'mCampaigns', 'reporting', 'mBilling',
 		'contentFeed', 'editProfile', 'shippingPerks', 'mSubUsers',
+		'mAudiences', 'createAudience', 'editAudience',
 	],
 };
 @Injectable()

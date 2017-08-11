@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,6 +9,8 @@ import { Sway } from './sway';
 import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { AlphaCmp, CallLimiter, CountriesAndStates, CountriesAndStatesRev, PersistentEventEmitter, Target } from './utils';
+
+import { GetAudienceEndpoint } from './mAudiences';
 
 declare const $: any;
 
@@ -28,19 +30,23 @@ export class CreateAudienceCmp extends ManageBase {
 		instagram: true,
 		youtube: true,
 		keywords: [],
-		members: '',
 		followerTarget: new Target(),
+		engTarget: new Target(),
+		priceTarget: new Target(true),
+		members: {},
 	};
-
-	public infDlgButtons = [
-		{ name: 'Cancel', class: 'btn-blue ghost' },
-	];
 
 	@Output() sidebar: any = {
 		errors: [],
 	};
 
 	@Output() public forecast: any = { loading: true };
+	@Output() public influencers: any[] = [];
+
+	private forecastPagination = {
+		start: 0,
+		end: 2,
+	};
 
 	public categories = [];
 	public categoryImages = categoryImages;
@@ -53,6 +59,7 @@ export class CreateAudienceCmp extends ManageBase {
 	@ViewChild('cropper') public cropper: ImageCropperComponent;
 	public cropperSettings: CropperSettings;
 	public cropData: any = {};
+	public aid: string = '';
 
 	private geoSel;
 	private kwsSel;
@@ -60,24 +67,23 @@ export class CreateAudienceCmp extends ManageBase {
 	private onCampaignLoaded: PersistentEventEmitter<any> = new PersistentEventEmitter();
 
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super(null, route.snapshot.url[0].path === 'editAudience' ? '-Edit Audience' : '-Create Audience',
-			title, api);
+		super(null, !!route.snapshot.params['aid'] ? '-Edit Audience' : '-Create Audience', title, api, null);
 
 		this.id = route.snapshot.params['id'];
+		this.aid = route.snapshot.params['aid'];
 
 		this.api.Get('getCategories', (resp) => {
 			this.categories = (resp || []).sort((a, b) => AlphaCmp(a.cat, b.cat)); // sort by name
 		});
 
-		this.data.advertiserId = this.id;
-		this.opts.isEdit = route.snapshot.url[0].path === 'editAudience';
-		if (this.opts.isEdit) {
-			const aid = route.snapshot.params['id'];
-			this.api.Get('audience/' + aid, (resp) => {
-				this.setCmp(resp[aid]);
+		this.opts.isEdit = !!this.aid;
+		this.api.SetCurrentUser(this.id).then((user) => {
+			if (!this.opts.isEdit) return;
+			this.api.Get(GetAudienceEndpoint(this.api, this.id, this.aid, true), (resp) => {
+				this.setCmp((this.aid in resp) ? resp[this.aid] : resp);
 				this.updateSidebar('init');
 			});
-		}
+		});
 
 		this.cropperSettings = Object.assign(new CropperSettings(), {
 			keepAspect: true,
@@ -194,7 +200,8 @@ export class CreateAudienceCmp extends ManageBase {
 			}, 100);
 			a();
 		});
-		this.updateSidebar('init');
+		// don't auto update until the data is fully loaded.
+		if (!this.aid) this.updateSidebar('init');
 	}
 
 	private initGeo() {
@@ -212,7 +219,7 @@ export class CreateAudienceCmp extends ManageBase {
 		this.kwsSel = $('select.kws').select2({
 			tags: true,
 			tokenSeparators: [','],
-			placeholder: 'Type a keyword to see availability',
+			placeholder: 'Search by keyword or social username...',
 			allowClear: true,
 			width: '100%',
 		});
@@ -240,15 +247,16 @@ export class CreateAudienceCmp extends ManageBase {
 			name: data.name,
 			imageData: data.imageData,
 			members: data.members,
+			token: data.token,
 		};
 
 		// this should be done server side but for now we can do it here.
 		if (!data.imageData) data.imageUrl = data.imageUrl;
 
-		this.api.Post('audience', data, (resp) => {
+		this.api.Post(GetAudienceEndpoint(this.api, this.id), data, (resp) => {
 			this.loading = false;
 			this.AddNotification('success', 'Successfully Added Audience!');
-			this.api.GoTo('mAudiences');
+			this.api.GoTo('mAudiences', this.id);
 		}, (err) => {
 			this.loading = false;
 			this.AddNotification('error', err.msg);
@@ -258,8 +266,6 @@ export class CreateAudienceCmp extends ManageBase {
 
 	// fromCmp converts our campaign data to a ui-friendly format
 	private setCmp(data: any): any {
-		if (data.members) data.members = Object.keys(data.members).join(', ').trim();
-
 		if (!Array.isArray(data.categories)) data.categories = [];
 
 		if (!!data.categories.length) {
@@ -282,13 +288,13 @@ export class CreateAudienceCmp extends ManageBase {
 			this.geoSel.val(data.geos.map((v) => v.state ? v.country + '-' + v.state : v.country)).change();
 		}
 
-		if (data.male || data.female || data.members || data.keywords || data.geos) {
+		if (data.male || data.female || data.keywords || data.geos) {
 			// you didn't see this, move on. - A Sith Lord.
 			$('#targeting').click();
 		}
 
 		data.followerTarget = Target.FromObject(data.followerTarget);
-
+		if (!data.members) data.members = {};
 		this.data = { ...this.data, ...data };
 
 		this.onCampaignLoaded.emit(data);
@@ -298,11 +304,6 @@ export class CreateAudienceCmp extends ManageBase {
 		data = { ...data };
 
 		if (data.tags && data.tags.length) data.tags = data.tags.split(',').map((v) => v.trim());
-		if (data.members && data.members.length) {
-			const wl = data.members.split(',').map((v) => v.trim());
-			data.members = {};
-			for (const it of wl) data.members[it] = true;
-		}
 
 		data.geos = (this.geoSel.val() || []).map((v) => {
 			const parts = v.split('-'),
@@ -324,6 +325,8 @@ export class CreateAudienceCmp extends ManageBase {
 		data.imageData = this.cropData.image;
 		data.followerTarget = data.followerTarget.ToObject();
 
+		if (data.token) data.members = {};
+
 		return data;
 	}
 
@@ -337,55 +340,63 @@ export class CreateAudienceCmp extends ManageBase {
 		return reqs;
 	}
 
-	addToMembers(email: string) {
-		if (!this.data.members) {
-			this.data.members = email;
-			$('#targeting').click(); // Oh look, boobies over there, don't look here.
-		} else {
-			this.data.members += ', ' + email;
-		}
+	addToMembers(inf: any) {
+		this.data.members[inf.email] = true;
+		inf.inAudience = true;
 	}
 
-	delFromMembers(email: string) {
-		this.data.members = this.data.members.replace(email, '').replace(/^, |, $/, '');
+	delFromMembers(inf: any) {
+		delete this.data.members[inf.email];
+		inf.inAudience = false;
 	}
 
-	isInMembers(email: string) {
-		const wl = this.data.members;
-		return !!wl && wl.indexOf(email) !== -1;
+	allMembers(select: boolean) {
+		this.data.token = select ? this.forecast.token : null;
+		this.data.members = {};
 	}
 
-	addAllMembers(m: Modal) {
-		const mems = (m.data || []).map((v) => v.email).join(', ');
-		if (!this.data.members) {
-			$('#targeting').click(); // Oh look, boobies over there, don't look here.
-		}
-		this.data.members = mems;
-		m.hide();
-	}
-
-	updateForecast() {
+	updateForecast(paginate = false) {
 		const data = this.getCmp(this.data);
+		let token = '', start = 0;
+		if (paginate && this.forecast.token) {
+			token = this.forecast.token;
+			start = this.forecastPagination.start;
+		} else {
+			this.forecastPagination.start = 0;
+			this.influencers = [];
+			this.data.token = null;
+			this.forecast.token = null;
+		}
 		this.forecast.loading = true;
-		this.getForecast(5, data, (resp) => {
+		this.getForecast(token, start, 25, data, (resp) => {
 			resp.loading = false;
+			resp.breakdown = Array.isArray(resp.breakdown) ? resp.breakdown : [];
 			this.forecast = resp;
-		});
-	}
-
-	showInfList(m: Modal) {
-		m.showAsync((done: (data?: any) => void) => {
-			const data = this.getCmp(this.data);
-			this.getForecast(250, data, (resp) => done(resp.breakdown || []));
+			this.influencers = this.influencers.concat(resp.breakdown || []);
+			this.forecastPagination.start = this.influencers.length;
 		});
 	}
 
 	// should be moved somewhere else but for now it'll be copied around...
-	private getForecast = CallLimiter((num: number, data: any, done: (data?: any) => void) => {
-		return this.api.Post('getForecast?breakdown=' + num.toString(), data, (resp) => {
+	private getForecast = CallLimiter((token: string, start: number, results: number, data: any, done: (data?: any) => void) => {
+		let ep = 'getForecast?start=' + start.toString() + '&results=' + results.toString();
+		const oldToken = this.forecast.token || '';
+		if (!!token) ep += '&token=' + token;
+		if (oldToken && oldToken !== token) ep += '&deleteToken=' + oldToken;
+		if (this.aid) ep += '&audienceID=' + this.aid;
+		return this.api.Post(ep, data, (resp) => {
 			done(resp || {});
 		});
-	}, 10000);
+	}, 5000);
+
+	// source: https://stackoverflow.com/a/44150539/145587
+	@HostListener('window:scroll', ['$event'])
+	onScroll($event: Event): void {
+		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			if (!this.forecast.breakdown) return; // means our list is done so no need to make an extra api call
+			this.updateForecast(true);
+		}
+	}
 }
 
 function getCheckbox(evt: any) {

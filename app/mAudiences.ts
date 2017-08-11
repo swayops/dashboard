@@ -14,10 +14,20 @@ declare const $: any;
 })
 export class AudiencesCmp extends ManageBase {
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('audience', 'Audiences', title, api, null, () => this.init());
+		super(null, 'Audiences', title, api, null);
+		this.id = route.snapshot.params['id'];
+		api.SetCurrentUser(this.id || '1').then((user) => {
+			if (!this.id && user.admin) {
+				this.apiEndpoint = 'audience';
+			} else {
+				this.apiEndpoint = 'getUserAudiences/' + this.id + '?canEdit=true';
+			}
+			this.Reload(() => this.init());
+		});
+
 	}
 	private init() {
-		if (Array.isArray(this.list)) return;
+		if (Array.isArray(this.list) || this.list == null) return;
 		const list = [];
 		for (const k of Object.keys(this.list).sort()) {
 			const o = this.list[k];
@@ -29,7 +39,7 @@ export class AudiencesCmp extends ManageBase {
 
 	Delete(id: string) {
 		this.loading = true;
-		this.api.Delete('audience/' + id, (resp) => {
+		this.api.Delete(GetAudienceEndpoint(this.api, this.id, id), (resp) => {
 			this.loading = false;
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Removed Audience.' : resp.msg, 5000);
 			this.Reload(() => this.init());
@@ -38,4 +48,33 @@ export class AudiencesCmp extends ManageBase {
 			this.loading = false;
 		});
 	}
+}
+
+export function GetAudienceEndpoint(api: Sway, id: string, audID: string = '', edit: boolean = false): string {
+	let ep = '';
+	if (id) {
+		const cuser = api.CurrentUser;
+		if (cuser.adAgency) {
+			if (edit) {
+				ep = 'getAgencyAudience';
+			} else {
+				ep = 'agency/audience/' + id;
+			}
+		} else if (cuser.advertiser) {
+			if (edit) {
+				ep = 'getAdvertiserAudience';
+			} else {
+				ep = 'advertiser/audience/' + id;
+			}
+		} else {
+			console.error('invalid user', cuser);
+			return '';
+		}
+	} else {
+		ep = 'audience/';
+	}
+
+	if (audID) ep += '/' + audID;
+
+	return ep;
 }
