@@ -66,6 +66,12 @@ export function GetAudienceEndpoint(api: Sway, id: string, audID: string = '', e
 			} else {
 				ep = 'advertiser/audience/' + id;
 			}
+		} else if (cuser.admin) {
+			if (edit) {
+				ep = 'audience';
+			} else {
+				ep = 'audience/' + id;
+			}
 		} else {
 			console.error('invalid user', cuser);
 			return '';
