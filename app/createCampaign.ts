@@ -126,7 +126,7 @@ export class CreateCampaignCmp extends ManageBase {
 		};
 		this.api.SetCurrentUser(this.id).then((user) => {
 			this.api.Get('getUserAudiences/' + this.id, (resp) => {
-				resp = (this.id in resp) ? resp[this.id] : resp;
+				// resp = (this.id in resp) ? resp[this.id] : resp;
 				const aud = Object.keys(resp).map((k) => resp[k]);
 
 				this.audiences = aud.sort((a, b) => AlphaCmp(a.name, b.name)); // sort by name
