@@ -46,9 +46,95 @@
 	</div>
 	<div class="clearfix"></div><br>
 
+	<div class="grid-100 mobile-grid-100 stats" align="left">
+		<h6>Campaign cycle:</h6>
+		<div class="pallete-item" style="margin-left: 0px;">
+			<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;"># Inf Matched</dt>
+				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+			</dl>
+		</div>
+		<div style="float:left;">
+			<div style="margin-top:20px;"><i class="fui-arrow-right" title="arrowRight"></i></div>
+		</div>
+		<div class="pallete-item" style="margin-left: 0px;">
+			<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Notified</dt>
+				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+			</dl>
+		</div>
+		<div style="float:left;">
+				<div style="margin-top:20px;"><i class="fui-arrow-right" title="arrowRight"></i></div>
+		</div>
+		<div class="pallete-item" style="margin-left: 0px;">
+			<dl class="palette palette-alizarin" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Accepted</dt>
+				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+			</dl>
+		</div>
+		<div style="float:left;">
+				<div style="margin-top:20px;"><i class="fui-arrow-right" title="arrowRight"></i></div>
+		</div>
+		<div class="pallete-item" style="margin-left: 0px;">
+			<dl class="palette palette-silver" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Sent Perks</dt>
+				<dd>{{cmpStats(cmp, 'perks') | fmtNum }}</dd>
+			</dl>
+		</div>
+		<div style="float:left;">
+				<div style="margin-top:20px;"><i class="fui-arrow-right" title="arrowRight"></i></div>
+		</div>
+		<div class="pallete-item" style="margin-left: 0px;">
+			<dl class="palette palette-silver" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
+				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Posts made</dt>
+				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+
+	<!--2 rows of influencers-->
+	<div class="grid-50 mobile-grid-100" align="left">
+		<h6 style="margin-bottom: 8px;">Influencers who accepted to participate:</h6>
+		<div class="infColumn" #infPre>
+			<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
+				<div style="font-size: 12px;" *ngIf="!!inf.submission">
+					<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
+					<a class="btn btn-x btn-danger" style="padding:3px; display: inline-block;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=Request for Changes to Post Submission for Sway Campaign: {{cmp.name}}">MSG Changes</a> |
+					<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
+					<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission);">View Media</a> |
+					<button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
+				</div>
+				<div *ngIf="!inf.submission">
+					<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
+					Followers: {{inf.followers | fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infPre)">View All...</a>
+	</div>
+
+	<div class="grid-50 mobile-grid-100" align="left">
+		<h6 style="margin-bottom: 8px;">Influencers who delivered posts:</h6>
+		<div class="infColumn" #infComp>
+			<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">
+				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Engagements: {{inf.engagements
+				| fmtNum}} |
+				<a style="font-size: 12px;" [href]="inf.postUrl" target="_blank">View Post</a>
+			</div>
+		</div>
+		<!--inf column end-->
+		<hr>
+		<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
+	</div>
+	<div class="clearfix"></div><br>
+
+
 	<!--budget progress-->
 	<div class="grid-100 mobile-grid-100" align="left">
-		<h6>Monthly budget:</h6>
+		<h6>Budget:</h6>
 		<div class="progress">
 			<div class="progress-bar progress-bar" role="progressbar" [attr.aria-valuenow]="budgetPercent(cmp, false)" aria-valuemin="0"
 				aria-valuemax="100" [style.width]="budgetPercent(cmp)">
@@ -64,7 +150,7 @@
 <br>
 <!--Stat tiles-->
 <div class="grid-100 mobile-grid-100 stats" align="left">
-
+	<h6>Quickstats:</h6>
 	<div class="pallete-item" style="margin-left: 0px;">
 		<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 			<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Engagements</dt>
@@ -116,43 +202,6 @@
 		</dl>
 	</div>
 
-</div>
-<div class="clearfix"></div>
-
-<!--2 rows of influencers-->
-<div class="grid-50 mobile-grid-100" align="left">
-	<h6 style="margin-bottom: 8px;">Accepted / Endorsed Influencers:</h6>
-	<div class="infColumn" #infPre>
-		<div style="font-size: 12px;" *ngFor="let inf of cmp.accepted">
-			<div style="font-size: 12px;" *ngIf="!!inf.submission">
-				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
-				<a class="btn btn-x btn-danger" style="padding:3px; display: inline-block;" title="MSG Changes to Influencer" target="_blank" href="mailto:{{inf.emailAddress}}?cc=karlie@swayops.com&subject=Request for Changes to Post Submission for Sway Campaign: {{cmp.name}}">MSG Changes</a> |
-				<button class="btn btn-x btn-success" style="padding:3px;" title="Approve Media" (click)="approveMedia(cmp.id, inf.id)">Approve</button> |
-				<a style="font-size: 12px;" target="_blank" (click)="viewMedia.show(inf.submission);">View Media</a> |
-				<button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
-			</div>
-			<div *ngIf="!inf.submission">
-				<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> |
-				Followers: {{inf.followers | fmtNum}} | <button (click)="removeInf.show({cmpID: cmp.id, infID: inf.id, dealID: inf.dealID, name: inf.name})" class="btn btn-x btn-danger" title="Remove Influencer">x</button>
-			</div>
-		</div>
-	</div>
-	<hr>
-	<a class="btn btn-info btn-micro" *ngIf="cmp.accepted?.length > 5" (click)="expandInf(infPre)">View All...</a>
-</div>
-
-<div class="grid-50 mobile-grid-100" align="left">
-	<h6 style="margin-bottom: 8px;">Delivered content:</h6>
-	<div class="infColumn" #infComp>
-		<div style="font-size: 12px;" *ngFor="let inf of cmp.completed">
-			<img height="15" [src]="inf.image"> <a [href]="inf.profileUrl" target="_blank">{{inf.name}}</a> | Engagements: {{inf.engagements
-			| fmtNum}} |
-			<a style="font-size: 12px;" [href]="inf.postUrl" target="_blank">View Post</a>
-		</div>
-	</div>
-	<!--inf column end-->
-	<hr>
-	<a class="btn btn-info btn-micro" *ngIf="cmp.completed?.length > 5" (click)="expandInf(infComp)">View All...</a>
 </div>
 <div class="clearfix"></div>
 
