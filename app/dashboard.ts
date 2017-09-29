@@ -13,7 +13,7 @@ export class DashboardCmp {
 	constructor(title: Title, public api: Sway) {
 		const cu = api.CurrentUser;
 		if (!cu.admin) {
-			api.GoTo(!cu.advertiser || cu.hasCmps ? '/reporting' : '/createCampaign', api.CurrentUser.id);
+			api.GoTo(!cu.advertiser || cu.hasCmps ? '/mCampaigns' : '/createCampaign', api.CurrentUser.id);
 		}
 		title.setTitle('Sway :: Dashboard');
 		this.api.Get('getAdminStats', (data) => this.data = data);

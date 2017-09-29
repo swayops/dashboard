@@ -104,7 +104,7 @@ export class Sway {
 			if (!!user.advertiser.planID) {
 				this.GoTo('/mBilling', user.id);
 			} else {
-				this.GoTo(user.hasCmps ? '/reporting' : '/createCampaign', user.id);
+				this.GoTo(user.hasCmps ? '/mCampaigns' : '/createCampaign', user.id);
 			}
 		} else if (user.adAgency) {
 			this.GoTo('/mAdvertisers', user.id);
