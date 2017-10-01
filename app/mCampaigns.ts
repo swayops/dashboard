@@ -24,8 +24,10 @@ export class CampaignsCmp extends ManageBase {
 		{ name: 'Yes', class: 'btn-danger', click: (evt) => this.removeInf(evt) },
 	];
 
+	public campaignCycles = {};
+
 	constructor(title: Title, api: Sway, route: ActivatedRoute) {
-		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id']);
+		super('getCampaignsByAdvertiser', 'Campaigns', title, api, route.snapshot.params['id'], (resp) => this.reloadCycles(resp));
 	}
 
 	ngAfterViewInit() {
@@ -49,13 +51,19 @@ export class CampaignsCmp extends ManageBase {
 		window.open(url);
 	}
 
+	reloadCycles = (resp: any) => {
+		for (const cmp of this.list) {
+			this.api.Get('getCycle/' + cmp.id, (data) => this.campaignCycles[cmp.id] = data || {});
+		}
+	}
+
 	removeInf(evt: ModalEvent) {
 		evt.dlg.hide();
 		const data = evt.data;
 		this.loading = true;
 		this.api.Get('unassignDeal/' + data.infID + '/' + data.cmpID + '/' + data.dealID, (resp) => {
 			this.loading = false;
-			this.Reload();
+			this.Reload(this.reloadCycles);
 			this.AddNotification('success', 'Removed ' + data.name, 5000);
 			this.ScrollToTop();
 		}, (err) => {
@@ -72,7 +80,7 @@ export class CampaignsCmp extends ManageBase {
 		this.api.Delete('campaign/' + id, (resp) => {
 			this.loading = false;
 			this.AddNotification(resp.status, resp.status === 'success' ? 'Successfully Removed Campaign.' : resp.msg, 5000);
-			this.Reload();
+			this.Reload(this.reloadCycles);
 		}, (err) => {
 			this.AddNotification('error', err, 5000);
 			this.loading = false;

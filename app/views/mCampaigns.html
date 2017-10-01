@@ -46,12 +46,12 @@
 	</div>
 	<div class="clearfix"></div><br>
 
-	<div class="grid-100 mobile-grid-100 stats" align="left">
+	<div class="grid-100 mobile-grid-100 stats" align="left" *ngIf="campaignCycles[cmp.id]">
 		<h6>Campaign cycle:</h6>
 		<div class="pallete-item" style="margin-left: 0px;">
 			<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;"># Inf Matched</dt>
-				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+				<dd>{{campaignCycles[cmp.id].matched | fmtNum }}</dd>
 			</dl>
 		</div>
 		<div style="float:left;">
@@ -60,7 +60,7 @@
 		<div class="pallete-item" style="margin-left: 0px;">
 			<dl class="palette palette-wet-asphalt" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Notified</dt>
-				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+				<dd>{{campaignCycles[cmp.id].notified | fmtNum }}</dd>
 			</dl>
 		</div>
 		<div style="float:left;">
@@ -69,7 +69,7 @@
 		<div class="pallete-item" style="margin-left: 0px;">
 			<dl class="palette palette-alizarin" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Accepted</dt>
-				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+				<dd>{{campaignCycles[cmp.id].accepted | fmtNum }}</dd>
 			</dl>
 		</div>
 		<div style="float:left;">
@@ -78,7 +78,7 @@
 		<div class="pallete-item" style="margin-left: 0px;">
 			<dl class="palette palette-silver" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Sent Perks</dt>
-				<dd>{{cmpStats(cmp, 'perks') | fmtNum }}</dd>
+				<dd>{{campaignCycles[cmp.id].perks | fmtNum }}</dd>
 			</dl>
 		</div>
 		<div style="float:left;">
@@ -87,7 +87,7 @@
 		<div class="pallete-item" style="margin-left: 0px;">
 			<dl class="palette palette-silver" style="border-radius: 10px; margin-bottom: 10px; padding: 15px;">
 				<dt style="font-size: 12px; opacity: 1; text-transform: uppercase;">Posts made</dt>
-				<dd>{{cmpStats(cmp, 'engagements') | fmtNum }}</dd>
+				<dd>{{campaignCycles[cmp.id].completed | fmtNum }}</dd>
 			</dl>
 		</div>
 	</div>
