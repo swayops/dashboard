@@ -118,7 +118,12 @@ export class CampaignsCmp extends ManageBase {
 	cycleClassName(cID: string, fld: string): string {
 		const cycle = this.campaignCycles[cID] || {},
 			val = cycle[fld] || 0,
-			idx = cyclesOrder.indexOf(fld);
+			idx = cyclesOrder.indexOf(fld),
+			isLast = idx === cyclesOrder.length - 1;
+		if (isLast) {
+			if (val === 0) return 'palette-alizarin';
+			return 'palette-wet-asphalt';
+		}
 		if (val === 0) return 'palette-silver';
 		if (idx < 1) return 'palette-wet-asphalt';
 		return !!cycle[cyclesOrder[idx - 1]] ? 'palette-wet-asphalt' : 'palette-alizarin';
