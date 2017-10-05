@@ -115,4 +115,14 @@ export class CampaignsCmp extends ManageBase {
 		});
 	}
 
+	cycleClassName(cID: string, fld: string): string {
+		const cycle = this.campaignCycles[cID] || {},
+			val = cycle[fld] || 0,
+			idx = cyclesOrder.indexOf(fld);
+		if (val === 0) return 'palette-silver';
+		if (idx < 1) return 'palette-wet-asphalt';
+		return !!cycle[cyclesOrder[idx - 1]] ? 'palette-wet-asphalt' : 'palette-alizarin';
+	}
 }
+
+const cyclesOrder = ['matched', 'notified', 'accepted', 'perks', 'completed'];
