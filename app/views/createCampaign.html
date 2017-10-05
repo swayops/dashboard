@@ -23,8 +23,7 @@
 							<img [src]="cropData.image" style="max-width: 500px; border-radius: 10px;" height="200px">
 							<br>
 						</span>
-						<a href="javascript:" class="btn btn-xs btn-green1" (click)="toggleImage()">Select</a> <a href="http://swayops.com/wiki/selecting-deals.php"
-						 target="_blank">See placement examples</a>
+						<a href="javascript:" class="btn btn-xs btn-green1" (click)="toggleImage()">Select</a>
 						<div class="dialog" id="selImage">
 							<div style="width: 750px;" class="nosel">
 								<h2 class="heading">Select A Featured Image
@@ -427,7 +426,7 @@
 					<div class="grid-100 mobile-grid-100 grid-parent">
 						Which perks would you would like to give to each influencer:
 						<br>
-						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">350%</b>. If you require the influencer to post with your product please mention it in the task description.</p>
+						<p class="note info">Giving away perks is highly recommended but not required. Each influencers that accepts your campaign will be sent a perk and most of them will only participate if they are given a product they can authentically endorse. Campaigns with perks have an avg performance boost of <b style="color:#04be5b;">372%</b>. If you require the influencer to post with your product please mention it in the task description.</p>
 						<div class="grid-100 mobile-grid-100 grid-parent" style="padding-right:30px;">
 							<div class="btn-toolbar toolbar-horizontal">
 								<div class="btn-group">
@@ -440,7 +439,7 @@
 						</div>
 						<br>
 						<div class="form-group" *ngIf="data.perks.type === 1">
-							<p>Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>:</p>
+							<p>Please let us know a little about the items you are shipping to Sway and <span style="color:red;">we will provide shipping instructions once you save your campaign</span>. Your number of items also will restrict how many influencers can accept your campaign:</p>
 							<div class="form-group">
 								<div class="grid-20 mobile-grid-100 grid-parent">
 									Perk Name:
