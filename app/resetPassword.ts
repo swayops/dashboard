@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 import { Sway } from './sway';
 
@@ -31,8 +31,13 @@ export class ResetPasswordCmp {
 
 	ResetPassword() {
 		this.loading = true;
-		this.api.Post('resetPassword', this.form, resp => this.api.GoTo('/'),
-			err => this.error = 'There was a problem, please try again.');
+		this.api.Post('resetPassword', this.form, (resp) => {
+			if (resp.isInf) {
+				location.href = 'https://inf.swayops.com/login';
+			} else {
+				this.api.GoTo('/');
+			}
+		},
+			(err) => this.error = 'There was a problem, please try again.');
 	}
 }
-
